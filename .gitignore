@@ -1,4 +1,16 @@
+# Dependency directories
+node_modules/
+
+# Sass
 .sass-cache/
 *.css.map
 *.sass.map
 *.scss.map
+
+# firebase
+build
+.firebase
+
+# System Files
+.DS_Store
+Thumbs.db
