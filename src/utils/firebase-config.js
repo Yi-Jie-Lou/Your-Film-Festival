@@ -1,4 +1,6 @@
 import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAXxoQUDtYZTpNVNCmeZCQ97Co5rFrN6ic",
@@ -11,27 +13,6 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth(app);
 
-export { db };
-
-
-// // Initialize Firebase
-// const app = initializeApp(firebaseConfig);
-
-
-// import { initializeApp } from "firebase/app";
-// import { getAuth } from "firebase/auth";
-
-// const firebaseConfig = {
-//   apiKey: "AIzaSyBrwJjShEP05ZDht3NOS8l42zorWAvVzKE",
-//   authDomain: "world-time-c50d3.firebaseapp.com",
-//   projectId: "world-time-c50d3",
-//   storageBucket: "world-time-c50d3.appspot.com",
-//   messagingSenderId: "1094487602172",
-//   appId: "1:1094487602172:web:624503119335e8d211f879",
-//   measurementId: "G-8XE0N0MZEW",
-// };
-
-// const app = initializeApp(firebaseConfig);
-// const auth = getAuth(app);
-// export default auth;
+export { db, auth };
