@@ -1,0 +1,18 @@
+
+.wrap{
+    display: flex;
+    justify-content: center;
+}
+.react-time-picker__wrapper{
+    border: none;
+    margin-top: 30px;
+}
+.react-time-picker__inputGroup{
+    height: 40px;
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: gray 1px solid;
+    border-radius: 10px;
+}

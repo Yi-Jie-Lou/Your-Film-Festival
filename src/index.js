@@ -6,6 +6,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Login from "./login";
 import Backstage from "./backstage";
+import Features from "./features";
 import "./css/index.css";
 const root = createRoot(document.getElementById("root"));
 
@@ -40,6 +41,7 @@ function Routers() {
         <Route path="/" element={<Index />} />
         <Route path="login" element={<Login />} />
         <Route path="backstage" element={<Backstage userUID={userUID} />} />
+        <Route path="backstage/features" element={<Features userUID={userUID} />} />
       </Routes>
     </BrowserRouter>
   );

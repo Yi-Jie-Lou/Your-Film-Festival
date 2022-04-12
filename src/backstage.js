@@ -30,7 +30,8 @@ function Backstage(props) {
 
   const handleChange = (i, e) => {
     const newTheather = [...theather];
-    newTheather[i][e.target.name] = e.target.value;
+    console.log(newTheather[i].name)
+    newTheather[i].name = e.target.value;
     setTheather(newTheather);
   };
 
@@ -52,7 +53,6 @@ function Backstage(props) {
           <label>戲院{index + 1}</label>
           <input
             type="text"
-            name="name"
             value={item.name || ""}
             onChange={(e) => handleChange(index, e)}
           />
