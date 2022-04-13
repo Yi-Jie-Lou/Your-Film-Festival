@@ -3,7 +3,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { db, auth } from "./utils/firebase-config";
+import { db, auth, firebase } from "./utils/firebase-config";
 import { setDoc, doc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 
@@ -33,16 +33,7 @@ function Login() {
         userEmail,
         userPassword
       );
-      setDoc(doc(db, "users", user.user.uid), {
-        festivalEnd: "",
-        festivalLogo: "",
-        festivalName: "",
-        festivalPathName: "",
-        festivalPost: "",
-        festivalStart: "",
-        locations: [],
-        uid: user.user.uid,
-      }).then((_) => {
+      firebase.initDataBase(user.user.uid).then((_) => {
         alert("註冊成功");
       });
     } catch (error) {

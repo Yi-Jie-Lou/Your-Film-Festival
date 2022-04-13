@@ -48,7 +48,7 @@ function Routers() {
 }
 
 root.render(
-  <StrictMode>
+  // <StrictMode>
     <Routers />
-  </StrictMode>
+  // </StrictMode>
 );
