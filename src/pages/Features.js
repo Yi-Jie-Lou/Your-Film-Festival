@@ -2,11 +2,8 @@ import React, { useEffect, useState } from "react";
 import TimePicker from "react-time-picker";
 import { collection, doc, setDoc} from "firebase/firestore";
 import { db, firebase } from "../utils/firebase-config";
-import Moment from "moment";
-import { extendMoment } from "moment-range";
 import ReactPaginate from "react-paginate";
 
-const moment = extendMoment(Moment);
 
 function Features(props) {
   const emptyTimetable = {
@@ -16,18 +13,24 @@ function Features(props) {
     location: "",
     opening: false,
     closing: false,
+    name:"",
+    timetableID: ""
   };
   const [timetable, setTimetable] = useState([emptyTimetable]);
   const [festivalData, setFestivalData] = useState([]);
   const [festivalPeriod, setFestivalPeriod] = useState();
 
   const addTimetable = () => {
+    firebase.getNewTimetableID(props.userUID).then(res => {
+      emptyTimetable.timetableID = res
+    })
     setTimetable([...timetable, emptyTimetable]);
   };
 
-  const booking = (index) => {
+  const booking = (index, timetableID) => {
+    console.log(timetable[index])
     if (props.userUID) {
-      firebase.updateFeaturesData(props.userUID, timetable[index], "D1un6IeOE3k2cv3Vglo3"/*props.featureID*/);
+      firebase.updateTimetable(props.userUID, timetable[index], timetableID);
     }
   };
 
@@ -43,7 +46,6 @@ function Features(props) {
         collection(db, `users/${props.userUID}/features`)
       );
       await setDoc(newFeatureRef, {
-        timetable: timetable,
         featureID: newFeatureRef,
       })
         .then(() => {
@@ -54,35 +56,21 @@ function Features(props) {
         });
     }
   }
-
-  useEffect(() => {
-    if (festivalData.start) {
-      const startDate = moment(festivalData.start.toDate());
-      const endDate = moment(festivalData.end.toDate());
-      const dateRange = moment.range(startDate, endDate);
-      const dateArray = Array.from(dateRange.by("days"));
-      const availableDates = dateArray.map((item) => {
-        return (item = [
-          item.format("YYYY ddd MM/DD"),
-          item.format("YYYY-MM-DD"),
-        ]);
-      });
-
-      setFestivalPeriod(availableDates);
-    }
-  }, [festivalData]);
-
   useEffect(() => {
     if (props.userUID) {
       firebase.readFestivalData(props.userUID).then((res) => {
         console.log("keep mind!");
         const festivalData = {
-          start: res.festivalStart,
-          end: res.festivalEnd,
           locations: res.locations,
         };
         setFestivalData(festivalData);
+        setFestivalPeriod(res.festivalPeriod);
       });
+      firebase.readTimetables(props.userUID, "D1un6IeOE3k2cv3Vglo3").then((res) => {
+        setTimetable(res)})
+
+   
+
     }
   }, [props.userUID]);
 
@@ -99,8 +87,8 @@ function Features(props) {
           >
             {festivalPeriod &&
               festivalPeriod.map((item, index) => (
-                <option key={index} value={item[1]}>
-                  {item[0]}
+                <option key={index} value={item.dates}>
+                  {item.displayDates}
                 </option>
               ))}
           </select>
@@ -131,7 +119,7 @@ function Features(props) {
           </select>
           <button
             onClick={() => {
-              booking(index);
+              booking(index, item.timetableID);
             }}
           >
             booking

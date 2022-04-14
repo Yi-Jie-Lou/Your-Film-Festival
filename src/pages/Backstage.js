@@ -4,6 +4,9 @@ import "react-date-range/dist/theme/default.css";
 import { DateRangePicker } from "react-date-range";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../utils/firebase-config";
+import Moment from "moment";
+import { extendMoment } from "moment-range";
+
 
 function Backstage(props) {
   const [startDate, setStartDate] = useState(new Date());
@@ -19,9 +22,8 @@ function Backstage(props) {
   async function saveToFirebase() {
     if (props.userUID) {
       await updateDoc(doc(db, "users", props.userUID), {
-        festivalStart: startDate,
-        festivalEnd: endDate,
-        locations: theather.map( (item) => (item.name))
+        locations: theather.map( (item) => (item.name)),
+        festivalPeriod: getAvailableDates()
       }).then(() => {
         alert("儲存成功!");
       });
@@ -30,7 +32,6 @@ function Backstage(props) {
 
   const handleChange = (i, e) => {
     const newTheather = [...theather];
-    console.log(newTheather[i].name)
     newTheather[i].name = e.target.value;
     setTheather(newTheather);
   };
@@ -38,10 +39,26 @@ function Backstage(props) {
   const handleSelect = (ranges) => {
     setStartDate(ranges.selection.startDate);
     setEndDate(ranges.selection.endDate);
+    
   };
+
+  const getAvailableDates = () =>{
+    const moment = extendMoment(Moment);
+
+    const dateRange = moment.range(moment(startDate), moment(endDate));
+    const dateArray = Array.from(dateRange.by("days"));
+    const availableDates = dateArray.map((item) => {
+      return (item = {
+       displayDates: item.format("ddd MM/DD"),
+       dates: item.format("YYYY-MM-DD"),
+      });
+    });
+    return availableDates
+  }
 
   const addTheather = () =>{
     setTheather([...theather, { name: ""}])
+    getAvailableDates()
   }
 
   return (
