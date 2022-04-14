@@ -17,13 +17,14 @@ function Index() {
 
 function Routers() {
   const [userUID, setUserUID] = useState("");
-
+  const [login, setLogin] = useState("");
   useEffect(() => {
     const monitorAuthState = async () => {
       const auth = getAuth();
       onAuthStateChanged(auth, (currentUser) => {
         if (currentUser) {
           setUserUID(currentUser.uid);
+          setLogin("login")
         }
       });
     };
@@ -37,11 +38,14 @@ function Routers() {
         <Route path="login" element={<Login />} />
         <Route path="backstage" element={<Backstage userUID={userUID} />} />
         <Route path="backstage/features" element={<Features userUID={userUID} />} />
-        <Route path="timetable" element={<Timetable userUID={userUID} />} />
+        <Route path="timetable" element={<Timetable userUID={userUID}/*這裡應該是影展名字*/ userState={login} />} />
+        <Route path="preview/timetable" element={<Timetable userUID={userUID} userState={"preview"} />} />
       </Routes>
     </BrowserRouter>
   );
 }
+
+/*模板會有button，正式發佈沒有*/
 
 root.render(
   // <StrictMode>

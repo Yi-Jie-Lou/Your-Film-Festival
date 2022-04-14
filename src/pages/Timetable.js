@@ -98,7 +98,7 @@ function TimetableContainer(props) {
 function Timetable(props) {
   return (
     <>
-      <Header />
+      <Header userUID={props.userUID} userState={props.userState}  />
       <TimetableContainer userUID={props.userUID} />
       <Footer />
     </>
