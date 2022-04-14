@@ -1,20 +1,15 @@
-import { StrictMode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { db } from "./utils/firebase-config";
-import { collection, getDocs } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import Login from "./login";
-import Backstage from "./backstage";
-import Features from "./features";
+import Login from "./pages/Login";
+import Backstage from "./pages/Backstage";
+import Features from "./pages/Features";
+import Timetable from "./pages/Timetable";
 import "./css/index.css";
-const root = createRoot(document.getElementById("root"));
 
-// getDocs(collection(db, "users")).then((res) => {
-//   res.forEach((doc) => {
-//     console.log(`${doc.id} => ${doc.data().festivalLogo}`);
-//   });
-// });
+
+const root = createRoot(document.getElementById("root"));
 
 function Index() {
   return <div className="App">Hello</div>;
@@ -42,6 +37,7 @@ function Routers() {
         <Route path="login" element={<Login />} />
         <Route path="backstage" element={<Backstage userUID={userUID} />} />
         <Route path="backstage/features" element={<Features userUID={userUID} />} />
+        <Route path="timetable" element={<Timetable userUID={userUID} />} />
       </Routes>
     </BrowserRouter>
   );

@@ -35,8 +35,8 @@ const firebase = {
     });
   },
 
-  updateFeaturesData(UID, data) {
-   return updateDoc(doc(db, `users/${UID}/features`, `${UID}`), data).then(() => {
+  updateFeaturesData(UID, data, featureID) {
+   return updateDoc(doc(db, `users/${UID}/features`, `${featureID}`), {timetable: data}).then(() => {
       alert("儲存成功!");
     });
   },

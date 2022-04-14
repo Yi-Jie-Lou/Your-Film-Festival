@@ -3,16 +3,9 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { db, auth, firebase } from "./utils/firebase-config";
-import { setDoc, doc } from "firebase/firestore";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import {  auth, firebase } from "../utils/firebase-config";
+import {signOut } from "firebase/auth";
 
-const monitorAuthState = async () => {
-  const loginAuth = getAuth();
-  onAuthStateChanged(loginAuth, (currentUser) => {
-    return currentUser.uid;
-  });
-};
 
 function Login() {
   const [userEmail, setUserEmail] = useState("");

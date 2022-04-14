@@ -3,7 +3,7 @@ import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { DateRangePicker } from "react-date-range";
 import { doc, updateDoc } from "firebase/firestore";
-import { db } from "./utils/firebase-config";
+import { db } from "../utils/firebase-config";
 
 function Backstage(props) {
   const [startDate, setStartDate] = useState(new Date());

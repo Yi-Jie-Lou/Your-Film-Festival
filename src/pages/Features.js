@@ -1,11 +1,10 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import TimePicker from "react-time-picker";
-import styles from "./css/features.module.css";
-import { collection, doc, updateDoc, setDoc, getDoc } from "firebase/firestore";
-import { db, firebase } from "./utils/firebase-config";
-import { async } from "@firebase/util";
+import { collection, doc, setDoc} from "firebase/firestore";
+import { db, firebase } from "../utils/firebase-config";
 import Moment from "moment";
 import { extendMoment } from "moment-range";
+import ReactPaginate from "react-paginate";
 
 const moment = extendMoment(Moment);
 
@@ -14,7 +13,7 @@ function Features(props) {
     date: "",
     start: "10:00",
     end: "12:00",
-    loaction: "",
+    location: "",
     opening: false,
     closing: false,
   };
@@ -28,7 +27,7 @@ function Features(props) {
 
   const booking = (index) => {
     if (props.userUID) {
-      firebase.updateFeaturesData(props.userUID, timetable[index]);
+      firebase.updateFeaturesData(props.userUID, timetable[index], "D1un6IeOE3k2cv3Vglo3"/*props.featureID*/);
     }
   };
 
@@ -86,6 +85,8 @@ function Features(props) {
       });
     }
   }, [props.userUID]);
+
+
 
   return (
     <div>
