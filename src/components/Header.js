@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from "react";
+import { firebase } from "../utils/firebase-config";
 
 function Header(props) {
   const [userState, setUserState] = useState(null);
+  const [userUID, setUserUID] = useState(null);
 
   useEffect(() => {
     setUserState(props.userState);
-    console.log(props.userState);
+    // console.log(props.userState);
   }, [props.userState]);
+
+  useEffect(() => {
+    setUserUID(props.userUID);
+
+  }, [props.userUID]);
 
   return (
     <div className=" flex fixed top-0 w-full my-0 mx-auto z-10 border-2 rounded-lg bg-neutral-300">
@@ -31,9 +38,9 @@ function Header(props) {
             <div className="w-40 py-2 border-2 rounded text-center text-1xl">
               <a href="/backstage">回到後台</a>
             </div>
-            <div className="w-40 py-2 border-2 rounded text-center text-1xl">
-              <a href="/preview/timetable">Build</a>
-            </div>
+            <button onClick={() =>{userUID ? firebase.buildFestival(userUID) :alert('您好像還沒登入')}} className="w-40 py-2 border-2 rounded text-center text-1xl">
+              Build
+            </button>
           </>
         ) : userState === "editing" ? (
           <>

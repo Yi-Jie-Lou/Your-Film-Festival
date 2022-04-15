@@ -87,6 +87,7 @@ const firebase = {
   },
 
   updateTimetable(UID, datas, timetableID) {
+
     return updateDoc(
       doc(
         db,
@@ -121,6 +122,7 @@ const firebase = {
       return datas;
     });
   },
+  
 
   initDataBase(UID) {
     return setDoc(doc(db, "users", `${UID}`), {
@@ -141,6 +143,14 @@ const firebase = {
       }
     });
   },
+
+  buildFestival(UID){
+    return getDoc(doc(db,"users", UID)).then(res =>{
+      console.log(res.data())
+
+
+    })
+  }
 };
 
 export { db, auth, firebase };

@@ -6,6 +6,7 @@ import Select from "../components/Select";
 
 function TimetableContainer(props) {
   const [queryDate, setQureyDate] = useState("");
+  const [queryTimetable, setQureyTimetable] = useState([]);
   const [festivalData, setFestivalData] = useState("");
   const [timetable, setTimetable ]= useState("");
 
@@ -17,22 +18,29 @@ function TimetableContainer(props) {
     if (props.userUID) {
       firebase.readFestivalData(props.userUID).then((res) => {
         console.log("keep mind!");
-
+        console.log(res)
+        const timetableArray = res.features.map(item => {
+          return item.timetable
+        })
+        const timetables = timetableArray.reduce(
+          (previousValue, currentValue) =>  [...previousValue , ...currentValue],
+          []
+        );  
         const festivalData = {
           locations: res.locations,
           dates: res.festivalPeriod,
         };
         setFestivalData(festivalData);
         setQureyDate(festivalData.dates[0].dates);
+        setTimetable(timetables)
       });
     }
   }, [props.userUID]);
 
   useEffect(() => {
     if (queryDate) {
-      firebase.queryFeatures(queryDate).then((res)=>{
-        setTimetable(res)
-      })
+      const q = timetable.filter(item => queryDate === item.date )
+      setQureyTimetable(q)
     }
   }, [queryDate]);
 
@@ -54,7 +62,7 @@ function TimetableContainer(props) {
                 {item}
               </div>
               <div className=" flex mx-auto w-4/5 border-2 rounded-lg">
-              {timetable && timetable.map((film ,index)=>(
+              {queryTimetable.map((film ,index)=>(
                 film.location === item ? <div key={index} className="text-1xl w-32 h-32 m-4 border-2 rounded ">
                 {film.name}{film.start}-{film.end}
                 </div> : ""
