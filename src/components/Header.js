@@ -9,7 +9,7 @@ function Header(props) {
   }, [props.userState]);
 
   return (
-    <div className=" flex fixed top-0 w-full my-0 mx-auto border-2 rounded-lg bg-neutral-300">
+    <div className=" flex fixed top-0 w-full my-0 mx-auto z-10 border-2 rounded-lg bg-neutral-300">
       <div className="w-40 py-2 m-4 border-2 rounded text-center text-1xl">
         <a href="/">Your Film Festival</a>
       </div>

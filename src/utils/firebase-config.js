@@ -99,6 +99,9 @@ const firebase = {
         location: datas.location,
         name: datas.name,
         start: datas.start,
+        workshop: datas.workshop,
+        opening: datas.opening,
+        closing: datas.closing
       }
     ).then(() => {
       console.log(UID, datas, timetableID);
