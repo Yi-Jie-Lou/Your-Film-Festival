@@ -11,3 +11,25 @@ export const getPeriod = (payload) => {
         payload
     }
 }
+
+export const getLocations = (payload) => {
+    return {
+        type: 'GET_LOCATIONS',
+        payload
+    }
+}
+
+export const getFeatures = (payload) => {
+    return {
+        type: 'GET_FEATURES',
+        payload
+    }
+}
+
+export const switchTab = (payload) => {
+    return {
+        type: 'SWITCH_FEATURE_TAB',
+        payload
+    }
+}
+

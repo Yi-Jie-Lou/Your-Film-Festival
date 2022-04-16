@@ -12,7 +12,6 @@ import {
   collectionGroup,
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import { data } from "autoprefixer";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAXxoQUDtYZTpNVNCmeZCQ97Co5rFrN6ic",
@@ -78,16 +77,12 @@ const firebase = {
         closing: false,
         timetableID: timetableRef.id,
       }
-    ).then((_ => {
-
-      return timetableRef.id
-
-    }))
-
+    ).then((_) => {
+      return timetableRef.id;
+    });
   },
 
   updateTimetable(UID, datas, timetableID) {
-
     return updateDoc(
       doc(
         db,
@@ -102,10 +97,19 @@ const firebase = {
         start: datas.start,
         workshop: datas.workshop,
         opening: datas.opening,
-        closing: datas.closing
+        closing: datas.closing,
       }
     ).then(() => {
       console.log(UID, datas, timetableID);
+      alert("儲存成功!");
+    });
+  },
+
+  saveFeatures(UID, data) {
+    
+    return updateDoc(doc(db, `users`, `${UID}`), {
+      features: data,
+    }).then(() => {
       alert("儲存成功!");
     });
   },
@@ -122,7 +126,6 @@ const firebase = {
       return datas;
     });
   },
-  
 
   initDataBase(UID) {
     return setDoc(doc(db, "users", `${UID}`), {
@@ -144,13 +147,11 @@ const firebase = {
     });
   },
 
-  buildFestival(UID){
-    return getDoc(doc(db,"users", UID)).then(res =>{
-      console.log(res.data())
-
-
-    })
-  }
+  buildFestival(UID) {
+    return getDoc(doc(db, "users", UID)).then((res) => {
+      console.log(res.data());
+    });
+  },
 };
 
 export { db, auth, firebase };

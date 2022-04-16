@@ -1,10 +1,11 @@
-const periodReducer = (state = [], action) => {
+const featuresReducer = (state = [], action) => {
     switch(action.type){
-        case 'GET_PERIOD':
+        case 'GET_FEATURES':
             return state = action.payload
         default:
             return state
     }
 }
 
-export default periodReducer
+
+export default featuresReducer

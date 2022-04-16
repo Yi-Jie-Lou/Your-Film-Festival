@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { userLogin, getPeriod } from "./actions";
+import { userLogin, getPeriod, getLocations, getFeatures, switchTab } from "./actions";
 import { firebase } from "./utils/firebase-config";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
@@ -28,30 +28,12 @@ function App() {
           firebase.readFestivalData(currentUser.uid).then((res) => {
             console.log("keep mind!");
             console.log(res)
-
-
-            const timetableArray = res.features.map(item => {
-              return item.timetable
-            })
-            const allTimetables = timetableArray.reduce(
-              (previousValue, currentValue) =>  [...previousValue , ...currentValue],
-              []
-            );  
-            dispatch(getPeriod(allTimetables));
-  
-
-            // const festivalData = {
-            //   locations: res.locations,
-            //   dates: res.festivalPeriod,
-            // };
-            // setFestivalData(festivalData);
-            // setQureyDate(festivalData.dates[0].dates);
-            // setTimetable(timetables)
+            dispatch(getPeriod(res.festivalPeriod));
+            dispatch(getLocations(res.locations));
+            dispatch(getFeatures(res.features));
+            dispatch(switchTab(res.features[0].featureID));
           });
-      
-
-
-
+    
 
           setUserUID(currentUser.uid);
           setLogin("login");

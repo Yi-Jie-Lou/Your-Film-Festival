@@ -7,5 +7,4 @@ const loggedReducer = (state = "", action) => {
     }
 }
 
-
 export default loggedReducer

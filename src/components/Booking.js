@@ -1,102 +1,69 @@
 import React, { useEffect, useState } from "react";
 import TimePicker from "react-time-picker/dist/entry.nostyle";
-import { collection, doc, setDoc } from "firebase/firestore";
-import { db, firebase } from "../utils/firebase-config";
+import { useSelector, useDispatch } from "react-redux";
+import { getFeatures } from "../actions";
 import "../css/TimePicker.css";
 
-function Booking(props) {
+function Booking() {
+  const dispatch = useDispatch();
+  const period = useSelector((state) => state.festivalPeriod);
+  const locations = useSelector((state) => state.festivalLocations);
+  const currentTab = useSelector((state) => state.currentTab);
+  const features = useSelector((state) => state.features);
+
   const emptyTimetable = {
     date: "",
     start: "10:00",
     end: "12:00",
-    location: "",
+    location: locations[0],
     opening: false,
     closing: false,
     name: "",
     timetableID: "",
     workshop: false,
   };
-  const [timetable, setTimetable] = useState([emptyTimetable]);
-  const [festivalLocations, setFestivalLocations] = useState([]);
-  const [festivalPeriod, setFestivalPeriod] = useState();
-  const [currentFeature, setCurrentFeature] = useState();
-  const [allFeatures, setAllFeatures] = useState();
+  const [timetable, setTimetable] = useState([]);
 
   const addTimetable = () => {
-    setTimetable([...timetable, emptyTimetable]);
+    const newFeatures = [...features];
+    const editIndex = newFeatures.findIndex(
+      (item) => item.featureID === currentTab
+    );
+    newFeatures[editIndex].timetable = [...timetable, emptyTimetable];
+    dispatch(getFeatures(newFeatures));
   };
 
-  const deleteTimetable = (index) =>{
-    const newTimetable = [...timetable];
-    newTimetable.splice(index,1)
-    setTimetable(newTimetable);
-
-    const newFeatures = [...allFeatures]
-    const editNum = newFeatures.findIndex(item => item.featureID === currentFeature )
-    newFeatures[editNum].timetable.splice(index,1)
-    setAllFeatures(newFeatures)
-  }
-
-  const check = (index, timetableID) => {
-    console.log(timetable[index]);
-    if (props.userUID) {
-      // firebase.updateTimetable(props.userUID, timetable[index], timetableID);
-      alert("場次沒有重複!")
-    }
+  const deleteTimetable = (index) => {
+    const newFeatures = [...features];
+    const editIndex = newFeatures.findIndex(
+      (item) => item.featureID === currentTab
+    );
+    newFeatures[editIndex].timetable.splice(index, 1);
+    dispatch(getFeatures(newFeatures));
   };
 
   const handleChange = (value, index, key) => {
+    const newFeatures = [...features];
     const newTimetable = [...timetable];
     newTimetable[index][key] = value;
-    setTimetable(newTimetable);
-
-    const newFeatures = [...allFeatures]
-    const editNum = newFeatures.findIndex(item => item.featureID === currentFeature )
-    newFeatures[editNum].timetable = newTimetable
-    setAllFeatures(newFeatures)
+    const editNum = newFeatures.findIndex(
+      (item) => item.featureID === currentTab
+    );
+    newFeatures[editNum].timetable = newTimetable;
+    dispatch(getFeatures(newFeatures));
   };
 
-  async function saveToFirebase() {
-    if (props.userUID) {
-      const newFeatureRef = doc(
-        collection(db, `users/${props.userUID}/features`)
-      );
-      await setDoc(newFeatureRef, {
-        featureID: newFeatureRef,
-      })
-        .then(() => {
-          alert("儲存成功!");
-        })
-        .catch((rej) => {
-          console.log(rej);
-        });
-    }
-  }
-  useEffect(() => {
-
-    if (props.userUID) {
-      console.log(props.allFeatures, props.locations, props.current);
-      setFestivalLocations(props.locations);
-      setFestivalPeriod(props.period);
-      setCurrentFeature(props.current);
-    }
-  }, [props]);
+  const check = (index) => {
+    console.log(timetable[index]);
+      alert("場次沒有重複!");
+  };
 
   useEffect(() => {
-    if (props.userUID) {
-      console.log(props.allFeatures);
-      setAllFeatures(props.allFeatures);
-    }
-  }, [props.allFeatures]);
-
-  useEffect(() => {
-    if (props.userUID) {
-      const current = allFeatures.filter(
-        (item) => item.featureID === currentFeature
-      );
+    if (currentTab) {
+      const current = features.filter((item) => item.featureID === currentTab);
       setTimetable(current[0].timetable);
     }
-  }, [currentFeature]);
+  }, [currentTab, features]);
 
   return (
     <div>
@@ -124,12 +91,11 @@ function Booking(props) {
                   handleChange(event.target.value, index, "date")
                 }
               >
-                {festivalPeriod &&
-                  festivalPeriod.map((day, index) => (
-                    <option key={index} value={day.dates}>
-                      {day.displayDates}
-                    </option>
-                  ))}
+                {period.map((day, index) => (
+                  <option key={index} value={day.dates}>
+                    {day.displayDates}
+                  </option>
+                ))}
               </select>
               <select
                 className="w-32 h-10 border-2 rounded text-center"
@@ -138,12 +104,11 @@ function Booking(props) {
                 }
                 value={item.location || ""}
               >
-                {festivalLocations &&
-                  festivalLocations.map((item, index) => (
-                    <option key={index} value={item}>
-                      {item}
-                    </option>
-                  ))}
+                {locations.map((item, index) => (
+                  <option key={index} value={item}>
+                    {item}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="flex flex-col justify-around px-5">
@@ -179,7 +144,7 @@ function Booking(props) {
                 </button>
                 <button
                   className="mx-3 w-28 border-2 rounded-lg bg-red-300"
-                  onClick={()=>deleteTimetable(index)}
+                  onClick={() => deleteTimetable(index)}
                 >
                   Delete
                 </button>
