@@ -3,6 +3,7 @@ import TimePicker from "react-time-picker/dist/entry.nostyle";
 import { useSelector, useDispatch } from "react-redux";
 import { getFeatures } from "../actions";
 import "../css/TimePicker.css";
+import Select from "./Select"
 
 function Booking() {
   const dispatch = useDispatch();
@@ -12,10 +13,10 @@ function Booking() {
   const features = useSelector((state) => state.features);
 
   const emptyTimetable = {
-    date: "",
+    date: "default",
     start: "10:00",
     end: "12:00",
-    location: locations[0],
+    location: "default",
     opening: false,
     closing: false,
     name: "",
@@ -55,7 +56,7 @@ function Booking() {
 
   const check = (index) => {
     console.log(timetable[index]);
-      alert("場次沒有重複!");
+    alert("場次沒有重複!");
   };
 
   useEffect(() => {
@@ -85,15 +86,16 @@ function Booking() {
             <h2 className="w-full my-3 text-lg ml-1">場次{index + 1}</h2>
             <div className="flex flex-col">
               <select
-                defaultValue={item.date}
-                className="w-32 h-10 border-2 rounded text-center"
+                value={item.date}
+                className="mb-2 w-32 h-10 border-2 rounded text-center"
                 onChange={(event) =>
                   handleChange(event.target.value, index, "date")
                 }
               >
-                {period.map((day, index) => (
-                  <option key={index} value={day.dates}>
-                    {day.displayDates}
+                <option value={"default"}>請選擇時間</option>
+                {period.map((item, index) => (
+                  <option key={index} value={item.dates}>
+                    {item.displayDates}
                   </option>
                 ))}
               </select>
@@ -104,6 +106,7 @@ function Booking() {
                 }
                 value={item.location || ""}
               >
+                <option value={"default"}>請選擇地點</option>
                 {locations.map((item, index) => (
                   <option key={index} value={item}>
                     {item}
@@ -112,17 +115,20 @@ function Booking() {
               </select>
             </div>
             <div className="flex flex-col justify-around px-5">
-              <p>開始時間:</p>
-              <p>結束時間:</p>
+              <p className="m1-2 ">開始時間:</p>
+              <p className="mt-1 ">結束時間:</p>
             </div>
+  
 
             <div className="flex flex-col">
+            {/* <Select /> */}
               <TimePicker
-                className={"h-10 border-2 bor rounded text-center"}
+                className={"mb-2  h-10 border-2 bor rounded text-center"}
                 clearIcon={null}
                 disableClock={true}
                 onChange={(value) => handleChange(value, index, "start")}
                 value={item.start || ""}
+                locale={"en-EN"}
               />
               <TimePicker
                 className={"h-10 border-2 bor rounded text-center"}
@@ -130,6 +136,7 @@ function Booking() {
                 disableClock={true}
                 onChange={(value) => handleChange(value, index, "end")}
                 value={item.end || ""}
+                locale={"en-EN"}
               />
             </div>
             <div className="flex flex-col justify-around">
