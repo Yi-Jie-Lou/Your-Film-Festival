@@ -2,7 +2,13 @@ import { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { userLogin, getPeriod, getLocations, getFeatures, switchTab } from "./actions";
+import {
+  userLogin,
+  getPeriod,
+  getLocations,
+  getFeatures,
+  switchTab,
+} from "./actions";
 import { firebase } from "./utils/firebase-config";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
@@ -15,10 +21,16 @@ import Workshop from "./pages/Workshop";
 
 function App() {
   const dispatch = useDispatch();
-  const userID = useSelector(state => state.userID)
+  const userID = useSelector((state) => state.userID);
   const [userUID, setUserUID] = useState("");
   const [login, setLogin] = useState("");
+  const [allPubished, setAllPubished] = useState([]);
+
   useEffect(() => {
+    const path = window.location.pathname
+    const readFestival = path.split('festival=')
+    console.log(readFestival)
+    //判斷登入
     const monitorAuthState = async () => {
       const auth = getAuth();
       onAuthStateChanged(auth, (currentUser) => {
@@ -27,27 +39,46 @@ function App() {
 
           firebase.readFestivalData(currentUser.uid).then((res) => {
             console.log("keep mind!");
-            console.log(res)
+            console.log(res);
             dispatch(getPeriod(res.festivalPeriod));
             dispatch(getLocations(res.locations));
             dispatch(getFeatures(res.features));
             dispatch(switchTab(res.features[0].featureID));
           });
-    
 
           setUserUID(currentUser.uid);
           setLogin("login");
         }
       });
     };
+
+
+    //產生所有 routes
+    firebase.getAllPubished().then((festivalName) => {
+      const allPublishedRoutes = festivalName.map((item, index) => {
+        return (
+          <Route key={index}
+            path={`timetable/festival=${item}`}
+            element={<Timetable userUID={userUID} userState={"build"} />}
+          />
+        );
+      });
+
+      setAllPubished(allPublishedRoutes);
+    });
+
+
+
+    //判斷狀態
+
     monitorAuthState();
+
   }, []);
-
-
 
   return (
     <BrowserRouter>
       <Routes>
+      {allPubished}
         <Route path="login" element={<Login />} />
         {/*Template 是有按鈕帶有userState的 */}
         <Route

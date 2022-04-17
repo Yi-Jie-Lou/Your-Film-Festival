@@ -33,6 +33,17 @@ const db = getFirestore(app);
 const auth = getAuth(app);
 
 const firebase = {
+  getAllPubished() {
+    return getDocs(
+      collection(db, `build`)
+    ).then((res) => {
+      const datas = res.docs.map((doc) => {
+        return doc.id ;
+      });
+      return datas;
+    });
+  },
+
   readFestivalData(UID) {
     return getDoc(doc(db, "users", `${UID}`)).then((res) => {
       return res.data();
@@ -106,7 +117,6 @@ const firebase = {
   },
 
   saveFeatures(UID, data) {
-    
     return updateDoc(doc(db, `users`, `${UID}`), {
       features: data,
     }).then(() => {
@@ -149,8 +159,13 @@ const firebase = {
 
   buildFestival(UID) {
     return getDoc(doc(db, "users", UID)).then((res) => {
-      console.log(res.data());
-    });
+      setDoc(doc(db, "build", `summer2022`), 
+        res.data()
+      )
+    }).then((_) => {
+      alert('儲存成功!')
+  
+    })
   },
 };
 

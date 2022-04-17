@@ -12,7 +12,6 @@ function Header(props) {
 
   useEffect(() => {
     setUserUID(props.userUID);
-
   }, [props.userUID]);
 
   return (
@@ -38,7 +37,14 @@ function Header(props) {
             <div className="w-40 py-2 border-2 rounded text-center text-1xl">
               <a href="/backstage">回到後台</a>
             </div>
-            <button onClick={() =>{userUID ? firebase.buildFestival(userUID) :alert('您好像還沒登入')}} className="w-40 py-2 border-2 rounded text-center text-1xl">
+            <button
+              onClick={() => {
+                userUID
+                  ? firebase.buildFestival(userUID)
+                  : alert("您好像還沒登入");
+              }}
+              className="w-40 py-2 border-2 rounded text-center text-1xl"
+            >
               Build
             </button>
           </>
@@ -79,6 +85,21 @@ function Header(props) {
             </div>
             <div className="w-40 py-2 border-2 rounded text-center text-1xl">
               <a href="/backstage">進入後台</a>
+            </div>
+          </>
+        ) : userState === "build" ? (
+          <>
+            <div className="w-28 py-2  text-center leading-7  text-1xl">
+              <a href="/news">最新消息</a>
+            </div>
+            <div className="w-28 py-2  text-center leading-7 text-1xl">
+              <a href="/price">購票資訊</a>
+            </div>
+            <div className="w-28 py-2  text-center leading-7 text-1xl">
+              <a href="/timetable">場次表</a>
+            </div>
+            <div className="w-28 py-2 text-center leading-7 text-1xl">
+              <a href="/workshop">工作坊</a>
             </div>
           </>
         ) : (
