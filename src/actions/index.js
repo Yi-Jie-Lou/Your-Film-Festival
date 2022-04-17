@@ -33,3 +33,17 @@ export const switchTab = (payload) => {
     }
 }
 
+export const getState = (payload) => {
+    return {
+        type: 'GETSTATE',
+        payload
+    }
+}
+
+
+export const getFestivalName = (payload) => {
+    return {
+        type: 'GET_FESTIVAL_NAME',
+        payload
+    }
+}

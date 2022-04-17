@@ -50,6 +50,13 @@ const firebase = {
     });
   },
 
+  readPublishedFestivalData(UID) {
+    return getDoc(doc(db, "build", `${UID}`)).then((res) => {
+      return res.data();
+    });
+  },
+
+
   readTimetables(UID, featureID) {
     return getDocs(
       collection(db, `users/${UID}/features/${featureID}/timetable`)
@@ -159,12 +166,11 @@ const firebase = {
 
   buildFestival(UID) {
     return getDoc(doc(db, "users", UID)).then((res) => {
-      setDoc(doc(db, "build", `summer2022`), 
+      setDoc(doc(db, "build", `winter2022`), 
         res.data()
       )
     }).then((_) => {
       alert('儲存成功!')
-  
     })
   },
 };

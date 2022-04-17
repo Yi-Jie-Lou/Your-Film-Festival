@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, ReactFragment } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -8,6 +8,7 @@ import {
   getLocations,
   getFeatures,
   switchTab,
+  getFestivalName
 } from "./actions";
 import { firebase } from "./utils/firebase-config";
 import Index from "./pages/Index";
@@ -27,58 +28,97 @@ function App() {
   const [allPubished, setAllPubished] = useState([]);
 
   useEffect(() => {
-    const path = window.location.pathname
-    const readFestival = path.split('festival=')
-    console.log(readFestival)
+    const path = window.location.pathname;
+    const currentFestival = path.split("festival=")[1];
+
+    const setupReduxStore = (res) => {
+      console.log("keep mind!");
+      console.log(res);
+      dispatch(getPeriod(res.festivalPeriod));
+      dispatch(getLocations(res.locations));
+      dispatch(getFeatures(res.features));
+      dispatch(getFestivalName(res.festivalName));
+      dispatch(switchTab(res.features[0].featureID));
+
+    };
+
     //判斷登入
     const monitorAuthState = async () => {
       const auth = getAuth();
       onAuthStateChanged(auth, (currentUser) => {
         if (currentUser) {
-          dispatch(userLogin(currentUser.uid));
-
           firebase.readFestivalData(currentUser.uid).then((res) => {
-            console.log("keep mind!");
-            console.log(res);
-            dispatch(getPeriod(res.festivalPeriod));
-            dispatch(getLocations(res.locations));
-            dispatch(getFeatures(res.features));
-            dispatch(switchTab(res.features[0].featureID));
+            setupReduxStore(res);
           });
-
+          dispatch(userLogin(currentUser.uid));
           setUserUID(currentUser.uid);
           setLogin("login");
+
+        }else{
+          firebase.readFestivalData("r6KCeon7KBan1fSf1WWa3q3piSa2").then((res) => {
+            setupReduxStore(res);
+          });
         }
       });
     };
 
-
     //產生所有 routes
-    firebase.getAllPubished().then((festivalName) => {
-      const allPublishedRoutes = festivalName.map((item, index) => {
-        return (
-          <Route key={index}
-            path={`timetable/festival=${item}`}
-            element={<Timetable userUID={userUID} userState={"build"} />}
-          />
-        );
+    firebase
+      .getAllPubished()
+      .then((festivalList) => {
+        const allPublishedRoutes = festivalList.map((item, index) => {
+          return (
+            <>
+              <Route
+                key={index}
+                path={`/festival=${item}`}
+                element={<Index userUID={userUID} userState={"build"} />}
+              />
+              <Route
+                key={index}
+                path={`price/festival=${item}`}
+                element={<Price userUID={userUID} userState={"build"} />}
+              />
+              <Route
+                key={index}
+                path={`news/festival=${item}`}
+                element={<News userUID={userUID} userState={"build"} />}
+              />
+              <Route
+                key={index}
+                path={`timetable/festival=${item}`}
+                element={<Timetable userUID={userUID} userState={"build"} />}
+              />
+              <Route
+                key={index}
+                path={`workshop/festival=${item}`}
+                element={<Workshop userUID={userUID} userState={"build"} />}
+              />
+            </>
+          );
+        });
+        setAllPubished(allPublishedRoutes);
+        return festivalList;
+      })
+      .then((festivalList) => {
+        if (festivalList.some((item) => item === currentFestival)) {
+          firebase.readPublishedFestivalData(currentFestival).then((res) => {
+            setupReduxStore(res);
+          });
+        } else {
+          monitorAuthState();
+        }
       });
-
-      setAllPubished(allPublishedRoutes);
-    });
-
-
 
     //判斷狀態
 
-    monitorAuthState();
-
+    // console.log(allPubishTitles.some( item => item === readFestival) )
   }, []);
 
   return (
     <BrowserRouter>
       <Routes>
-      {allPubished}
+        {allPubished}
         <Route path="login" element={<Login />} />
         {/*Template 是有按鈕帶有userState的 */}
         <Route
@@ -119,8 +159,23 @@ function App() {
           path="preview/timetable"
           element={<Timetable userUID={userUID} userState={"preview"} />}
         />
+        <Route
+          path="preview/news"
+          element={<News userUID={userUID} userState={"preview"} />}
+        />
+        <Route
+          path="preview/price"
+          element={<Price userUID={userUID} userState={"preview"} />}
+        />
+        <Route
+          path="/preview"
+          element={<Index userUID={userUID} userState={"preview"} />}
+        />
+        <Route
+          path="preview/workshop"
+          element={<Workshop userUID={userUID} userState={"preview"} />}
+        />
       </Routes>
-      {/*Build*/}
     </BrowserRouter>
   );
 }
