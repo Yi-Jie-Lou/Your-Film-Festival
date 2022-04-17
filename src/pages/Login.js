@@ -3,11 +3,14 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import {  auth, firebase } from "../utils/firebase-config";
-import {signOut } from "firebase/auth";
-
+import { auth, firebase } from "../utils/firebase-config";
+import { signOut } from "firebase/auth";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import { useSelector } from "react-redux";
 
 function Login() {
+  const userID = useSelector((state) => state.userID);
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
 
@@ -55,33 +58,63 @@ function Login() {
   };
 
   return (
-    <div>
-      <div>
-        <label htmlFor="Email">信箱</label>
-        <input
-          id="Email"
-          placeholder="Email"
-          onChange={(event) => {
-            setUserEmail(event.target.value);
-          }}
-        />
+    <>
+      <Header userState={""} />
+      <div className="flex  flex-wrap justify-center w-11/12  mx-auto my-64 ">
+      <h1 className=" my-4 mx-40 p-2 w-2/5 text-center text-xl tracking-wider  rounded-lg " >登入開始上傳您的影片</h1>
+        <div className="flex justify-center my-4 w-2/3 ">
+          <label className="mr-4" htmlFor="Email">
+            信箱:
+          </label>
+          <input
+            className="pl-2 border-2 rounded-lg"
+            id="Email"
+            placeholder="Email"
+            onChange={(event) => {
+              setUserEmail(event.target.value);
+            }}
+          />
+        </div>
+        <div className="flex justify-center my-4 w-2/3">
+          <label className="mr-4" htmlFor="Password">
+            密碼:
+          </label>
+          <input
+            className="pl-2 border-2 rounded-lg"
+            id="Password"
+            placeholder="Password"
+            onChange={(event) => {
+              setUserPassword(event.target.value);
+            }}
+          />
+        </div>
+        <div className="flex justify-center my-4 w-2/3">
+          <button
+            className="mx-3 w-28 border-2 rounded-lg bg-blue-300"
+            onClick={register}
+          >
+            {" "}
+            註冊
+          </button>
+          {userID ? (
+            <button
+              className="mx-3 w-28 border-2 rounded-lg bg-blue-300"
+              onClick={logout}
+            >
+              登出
+            </button>
+          ) : (
+            <button
+              className="mx-3 w-28 border-2 rounded-lg bg-blue-300"
+              onClick={login}
+            >
+              登入
+            </button>
+          )}
+        </div>
       </div>
-      <div>
-        <label htmlFor="Password">密碼</label>
-        <input
-          id="Password"
-          placeholder="Password"
-          onChange={(event) => {
-            setUserPassword(event.target.value);
-          }}
-        />
-      </div>
-      <div>
-        <button onClick={register}> 註冊</button>
-        <button onClick={login}> 登入</button>
-        <button onClick={logout}> 登出</button>
-      </div>
-    </div>
+      <Footer />
+    </>
   );
 }
 

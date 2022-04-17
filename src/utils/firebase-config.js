@@ -34,11 +34,9 @@ const auth = getAuth(app);
 
 const firebase = {
   getAllPubished() {
-    return getDocs(
-      collection(db, `build`)
-    ).then((res) => {
+    return getDocs(collection(db, `build`)).then((res) => {
       const datas = res.docs.map((doc) => {
-        return doc.id ;
+        return doc.id;
       });
       return datas;
     });
@@ -55,7 +53,6 @@ const firebase = {
       return res.data();
     });
   },
-
 
   readTimetables(UID, featureID) {
     return getDocs(
@@ -152,7 +149,26 @@ const firebase = {
       festivalPathName: "",
       festivalPost: "",
       festivalStart: "",
+      festivalPeriod: [],
       locations: [],
+      features: [
+        {
+          featureID: "featureA",
+          timetable: [
+            {
+              date: "default",
+              start: "10:00",
+              end: "12:00",
+              location: "default",
+              opening: false,
+              closing: false,
+              name: "",
+              timetableID: "",
+              workshop: false,
+            },
+          ],
+        },
+      ],
       uid: UID,
     }).then((_) => {
       for (let i = 0; i < 5; i++) {
@@ -164,14 +180,16 @@ const firebase = {
     });
   },
 
-  buildFestival(UID) {
-    return getDoc(doc(db, "users", UID)).then((res) => {
-      setDoc(doc(db, "build", `winter2022`), 
-        res.data()
-      )
-    }).then((_) => {
-      alert('儲存成功!')
-    })
+  buildFestival(UID, path) {
+    return getDoc(doc(db, "users", UID))
+      .then((res) => {
+        setDoc(doc(db, "build", `${path}`), res.data());
+        console.log(res.data())
+      })
+      .then((_) => {
+        alert("儲存成功!");
+        window.location.href=`http://localhost:3000/festival=${path}`
+      });
   },
 };
 

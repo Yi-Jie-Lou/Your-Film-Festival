@@ -4,14 +4,16 @@ import locationsReducer from "./getLocations";
 import featuresReducer from "./getFeatures"
 import featureTabReducer from "./getCurrentTab"
 import userStateReducer from "./getUserState";
-import FestivalNameReducer from "./getFestivalName";
+import festivalNameReducer from "./getFestivalName";
+import festivalPathNameReducer from "./getFestivalPathName"
 import { combineReducers } from "redux";
 
 const allReducers = combineReducers({
     userID: loggedReducer,
     festivalPeriod: periodReducer,
     festivalLocations: locationsReducer,
-    festivalName: FestivalNameReducer,
+    festivalName: festivalNameReducer,
+    festivalPathName: festivalPathNameReducer,
     features: featuresReducer,
     currentTab: featureTabReducer,
     state: userStateReducer

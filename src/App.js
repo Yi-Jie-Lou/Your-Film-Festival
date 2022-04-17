@@ -8,7 +8,8 @@ import {
   getLocations,
   getFeatures,
   switchTab,
-  getFestivalName
+  getFestivalName,
+  getFestivalPathName,
 } from "./actions";
 import { firebase } from "./utils/firebase-config";
 import Index from "./pages/Index";
@@ -29,6 +30,7 @@ function App() {
 
   useEffect(() => {
     const path = window.location.pathname;
+    const templatePath = ["/", "/news", "/timetable", "/workshop", "/price"];
     const currentFestival = path.split("festival=")[1];
 
     const setupReduxStore = (res) => {
@@ -37,9 +39,10 @@ function App() {
       dispatch(getPeriod(res.festivalPeriod));
       dispatch(getLocations(res.locations));
       dispatch(getFeatures(res.features));
+      console.log(res.festivalName)
       dispatch(getFestivalName(res.festivalName));
+      dispatch(getFestivalPathName(res.festivalPathName));
       dispatch(switchTab(res.features[0].featureID));
-
     };
 
     //判斷登入
@@ -47,17 +50,27 @@ function App() {
       const auth = getAuth();
       onAuthStateChanged(auth, (currentUser) => {
         if (currentUser) {
-          firebase.readFestivalData(currentUser.uid).then((res) => {
-            setupReduxStore(res);
-          });
           dispatch(userLogin(currentUser.uid));
           setUserUID(currentUser.uid);
           setLogin("login");
+          if (templatePath.some((item) => item === path)) {
+            firebase
+              .readFestivalData("r6KCeon7KBan1fSf1WWa3q3piSa2")
+              .then((res) => {
+                setupReduxStore(res);
+              });
 
-        }else{
-          firebase.readFestivalData("r6KCeon7KBan1fSf1WWa3q3piSa2").then((res) => {
-            setupReduxStore(res);
-          });
+          } else {
+            firebase.readFestivalData(currentUser.uid).then((res) => {
+              setupReduxStore(res);
+            });
+          }
+        } else {
+          firebase
+            .readFestivalData("r6KCeon7KBan1fSf1WWa3q3piSa2")
+            .then((res) => {
+              setupReduxStore(res);
+            });
         }
       });
     };
@@ -101,6 +114,7 @@ function App() {
         return festivalList;
       })
       .then((festivalList) => {
+        console.log(festivalList)
         if (festivalList.some((item) => item === currentFestival)) {
           firebase.readPublishedFestivalData(currentFestival).then((res) => {
             setupReduxStore(res);

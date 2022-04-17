@@ -8,7 +8,7 @@ function Header(props) {
   const dispatch = useDispatch();
   const userUID = useSelector((state) => state.userID);
   const state = useSelector((state) => state.state);
-  const festivalName = useSelector((state) => state.festivalName);
+  const festivalPathName = useSelector((state) => state.festivalPathName);
   useEffect(() => {
     dispatch(getState(props.userState));
   }, [props.userState]);
@@ -20,7 +20,7 @@ function Header(props) {
           <div className=" flex fixed top-0 w-full my-0 mx-auto z-10 border-2 rounded-lg bg-neutral-300">
             <NavLink to="/preview">
               <div className="w-40 py-2 m-4 border-2 rounded text-center text-1xl">
-                {festivalName ? festivalName : "Your Film Festival"}
+                {festivalPathName ? festivalPathName : "Your Film Festival"}
               </div>
             </NavLink>
             <div className="flex  my-4 mr-4 ml-auto  text-center text-1xl">
@@ -52,7 +52,7 @@ function Header(props) {
               <button
                 onClick={() => {
                   userUID
-                    ? firebase.buildFestival(userUID)
+                    ? firebase.buildFestival(userUID, festivalPathName)
                     : alert("您好像還沒登入");
                 }}
                 className="w-40 py-2 border-2 rounded text-center text-1xl"
@@ -65,11 +65,11 @@ function Header(props) {
       ) : state === "editing" ? (
         <>
           <div className=" flex fixed top-0 w-full my-0 mx-auto z-10 border-2 rounded-lg bg-neutral-300">
-            <NavLink to="/">
+
               <div className="w-40 py-2 m-4 border-2 rounded text-center text-1xl">
-                Your Film Festival
+               <a href="/">Your Film Festival </a>
               </div>
-            </NavLink>
+
             <div className="flex  my-4 mr-4 ml-auto  text-center text-1xl">
               <NavLink to="/backstage">
                 <div className="w-28 py-2  text-center leading-7  text-1xl">
@@ -133,39 +133,39 @@ function Header(props) {
                   工作坊
                 </div>
               </NavLink>
-              <NavLink to="/backstage">
+
                 <div className="w-40 py-2 border-2 rounded text-center text-1xl">
-                  進入後台
+                 <a href="/backstage"> 進入後台 </a>
                 </div>
-              </NavLink>
+
             </div>
           </div>
         </>
       ) : state === "build" ? (
         <>
           <div className=" flex fixed top-0 w-full my-0 mx-auto z-10 border-2 rounded-lg bg-neutral-300">
-            <NavLink to={`/festival=${festivalName}`}>
+            <NavLink to={`/festival=${festivalPathName}`}>
               <div className="w-40 py-2 m-4 border-2 rounded text-center text-1xl">
-                {festivalName ? festivalName : "Your Film Festival"}
+                {festivalPathName ? festivalPathName : "Your Film Festival"}
               </div>
             </NavLink>
             <div className="flex  my-4 mr-4 ml-auto  text-center text-1xl">
-              <NavLink to={`/news/festival=${festivalName}`}>
+              <NavLink to={`/news/festival=${festivalPathName}`}>
                 <div className="w-28 py-2  text-center leading-7  text-1xl">
                   最新消息
                 </div>
               </NavLink>
-              <NavLink to={`/price/festival=${festivalName}`}>
+              <NavLink to={`/price/festival=${festivalPathName}`}>
                 <div className="w-28 py-2  text-center leading-7 text-1xl">
                   購票資訊
                 </div>
               </NavLink>
-              <NavLink to={`/timetable/festival=${festivalName}`}>
+              <NavLink to={`/timetable/festival=${festivalPathName}`}>
                 <div className="w-28 py-2  text-center leading-7 text-1xl">
                   場次表
                 </div>
               </NavLink>
-              <NavLink to={`/workshop/festival=${festivalName}`}>
+              <NavLink to={`/workshop/festival=${festivalPathName}`}>
                 <div className="w-28 py-2 text-center leading-7 text-1xl">
                   工作坊
                 </div>

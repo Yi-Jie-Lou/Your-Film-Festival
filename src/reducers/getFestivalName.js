@@ -1,4 +1,4 @@
-const FestivalNameReducer = (state = [], action) => {
+const festivalNameReducer = (state = [], action) => {
     switch(action.type){
         case 'GET_FESTIVAL_NAME':
             return state = action.payload
@@ -8,4 +8,4 @@ const FestivalNameReducer = (state = [], action) => {
 }
 
 
-export default FestivalNameReducer
+export default festivalNameReducer

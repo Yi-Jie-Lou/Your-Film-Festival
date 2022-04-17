@@ -47,3 +47,10 @@ export const getFestivalName = (payload) => {
         payload
     }
 }
+
+export const getFestivalPathName = (payload) => {
+    return {
+        type: 'GET_FESTIVAL_PATH_NAME',
+        payload
+    }
+}
