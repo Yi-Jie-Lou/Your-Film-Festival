@@ -39,7 +39,7 @@ function App() {
       dispatch(getPeriod(res.festivalPeriod));
       dispatch(getLocations(res.locations));
       dispatch(getFeatures(res.features));
-      console.log(res.festivalName)
+      // console.log(res.festivalName)
       dispatch(getFestivalName(res.festivalName));
       dispatch(getFestivalPathName(res.festivalPathName));
       dispatch(switchTab(res.features[0].featureID));
@@ -84,7 +84,7 @@ function App() {
             <>
               <Route
                 key={index}
-                path={`/festival=${item}`}
+                path={`/festival/:${item}`}
                 element={<Index userUID={userUID} userState={"build"} />}
               />
               <Route
@@ -114,7 +114,7 @@ function App() {
         return festivalList;
       })
       .then((festivalList) => {
-        console.log(festivalList)
+        // console.log(festivalList)
         if (festivalList.some((item) => item === currentFestival)) {
           firebase.readPublishedFestivalData(currentFestival).then((res) => {
             setupReduxStore(res);

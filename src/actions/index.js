@@ -54,3 +54,10 @@ export const getFestivalPathName = (payload) => {
         payload
     }
 }
+
+export const getFeaturesImgs = (payload) => {
+    return {
+        type: 'GET_FEATURES_IMGS',
+        payload
+    }
+}

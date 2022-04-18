@@ -2,22 +2,25 @@ import React from "react";
 import Booking from "../components/Booking";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import FilmContent from "../components/FilmContent";
 import { firebase } from "../utils/firebase-config";
 import { getFeatures } from "../actions";
 import { useSelector, useDispatch } from "react-redux";
 import { switchTab } from "../actions";
+import uniqid from 'uniqid'
 
 function Features(props) {
   const dispatch = useDispatch();
   const features = useSelector((state) => state.features);
   const currentTab = useSelector((state) => state.currentTab);
+  const featureImgs = useSelector((state) => state.featuresImgs);
   const period = useSelector((state) => state.festivalPeriod);
   const locations = useSelector((state) => state.festivalLocations);
   const userID = useSelector(state => state.userID)
   
   const addFeature = () => {
     const emptyFeature = {
-      featureID: "featureC",
+      featureID: uniqid(),
       timetable: [
         {
           date: "",
@@ -31,6 +34,7 @@ function Features(props) {
           workshop: false,
         },
       ],
+      featureImgs:["","",""]
     };
     const newFeatures = [...features, emptyFeature];
     dispatch(getFeatures(newFeatures));
@@ -39,6 +43,7 @@ function Features(props) {
   return (
     <div className="wrap">
       <Header userState={"editing"} />
+      <FilmContent />
       <div className="flex justify-center mt-32">
         {features.map((item, index) => (
           <button
@@ -60,13 +65,7 @@ function Features(props) {
           增加影片
         </button>
       </div>
-      <Booking
-        userUID={props.userUID}
-        locations={locations}
-        period={period}
-        allFeatures={features}
-        current={currentTab}
-      />
+      <Booking />
       <div className="flex justify-center my-8">
         <button className="w-28 p-2 mx-2 border-2 rounded-lg bg-red-300">
           刪除影片

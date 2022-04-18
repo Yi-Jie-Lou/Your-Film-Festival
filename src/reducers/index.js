@@ -6,6 +6,7 @@ import featureTabReducer from "./getCurrentTab"
 import userStateReducer from "./getUserState";
 import festivalNameReducer from "./getFestivalName";
 import festivalPathNameReducer from "./getFestivalPathName"
+import featuresImgsReducer from "./getFeaturesImgs";
 import { combineReducers } from "redux";
 
 const allReducers = combineReducers({
@@ -15,6 +16,7 @@ const allReducers = combineReducers({
     festivalName: festivalNameReducer,
     festivalPathName: festivalPathNameReducer,
     features: featuresReducer,
+    featuresImgs: featuresImgsReducer,
     currentTab: featureTabReducer,
     state: userStateReducer
 })

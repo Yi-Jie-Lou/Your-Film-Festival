@@ -3,7 +3,6 @@ import TimePicker from "react-time-picker/dist/entry.nostyle";
 import { useSelector, useDispatch } from "react-redux";
 import { getFeatures } from "../actions";
 import "../css/TimePicker.css";
-import Select from "./Select"
 
 function Booking() {
   const dispatch = useDispatch();

@@ -12,6 +12,7 @@ import {
   collectionGroup,
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import uniqid from 'uniqid'
 
 const firebaseConfig = {
   apiKey: "AIzaSyAXxoQUDtYZTpNVNCmeZCQ97Co5rFrN6ic",
@@ -153,7 +154,7 @@ const firebase = {
       locations: [],
       features: [
         {
-          featureID: "featureA",
+          featureID: uniqid(),
           timetable: [
             {
               date: "default",
