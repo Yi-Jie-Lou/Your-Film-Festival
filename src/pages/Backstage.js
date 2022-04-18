@@ -9,10 +9,10 @@ import { db } from "../utils/firebase-config";
 import Moment from "moment";
 import { extendMoment } from "moment-range";
 import {
-  getFestivalName,
-  getLocations,
-  getPeriod,
-  getFestivalPathName,
+  updateFestivalName,
+  updateLocations,
+  updatePeriod,
+  updateFestivalPathName,
 } from "../actions";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -30,20 +30,19 @@ function BackstageContainer(props) {
     key: "selection",
   };
 
-  async function saveToFirebase() {
-    if (props.userUID) {
-      await updateDoc(doc(db, "users", props.userUID), {
-        locations: theather.map((item) => item.name),
-        festivalPeriod: getAvailableDates(),
-        festivalPathName,
-        festivalName
-      }).then(() => {
-        dispatch(getPeriod(getAvailableDates()));
-        dispatch(getLocations(theather.map((item) => item.name)));
-        alert("儲存成功!");
-      });
-    }
-  }
+  const saveToFirebase = () => {
+    if (!props.userUID) return;
+    updateDoc(doc(db, "users", props.userUID), {
+      locations: theather.map((item) => item.name),
+      festivalPeriod: getAvailableDates(),
+      festivalPathName,
+      festivalName,
+    }).then(() => {
+      dispatch(updatePeriod(getAvailableDates()));
+      dispatch(updateLocations(theather.map((item) => item.name)));
+      alert("儲存成功!");
+    });
+  };
 
   const handleChange = (i, e) => {
     const newTheather = [...theather];
@@ -76,10 +75,10 @@ function BackstageContainer(props) {
   };
 
   const onChangeName = (e) => {
-    dispatch(getFestivalName(e.target.value));
+    dispatch(updateFestivalName(e.target.value));
   };
   const onChangePathName = (e) => {
-    dispatch(getFestivalPathName(e.target.value));
+    dispatch(updateFestivalPathName(e.target.value));
   };
 
   return (

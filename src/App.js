@@ -4,12 +4,12 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   userLogin,
-  getPeriod,
-  getLocations,
-  getFeatures,
+  updatePeriod,
+  updateLocations,
+  updateFeatures,
   switchTab,
-  getFestivalName,
-  getFestivalPathName,
+  updateFestivalName,
+  updateFestivalPathName,
 } from "./actions";
 import { firebase } from "./utils/firebase-config";
 import Index from "./pages/Index";
@@ -36,12 +36,12 @@ function App() {
     const setupReduxStore = (res) => {
       console.log("keep mind!");
       console.log(res);
-      dispatch(getPeriod(res.festivalPeriod));
-      dispatch(getLocations(res.locations));
-      dispatch(getFeatures(res.features));
+      dispatch(updatePeriod(res.festivalPeriod));
+      dispatch(updateLocations(res.locations));
+      dispatch(updateFeatures(res.features));
       // console.log(res.festivalName)
-      dispatch(getFestivalName(res.festivalName));
-      dispatch(getFestivalPathName(res.festivalPathName));
+      dispatch(updateFestivalName(res.festivalName));
+      dispatch(updateFestivalPathName(res.festivalPathName));
       dispatch(switchTab(res.features[0].featureID));
     };
 

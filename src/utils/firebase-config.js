@@ -11,6 +11,7 @@ import {
   getDocs,
   collectionGroup,
 } from "firebase/firestore";
+import { getStorage, getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { getAuth } from "firebase/auth";
 import uniqid from "uniqid";
 
@@ -32,6 +33,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
+const storage = getStorage(app);
 
 const firebase = {
   getAllPubished() {
@@ -129,6 +131,19 @@ const firebase = {
     });
   },
 
+  uploadImgs(file) {
+    if (!file) return;
+    return uploadBytes(ref(storage, `${file.name}`), file)
+  },
+
+  getUploadImgs(file){
+    if(!file) return;
+    return getDownloadURL(ref(storage, `${file.name}`)).then(res =>{
+      return res
+    })
+ 
+  },
+
   queryFeatures(qurey) {
     const q = query(
       collectionGroup(db, `timetable`),
@@ -172,13 +187,6 @@ const firebase = {
         },
       ],
       uid: UID,
-    }).then((_) => {
-      for (let i = 0; i < 5; i++) {
-        const newFeatureRef = doc(collection(db, `users/${UID}/features`));
-        setDoc(newFeatureRef, {
-          featureID: newFeatureRef.id,
-        });
-      }
     });
   },
 
@@ -192,4 +200,4 @@ const firebase = {
   },
 };
 
-export { db, auth, firebase };
+export { db, auth, firebase, storage };

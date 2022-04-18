@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { firebase } from "../utils/firebase-config";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getState } from "../actions";
+import { updateState } from "../actions";
 
 function Header(props) {
   const dispatch = useDispatch();
@@ -10,7 +10,7 @@ function Header(props) {
   const state = useSelector((state) => state.state);
   const festivalPathName = useSelector((state) => state.festivalPathName);
   useEffect(() => {
-    dispatch(getState(props.userState));
+    dispatch(updateState(props.userState));
   }, [props.userState]);
 
   return (

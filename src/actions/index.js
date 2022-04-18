@@ -5,21 +5,21 @@ export const userLogin = (payload) => {
     }
 }
 
-export const getPeriod = (payload) => {
+export const updatePeriod = (payload) => {
     return {
         type: 'GET_PERIOD',
         payload
     }
 }
 
-export const getLocations = (payload) => {
+export const updateLocations = (payload) => {
     return {
         type: 'GET_LOCATIONS',
         payload
     }
 }
 
-export const getFeatures = (payload) => {
+export const updateFeatures = (payload) => {
     return {
         type: 'GET_FEATURES',
         payload
@@ -33,7 +33,7 @@ export const switchTab = (payload) => {
     }
 }
 
-export const getState = (payload) => {
+export const updateState = (payload) => {
     return {
         type: 'GETSTATE',
         payload
@@ -41,21 +41,21 @@ export const getState = (payload) => {
 }
 
 
-export const getFestivalName = (payload) => {
+export const updateFestivalName = (payload) => {
     return {
         type: 'GET_FESTIVAL_NAME',
         payload
     }
 }
 
-export const getFestivalPathName = (payload) => {
+export const updateFestivalPathName = (payload) => {
     return {
         type: 'GET_FESTIVAL_PATH_NAME',
         payload
     }
 }
 
-export const getFeaturesImgs = (payload) => {
+export const updateFeaturesImgs = (payload) => {
     return {
         type: 'GET_FEATURES_IMGS',
         payload

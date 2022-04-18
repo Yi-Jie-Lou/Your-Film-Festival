@@ -36,7 +36,6 @@ function TimetableContainer() {
     }
   }, [queryDate]);
 
-
   return (
     <>
       <div className="mt-28 mb-32">
@@ -68,6 +67,10 @@ function TimetableContainer() {
                       key={index}
                       className="text-1xl w-32 h-32 m-4 border-2 rounded "
                     >
+                      <img
+                        className="border-0 object-cover h-full w-full mr-0"
+                        src={film ? film.timetableID : ""}
+                      />
                       {film.name}
                       {film.start}-{film.end}
                     </div>

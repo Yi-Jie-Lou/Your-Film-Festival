@@ -1,8 +1,19 @@
 import React, { useEffect, useState } from "react";
 import TimePicker from "react-time-picker/dist/entry.nostyle";
 import { useSelector, useDispatch } from "react-redux";
-import { getFeatures } from "../actions";
+import { updateFeatures } from "../actions";
 import "../css/TimePicker.css";
+
+const emptyTimetable = {
+  date: "default",
+  start: "10:00",
+  end: "12:00",
+  location: "default",
+  opening: false,
+  closing: false,
+  name: "",
+  workshop: false,
+};
 
 function Booking() {
   const dispatch = useDispatch();
@@ -10,18 +21,6 @@ function Booking() {
   const locations = useSelector((state) => state.festivalLocations);
   const currentTab = useSelector((state) => state.currentTab);
   const features = useSelector((state) => state.features);
-
-  const emptyTimetable = {
-    date: "default",
-    start: "10:00",
-    end: "12:00",
-    location: "default",
-    opening: false,
-    closing: false,
-    name: "",
-    timetableID: "",
-    workshop: false,
-  };
   const [timetable, setTimetable] = useState([]);
 
   const addTimetable = () => {
@@ -30,7 +29,7 @@ function Booking() {
       (item) => item.featureID === currentTab
     );
     newFeatures[editIndex].timetable = [...timetable, emptyTimetable];
-    dispatch(getFeatures(newFeatures));
+    dispatch(updateFeatures(newFeatures));
   };
 
   const deleteTimetable = (index) => {
@@ -39,7 +38,7 @@ function Booking() {
       (item) => item.featureID === currentTab
     );
     newFeatures[editIndex].timetable.splice(index, 1);
-    dispatch(getFeatures(newFeatures));
+    dispatch(updateFeatures(newFeatures));
   };
 
   const handleChange = (value, index, key) => {
@@ -50,7 +49,7 @@ function Booking() {
       (item) => item.featureID === currentTab
     );
     newFeatures[editNum].timetable = newTimetable;
-    dispatch(getFeatures(newFeatures));
+    dispatch(updateFeatures(newFeatures));
   };
 
   const check = (index) => {
@@ -59,10 +58,9 @@ function Booking() {
   };
 
   useEffect(() => {
-    if (currentTab) {
-      const current = features.filter((item) => item.featureID === currentTab);
-      setTimetable(current[0].timetable);
-    }
+    if (!currentTab) return;
+    const current = features.filter((item) => item.featureID === currentTab);
+    setTimetable(current[0].timetable);
   }, [currentTab, features]);
 
   return (
@@ -117,10 +115,9 @@ function Booking() {
               <p className="m1-2 ">開始時間:</p>
               <p className="mt-1 ">結束時間:</p>
             </div>
-  
 
             <div className="flex flex-col">
-            {/* <Select /> */}
+              {/* <Select /> */}
               <TimePicker
                 className={"mb-2  h-10 border-2 bor rounded text-center"}
                 clearIcon={null}

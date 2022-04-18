@@ -1,12 +1,11 @@
 import loggedReducer from "./login";
-import periodReducer from "./getPeriod"
-import locationsReducer from "./getLocations";
-import featuresReducer from "./getFeatures"
-import featureTabReducer from "./getCurrentTab"
-import userStateReducer from "./getUserState";
-import festivalNameReducer from "./getFestivalName";
-import festivalPathNameReducer from "./getFestivalPathName"
-import featuresImgsReducer from "./getFeaturesImgs";
+import periodReducer from "./updatePeriod"
+import locationsReducer from "./updateLocations";
+import featuresReducer from "./updateFeatures"
+import featureTabReducer from "./updateCurrentTab"
+import userStateReducer from "./updateUserState";
+import festivalNameReducer from "./updateFestivalName";
+import festivalPathNameReducer from "./updateFestivalPathName"
 import { combineReducers } from "redux";
 
 const allReducers = combineReducers({
@@ -16,7 +15,6 @@ const allReducers = combineReducers({
     festivalName: festivalNameReducer,
     festivalPathName: festivalPathNameReducer,
     features: featuresReducer,
-    featuresImgs: featuresImgsReducer,
     currentTab: featureTabReducer,
     state: userStateReducer
 })
