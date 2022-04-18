@@ -27,7 +27,7 @@ function FilmContent() {
       const editIndex = newFeatures.findIndex(
         (item) => item.featureID === currentTab
       );
-      newFeatures[editIndex].featuresImgs = newFeaturesImgsArray;
+      newFeatures[editIndex].featureImgs = newFeaturesImgsArray;
 
       dispatch(getFeatures(newFeatures));
     }
@@ -36,7 +36,8 @@ function FilmContent() {
   useEffect(() => {
     if (currentTab) {
       const current = features.filter((item) => item.featureID === currentTab);
-      setFeatureImgs(current[0].featuresImgs);
+      console.log(current[0].featureImgs)
+      setFeatureImgs(current[0].featureImgs);
     }
   }, [currentTab, features]);
 

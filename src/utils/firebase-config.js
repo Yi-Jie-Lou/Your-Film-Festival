@@ -12,7 +12,7 @@ import {
   collectionGroup,
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import uniqid from 'uniqid'
+import uniqid from "uniqid";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAXxoQUDtYZTpNVNCmeZCQ97Co5rFrN6ic",
@@ -168,6 +168,7 @@ const firebase = {
               workshop: false,
             },
           ],
+          featureImgs: ["", "", ""],
         },
       ],
       uid: UID,
@@ -182,15 +183,12 @@ const firebase = {
   },
 
   buildFestival(UID, path) {
-    return getDoc(doc(db, "users", UID))
-      .then((res) => {
-        setDoc(doc(db, "build", `${path}`), res.data());
-        console.log(res.data())
-      })
-      .then((_) => {
+    return getDoc(doc(db, "users", UID)).then((res) => {
+      setDoc(doc(db, "build", `${path}`), res.data()).then((_) => {
         alert("儲存成功!");
-        window.location.href=`http://localhost:3000/festival=${path}`
+        window.location.href = `http://localhost:3000/festival=${path}`;
       });
+    });
   },
 };
 

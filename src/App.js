@@ -74,7 +74,7 @@ function App() {
         }
       });
     };
-
+///festival/:${item}
     //產生所有 routes
     firebase
       .getAllPubished()
@@ -84,7 +84,7 @@ function App() {
             <>
               <Route
                 key={index}
-                path={`/festival/:${item}`}
+                path={`/festival=${item}`}
                 element={<Index userUID={userUID} userState={"build"} />}
               />
               <Route
