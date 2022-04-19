@@ -10,6 +10,8 @@ import {
   switchTab,
   updateFestivalName,
   updateFestivalPathName,
+  updateFestivalLogo,
+  updateFestivalPost
 } from "./actions";
 import { firebase } from "./utils/firebase-config";
 import Index from "./pages/Index";
@@ -42,6 +44,8 @@ function App() {
       // console.log(res.festivalName)
       dispatch(updateFestivalName(res.festivalName));
       dispatch(updateFestivalPathName(res.festivalPathName));
+      dispatch(updateFestivalLogo(res.festivalLogo));
+      dispatch(updateFestivalPost(res.festivalPost));
       dispatch(switchTab(res.features[0].featureID));
     };
 

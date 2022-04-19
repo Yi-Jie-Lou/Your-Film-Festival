@@ -1,13 +1,15 @@
 import React from "react";
+import Creator from "../components/Creator";
+import FilmContent from "../components/FilmContent"
 import Booking from "../components/Booking";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import FilmContent from "../components/FilmContent";
 import { firebase } from "../utils/firebase-config";
 import { updateFeatures } from "../actions";
 import { useSelector, useDispatch } from "react-redux";
 import { switchTab } from "../actions";
 import uniqid from 'uniqid'
+
 
 function Features() {
   const dispatch = useDispatch();
@@ -31,7 +33,16 @@ function Features() {
           workshop: false,
         },
       ],
-      featureImgs:["","",""]
+      featureImgs:["","",""],
+      format:"",
+      color:"",
+      nation:"",
+      year:"",
+      language:"",
+      length:"",
+      title:"",
+      shorInfo: "",
+      longInfo:""
     };
     const newFeatures = [...features, emptyFeature];
     dispatch(updateFeatures(newFeatures));
@@ -63,6 +74,7 @@ function Features() {
         </button>
       </div>
       <FilmContent />
+      <Creator />
       <Booking />
       <div className="flex justify-center my-8">
         <button className="w-28 p-2 mx-2 border-2 rounded-lg bg-red-300">

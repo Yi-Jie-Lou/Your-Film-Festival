@@ -61,3 +61,17 @@ export const updateFeaturesImgs = (payload) => {
         payload
     }
 }
+
+export const updateFestivalPost = (payload) => {
+    return {
+        type: 'GET_FESTIVAL_POST',
+        payload
+    }
+}
+
+export const updateFestivalLogo = (payload) => {
+    return {
+        type: 'GET_FESTIVAL_LOGO',
+        payload
+    }
+}

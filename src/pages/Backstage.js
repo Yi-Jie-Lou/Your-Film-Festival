@@ -13,13 +13,18 @@ import {
   updateLocations,
   updatePeriod,
   updateFestivalPathName,
+  updateFestivalPost,
+  updateFestivalLogo,
 } from "../actions";
+import { firebase } from "../utils/firebase-config";
 import { useDispatch, useSelector } from "react-redux";
 
 function BackstageContainer(props) {
   const dispatch = useDispatch();
   const festivalName = useSelector((state) => state.festivalName);
   const festivalPathName = useSelector((state) => state.festivalPathName);
+  const festivalPost = useSelector((state) => state.festivalPost);
+  const festivalLogo = useSelector((state) => state.festivalLogo);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [theather, setTheather] = useState([{ name: "" }]);
@@ -37,6 +42,8 @@ function BackstageContainer(props) {
       festivalPeriod: getAvailableDates(),
       festivalPathName,
       festivalName,
+      festivalPost,
+      festivalLogo,
     }).then(() => {
       dispatch(updatePeriod(getAvailableDates()));
       dispatch(updateLocations(theather.map((item) => item.name)));
@@ -74,6 +81,23 @@ function BackstageContainer(props) {
     getAvailableDates();
   };
 
+  const preview = async (e, key) => {
+    if (!e.target.files[0]) return;
+    const uploadImg = e.target.files[0];
+
+    await firebase.uploadImgs(uploadImg);
+    firebase.getUploadImgs(uploadImg).then((uploadUrl) => {
+      switch (key) {
+        case "logo":
+          return dispatch(updateFestivalLogo(uploadUrl));
+        case "post":
+          return dispatch(updateFestivalPost(uploadUrl));
+        default:
+          return;
+      }
+    });
+  };
+
   const onChangeName = (e) => {
     dispatch(updateFestivalName(e.target.value));
   };
@@ -82,19 +106,18 @@ function BackstageContainer(props) {
   };
 
   return (
-    <div className="w-11/12 mx-auto">
-      <div className="flex border-b-2">
+    <div className="w-11/12  mx-auto">
+      <div className="flex flex-col flex-wrap border-b-2 mt-28 border-b-zinc-400">
+        <h2 className="mx-auto mb-8 text-center text-lg  ">舉辦日期</h2>
         <DateRangePicker
-          className="mx-auto mt-28"
+          className="mx-auto mb-4"
           ranges={[selectionRange]}
           onChange={handleSelect}
         />
       </div>
 
-      <div className="flex flex-col content-center mx-auto my-8 border-b-2">
-        <h2 className="text-center text-lg divide-y-4 divide-gray-400">
-          播映戲院
-        </h2>
+      <div className="flex flex-col content-center mx-auto my-16 border-b-2 border-b-zinc-400">
+        <h2 className="text-center text-lg">播映戲院</h2>
         <div className="flex justify-center">
           <button
             className="mx-3 my-12 w-28 border-2 rounded-lg bg-blue-300"
@@ -115,11 +138,65 @@ function BackstageContainer(props) {
           </div>
         ))}
       </div>
+
+      <div className="flex flex-col mt-16">
+        <div className="flex  justify-between w-96 my-8 mx-auto">
+          <h2 className="flex flex-col justify-center w-32  text-2xl text-zinc-700">
+            <span>LOGO</span>
+          </h2>
+
+          <label
+            className={`block  w-60   cursor-pointer  border-2  rounded-lg  text-center align-middle  text-white ${
+              festivalLogo ? "" : "bg-blue-400"
+            } `}
+            htmlFor={`festival_logo`}
+          >
+            {festivalLogo ? "" : "上傳"}
+            {festivalLogo && (
+              <img
+                className="  border-0 object-cover mr-0"
+                src={festivalLogo}
+              />
+            )}
+            <input
+              id={`festival_logo`}
+              className="hidden border-1 "
+              type="file"
+              accept="image/*"
+              onChange={(e) => preview(e, "logo")}
+            />
+          </label>
+        </div>
+        <div className="flex justify-between w-96 my-8  mx-auto">
+          <h2 className="flex flex-col justify-center w-32  text-2xl text-zinc-700">
+            <span>主視覺海報</span>
+          </h2>
+
+          <label
+            className="block  w-60   cursor-pointer  border-2  rounded-lg  text-center align-middle  text-white bg-blue-400 "
+            htmlFor={`festival_post`}
+          >
+            {festivalPost ? "" : "上傳"}
+            {festivalPost && (
+              <img
+                className="  border-0 object-cover mr-0"
+                src={festivalPost}
+              />
+            )}
+            <input
+              id={`festival_post`}
+              className="hidden border-1 "
+              type="file"
+              accept="image/*"
+              onChange={(e) => preview(e, "post")}
+            />
+          </label>
+        </div>
+      </div>
+
       <div className="flex flex-col mt-16">
         <div className="flex  justify-between w-96  my-8 mx-auto">
-          <h2 className=" text-center text-lg divide-y-4 divide-gray-400">
-            影展名稱
-          </h2>
+          <h2 className=" text-center text-lg ">影展名稱</h2>
           <input
             className="pl-2 border-2 rounded-lg"
             type="text"
@@ -128,9 +205,7 @@ function BackstageContainer(props) {
           />
         </div>
         <div className="flex justify-between w-96 my-8  mx-auto">
-          <h2 className=" text-center text-lg divide-y-4 divide-gray-400">
-            影展英文名稱
-          </h2>
+          <h2 className=" text-center text-lg">影展英文名稱</h2>
           <input
             className="pl-2 border-2 rounded-lg"
             type="text"

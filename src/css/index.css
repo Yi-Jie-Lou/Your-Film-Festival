@@ -6,3 +6,15 @@
 .rdrDefinedRangesWrapper{
     display: none  !important;
 }
+
+
+@layer components {
+    .text-area {
+      @apply flex flex-col justify-around w-full h-32 my-2  mx-auto border-2 rounded-lg border-zinc-900
+    }
+    .text-area-large {
+        @apply flex flex-col justify-around w-full h-64 my-2  mx-auto border-2 rounded-lg border-zinc-900
+      }
+
+
+  }
