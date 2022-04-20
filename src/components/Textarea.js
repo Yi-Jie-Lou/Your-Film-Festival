@@ -10,7 +10,7 @@ function Textarea(props) {
         className="px-2 h-4/5 focus:outline-none "
         value={props.value}
         onChange={(e) => {
-          props.onChange(e.target.value, props.attribute);
+          props.onChange(e.target.value, props.attribute, props.index);
         }}
       ></textarea>
     </label>

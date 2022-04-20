@@ -1,22 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import Creator from "../components/Creator";
-import FilmContent from "../components/FilmContent"
+import FilmContent from "../components/FilmContent";
 import Booking from "../components/Booking";
+import Note from "../components/Note";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { firebase } from "../utils/firebase-config";
 import { updateFeatures } from "../actions";
 import { useSelector, useDispatch } from "react-redux";
 import { switchTab } from "../actions";
-import uniqid from 'uniqid'
-
+import uniqid from "uniqid";
 
 function Features() {
   const dispatch = useDispatch();
   const features = useSelector((state) => state.features);
   const currentTab = useSelector((state) => state.currentTab);
-  const userID = useSelector(state => state.userID)
-  
+  const userID = useSelector((state) => state.userID);
+
   const addFeature = () => {
     const emptyFeature = {
       featureID: uniqid(),
@@ -33,19 +33,34 @@ function Features() {
           workshop: false,
         },
       ],
-      featureImgs:["","",""],
-      format:"",
-      color:"",
-      nation:"",
-      year:"",
-      language:"",
-      length:"",
-      title:"",
-      shorInfo: "",
-      longInfo:""
+      creators: [{ img: "", info: "", name: "" }],
+      featureImgs: ["", "", ""],
+      format: "",
+      color: "",
+      nation: "",
+      year: "",
+      language: "",
+      length: "",
+      title: "",
+      shortInfo: "",
+      longInfo: "",
+      commercialInfo: "",
+      note: "",
+      import: false,
     };
     const newFeatures = [...features, emptyFeature];
     dispatch(updateFeatures(newFeatures));
+  };
+
+  const deleteFeature = () => {
+    if (features.length === 1) return;
+    const newFeatures = [...features];
+    const editIndex = newFeatures.findIndex(
+      (item) => item.featureID === currentTab
+    );
+    newFeatures.splice(editIndex, 1);
+    dispatch(updateFeatures(newFeatures));
+    dispatch(switchTab(newFeatures[0].featureID));
   };
 
   return (
@@ -76,11 +91,18 @@ function Features() {
       <FilmContent />
       <Creator />
       <Booking />
+      <Note />
       <div className="flex justify-center my-8">
-        <button className="w-28 p-2 mx-2 border-2 rounded-lg bg-red-300">
+        <button
+          className="w-28 p-2 mx-2 border-2 rounded-lg bg-red-300"
+          onClick={deleteFeature}
+        >
           刪除影片
         </button>
-        <button onClick={() => firebase.saveFeatures(userID, features)} className="w-28 p-2 mx-2 border-2 rounded-lg bg-blue-300">
+        <button
+          onClick={() => firebase.saveFeatures(userID, features)}
+          className="w-28 p-2 mx-2 border-2 rounded-lg bg-blue-300"
+        >
           儲存本頁
         </button>
       </div>

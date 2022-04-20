@@ -65,7 +65,7 @@ function Booking() {
 
   return (
     <div>
-      <div className="w-11/12 mt-14 mx-auto">
+      <div className="w-11/12 mt-14 mx-auto  pb-16 border-b-2 border-b-zinc-400">
         <div className="flex">
           <h2 className="my-1 text-lg ml-1">場次時刻表</h2>
           <button

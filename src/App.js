@@ -22,6 +22,7 @@ import News from "./pages/News";
 import Timetable from "./pages/Timetable";
 import Price from "./pages/Price";
 import Workshop from "./pages/Workshop";
+import EditNews from "./pages/EditNews";
 
 function App() {
   const dispatch = useDispatch();
@@ -170,6 +171,10 @@ function App() {
         <Route
           path="backstage/features"
           element={<Features userUID={userUID} />}
+        />
+             <Route
+          path="backstage/news"
+          element={<EditNews userUID={userUID} />}
         />
 
         {/*Preview */}
