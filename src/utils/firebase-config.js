@@ -138,10 +138,18 @@ const firebase = {
       alert("儲存成功!");
     });
   },
-
-  savePrice(UID, data) {
+  saveWorkshop(UID, data) {
     return updateDoc(doc(db, `users`, `${UID}`), {
-      price: data,
+      workshop: data,
+    }).then(() => {
+      alert("儲存成功!");
+    });
+  },
+
+  savePricePage(UID, price, traffic) {
+    return updateDoc(doc(db, `users`, `${UID}`), {
+      price,
+      traffic
     }).then(() => {
       alert("儲存成功!");
     });

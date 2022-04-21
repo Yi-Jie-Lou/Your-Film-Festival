@@ -14,7 +14,8 @@ import {
   updateFestivalPost,
   updateNews,
   updatePrice,
-  updateTraffic
+  updateTraffic,
+  updateWorkshop,
 } from "./actions";
 import { firebase } from "./utils/firebase-config";
 import Index from "./pages/Index";
@@ -26,7 +27,8 @@ import Timetable from "./pages/Timetable";
 import Price from "./pages/Price";
 import Workshop from "./pages/Workshop";
 import EditNews from "./pages/EditNews";
-import EditPrice from "./pages/EditPrice"
+import EditPrice from "./pages/EditPrice";
+import EditWorkshop from "./pages/EditWorkshop";
 
 function App() {
   const dispatch = useDispatch();
@@ -54,6 +56,7 @@ function App() {
       dispatch(updateNews(res.news));
       dispatch(updatePrice(res.price));
       dispatch(updateTraffic(res.traffic));
+      dispatch(updateWorkshop(res.workshop));
     };
 
     //判斷登入
@@ -70,7 +73,6 @@ function App() {
               .then((res) => {
                 setupReduxStore(res);
               });
-
           } else {
             firebase.readFestivalData(currentUser.uid).then((res) => {
               setupReduxStore(res);
@@ -85,7 +87,7 @@ function App() {
         }
       });
     };
-///festival/:${item}
+    ///festival/:${item}
     //產生所有 routes
     firebase
       .getAllPubished()
@@ -178,15 +180,16 @@ function App() {
           path="backstage/features"
           element={<Features userUID={userUID} />}
         />
-             <Route
-          path="backstage/news"
-          element={<EditNews userUID={userUID} />}
-        />
-                 <Route
+        <Route path="backstage/news" element={<EditNews userUID={userUID} />} />
+        <Route
           path="backstage/price"
           element={<EditPrice userUID={userUID} />}
         />
 
+        <Route
+          path="backstage/workshop"
+          element={<EditWorkshop userUID={userUID} />}
+        />
         {/*Preview */}
         <Route
           path="preview/timetable"

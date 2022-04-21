@@ -11,6 +11,7 @@ import festivalLogoReducer from "./updateFestivalLogo";
 import newsReducer from "./updateNews"
 import priceReducer from "./updatePrice";
 import trafficReducer from "./updateTraffic";
+import workshopReducer from "./updateWorkshop";
 import { combineReducers } from "redux";
 
 const allReducers = combineReducers({
@@ -26,7 +27,8 @@ const allReducers = combineReducers({
   state: userStateReducer,
   news: newsReducer,
   price: priceReducer,
-  traffic: trafficReducer
+  traffic: trafficReducer,
+  workshop: workshopReducer
 });
 
 export default allReducers;

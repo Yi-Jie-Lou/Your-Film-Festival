@@ -4,7 +4,7 @@ import Textarea from "../components/Textarea";
 import Input from "../components/Input";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { updatePrice } from "../actions";
+import { updatePrice, updateTraffic } from "../actions";
 import { firebase } from "../utils/firebase-config";
 
 function EditPriceContainer() {
@@ -31,9 +31,9 @@ function EditPriceContainer() {
 
     await firebase.uploadImgs(uploadImg);
     firebase.getUploadImgs(uploadImg).then((uploadUrl) => {
-      const newPrice = [...price];
-      newPrice[index].img = uploadUrl;
-      dispatch(updatePrice(newPrice));
+      const newTraffic = [...traffic];
+      newTraffic[index].img = uploadUrl;
+      dispatch(updateTraffic(newTraffic));
     });
   };
 
@@ -71,6 +71,21 @@ function EditPriceContainer() {
     if (newPrice[categoryIndex].tickets.length < 2) return;
     newPrice[categoryIndex].tickets.splice(editIndex, 1);
     dispatch(updatePrice(newPrice));
+  };
+  const addTraffic = () => {
+    const emptyTraffic = {
+      text: "",
+      img: "",
+    };
+    const newTraffic = [...traffic, emptyTraffic];
+    dispatch(updateTraffic(newTraffic));
+  };
+
+  const deleteTraffic = (index) => {
+    const newTraffic = [...traffic];
+    if (newTraffic.length < 2) return;
+    newTraffic.splice(index, 1);
+    dispatch(updateTraffic(newTraffic));
   };
 
   return (
@@ -161,16 +176,26 @@ function EditPriceContainer() {
             </Input>
           </div>
         ))}
-        {traffic.map((item, index) => (
-          <div className="w-96 mt-5 mx-2" key={index}>
+      {traffic.map((item, index) => (
+        <div key={index} className="flex justify-between my-1">
+          <Textarea
+            className="text-area-large w-1/3 mx-0"
+            attribute="text"
+            value={item.text}
+            index={index}
+            onChange={handleChange}
+          >
+            交通資訊
+          </Textarea>
+          <div className="flex flex-col justify-center w-96 mx-8" key={index}>
             <label
-              className="block border-2 h-56 w-full rounded-lg text-center cursor-pointer"
+              className="block border-2 h-64 w-full rounded-lg text-center cursor-pointer"
               htmlFor={`traffic${index}`}
             >
               {item.img ? (
                 <img
-                  className="border-0 object-cover h-56 w-full mr-0"
-                  src={item ? item : ""}
+                  className="border-0 object-cover h-64 w-full mr-0"
+                  src={item ? item.img : ""}
                 />
               ) : (
                 ""
@@ -184,12 +209,30 @@ function EditPriceContainer() {
               />
             </label>
           </div>
-        ))}
-
+          <div className="flex">
+          <button
+            className="button-blue  my-auto"
+            onClick={() => {
+              addTraffic(index);
+            }}
+          >
+            Add
+          </button>
+          <button
+            className="button-red  my-auto"
+            onClick={() => {
+              deleteTraffic(index);
+            }}
+          >
+            Delete
+          </button>
+          </div>
+        </div>
+      ))}
 
       <div className="flex justify-center mt-12 w-full">
         <button
-          onClick={() => firebase.savePrice(userID, price)}
+          onClick={() => firebase.savePricePage(userID, price, traffic)}
           className="button-blue"
         >
           儲存本頁

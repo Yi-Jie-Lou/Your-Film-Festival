@@ -96,3 +96,10 @@ export const updateTraffic = (payload) => {
         payload
     }
 }
+
+export const updateWorkshop = (payload) => {
+    return {
+        type: 'UPDATE_WORKSHOP',
+        payload
+    }
+}
