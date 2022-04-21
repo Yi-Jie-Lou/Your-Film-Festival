@@ -8,6 +8,9 @@ import festivalNameReducer from "./updateFestivalName";
 import festivalPathNameReducer from "./updateFestivalPathName";
 import festivalPostReducer from "./updateFestivalPost";
 import festivalLogoReducer from "./updateFestivalLogo";
+import newsReducer from "./updateNews"
+import priceReducer from "./updatePrice";
+import trafficReducer from "./updateTraffic";
 import { combineReducers } from "redux";
 
 const allReducers = combineReducers({
@@ -21,6 +24,9 @@ const allReducers = combineReducers({
   features: featuresReducer,
   currentTab: featureTabReducer,
   state: userStateReducer,
+  news: newsReducer,
+  price: priceReducer,
+  traffic: trafficReducer
 });
 
 export default allReducers;

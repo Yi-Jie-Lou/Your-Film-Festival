@@ -15,6 +15,25 @@
     .text-area-large {
         @apply flex flex-col justify-around w-full h-64 my-2  mx-auto border-2 rounded-lg border-zinc-900
       }
-
-
+    .checkbox-left{
+      @apply flex   w-full  mx-auto my-2 
+    }
+    .checkbox-right{
+      @apply flex justify-end  w-full  mx-auto my-2 
+    }
+    .button-green{
+      @apply ml-3 py-1  w-28 border-2 rounded-lg  bg-green-200
+    }   
+     .button-red{
+      @apply ml-3  py-1  w-28 border-2 rounded-lg  bg-red-300
+    }
+    .button-blue{
+      @apply ml-3 py-1   w-28 border-2 rounded-lg bg-blue-300
+    }
+    .input-full{
+      @apply flex flex-col justify-around w-full h-16 my-2  mx-auto border-2 rounded-lg border-zinc-900
+    }
+    .input-30{
+      @apply flex flex-col justify-around w-[30%] h-16 my-2  mx-auto border-2 rounded-lg border-zinc-900
+    }
   }

@@ -164,6 +164,7 @@ function FilmContent() {
             attribute="year"
             value={currenFeature.year}
             onChange={handleChange}
+            className="input-full"
           >
             年份 / Year（必填）
           </Input>
@@ -171,6 +172,7 @@ function FilmContent() {
             attribute="nation"
             value={currenFeature.nation}
             onChange={handleChange}
+            className="input-full"
           >
             國家 / Nation（必填）
           </Input>
@@ -178,6 +180,7 @@ function FilmContent() {
             attribute="format"
             value={currenFeature.format}
             onChange={handleChange}
+            className="input-full"
           >
             放映格式 / Format（必填）
           </Input>
@@ -185,6 +188,7 @@ function FilmContent() {
             attribute="color"
             value={currenFeature.color}
             onChange={handleChange}
+            className="input-full"
           >
             色彩 / Color（必填）
           </Input>
@@ -192,6 +196,7 @@ function FilmContent() {
             attribute="language"
             value={currenFeature.language}
             onChange={handleChange}
+            className="input-full"
           >
             語言 / Language（必填）
           </Input>
@@ -199,6 +204,7 @@ function FilmContent() {
             attribute="length"
             value={currenFeature.length}
             onChange={handleChange}
+            className="input-full"
           >
             片長（min）（必填）
           </Input>
@@ -208,6 +214,7 @@ function FilmContent() {
             attribute="title"
             value={currenFeature.title}
             onChange={handleChange}
+            className="input-full"
           >
             片名 /Film Title（必填）
           </Input>

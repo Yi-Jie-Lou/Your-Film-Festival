@@ -104,6 +104,7 @@ function Creator() {
                       value={item.name}
                       index={index}
                       onChange={handleChange}
+                      className="input-full"
                     >
                       創作者姓名 / Name of Creator （必填）
                     </Input>

@@ -10,9 +10,9 @@ function Note() {
   const currentTab = useSelector((state) => state.currentTab);
   const features = useSelector((state) => state.features);
   const [currenFeature, setCurrenFeature] = useState({
-    commercialInfo:"",
-    note:"",
-    important:false
+    commercialInfo: "",
+    note: "",
+    important: false,
   });
 
   const handleChange = (value, key, _) => {
@@ -24,7 +24,6 @@ function Note() {
     dispatch(updateFeatures(newFeatures));
   };
 
-
   useEffect(() => {
     if (!currentTab) return;
     const current = features.filter((item) => item.featureID === currentTab);
@@ -33,30 +32,30 @@ function Note() {
 
   return (
     <div className="flex flex-col  h-96 my-10 mx-auto w-2/5 ">
-
       <Checkbox
         attribute="important"
-        value={currenFeature.important}
+        className="checkbox-left"        
         onChange={handleChange}
         type="checkbox"
+        value={currenFeature.important}
       >
         重點宣傳
       </Checkbox>
 
       <Textarea
-        className="text-area"
         attribute="commercialInfo"
-        value={currenFeature.commercialInfo}
+        className="text-area" 
         onChange={handleChange}
+        value={currenFeature.commercialInfo}
       >
         宣傳短語 / Info（必填）
       </Textarea>
 
       <Textarea
-        className="text-area-large"
         attribute="note"
-        value={currenFeature.note}
+        className="text-area-large"      
         onChange={handleChange}
+        value={currenFeature.note}
       >
         備註 / note
       </Textarea>

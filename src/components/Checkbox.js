@@ -3,7 +3,7 @@ function Checkbox(props) {
     return (
       <label
         htmlFor={props.attribute}
-        className="flex  w-full  mx-auto my-2 "
+        className={props.className}
       >
         <h2 className="ml-2 text-sm "> {props.children}</h2>
         <input

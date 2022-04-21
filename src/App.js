@@ -11,7 +11,10 @@ import {
   updateFestivalName,
   updateFestivalPathName,
   updateFestivalLogo,
-  updateFestivalPost
+  updateFestivalPost,
+  updateNews,
+  updatePrice,
+  updateTraffic
 } from "./actions";
 import { firebase } from "./utils/firebase-config";
 import Index from "./pages/Index";
@@ -23,6 +26,7 @@ import Timetable from "./pages/Timetable";
 import Price from "./pages/Price";
 import Workshop from "./pages/Workshop";
 import EditNews from "./pages/EditNews";
+import EditPrice from "./pages/EditPrice"
 
 function App() {
   const dispatch = useDispatch();
@@ -42,12 +46,14 @@ function App() {
       dispatch(updatePeriod(res.festivalPeriod));
       dispatch(updateLocations(res.locations));
       dispatch(updateFeatures(res.features));
-      // console.log(res.festivalName)
       dispatch(updateFestivalName(res.festivalName));
       dispatch(updateFestivalPathName(res.festivalPathName));
       dispatch(updateFestivalLogo(res.festivalLogo));
       dispatch(updateFestivalPost(res.festivalPost));
       dispatch(switchTab(res.features[0].featureID));
+      dispatch(updateNews(res.news));
+      dispatch(updatePrice(res.price));
+      dispatch(updateTraffic(res.traffic));
     };
 
     //判斷登入
@@ -175,6 +181,10 @@ function App() {
              <Route
           path="backstage/news"
           element={<EditNews userUID={userUID} />}
+        />
+                 <Route
+          path="backstage/price"
+          element={<EditPrice userUID={userUID} />}
         />
 
         {/*Preview */}

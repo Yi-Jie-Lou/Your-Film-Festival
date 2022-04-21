@@ -131,6 +131,22 @@ const firebase = {
     });
   },
 
+  saveNews(UID, data) {
+    return updateDoc(doc(db, `users`, `${UID}`), {
+      news: data,
+    }).then(() => {
+      alert("儲存成功!");
+    });
+  },
+
+  savePrice(UID, data) {
+    return updateDoc(doc(db, `users`, `${UID}`), {
+      price: data,
+    }).then(() => {
+      alert("儲存成功!");
+    });
+  },
+
   uploadImgs(file) {
     if (!file) return;
     return uploadBytes(ref(storage, `${file.name}`), file)

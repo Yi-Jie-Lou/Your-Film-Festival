@@ -75,3 +75,24 @@ export const updateFestivalLogo = (payload) => {
         payload
     }
 }
+
+export const updateNews = (payload) => {
+    return {
+        type: 'UPDATE_NEWS',
+        payload
+    }
+}
+
+export const updatePrice = (payload) => {
+    return {
+        type: 'UPDATE_PRICE',
+        payload
+    }
+}
+
+export const updateTraffic = (payload) => {
+    return {
+        type: 'UPDATE_TRAFFIC',
+        payload
+    }
+}
