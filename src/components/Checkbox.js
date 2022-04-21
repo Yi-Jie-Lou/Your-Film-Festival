@@ -7,7 +7,7 @@ function Checkbox(props) {
       >
         <h2 className="ml-2 text-sm "> {props.children}</h2>
         <input
-          id={props.attribute}
+          id={props.attribute + props.index}
           className="ml-2 mt-1 pl-2 "
           type="checkbox"
           checked = {props.value}

@@ -31,14 +31,14 @@ function EditWorkshopContainer() {
     });
   };
 
-  const previewGuest = async (e, index) => {
+  const previewGuest = async (e, index, guestIndex) => {
     if (!e.target.files[0]) return;
     const uploadImg = e.target.files[0];
 
     await firebase.uploadImgs(uploadImg);
     firebase.getUploadImgs(uploadImg).then((uploadUrl) => {
       const newWorkshop = [...workshop];
-      newWorkshop[index].img = uploadUrl;
+      newWorkshop[index].guest.splice(guestIndex, 1, uploadUrl);
       dispatch(updateWorkshop(newWorkshop));
     });
   };
@@ -60,8 +60,16 @@ function EditWorkshopContainer() {
     dispatch(updateWorkshop(newWorkshop));
   };
 
-  const addGuest = () => {
-    alert("success!");
+  const addGuest = (index) => {
+    const newWorkshop = [...workshop];
+    newWorkshop[index].guest.push("");
+    dispatch(updateWorkshop(newWorkshop));
+  };
+
+  const deleteGuest = (index, guestIndex) => {
+    const newWorkshop = [...workshop];
+    newWorkshop[index].guest.splice(guestIndex, 1);
+    dispatch(updateWorkshop(newWorkshop));
   };
 
   return (
@@ -122,7 +130,7 @@ function EditWorkshopContainer() {
               <h2 className="flex mt-1 text-xl">
                 <span>影人出席</span>
               </h2>
-              <button className="button-blue" onClick={addGuest}>
+              <button className="button-blue" onClick={() => addGuest(index)}>
                 Add
               </button>
             </div>
@@ -130,12 +138,12 @@ function EditWorkshopContainer() {
               {item.guest.map((guest, guestIndex) => (
                 <div key={guestIndex} className="mx-6 my-10">
                   <label
-                    className="block w-48 h-48 rounded-full text-center  border-2 border-zinc-900 cursor-pointer"
+                    className="block w-52 h-52 rounded-full text-center  border-2 border-zinc-900 cursor-pointer"
                     htmlFor={`guest${index}${guestIndex}`}
                   >
                     {guest ? (
                       <img
-                        className="border-0 object-cover  mr-0"
+                        className="border-0 object-cover  w-full h-full rounded-full  mr-0"
                         src={guest ? guest : ""}
                       />
                     ) : (
@@ -148,21 +156,54 @@ function EditWorkshopContainer() {
                       className="hidden border-1 "
                       type="file"
                       accept="image/*"
-                      onChange={(e) => previewGuest(e, index)}
+                      onChange={(e) => previewGuest(e, index, guestIndex)}
                     />
                   </label>
                   <div className="flex justify-center mt-6">
-                  <button
-                    className="button-red mx-0"
-                    onClick={() => {
-                      deleteWorkshop(index);
-                    }}
-                  >
-                    Delete
-                  </button>
+                    <button
+                      className="button-red mx-0"
+                      onClick={() => {
+                        deleteGuest(index, guestIndex);
+                      }}
+                    >
+                      Delete
+                    </button>
                   </div>
                 </div>
               ))}
+            </div>
+            <div className="flex justify-center mx-auto  my-12 w-96 border-2 rounded-2xl bg-blue-100">
+            <p className="flex flex-col justify-center mr-6"><span>表單需求</span></p>
+            <Checkbox
+              attribute="name"
+              className="checkbox-left  w-16 mx-1"
+              onChange={handleChange}
+              type="checkbox"
+              index={index}
+              value={item.name}
+            >
+              姓名
+            </Checkbox>
+            <Checkbox
+              attribute="phone"
+              className="checkbox-left w-16 mx-1"
+              onChange={handleChange}
+              type="checkbox"
+              index={index}
+              value={item.phone}
+            >
+              電話
+            </Checkbox>
+            <Checkbox
+              attribute="email"
+              className="checkbox-left  w-16 mx-1"
+              onChange={handleChange}
+              type="checkbox"
+              index={index}
+              value={item.email}
+            >
+              Email
+            </Checkbox>
             </div>
             <div className="flex justify-end mt-3 mb-9 ">
               <button
