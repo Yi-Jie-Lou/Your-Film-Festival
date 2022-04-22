@@ -5,6 +5,7 @@ import Input from "../components/Input";
 import Checkbox from "../components/Checkbox";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Cropper from "../components/Cropper";
 import { updateWorkshop } from "../actions";
 import { firebase } from "../utils/firebase-config";
 
@@ -35,6 +36,7 @@ function EditWorkshopContainer() {
     if (!e.target.files[0]) return;
     const uploadImg = e.target.files[0];
 
+    console.log(uploadImg)
     await firebase.uploadImgs(uploadImg);
     firebase.getUploadImgs(uploadImg).then((uploadUrl) => {
       const newWorkshop = [...workshop];
@@ -134,23 +136,20 @@ function EditWorkshopContainer() {
                 Add
               </button>
             </div>
-            <div className="flex">
-              {item.guest.map((guest, guestIndex) => (
-                <div key={guestIndex} className="mx-6 my-10">
+            <div className="flex flex-wrap">
+
+
+            {item.guest.map((guest, guestIndex) => (
+
+              guest?  <div key={guestIndex} className="mx-6 my-10">
                   <label
                     className="block w-52 h-52 rounded-full text-center  border-2 border-zinc-900 cursor-pointer"
                     htmlFor={`guest${index}${guestIndex}`}
                   >
-                    {guest ? (
-                      <img
+                    <img
                         className="border-0 object-cover  w-full h-full rounded-full  mr-0"
                         src={guest ? guest : ""}
                       />
-                    ) : (
-                      <p className="flex flex-col justify-center h-full">
-                        <span>上傳圖片</span>
-                      </p>
-                    )}
                     <input
                       id={`guest${index}${guestIndex}`}
                       className="hidden border-1 "
@@ -169,41 +168,46 @@ function EditWorkshopContainer() {
                       Delete
                     </button>
                   </div>
-                </div>
-              ))}
+                </div> :
+
+              <Cropper workshopNum={index} guestNum={guestIndex} />
+            ))}
+  
             </div>
             <div className="flex justify-center mx-auto  my-12 w-96 border-2 rounded-2xl bg-blue-100">
-            <p className="flex flex-col justify-center mr-6"><span>表單需求</span></p>
-            <Checkbox
-              attribute="name"
-              className="checkbox-left  w-16 mx-1"
-              onChange={handleChange}
-              type="checkbox"
-              index={index}
-              value={item.name}
-            >
-              姓名
-            </Checkbox>
-            <Checkbox
-              attribute="phone"
-              className="checkbox-left w-16 mx-1"
-              onChange={handleChange}
-              type="checkbox"
-              index={index}
-              value={item.phone}
-            >
-              電話
-            </Checkbox>
-            <Checkbox
-              attribute="email"
-              className="checkbox-left  w-16 mx-1"
-              onChange={handleChange}
-              type="checkbox"
-              index={index}
-              value={item.email}
-            >
-              Email
-            </Checkbox>
+              <p className="flex flex-col justify-center mr-6">
+                <span>表單需求</span>
+              </p>
+              <Checkbox
+                attribute="name"
+                className="checkbox-left  w-16 mx-1"
+                onChange={handleChange}
+                type="checkbox"
+                index={index}
+                value={item.name}
+              >
+                姓名
+              </Checkbox>
+              <Checkbox
+                attribute="phone"
+                className="checkbox-left w-16 mx-1"
+                onChange={handleChange}
+                type="checkbox"
+                index={index}
+                value={item.phone}
+              >
+                電話
+              </Checkbox>
+              <Checkbox
+                attribute="email"
+                className="checkbox-left  w-16 mx-1"
+                onChange={handleChange}
+                type="checkbox"
+                index={index}
+                value={item.email}
+              >
+                Email
+              </Checkbox>
             </div>
             <div className="flex justify-end mt-3 mb-9 ">
               <button

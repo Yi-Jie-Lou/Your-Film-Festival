@@ -160,9 +160,21 @@ const firebase = {
     return uploadBytes(ref(storage, `${file.name}`), file)
   },
 
+  uploadCropImgs(file) {
+    if (!file) return;
+    return uploadBytes(ref(storage, `crop/${file.name}`), file)
+  },
+
   getUploadImgs(file){
     if(!file) return;
     return getDownloadURL(ref(storage, `${file.name}`)).then(res =>{
+      return res
+    })
+  },
+
+  getUploadCropImgs(file){
+    if(!file) return;
+    return getDownloadURL(ref(storage, `crop/${file.name}`)).then(res =>{
       return res
     })
   },
