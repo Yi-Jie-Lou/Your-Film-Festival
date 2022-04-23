@@ -29,6 +29,7 @@ import Workshop from "./pages/Workshop";
 import EditNews from "./pages/EditNews";
 import EditPrice from "./pages/EditPrice";
 import EditWorkshop from "./pages/EditWorkshop";
+import FeatureInformation from "./pages/FeatureInformation";
 
 function App() {
   const dispatch = useDispatch();
@@ -210,6 +211,14 @@ function App() {
         <Route
           path="preview/workshop"
           element={<Workshop userUID={userUID} userState={"preview"} />}
+        />
+                <Route
+          path="preview/feature-information"
+          element={<FeatureInformation userUID={userUID} userState={"preview"} />}
+        />
+                   <Route
+          path="preview/feature-information/:id"
+          element={<FeatureInformation userUID={userUID} userState={"preview"} />}
         />
       </Routes>
     </BrowserRouter>
