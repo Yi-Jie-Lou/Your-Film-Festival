@@ -194,6 +194,7 @@ const firebase = {
   },
 
   initDataBase(UID) {
+    const newID =  uniqid()
     return setDoc(doc(db, "users", `${UID}`), {
       festivalEnd: "",
       festivalLogo: "",
@@ -205,7 +206,7 @@ const firebase = {
       locations: [],
       features: [
         {
-          featureID: uniqid(),
+          featureID: newID,
           color:"",
           commercialInfo: "",
           format:"",
@@ -230,6 +231,7 @@ const firebase = {
               name: "",
               timetableID: "",
               workshop: false,
+              featureID: newID
             },
           ],
           featureImgs: ["", "", ""],

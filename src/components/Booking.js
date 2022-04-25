@@ -4,16 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateFeatures } from "../actions";
 import "../css/TimePicker.css";
 
-const emptyTimetable = {
-  date: "default",
-  start: "10:00",
-  end: "12:00",
-  location: "default",
-  opening: false,
-  closing: false,
-  name: "",
-  workshop: false,
-};
+
 
 function Booking() {
   const dispatch = useDispatch();
@@ -24,6 +15,19 @@ function Booking() {
   const [timetable, setTimetable] = useState([]);
 
   const addTimetable = () => {
+
+    const emptyTimetable = {
+      date: "default",
+      start: "10:00",
+      end: "12:00",
+      location: "default",
+      opening: false,
+      closing: false,
+      name:"",
+      workshop: false,
+      featureID: currentTab
+    };
+
     const newFeatures = [...features];
     const editIndex = newFeatures.findIndex(
       (item) => item.featureID === currentTab
@@ -140,7 +144,7 @@ function Booking() {
                 <button
                   className="mx-3 w-28 border-2 rounded-lg bg-blue-300"
                   onClick={() => {
-                    check(index, item.timetableID);
+                    check(index, item.img);
                   }}
                 >
                   Check

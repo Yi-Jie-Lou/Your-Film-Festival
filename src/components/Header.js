@@ -99,7 +99,7 @@ function Header(props) {
                   新增工作坊
                 </div>
               </NavLink>
-              <NavLink to="/preview/timetable">
+              <NavLink to="/preview">
                 <div className="w-40 py-2 border-2 rounded text-center text-1xl">
                   Preview
                 </div>

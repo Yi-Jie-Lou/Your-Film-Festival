@@ -197,6 +197,10 @@ function App() {
           element={<Timetable userUID={userUID} userState={"preview"} />}
         />
         <Route
+          path="preview/timetable/:id"
+          element={<Timetable userUID={userUID} userState={"preview"} />}
+        />
+        <Route
           path="preview/news"
           element={<News userUID={userUID} userState={"preview"} />}
         />
@@ -212,13 +216,17 @@ function App() {
           path="preview/workshop"
           element={<Workshop userUID={userUID} userState={"preview"} />}
         />
-                <Route
+        <Route
           path="preview/feature-information"
-          element={<FeatureInformation userUID={userUID} userState={"preview"} />}
+          element={
+            <FeatureInformation userUID={userUID} userState={"preview"} />
+          }
         />
-                   <Route
+        <Route
           path="preview/feature-information/:id"
-          element={<FeatureInformation userUID={userUID} userState={"preview"} />}
+          element={
+            <FeatureInformation userUID={userUID} userState={"preview"} />
+          }
         />
       </Routes>
     </BrowserRouter>

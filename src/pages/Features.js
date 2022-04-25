@@ -18,8 +18,9 @@ function Features() {
   const userID = useSelector((state) => state.userID);
 
   const addFeature = () => {
+    const newID = uniqid() 
     const emptyFeature = {
-      featureID: uniqid(),
+      featureID: newID,
       timetable: [
         {
           date: "",
@@ -29,8 +30,9 @@ function Features() {
           opening: false,
           closing: false,
           name: "",
-          timetableID: "",
+          img: "",
           workshop: false,
+          featureID: newID
         },
       ],
       creators: [{ img: "", info: "", name: "" }],
@@ -63,11 +65,26 @@ function Features() {
     dispatch(switchTab(newFeatures[0].featureID));
   };
 
+  const saveFeatures = () =>{
+    const newFeatures = [...features]
+    newFeatures.forEach(film =>{
+      film.timetable.forEach(timetable =>{
+        timetable.name = film.title
+        timetable.featureID = film.featureID
+        timetable.img = film.featureImgs[2]
+      })
+    })
+    dispatch(updateFeatures(newFeatures));
+    firebase.saveFeatures(userID, features)
+  }
+
+
+
   return (
     <div className="wrap">
       <Header userState={"editing"} />
 
-      <div className="flex justify-center mt-32">
+      <div className="flex flex-wrap justify-center mt-32 ">
         {features.map((item, index) => (
           <button
             onClick={() => {
@@ -82,7 +99,7 @@ function Features() {
           </button>
         ))}
         <button
-          className="absolute right-40 mx-3  w-28 border-2 rounded-lg bg-blue-300"
+          className="absolute right-10 mx-3  w-28 border-2 rounded-lg bg-blue-300"
           onClick={addFeature}
         >
           增加影片
@@ -100,7 +117,7 @@ function Features() {
           刪除影片
         </button>
         <button
-          onClick={() => firebase.saveFeatures(userID, features)}
+          onClick={saveFeatures}
           className="w-28 p-2 mx-2 border-2 rounded-lg bg-blue-300"
         >
           儲存本頁

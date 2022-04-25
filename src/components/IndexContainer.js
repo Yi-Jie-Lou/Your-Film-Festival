@@ -93,7 +93,7 @@ function FeatureContainer() {
                 key={index}
                 className="relative my-6 mx-3 w-600 h-96  cursor-pointer"
               >
-                <div className="absolute flex flex-col justify-center h-full   text-white  opacity-0 hover:opacity-100 backdrop-blur-sm  ">
+                <div className="absolute flex flex-col justify-center h-full  w-full  text-white  opacity-0 hover:opacity-100 backdrop-blur-sm  ">
                   <h4 className="w-3/4 mx-auto text-shadow text-xl ">
                     {item.commercialInfo}
                   </h4>
@@ -121,7 +121,7 @@ function FeatureContainer() {
                 key={index}
                 className="relative mx-3 w-72 h-72  cursor-pointer"
               >
-                <div className="absolute flex flex-col justify-center h-full   text-white  opacity-0 hover:opacity-100 backdrop-blur-sm  ">
+                <div className="absolute flex flex-col justify-center h-full w-full  text-white  opacity-0 hover:opacity-100 backdrop-blur-sm  ">
                   <h4 className="w-3/4 mx-auto text-shadow text-xl ">
                     {item.title}
                   </h4>
