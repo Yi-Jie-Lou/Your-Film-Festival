@@ -14,7 +14,7 @@ function FilmContent() {
   const features = useSelector((state) => state.features);
   const [featureImgs, setFeatureImgs] = useState([]);
   const [progress, setProgress] = useState(0);
-  const [currenFeature, setCurrenFeature] = useState({
+  const [currentFeature, setCurrentFeature] = useState({
     year: "",
     nation: "",
     color: "",
@@ -93,16 +93,16 @@ function FilmContent() {
     if (!currentTab) return;
     const current = features.filter((item) => item.featureID === currentTab);
     setFeatureImgs(current[0].featureImgs);
-    setCurrenFeature(current[0]);
+    setCurrentFeature(current[0]);
   }, [currentTab, features]);
 
   return (
     <>
       <div className="flex flex-wrap justify-center w-10/12 mb-8 mt-16   mx-auto ">
-        {currenFeature.trailer ? (
+        {currentFeature.trailer ? (
           <video
             className="border-2   "
-            src={currenFeature.trailer}
+            src={currentFeature.trailer}
             type="video/mp4"
             controls
           />
@@ -162,7 +162,7 @@ function FilmContent() {
         <div className="flex flex-col w-[30%]">
           <Input
             attribute="year"
-            value={currenFeature.year}
+            value={currentFeature.year}
             onChange={handleChange}
             className="input-full"
           >
@@ -170,7 +170,7 @@ function FilmContent() {
           </Input>
           <Input
             attribute="nation"
-            value={currenFeature.nation}
+            value={currentFeature.nation}
             onChange={handleChange}
             className="input-full"
           >
@@ -178,7 +178,7 @@ function FilmContent() {
           </Input>
           <Input
             attribute="format"
-            value={currenFeature.format}
+            value={currentFeature.format}
             onChange={handleChange}
             className="input-full"
           >
@@ -186,7 +186,7 @@ function FilmContent() {
           </Input>
           <Input
             attribute="color"
-            value={currenFeature.color}
+            value={currentFeature.color}
             onChange={handleChange}
             className="input-full"
           >
@@ -194,7 +194,7 @@ function FilmContent() {
           </Input>
           <Input
             attribute="language"
-            value={currenFeature.language}
+            value={currentFeature.language}
             onChange={handleChange}
             className="input-full"
           >
@@ -202,7 +202,7 @@ function FilmContent() {
           </Input>
           <Input
             attribute="length"
-            value={currenFeature.length}
+            value={currentFeature.length}
             onChange={handleChange}
             className="input-full"
           >
@@ -212,7 +212,7 @@ function FilmContent() {
         <div className="flex flex-col w-[30%] ">
           <Input
             attribute="title"
-            value={currenFeature.title}
+            value={currentFeature.title}
             onChange={handleChange}
             className="input-full"
           >
@@ -222,7 +222,7 @@ function FilmContent() {
           <Textarea
             className="text-area"
             attribute="shortInfo"
-            value={currenFeature.shortInfo}
+            value={currentFeature.shortInfo}
             onChange={handleChange}
           >
             短介紹 / Summary
@@ -233,7 +233,7 @@ function FilmContent() {
           <Textarea
             className="text-area-large"
             attribute="longInfo"
-            value={currenFeature.longInfo}
+            value={currentFeature.longInfo}
             onChange={handleChange}
           >
             長介紹 / Info
