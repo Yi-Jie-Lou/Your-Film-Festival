@@ -7,6 +7,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { updateNews } from "../actions";
 import { firebase } from "../utils/firebase-config";
+import uniqid from "uniqid";
 
 function EditNewsContainer() {
   const dispatch = useDispatch();
@@ -35,10 +36,11 @@ function EditNewsContainer() {
     const emptyNews = {
       title: "",
       img: "",
-      important: "",
+      important: false,
       content: "",
+      newsID:uniqid()
     };
-    const newNews = [...news, emptyNews];
+    const newNews = [ emptyNews, ...news];
     dispatch(updateNews(newNews));
   };
 

@@ -39,6 +39,9 @@
     .vertical{
      @apply flex flex-col justify-center
     }
+    .blur-hover{
+      @apply text-white  h-full w-full  opacity-0 hover:opacity-100 backdrop-blur-sm  
+    }
   
   }
 
@@ -52,18 +55,38 @@
     .h-600 {
       height: 600px;
     }
-
+    .h-500 {
+      height: 500px;
+    }
+    .h-516 {
+      height: 516px;
+    }
+    .h-250 {
+      height: 250px;
+    }
     .w-1440 {
       width: 1440px
+    }
+    .w-900 {
+      width: 900px
+    }
+    .w-800 {
+      width: 800px
+    }
+    .w-700 {
+      width: 700px
     }
     .w-600 {
       width: 600px
     }
+    .w-480 {
+      width: 466px
+    }
     .w-400 {
       width: 400px
     }
-    .w-250 {
-      width: 250px
+    .w-300 {
+      width: 300px
     }
     .max-w-1440 {
       max-width: 1440px;

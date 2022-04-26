@@ -30,6 +30,7 @@ import EditNews from "./pages/EditNews";
 import EditPrice from "./pages/EditPrice";
 import EditWorkshop from "./pages/EditWorkshop";
 import FeatureInformation from "./pages/FeatureInformation";
+import NewsInformation from "./pages/NewsInformation";
 
 function App() {
   const dispatch = useDispatch();
@@ -203,6 +204,10 @@ function App() {
         <Route
           path="preview/news"
           element={<News userUID={userUID} userState={"preview"} />}
+        />
+            <Route
+          path="preview/news/:id"
+          element={<NewsInformation userUID={userUID} userState={"preview"} />}
         />
         <Route
           path="preview/price"
