@@ -8,6 +8,7 @@ import Footer from "../components/Footer";
 import Cropper from "../components/Cropper";
 import { updateWorkshop } from "../actions";
 import { firebase } from "../utils/firebase-config";
+import uniqid from "uniqid";
 
 function EditWorkshopContainer() {
   const dispatch = useDispatch();
@@ -51,6 +52,7 @@ function EditWorkshopContainer() {
       img: "",
       text: "",
       guest: [""],
+      workshopID: uniqid()
     };
     const newWorkshop = [...workshop, emptyWorkshop];
     dispatch(updateWorkshop(newWorkshop));
@@ -249,6 +251,6 @@ function EditWorkshop() {
       <Footer />
     </>
   );
-}
+} 
 
 export default EditWorkshop;

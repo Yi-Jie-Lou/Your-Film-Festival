@@ -31,6 +31,7 @@ import EditPrice from "./pages/EditPrice";
 import EditWorkshop from "./pages/EditWorkshop";
 import FeatureInformation from "./pages/FeatureInformation";
 import NewsInformation from "./pages/NewsInformation";
+import WorkshopInformation from "./pages/WorkshopInformation";
 
 function App() {
   const dispatch = useDispatch();
@@ -205,7 +206,7 @@ function App() {
           path="preview/news"
           element={<News userUID={userUID} userState={"preview"} />}
         />
-            <Route
+        <Route
           path="preview/news/:id"
           element={<NewsInformation userUID={userUID} userState={"preview"} />}
         />
@@ -222,11 +223,18 @@ function App() {
           element={<Workshop userUID={userUID} userState={"preview"} />}
         />
         <Route
+          path="preview/workshop/:id"
+          element={
+            <WorkshopInformation userUID={userUID} userState={"preview"} />
+          }
+        />
+        <Route
           path="preview/feature-information"
           element={
             <FeatureInformation userUID={userUID} userState={"preview"} />
           }
         />
+
         <Route
           path="preview/feature-information/:id"
           element={
