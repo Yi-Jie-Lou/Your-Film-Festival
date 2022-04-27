@@ -37,6 +37,26 @@ function WorkshopContainer() {
     setIsRobot(false);
   }
 
+  const submitEmail = async (e) => {
+    e.preventDefault();
+    console.log( state );
+    const response = await fetch("http://localhost:3001/send", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(state),
+    })
+    .then( (res) => {
+      console.log(res);
+      if (res.status === "success") {
+        alert("Message Sent");
+      } else if (res.status === "fail") {
+        alert("Message failed to send");
+      }
+    })
+  };
+
   useEffect(() => {
     if (!workshop) return;
     const currentOne = workshop.filter(
@@ -115,6 +135,7 @@ function WorkshopContainer() {
         />
         <div className="mx-auto">
         <button
+        onClick={submitEmail}
           className={` ${
             isRobot
               ? "pointer-events-none button-gray  "

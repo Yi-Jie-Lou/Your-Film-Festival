@@ -16,18 +16,18 @@ import { getAuth } from "firebase/auth";
 import uniqid from "uniqid";
 
 const firebaseConfig = {
-  // apiKey: "AIzaSyAXxoQUDtYZTpNVNCmeZCQ97Co5rFrN6ic",
-  // authDomain: "your-film-festival-d2cd4.firebaseapp.com",
-  // projectId: "your-film-festival-d2cd4",
-  // storageBucket: "your-film-festival-d2cd4.appspot.com",
-  // messagingSenderId: "949992507014",
-  // appId: "1:949992507014:web:7c9e03ee195d4929613307",
-  apiKey: "AIzaSyDz4pHOLWAbEXPB5Xa2Ks-czqAMemfHOLI",
-  authDomain: "project2-draft.firebaseapp.com",
-  projectId: "project2-draft",
-  storageBucket: "project2-draft.appspot.com",
-  messagingSenderId: "98376440747",
-  appId: "1:98376440747:web:159654289e8cda601890ee",
+  apiKey: "AIzaSyAXxoQUDtYZTpNVNCmeZCQ97Co5rFrN6ic",
+  authDomain: "your-film-festival-d2cd4.firebaseapp.com",
+  projectId: "your-film-festival-d2cd4",
+  storageBucket: "your-film-festival-d2cd4.appspot.com",
+  messagingSenderId: "949992507014",
+  appId: "1:949992507014:web:7c9e03ee195d4929613307",
+  // apiKey: "AIzaSyDz4pHOLWAbEXPB5Xa2Ks-czqAMemfHOLI",
+  // authDomain: "project2-draft.firebaseapp.com",
+  // projectId: "project2-draft",
+  // storageBucket: "project2-draft.appspot.com",
+  // messagingSenderId: "98376440747",
+  // appId: "1:98376440747:web:159654289e8cda601890ee",
 };
 
 const app = initializeApp(firebaseConfig);

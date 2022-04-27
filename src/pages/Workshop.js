@@ -12,7 +12,7 @@ function WorkshopContainer() {
 
   return (
     <div className="flex flex-wrap justify-center w-full   mt-32 mx-auto rounded-lg">
-      {workshop.map((item, index) => (
+      {workshop && workshop.map((item, index) => (
         <NavLink key={index} to={`/preview/workshop/${item.workshopID}`}>
           <div className="relative  w-full mb-8 drop-shadow-2xl  cursor-pointer ">
             <div className="absolute m-10 bottom-0  text-white text-shadow text-2xl tracking-wider">

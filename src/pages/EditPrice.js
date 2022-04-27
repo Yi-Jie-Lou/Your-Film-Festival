@@ -210,14 +210,7 @@ function EditPriceContainer() {
             </label>
           </div>
           <div className="flex">
-          <button
-            className="button-blue  my-auto"
-            onClick={() => {
-              addTraffic(index);
-            }}
-          >
-            Add
-          </button>
+        
           <button
             className="button-red  my-auto"
             onClick={() => {
@@ -229,6 +222,14 @@ function EditPriceContainer() {
           </div>
         </div>
       ))}
+      <button
+            className="button-blue  my-auto"
+            onClick={() => {
+              addTraffic();
+            }}
+          >
+            Add
+          </button>
 
       <div className="flex justify-center mt-12 w-full">
         <button
