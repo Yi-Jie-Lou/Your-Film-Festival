@@ -12,6 +12,9 @@ import newsReducer from "./updateNews"
 import priceReducer from "./updatePrice";
 import trafficReducer from "./updateTraffic";
 import workshopReducer from "./updateWorkshop";
+import sponsorReducer from "./updateSponsor";
+import primaryColorReducer from "./updatePrimaryColor"
+import secondaryColorReducer from "./updateSecondaryColor"
 import { combineReducers } from "redux";
 
 const allReducers = combineReducers({
@@ -28,7 +31,10 @@ const allReducers = combineReducers({
   news: newsReducer,
   price: priceReducer,
   traffic: trafficReducer,
-  workshop: workshopReducer
+  workshop: workshopReducer,
+  sponsor: sponsorReducer,
+  primaryColor: primaryColorReducer,
+  secondaryColor: secondaryColorReducer
 });
 
 export default allReducers;

@@ -16,6 +16,9 @@ import {
   updatePrice,
   updateTraffic,
   updateWorkshop,
+  updateSponsor,
+  updatePrimaryColor,
+  updateSecondaryColor
 } from "./actions";
 import { firebase } from "./utils/firebase-config";
 import Index from "./pages/Index";
@@ -32,6 +35,7 @@ import EditWorkshop from "./pages/EditWorkshop";
 import FeatureInformation from "./pages/FeatureInformation";
 import NewsInformation from "./pages/NewsInformation";
 import WorkshopInformation from "./pages/WorkshopInformation";
+import EditFooterAndColor from "./pages/EditFooterAndColor"
 
 function App() {
   const dispatch = useDispatch();
@@ -60,6 +64,9 @@ function App() {
       dispatch(updatePrice(res.price));
       dispatch(updateTraffic(res.traffic));
       dispatch(updateWorkshop(res.workshop));
+      dispatch(updateSponsor(res.sponsor));
+      dispatch(updatePrimaryColor(res.primaryColor));
+      dispatch(updateSecondaryColor(res.secondaryColor));
     };
 
     //判斷登入
@@ -192,6 +199,10 @@ function App() {
         <Route
           path="backstage/workshop"
           element={<EditWorkshop userUID={userUID} />}
+        />
+             <Route
+          path="backstage/edit-footer-color"
+          element={<EditFooterAndColor userUID={userUID} />}
         />
         {/*Preview */}
         <Route

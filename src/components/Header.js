@@ -99,6 +99,11 @@ function Header(props) {
                   新增工作坊
                 </div>
               </NavLink>
+              <NavLink to="/backstage/edit-footer-color">
+                <div className="w-28 py-2 text-center leading-7 text-1xl">
+                 自訂顏色
+                </div>
+              </NavLink>
               <NavLink to="/preview">
                 <div className="w-40 py-2 border-2 rounded text-center text-1xl">
                   Preview

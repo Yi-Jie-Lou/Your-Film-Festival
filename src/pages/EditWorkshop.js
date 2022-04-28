@@ -234,7 +234,7 @@ function EditWorkshopContainer() {
       <div className="flex justify-center mt-12 w-full">
         <button
           onClick={() => firebase.saveWorkshop(userID, workshop)}
-          className="button-blue"
+          className="button-blue my-0"
         >
           儲存本頁
         </button>

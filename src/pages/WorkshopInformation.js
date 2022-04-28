@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import Input from "../components/Input";
 import "react-image-gallery/styles/css/image-gallery.css";
 import ReCAPTCHA from "react-google-recaptcha";
+import { Joyride } from "../components/JoyRide";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -27,6 +28,9 @@ function WorkshopContainer() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [currentWorkshop, setCurrentWorkshop] = useState("");
   const [isRobot, setIsRobot] = useState(true);
+  const [run, setRun] = useState(true);
+  const [stepIndexState, setStepIndexState] = useState(0);
+   
 
   const handleChange = (value, key) => {
     dispatch({ type: key, payload: value });
@@ -39,22 +43,21 @@ function WorkshopContainer() {
 
   const submitEmail = async (e) => {
     e.preventDefault();
-    console.log( state );
+    console.log(state);
     const response = await fetch("http://localhost:3001/send", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
       body: JSON.stringify(state),
-    })
-    .then( (res) => {
+    }).then((res) => {
       console.log(res);
       if (res.status === "success") {
         alert("Message Sent");
       } else if (res.status === "fail") {
         alert("Message failed to send");
       }
-    })
+    });
   };
 
   useEffect(() => {
@@ -67,11 +70,18 @@ function WorkshopContainer() {
 
   return (
     <>
+   
       <img className="w-full mt-24" src={currentWorkshop?.img} />
       <h1 className="w-11/12 mx-auto mt-16 pb-8 mb-8 border-b-2 border-stone-700 text-center text-2xl tracking-wider">
         {currentWorkshop?.title}
       </h1>
       <div className="mx-auto my-12 w-11/12">
+      <Joyride
+        run={run}
+        setRun={setRun}
+        stepIndexState={stepIndexState}
+        setStepIndexState={setStepIndexState}
+      />
         {currentWorkshop
           ? currentWorkshop.text.split("\n").map((line, index) => (
               <div key={index} className="my-1">
@@ -82,7 +92,8 @@ function WorkshopContainer() {
               </div>
             ))
           : ""}
-        <h1 className="w-full mx-auto mt-16 mb-8  text-2xl tracking-wider">
+   
+        <h1 id="H1" className=" w-full mx-auto mt-16 mb-8  text-2xl tracking-wider">
           影人出席
         </h1>
         <div className="flex flex-wrap">
@@ -95,7 +106,7 @@ function WorkshopContainer() {
               />
             ))}
         </div>
-        <h1 className="w-full mx-auto mt-16 mb-8 text-center  text-xl tracking-wider">
+        <h1 className=" w-full mx-auto mt-16 mb-8 text-center  text-xl tracking-wider">
           欲參加工作坊請填妥以下資訊：
         </h1>
         <Input
@@ -127,24 +138,23 @@ function WorkshopContainer() {
         </Input>
 
         <div className="flex flex-col  justify-center">
-
-        <ReCAPTCHA
-        className="mx-auto my-4"
-          sitekey="6Lc9nKAfAAAAAExmB7T7nPKicCC88JPDJBes3Nhi"
-          onChange={onChange}
-        />
-        <div className="mx-auto">
-        <button
-        onClick={submitEmail}
-          className={` ${
-            isRobot
-              ? "pointer-events-none button-gray  "
-              : " button-blue cursor-pointer"
-          }  `}
-        >
-          送出
-        </button>
-        </div>
+          <ReCAPTCHA
+            className="mx-auto my-4"
+            sitekey="6Lc9nKAfAAAAAExmB7T7nPKicCC88JPDJBes3Nhi"
+            onChange={onChange}
+          />
+          <div className="mx-auto">
+            <button
+              onClick={submitEmail}
+              className={` ${
+                isRobot
+                  ? "pointer-events-none button-gray  "
+                  : " button-blue cursor-pointer"
+              }  `}
+            >
+              送出
+            </button>
+          </div>
         </div>
       </div>
     </>

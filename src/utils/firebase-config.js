@@ -145,6 +145,15 @@ const firebase = {
       alert("儲存成功!");
     });
   },
+  saveSponsor(UID, sponsor, primaryColor, secondaryColor) {
+    return updateDoc(doc(db, `users`, `${UID}`), {
+      sponsor,
+      primaryColor,
+      secondaryColor
+    }).then(() => {
+      alert("儲存成功!");
+    });
+  },
 
   savePricePage(UID, price, traffic) {
     return updateDoc(doc(db, `users`, `${UID}`), {

@@ -103,3 +103,25 @@ export const updateWorkshop = (payload) => {
         payload
     }
 }
+
+export const updateSponsor = (payload) => {
+    return {
+        type: 'UPDATE_SPONSOR',
+        payload
+    }
+}
+
+export const updatePrimaryColor = (payload) => {
+    return {
+        type: 'UPDATE_PRIMARY_COLOR',
+        payload
+    }
+}
+
+
+export const updateSecondaryColor = (payload) => {
+    return {
+        type: 'UPDATE_SECONDARY_COLOR',
+        payload
+    }
+}
