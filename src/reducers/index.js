@@ -15,6 +15,7 @@ import workshopReducer from "./updateWorkshop";
 import sponsorReducer from "./updateSponsor";
 import primaryColorReducer from "./updatePrimaryColor"
 import secondaryColorReducer from "./updateSecondaryColor"
+import guideReducer from "./isGuide";
 import { combineReducers } from "redux";
 
 const allReducers = combineReducers({
@@ -34,7 +35,8 @@ const allReducers = combineReducers({
   workshop: workshopReducer,
   sponsor: sponsorReducer,
   primaryColor: primaryColorReducer,
-  secondaryColor: secondaryColorReducer
+  secondaryColor: secondaryColorReducer,
+  isGuide: guideReducer
 });
 
 export default allReducers;

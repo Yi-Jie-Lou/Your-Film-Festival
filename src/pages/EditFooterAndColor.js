@@ -17,15 +17,13 @@ function EditFooterContent() {
   const secondaryColor = useSelector((state) => state.secondaryColor);
   const sponsor = useSelector((state) => state.sponsor);
   const userID = useSelector((state) => state.userID);
-  const [primaryColorRender, setPrimaryColorRender] = useState("")
-  const [secondaryColorRender, setSecondaryColorRender] = useState("")
 
   const handleChange = (value, _, index) => {
     const newSponsor = { ...sponsor };
     newSponsor.text[index] = value;
     dispatch(updateSponsor(newSponsor));
   };
-  const handleColorCode = (e,key) => {
+  const handleColorCode = (e, key) => {
     switch (key) {
       case "primary":
         return dispatch(updatePrimaryColor(e.target.value));
@@ -65,15 +63,6 @@ function EditFooterContent() {
     dispatch(updateSponsor(newSponsor));
   };
 
-  useEffect(()=>{
-    const tailwindText = `bg-[${primaryColor}]`
-    setPrimaryColorRender(tailwindText)
-  },[primaryColor])
-
-  useEffect(()=>{
-    const tailwindText = `bg-[${secondaryColor}]`
-    setSecondaryColorRender(tailwindText)
-  },[secondaryColor])
 
   return (
     <>
@@ -178,14 +167,15 @@ function EditFooterContent() {
               <span>您選擇的主色為：</span>
             </h1>
             <input
-            value={primaryColor}
+              value={primaryColor}
               onChange={(e) => {
-                handleColorCode(e,"primary");
+                handleColorCode(e, "primary");
               }}
               className=" w-36 h-10 pl-3 mt-1 outline-none border-2 border-gray-400 rounded-xl "
             ></input>
             <div
-              className={` h-12 w-24 mx-4 rounded-lg ${primaryColorRender} `}
+              style={{ background: primaryColor }}
+              className={` h-12 w-24 mx-4 rounded-lg  `}
             ></div>
           </div>
           <div className="flex justify-center my-4">
@@ -193,14 +183,15 @@ function EditFooterContent() {
               <span>您選擇的輔色為：</span>
             </h1>
             <input
-            value={secondaryColor}
+              value={secondaryColor}
               onChange={(e) => {
-                handleColorCode(e,"secondary");
+                handleColorCode(e, "secondary");
               }}
               className=" w-36 h-10 pl-3 mt-1 outline-none border-2 border-gray-400 rounded-xl "
             ></input>
             <div
-              className={` h-12 w-24 mx-4 rounded-lg ${secondaryColorRender} `}
+              style={{ background: secondaryColor }}
+              className={` h-12 w-24 mx-4 rounded-lg `}
             ></div>
           </div>
         </div>

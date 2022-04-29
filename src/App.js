@@ -1,6 +1,6 @@
 import { useEffect, useState, ReactFragment } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route, BrowserRouter, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   userLogin,
@@ -18,7 +18,8 @@ import {
   updateWorkshop,
   updateSponsor,
   updatePrimaryColor,
-  updateSecondaryColor
+  updateSecondaryColor,
+  isGuide
 } from "./actions";
 import { firebase } from "./utils/firebase-config";
 import Index from "./pages/Index";
@@ -35,7 +36,7 @@ import EditWorkshop from "./pages/EditWorkshop";
 import FeatureInformation from "./pages/FeatureInformation";
 import NewsInformation from "./pages/NewsInformation";
 import WorkshopInformation from "./pages/WorkshopInformation";
-import EditFooterAndColor from "./pages/EditFooterAndColor"
+import EditFooterAndColor from "./pages/EditFooterAndColor";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,11 +44,14 @@ function App() {
   const [userUID, setUserUID] = useState("");
   const [login, setLogin] = useState("");
   const [allPubished, setAllPubished] = useState([]);
+  const currentText = useParams();
 
   useEffect(() => {
     const path = window.location.pathname;
     const templatePath = ["/", "/news", "/timetable", "/workshop", "/price"];
     const currentFestival = path.split("festival=")[1];
+
+    console.log(currentText);
 
     const setupReduxStore = (res) => {
       console.log("keep mind!");
@@ -67,6 +71,7 @@ function App() {
       dispatch(updateSponsor(res.sponsor));
       dispatch(updatePrimaryColor(res.primaryColor));
       dispatch(updateSecondaryColor(res.secondaryColor));
+      dispatch(isGuide(res.isGuide))
     };
 
     //判斷登入
@@ -79,7 +84,7 @@ function App() {
           setLogin("login");
           if (templatePath.some((item) => item === path)) {
             firebase
-              .readFestivalData("r6KCeon7KBan1fSf1WWa3q3piSa2")
+              .readFestivalData("BI9JlWinAzS8xdOnl1BrtUKPY1A3")
               .then((res) => {
                 setupReduxStore(res);
               });
@@ -90,15 +95,14 @@ function App() {
           }
         } else {
           firebase
-            .readFestivalData("r6KCeon7KBan1fSf1WWa3q3piSa2")
+            .readFestivalData("BI9JlWinAzS8xdOnl1BrtUKPY1A3")
             .then((res) => {
               setupReduxStore(res);
             });
         }
       });
     };
-    ///festival/:${item}
-    //產生所有 routes
+
     firebase
       .getAllPubished()
       .then((festivalList) => {
@@ -137,7 +141,6 @@ function App() {
         return festivalList;
       })
       .then((festivalList) => {
-        // console.log(festivalList)
         if (festivalList.some((item) => item === currentFestival)) {
           firebase.readPublishedFestivalData(currentFestival).then((res) => {
             setupReduxStore(res);
@@ -146,10 +149,6 @@ function App() {
           monitorAuthState();
         }
       });
-
-    //判斷狀態
-
-    // console.log(allPubishTitles.some( item => item === readFestival) )
   }, []);
 
   return (
@@ -157,12 +156,16 @@ function App() {
       <Routes>
         {allPubished}
         <Route path="login" element={<Login />} />
-        {/*Template 是有按鈕帶有userState的 */}
+
+        {/*Template*/}
         <Route
           path="/"
           element={<Index userUID={userUID} userState={login} />}
         />
-
+        <Route
+          path="/:id"
+          element={<Index userUID={userUID} userState={login} />}
+        />
         <Route
           path="news"
           element={<News userUID={userUID} userState={login} />}
@@ -173,17 +176,13 @@ function App() {
         />
         <Route
           path="timetable"
-          element={
-            <Timetable
-              userUID={userUID}
-              /*這裡應該是影展名字*/ userState={login}
-            />
-          }
+          element={<Timetable userUID={userUID} userState={login} />}
         />
         <Route
           path="workshop"
           element={<Workshop userUID={userUID} userState={login} />}
         />
+
         {/*backstage */}
         <Route path="backstage" element={<Backstage userUID={userUID} />} />
         <Route
@@ -195,15 +194,15 @@ function App() {
           path="backstage/price"
           element={<EditPrice userUID={userUID} />}
         />
-
         <Route
           path="backstage/workshop"
           element={<EditWorkshop userUID={userUID} />}
         />
-             <Route
+        <Route
           path="backstage/edit-footer-color"
           element={<EditFooterAndColor userUID={userUID} />}
         />
+
         {/*Preview */}
         <Route
           path="preview/timetable"
@@ -245,7 +244,6 @@ function App() {
             <FeatureInformation userUID={userUID} userState={"preview"} />
           }
         />
-
         <Route
           path="preview/feature-information/:id"
           element={
@@ -258,23 +256,3 @@ function App() {
 }
 
 export default App;
-
-/*user未登入*/
-/* template 各頁面要求登入 */
-/* preview 倒回login */
-/* build 抓該影展資料 */
-
-/*user登入*/
-/* template 可進入後台 */
-/* preview 抓該UID資料 */
-/* build 抓該影展資料 */
-
-/* 一個首頁有幾種狀態呢？
- 現在只有一個state - UID
- props.state > template-抓特定資料 preivew-抓UID資料 build-抓特定資料
- 決定要抓哪裡資料的，是props.state
-1. 未登入的Tamplate
-2. 已登入的Tamplate
-3. User preview
-4. User build
-*/

@@ -1,9 +1,18 @@
 import React from "react";
+import FooterImg from "../img/FooterImg.png";
 
 function Footer() {
   return (
-    <div className="flex  bottom-0 z-10 w-full mt-2 my-0 mx-auto border-2 rounded-lg bg-neutral-300">
-      <div className=" my-1 mr-4 ml-auto  text-center text-1xl">
+    <div
+      className="flex h-32 bottom-0 z-10  mt-2 my-0 mx-auto"
+      style={{
+        background: `url(${FooterImg})`,
+        backgroundPosition: "center",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      <div className="flex mt-6 mr-4 ml-auto   text-center text-1xl">
         <div className="w-full py-1 my-1 rounded text-center text-1xl">
           贊助
         </div>

@@ -19,6 +19,13 @@ function EditPriceContainer() {
     dispatch(updatePrice(newPrice));
   };
 
+  const handleTrafficChange = (value, key, index) => {
+    const newTraffic = [...traffic];
+    newTraffic[index][key] = value;
+    dispatch(updateTraffic(newTraffic));
+  };
+
+
   const handleTicketChange = (value, key, indexObj) => {
     const newPrice = [...price];
     newPrice[indexObj.categoryIndex].tickets[indexObj.ticketIndex][key] = value;
@@ -176,14 +183,14 @@ function EditPriceContainer() {
             </Input>
           </div>
         ))}
-      {traffic.map((item, index) => (
+      {traffic && traffic.map((item, index) => (
         <div key={index} className="flex justify-between my-1">
           <Textarea
             className="text-area-large w-1/3 mx-0"
             attribute="text"
             value={item.text}
             index={index}
-            onChange={handleChange}
+            onChange={handleTrafficChange}
           >
             交通資訊
           </Textarea>

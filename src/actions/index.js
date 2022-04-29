@@ -125,3 +125,10 @@ export const updateSecondaryColor = (payload) => {
         payload
     }
 }
+
+export const isGuide = (payload) => {
+    return {
+        type: 'FINISH',
+        payload
+    }
+}

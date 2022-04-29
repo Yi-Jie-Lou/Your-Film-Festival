@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import Input from "../components/Input";
 import "react-image-gallery/styles/css/image-gallery.css";
 import ReCAPTCHA from "react-google-recaptcha";
-import { Joyride } from "../components/JoyRide";
+
 
 function reducer(state, action) {
   switch (action.type) {
@@ -28,9 +28,7 @@ function WorkshopContainer() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [currentWorkshop, setCurrentWorkshop] = useState("");
   const [isRobot, setIsRobot] = useState(true);
-  const [run, setRun] = useState(true);
-  const [stepIndexState, setStepIndexState] = useState(0);
-   
+
 
   const handleChange = (value, key) => {
     dispatch({ type: key, payload: value });
@@ -76,12 +74,7 @@ function WorkshopContainer() {
         {currentWorkshop?.title}
       </h1>
       <div className="mx-auto my-12 w-11/12">
-      <Joyride
-        run={run}
-        setRun={setRun}
-        stepIndexState={stepIndexState}
-        setStepIndexState={setStepIndexState}
-      />
+
         {currentWorkshop
           ? currentWorkshop.text.split("\n").map((line, index) => (
               <div key={index} className="my-1">

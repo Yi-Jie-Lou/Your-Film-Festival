@@ -4,15 +4,15 @@ import ReactJoyride, { EVENTS, STATUS } from "react-joyride";
 const steps = [
   {
     title: "Step1",
-    content: "Target: body, Placement: center",
-    target: "body",
-    placement: "center"
+
+    target: "#step1",
+
   },
   {
     title: "Step2",
-    content: "Target: body, Placement: center",
-    target: "#h1",
-    placement: "top"
+
+    target: "#step2",
+
   },
 ];
 
