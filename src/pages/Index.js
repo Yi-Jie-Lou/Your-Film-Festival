@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updatePrice, isGuide } from "../actions";
+import { isGuide } from "../actions";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import IndexContainer from "../components/IndexContainer";
@@ -11,40 +10,33 @@ function Index(props) {
   const isFirstViewed = useSelector((state) => state.isGuide);
   const steps = [
     {
-      title: "Step1",
-      content: "歡迎",
-      target: "#step1",
+      title: "Welcome！",
+      content: "在這裡您可以建立自己的影展網站！",
+      target: "body",
       disableBeacon: true,
+      placement: "center",
+    },
+    {
+      title: "Step1",
+      content: "請先瀏覽範例網站介面",
+      target: "#step1",
       placement: "top",
     },
     {
       title: "Step2",
-      content: "瀏覽範例網站介面",
+      content: "登入後開始上傳您的影片！",
       target: "#step2",
-      placement: "top",
-    },
-    {
-      title: "Step3",
-      content: "登入開始上傳影片",
-      target: "#step3",
       placement: "top",
     },
   ];
 
   const handleJoyrideCallback = (data) => {
-    const { action, index, status, type } = data;
+    const {status} = data;
 
     if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
       dispatch(isGuide(false));
-
-      
     }
   };
-
-  // useEffect(()=>{
-
-  //
-  // },[])
 
   return (
     <>
@@ -54,6 +46,15 @@ function Index(props) {
           callback={handleJoyrideCallback}
           steps={steps}
           continuous={true}
+          styles={{
+            options: {
+              arrowColor: '#fff',
+              backgroundColor:  "#fff",
+              primaryColor: "#f97316",
+              textColor: '#000',
+              zIndex: 1000,
+            }
+          }}
         />
       ) : (
         ""

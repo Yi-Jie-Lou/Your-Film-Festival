@@ -19,7 +19,7 @@ import {
   updateSponsor,
   updatePrimaryColor,
   updateSecondaryColor,
-  isGuide
+  isGuide,
 } from "./actions";
 import { firebase } from "./utils/firebase-config";
 import Index from "./pages/Index";
@@ -71,7 +71,7 @@ function App() {
       dispatch(updateSponsor(res.sponsor));
       dispatch(updatePrimaryColor(res.primaryColor));
       dispatch(updateSecondaryColor(res.secondaryColor));
-      dispatch(isGuide(res.isGuide))
+      dispatch(isGuide(res.isGuide));
     };
 
     //判斷登入
@@ -163,12 +163,12 @@ function App() {
           element={<Index userUID={userUID} userState={login} />}
         />
         <Route
-          path="/:id"
-          element={<Index userUID={userUID} userState={login} />}
-        />
-        <Route
           path="news"
           element={<News userUID={userUID} userState={login} />}
+        />
+        <Route
+          path="news/:id"
+          element={<NewsInformation userUID={userUID} userState={login} />}
         />
         <Route
           path="price"
@@ -179,8 +179,16 @@ function App() {
           element={<Timetable userUID={userUID} userState={login} />}
         />
         <Route
+          path="timetable/:id"
+          element={<Timetable userUID={userUID} userState={login} />}
+        />
+        <Route
           path="workshop"
           element={<Workshop userUID={userUID} userState={login} />}
+        />
+        <Route
+          path="workshop/:id"
+          element={<WorkshopInformation userUID={userUID} userState={login} />}
         />
 
         {/*backstage */}

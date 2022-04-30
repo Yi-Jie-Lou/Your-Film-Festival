@@ -52,7 +52,8 @@ function EditWorkshopContainer() {
       img: "",
       text: "",
       guest: [""],
-      workshopID: uniqid()
+      workshopID: uniqid(),
+      isReadOnly:false
     };
     const newWorkshop = [...workshop, emptyWorkshop];
     dispatch(updateWorkshop(newWorkshop));
@@ -76,6 +77,22 @@ function EditWorkshopContainer() {
     dispatch(updateWorkshop(newWorkshop));
   };
 
+  const editWorkshop = (index) => {
+    const newWorkshop = [...workshop];
+    newWorkshop[index].isReadOnly = false;
+    dispatch(updateWorkshop(newWorkshop));
+  }
+
+
+  const saveWorkshop= () => {
+    const newWorkshop= workshop.map(item => {
+      item.isReadOnly = true
+      return item
+    })
+    dispatch(updateWorkshop(newWorkshop));
+    firebase.saveWorkshop(userID, workshop)
+  }
+
   return (
     <div className="flex flex-col  my-24 mx-auto w-11/12">
       <button className="button-blue ml-0 my-3" onClick={addWorkshop}>
@@ -92,6 +109,7 @@ function EditWorkshopContainer() {
               attribute="title"
               value={item.title}
               index={index}
+              isReadOnly={item.isReadOnly}
               onChange={handleChange}
             >
               工作坊名稱 / Title（必填）
@@ -126,6 +144,7 @@ function EditWorkshopContainer() {
               attribute="text"
               value={item.text}
               index={index}
+              isReadOnly={item.isReadOnly}
               onChange={handleChange}
             >
               工作坊資訊 / Imformation
@@ -215,7 +234,7 @@ function EditWorkshopContainer() {
               <button
                 className="button-green"
                 onClick={() => {
-                  deleteWorkshop(index);
+                  editWorkshop(index);
                 }}
               >
                 Edit
@@ -233,7 +252,7 @@ function EditWorkshopContainer() {
         ))}
       <div className="flex justify-center mt-12 w-full">
         <button
-          onClick={() => firebase.saveWorkshop(userID, workshop)}
+          onClick={saveWorkshop}
           className="button-blue my-0"
         >
           儲存本頁

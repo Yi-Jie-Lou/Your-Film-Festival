@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Textarea from "../components/Textarea";
 import Input from "../components/Input";
@@ -38,7 +38,8 @@ function EditNewsContainer() {
       img: "",
       important: false,
       content: "",
-      newsID:uniqid()
+      newsID:uniqid(),
+      isReadOnly:false
     };
     const newNews = [ emptyNews, ...news];
     dispatch(updateNews(newNews));
@@ -49,6 +50,21 @@ function EditNewsContainer() {
     newNews.splice(index, 1);
     dispatch(updateNews(newNews));
   };
+
+  const editNews = (index) => {
+    const newNews = [...news];
+    newNews[index].isReadOnly = false;
+    dispatch(updateNews(newNews));
+  }
+
+  const saveNews = () => {
+    const newNews = news.map(item => {
+      item.isReadOnly = true
+      return item
+    })
+    dispatch(updateNews(newNews));
+    firebase.saveNews(userID,news)
+  }
 
   return (
     <div className="flex flex-col  my-24 mx-auto w-11/12">
@@ -66,6 +82,7 @@ function EditNewsContainer() {
               attribute="title"
               value={item.title}
               index={index}
+              isReadOnly={item.isReadOnly}
               onChange={handleChange}
             >
               標題 / Title（必填）
@@ -99,15 +116,17 @@ function EditNewsContainer() {
               className="text-area-large"
               attribute="content"
               value={item.content}
+              isReadOnly={item.isReadOnly}
               index={index}
               onChange={handleChange}
+ 
             >
               編輯消息 / News
             </Textarea>
 
             <Checkbox
               attribute="important"
-              value={news.important}
+              value={item.important}
               onChange={handleChange}
               index={index}
               type="checkbox"
@@ -119,7 +138,7 @@ function EditNewsContainer() {
               <button
                 className="button-green"
                 onClick={() => {
-                  deleteNews(index);
+                  editNews(index);
                 }}
               >
                 Edit
@@ -137,7 +156,7 @@ function EditNewsContainer() {
         ))}
       <div className="flex justify-center mt-12 w-full">
         <button
-          onClick={() => firebase.saveNews(userID, news)}
+          onClick={saveNews}
           className="button-blue"
         >
           儲存本頁

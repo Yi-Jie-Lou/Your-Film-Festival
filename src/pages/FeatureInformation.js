@@ -31,7 +31,7 @@ function FeatureContainer() {
   }, [currentFeature]);
 
   return (
-    <div className="mx-auto w-11/12">
+    <div className="mx-auto min-h-200  w-11/12">
       {imgArray ? (
         <>
           <div className="flex justify-center mt-32 pb-12  border-b-2 border-stone-700 ">

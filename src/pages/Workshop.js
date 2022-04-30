@@ -11,7 +11,7 @@ function WorkshopContainer() {
   const currentID = useParams();
 
   return (
-    <div className="flex flex-wrap justify-center w-full   mt-32 mx-auto rounded-lg">
+    <div className="flex flex-wrap justify-center w-full  min-h-200  mt-32 mx-auto rounded-lg">
       {workshop && workshop.map((item, index) => (
         <NavLink key={index} to={`/preview/workshop/${item.workshopID}`}>
           <div className="relative  w-full mb-8 drop-shadow-2xl  cursor-pointer ">
