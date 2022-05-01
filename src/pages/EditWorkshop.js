@@ -15,6 +15,11 @@ function EditWorkshopContainer() {
   const userID = useSelector((state) => state.userID);
   const workshop = useSelector((state) => state.workshop);
 
+  if (!userID){
+    alert("請先登入")
+    window.location = "https://your-film-festival-d2cd4.web.app/"
+  }
+
   const handleChange = (value, key, index) => {
     const newWorkshop = [...workshop];
     newWorkshop[index][key] = value;

@@ -14,6 +14,7 @@ import {
 import { getStorage, getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { getAuth } from "firebase/auth";
 import uniqid from "uniqid";
+import { isGuide } from "../actions";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAXxoQUDtYZTpNVNCmeZCQ97Co5rFrN6ic",
@@ -149,7 +150,7 @@ const firebase = {
     return updateDoc(doc(db, `users`, `${UID}`), {
       sponsor,
       primaryColor,
-      secondaryColor
+      secondaryColor,
     }).then(() => {
       alert("儲存成功!");
     });
@@ -158,7 +159,7 @@ const firebase = {
   savePricePage(UID, price, traffic) {
     return updateDoc(doc(db, `users`, `${UID}`), {
       price,
-      traffic
+      traffic,
     }).then(() => {
       alert("儲存成功!");
     });
@@ -166,28 +167,27 @@ const firebase = {
 
   uploadImgs(file) {
     if (!file) return;
-    return uploadBytes(ref(storage, `${file.name}`), file)
+    return uploadBytes(ref(storage, `${file.name}`), file);
   },
 
   uploadCropImgs(file) {
     if (!file) return;
-    return uploadBytes(ref(storage, `crop/${file.name}`), file)
+    return uploadBytes(ref(storage, `crop/${file.name}`), file);
   },
 
-  getUploadImgs(file){
-    if(!file) return;
-    return getDownloadURL(ref(storage, `${file.name}`)).then(res =>{
-      return res
-    })
+  getUploadImgs(file) {
+    if (!file) return;
+    return getDownloadURL(ref(storage, `${file.name}`)).then((res) => {
+      return res;
+    });
   },
 
-  getUploadCropImgs(file){
-    if(!file) return;
-    return getDownloadURL(ref(storage, `crop/${file.name}`)).then(res =>{
-      return res
-    })
+  getUploadCropImgs(file) {
+    if (!file) return;
+    return getDownloadURL(ref(storage, `crop/${file.name}`)).then((res) => {
+      return res;
+    });
   },
-
 
   queryFeatures(qurey) {
     const q = query(
@@ -203,7 +203,7 @@ const firebase = {
   },
 
   initDataBase(UID) {
-    const newID =  uniqid()
+    const newID = uniqid()
     return setDoc(doc(db, "users", `${UID}`), {
       festivalEnd: "",
       festivalLogo: "",
@@ -211,24 +211,24 @@ const firebase = {
       festivalPathName: "",
       festivalPost: "",
       festivalStart: "",
-      festivalPeriod: [{dates:"",displayDates:""}],
+      festivalPeriod: [{ dates: "", displayDates: "" }],
       locations: [],
       features: [
         {
           featureID: newID,
-          color:"",
+          color: "",
           commercialInfo: "",
-          format:"",
-          important:false,
-          language:"",
-          length:"",
-          longInfo:"",
-          shortInfo:"",
-          nation:"",
-          note:"",
-          title:"",
-          trailer:"",
-          year:"",
+          format: "",
+          important: false,
+          language: "",
+          length: "",
+          longInfo: "",
+          shortInfo: "",
+          nation: "",
+          note: "",
+          title: "",
+          trailer: "",
+          year: "",
           timetable: [
             {
               date: "default",
@@ -240,18 +240,54 @@ const firebase = {
               name: "",
               timetableID: "",
               workshop: false,
-              featureID: newID
+              featureID: newID,
             },
           ],
           featureImgs: ["", "", ""],
-          creators:[{
-            img:"",
-            info:"",
-            name:""
-          }]
+          creators: [
+            {
+              img: "",
+              info: "",
+              name: "",
+            },
+          ],
         },
       ],
       uid: UID,
+      news: [
+        {
+          content: "",
+          isReadOnly: false,
+          title: "",
+          img: "",
+          newsID: uniqid(),
+          important: false,
+        },
+      ],
+      price:  [{
+        category: "",
+        marketing: "",
+        saleTime: "",
+        tickets: [{ kind: "", price: "" }],
+      }],
+      traffic: [{
+        text: "",
+        img: "",
+      }],
+      workshop:[{
+        title: "",
+        img: "",
+        text: "",
+        guest: [""],
+        workshopID: uniqid(),
+        isReadOnly:false
+      }],
+      sponsor:[{
+        img:[""],
+        text:[""]
+      }],
+      primaryColor:"",
+      secondaryColor:"",
     });
   },
 

@@ -28,6 +28,13 @@ function BackstageContainer(props) {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [theather, setTheather] = useState([{ name: "" }]);
+  const userID = useSelector((state) => state.userID);
+
+
+  // if (!userID){
+  //   alert("請先登入")
+  //   window.location = "https://your-film-festival-d2cd4.web.app/"
+  // }
 
   const selectionRange = {
     startDate: startDate,

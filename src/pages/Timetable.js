@@ -10,6 +10,7 @@ function TimetableContainer() {
   const features = useSelector((state) => state.features);
   const period = useSelector((state) => state.festivalPeriod);
   const locations = useSelector((state) => state.festivalLocations);
+  const state = useSelector((state) => state.state);
   const [queryDate, setQureyDate] = useState("");
   const [queryTimetable, setQureyTimetable] = useState([]);
   const [Alltimetables, setAllTimetables] = useState([]);
@@ -69,7 +70,7 @@ function TimetableContainer() {
                 {item}
               </div>
               <div className=" flex mx-auto w-4/5 h-72   border-t-2 border-stone-700 ">
-                {queryTimetable.map((film, index) =>
+                {state === "preview" ? queryTimetable.map((film, index) =>
                   film.location === item ? (
                     <NavLink
                       key={index}
@@ -94,7 +95,31 @@ function TimetableContainer() {
                   ) : (
                     ""
                   )
-                )}
+                ):queryTimetable.map((film, index) =>
+                  film.location === item ? (
+                    <NavLink
+                      key={index}
+                      to={`/feature-information/${film.featureID}`}
+                    >
+                      <div
+                        key={index}
+                        className="relative text-1xl w-64 h-64 mr-4 my-4 border-2 rounded "
+                      >
+                        <div className="absolute flex flex-col justify-center h-full  w-full  text-white  opacity-0 hover:opacity-100 backdrop-blur-sm  ">
+                          <p className="w-3/4 mx-auto mt-2 text-lg text-center text-shadow">
+                            {" "}
+                            {film.name} {film.start}-{film.end}
+                          </p>
+                        </div>
+                        <img
+                          className="w-full h-full object-cover"
+                          src={film ? film.img : ""}
+                        />
+                      </div>
+                    </NavLink>
+                  ) : (
+                    ""
+                  ))}
               </div>
             </div>
           ))}

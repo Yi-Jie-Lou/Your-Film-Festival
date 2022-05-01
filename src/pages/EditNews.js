@@ -14,6 +14,11 @@ function EditNewsContainer() {
   const userID = useSelector((state) => state.userID);
   const news = useSelector((state) => state.news);
 
+  if (!userID){
+    alert("請先登入")
+    window.location = "https://your-film-festival-d2cd4.web.app/"
+  }
+
   const handleChange = (value, key, index) => {
     const newNews = [...news];
     newNews[index][key] = value;

@@ -13,6 +13,11 @@ function EditPriceContainer() {
   const price = useSelector((state) => state.price);
   const traffic = useSelector((state) => state.traffic);
 
+  if (!userID){
+    alert("請先登入")
+    window.location = "https://your-film-festival-d2cd4.web.app/"
+  }
+
   const handleChange = (value, key, index) => {
     const newPrice = [...price];
     newPrice[index][key] = value;

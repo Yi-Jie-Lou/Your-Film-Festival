@@ -7,6 +7,7 @@ import Joyride, { STATUS } from "react-joyride";
 
 function Index(props) {
   const dispatch = useDispatch();
+  const state = useSelector((state) => state.state);
   const isFirstViewed = useSelector((state) => state.isGuide);
   const steps = [
     {
@@ -41,7 +42,7 @@ function Index(props) {
   return (
     <>
       <Header userUID={props.userUID} userState={props.userState} />
-      {isFirstViewed ? (
+      { state === "" && isFirstViewed ? (
         <Joyride
           callback={handleJoyrideCallback}
           steps={steps}

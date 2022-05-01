@@ -14,18 +14,24 @@ function Header(props) {
   const state = useSelector((state) => state.state);
   const festivalLogo = useSelector((state) => state.festivalLogo);
   const festivalPathName = useSelector((state) => state.festivalPathName);
+  const primaryColor = useSelector((state) => state.primaryColor);
   useEffect(() => {
     dispatch(updateState(props.userState));
   }, [props.userState]);
 
   return (
-    <div className=" flex fixed left-0 top-0 w-full my-0 mx-auto z-20 border-2 rounded-lg bg-neutral-300">
+    <div className=" flex fixed left-0 top-0 w-full my-0 mx-auto z-20 border-2 rounded-lg ">
       {state === "preview" ? (
         <>
-          <div className=" flex fixed left-0 top-0 w-full my-0 mx-auto z-10 border-2 rounded-lg bg-neutral-300">
+          <div
+            style={{
+              background: primaryColor,
+            }}
+            className=" flex fixed left-0 top-0 w-full my-0 mx-auto z-10 rounded-lg "
+          >
             <NavLink className="vertical" to="/preview">
               <div className="py-1 my-4 mx-6 rounded text-center text-1xl">
-                {festivalPathName ? (
+                {festivalLogo ? (
                   <img className="h-14" src={festivalLogo} />
                 ) : (
                   "請上傳LOGO"
@@ -76,11 +82,11 @@ function Header(props) {
       ) : state === "editing" ? (
         <>
           <div className=" flex fixed top-0 left-0 w-full my-0 mx-auto z-10 rounded-lg bg-white">
-            <NavLink to="/">
+            <a href="/">
               <div className=" py-2  my-2 mx-6 w-64 rounded text-center text-1xl">
                 <img src={Logo} />
               </div>
-            </NavLink>
+            </a>
 
             <div className="flex ml-auto  text-center text-1xl">
               <NavLink to="/backstage">
@@ -184,7 +190,7 @@ function Header(props) {
                   </span>
                 </div>
               </NavLink>
-              <NavLink to="/backstage">
+              <a href="/backstage">
                 <div
                   id="step2"
                   className="relative top-[-10px] w-40    text-center leading-7  text-1xl hover:top-[0px]  "
@@ -194,7 +200,7 @@ function Header(props) {
                     進入後台
                   </span>
                 </div>
-              </NavLink>
+              </a>
             </div>
           </div>
         </>

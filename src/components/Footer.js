@@ -42,7 +42,7 @@ function Footer() {
       ) : (
         <div className="relative flex justify-center z-10 h-32   mx-auto">
           <div className="flex mt-5 z-20 text-center text-1xl">
-            <div className="vertical w-full mx-2 text-center text-1xl text-black  tracking-wider ">
+            <div className="vertical w-full mr-4 text-center text-1xl text-black  tracking-wider ">
               <span>贊助</span>
             </div>
           </div>

@@ -17,6 +17,11 @@ function Features() {
   const currentTab = useSelector((state) => state.currentTab);
   const userID = useSelector((state) => state.userID);
 
+  if (!userID){
+    alert("請先登入")
+    window.location = "https://your-film-festival-d2cd4.web.app/"
+  }
+
   const addFeature = () => {
     const newID = uniqid() 
     const emptyFeature = {
@@ -48,7 +53,7 @@ function Features() {
       longInfo: "",
       commercialInfo: "",
       note: "",
-      import: false,
+      important: false,
     };
     const newFeatures = [...features, emptyFeature];
     dispatch(updateFeatures(newFeatures));

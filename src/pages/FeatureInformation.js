@@ -10,9 +10,11 @@ import "react-image-gallery/styles/css/image-gallery.css";
 
 function FeatureContainer() {
   const features = useSelector((state) => state.features);
+  const secondaryColor = useSelector((state) => state.secondaryColor);
   const [currentFeature, setCurrentFeature] = useState();
   const [imgArray, setImgArray] = useState();
   const currentID = useParams();
+  const state = useSelector((state) => state.state);
 
   useEffect(() => {
     const currentOne = features.filter(
@@ -78,28 +80,61 @@ function FeatureContainer() {
               </div>
             ))}
             <div className="vertical mx-auto mt-8 w-4/5">
-              {currentFeature.timetable.map((timetable,index) => (
-                <NavLink key={index} to={`/preview/timetable/${timetable.date}`}>
-                <div className="flex py-2 px-4 my-2 justify-between border-2 rounded-lg border-stone-700 bg-slate-400">
-                  <p>
-                    {timetable.date} {timetable.start}
-                  </p>
-                  <div className="flex">
-                    <p>{timetable.location} </p>
-                    <div className="vertical ml-2">
-                      {timetable.workshop ? <AiFillStar /> : ""}
-                    </div>
-                    <div className="ml-2 mt-1">
-                      {timetable.opening || timetable.closing ? (
-                        <AiOutlineCaretUp />
-                      ) : (
-                        ""
-                      )}
+              { state === "preview" ? currentFeature.timetable.map((timetable, index) => (
+                <NavLink
+                  key={index}
+                  to={`/preview/timetable/${timetable.date}`}
+                >
+                  <div
+                    style={{
+                      background: secondaryColor,
+                    }}
+                    className="flex py-2 px-4 my-2 justify-between border-2 rounded-lg border-stone-700 bg-slate-400"
+                  >
+                    <p>
+                      {timetable.date} {timetable.start}
+                    </p>
+                    <div className="flex">
+                      <p>{timetable.location} </p>
+                      <div className="vertical ml-2">
+                        {timetable.workshop ? <AiFillStar /> : ""}
+                      </div>
+                      <div className="ml-2 mt-1">
+                        {timetable.opening || timetable.closing ? (
+                          <AiOutlineCaretUp />
+                        ) : (
+                          ""
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
                 </NavLink>
-              ))}
+              )):    currentFeature.timetable.map((timetable, index) => (  <NavLink
+                  key={index}
+                  to={`/timetable/${timetable.date}`}
+                >
+                  <div
+        
+                    className="flex py-2 px-4 my-2 justify-between border-2 rounded-lg border-stone-700 bg-orange-300"
+                  >
+                    <p>
+                      {timetable.date} {timetable.start}
+                    </p>
+                    <div className="flex">
+                      <p>{timetable.location} </p>
+                      <div className="vertical ml-2">
+                        {timetable.workshop ? <AiFillStar /> : ""}
+                      </div>
+                      <div className="ml-2 mt-1">
+                        {timetable.opening || timetable.closing ? (
+                          <AiOutlineCaretUp />
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </NavLink>))}
               <div>
                 <div className="flex mt-6 my-2">
                   <AiFillStar className="mt-1 mr-1" />
@@ -133,10 +168,10 @@ function FeatureContainer() {
   );
 }
 
-function FeatureInformation() {
+function FeatureInformation(props) {
   return (
     <>
-      <Header userState={"preview"} />
+      <Header userState={props.userState} />
       <FeatureContainer />
       <Footer />
     </>

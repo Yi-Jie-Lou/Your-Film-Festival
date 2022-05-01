@@ -4,6 +4,7 @@ import { Routes, Route, BrowserRouter, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   userLogin,
+  updateState,
   updatePeriod,
   updateLocations,
   updateFeatures,
@@ -161,6 +162,12 @@ function App() {
         <Route
           path="/"
           element={<Index userUID={userUID} userState={login} />}
+        />
+               <Route
+          path="feature-information/:id"
+          element={
+            <FeatureInformation userUID={userUID} userState={login} />
+          }
         />
         <Route
           path="news"
