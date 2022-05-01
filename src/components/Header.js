@@ -75,45 +75,69 @@ function Header(props) {
         </>
       ) : state === "editing" ? (
         <>
-          <div className=" flex fixed top-0 w-full my-0 mx-auto z-10 border-2 rounded-lg bg-neutral-300">
-            <div className="w-40 py-2 m-4 border-2 rounded text-center text-1xl">
-              <a href="/">Your Film Festival </a>
-            </div>
+          <div className=" flex fixed top-0 left-0 w-full my-0 mx-auto z-10 rounded-lg bg-white">
+            <NavLink to="/">
+              <div className=" py-2  my-2 mx-6 w-64 rounded text-center text-1xl">
+                <img src={Logo} />
+              </div>
+            </NavLink>
 
-            <div className="flex  my-4 mr-4 ml-auto  text-center text-1xl">
+            <div className="flex ml-auto  text-center text-1xl">
               <NavLink to="/backstage">
-                <div className="w-28 py-2  text-center leading-7  text-1xl">
-                  影展日期
+                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl hover:top-[0px]">
+                  <img src={CubeB} />
+                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
+                    影展日期
+                  </span>
                 </div>
               </NavLink>
               <NavLink to="/backstage/features">
-                <div className="w-28 py-2  text-center leading-7 text-1xl">
-                  上傳影片
+                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl hover:top-[0px]">
+                  <img src={CubeC} />
+                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
+                    上傳影片
+                  </span>
                 </div>
               </NavLink>
               <NavLink to="/backstage/news">
-                <div className="w-28 py-2  text-center leading-7 text-1xl">
-                  編輯消息
+                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl hover:top-[0px]">
+                  <img src={CubeB} />
+                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
+                    編輯消息
+                  </span>
                 </div>
               </NavLink>
               <NavLink to="/backstage/price">
-                <div className="w-28 py-2 text-center leading-7 text-1xl">
-                  售票資訊
+                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl hover:top-[0px]">
+                  <img src={CubeC} />
+                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
+                    售票資訊
+                  </span>
                 </div>
               </NavLink>
               <NavLink to="/backstage/workshop">
-                <div className="w-28 py-2 text-center leading-7 text-1xl">
-                  新增工作坊
+                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl hover:top-[0px]">
+                  <img src={CubeB} />
+                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
+                    新增工作坊
+                  </span>
                 </div>
               </NavLink>
+
               <NavLink to="/backstage/edit-footer-color">
-                <div className="w-28 py-2 text-center leading-7 text-1xl">
-                  自訂顏色
+                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl hover:top-[0px]">
+                  <img src={CubeC} />
+                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
+                    自訂顏色
+                  </span>
                 </div>
               </NavLink>
               <NavLink to="/preview">
-                <div className="w-40 py-2 border-2 rounded text-center text-1xl">
-                  Preview
+                <div className="relative top-[-10px] w-40   text-center leading-7  text-1xl hover:top-[0px]">
+                  <img src={CubeA} />
+                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
+                    Preview
+                  </span>
                 </div>
               </NavLink>
             </div>
@@ -127,41 +151,48 @@ function Header(props) {
                 <img src={Logo} />
               </div>
             </NavLink>
-            <div
-              id="step1"
-              className="flex ml-auto  text-center text-1xl"
-            >
+            <div id="step1" className="flex ml-auto  text-center text-1xl">
               <NavLink to="/news">
-                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl">
+                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl hover:top-[0px]">
                   <img src={CubeB} />
-                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light">最新消息</span>
+                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
+                    最新消息
+                  </span>
                 </div>
               </NavLink>
               <NavLink to="/price">
-                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl">
+                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl hover:top-[0px]">
                   <img src={CubeC} />
-                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light">購票資訊</span>
+                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
+                    購票資訊
+                  </span>
                 </div>
               </NavLink>
               <NavLink to="/timetable">
-                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl">
+                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl hover:top-[0px]">
                   <img src={CubeB} />
-                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light">場次表</span>
+                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
+                    場次表
+                  </span>
                 </div>
               </NavLink>
               <NavLink to="/workshop">
-                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl">
+                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl hover:top-[0px]">
                   <img src={CubeC} />
-                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light">工作坊</span>
+                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
+                    工作坊
+                  </span>
                 </div>
               </NavLink>
               <NavLink to="/backstage">
                 <div
                   id="step2"
-                  className="relative top-[-10px] w-40   text-center leading-7  text-1xl"
+                  className="relative top-[-10px] w-40    text-center leading-7  text-1xl hover:top-[0px]  "
                 >
                   <img src={CubeA} />
-                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light">進入後台</span>
+                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider ">
+                    進入後台
+                  </span>
                 </div>
               </NavLink>
             </div>
@@ -201,47 +232,54 @@ function Header(props) {
         </>
       ) : (
         <>
-         <div className=" flex fixed top-0 left-0 w-full my-0  z-10 rounded-lg bg-white">
+          <div className=" flex fixed top-0 left-0 w-full my-0  z-10 rounded-lg bg-white">
             <NavLink to="/">
               <div className=" py-2  my-2 mx-6 w-64 rounded text-center text-1xl">
                 <img src={Logo} />
               </div>
             </NavLink>
-            <div
-              id="step1"
-              className="flex  ml-auto  text-center text-1xl"
-            >
+            <div id="step1" className="flex  ml-auto  text-center text-1xl">
               <NavLink to="/news">
-                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl">
+                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl hover:top-[0px]">
                   <img src={CubeB} />
-                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light">最新消息</span>
+                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
+                    最新消息
+                  </span>
                 </div>
               </NavLink>
               <NavLink to="/price">
-                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl">
+                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl hover:top-[0px]">
                   <img src={CubeC} />
-                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light">購票資訊</span>
+                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
+                    購票資訊
+                  </span>
                 </div>
               </NavLink>
               <NavLink to="/timetable">
-                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl">
+                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl hover:top-[0px]">
                   <img src={CubeB} />
-                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light">場次表</span>
+                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
+                    場次表
+                  </span>
                 </div>
               </NavLink>
               <NavLink to="/workshop">
-                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl">
+                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl hover:top-[0px]">
                   <img src={CubeC} />
-                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light">工作坊</span>
+                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
+                    工作坊
+                  </span>
                 </div>
               </NavLink>
-              <NavLink to="/backstage">
+              <NavLink to="/login">
                 <div
                   id="step2"
-                  className="relative top-[-10px] w-40   text-center leading-7  text-1xl"
+                  className="relative top-[-10px] w-40   text-center leading-7  text-1xl hover:top-[0px]"
                 >
                   <img src={CubeA} />
-                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light">登入客製化</span>
+                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
+                    登入客製化
+                  </span>
                 </div>
               </NavLink>
             </div>

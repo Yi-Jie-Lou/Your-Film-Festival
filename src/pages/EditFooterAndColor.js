@@ -18,6 +18,11 @@ function EditFooterContent() {
   const sponsor = useSelector((state) => state.sponsor);
   const userID = useSelector((state) => state.userID);
 
+  if (!userID){
+    alert("請先登入")
+    window.location = "https://your-film-festival-d2cd4.web.app/"
+  }
+
   const handleChange = (value, _, index) => {
     const newSponsor = { ...sponsor };
     newSponsor.text[index] = value;
