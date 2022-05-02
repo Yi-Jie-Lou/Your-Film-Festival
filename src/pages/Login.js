@@ -14,6 +14,7 @@ function Login() {
   const userID = useSelector((state) => state.userID);
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
+  const state = useSelector((state) => state.state);
 
   const handleError = (error) => {
     error === "Firebase: Error (auth/wrong-password)."
@@ -32,7 +33,7 @@ function Login() {
       );
       firebase.initDataBase(user.user.uid).then((_) => {
         alert("註冊成功");
-      });
+      })
     } catch (error) {
       handleError(error.message);
     }
@@ -60,7 +61,7 @@ function Login() {
 
   return (
     <>
-      <Header userState={""} />
+      <Header userState={state} />
       <div className="flex flex-wrap justify-center  mx-auto w-11/12">
     
         <div

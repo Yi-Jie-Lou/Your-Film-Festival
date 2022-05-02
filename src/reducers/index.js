@@ -16,6 +16,8 @@ import sponsorReducer from "./updateSponsor";
 import primaryColorReducer from "./updatePrimaryColor"
 import secondaryColorReducer from "./updateSecondaryColor"
 import guideReducer from "./isGuide";
+import festivalStartReducer from "./updateFestivalStart";
+import festivalEndReducer from "./updateFestivalEnd";
 import { combineReducers } from "redux";
 
 const allReducers = combineReducers({
@@ -26,6 +28,8 @@ const allReducers = combineReducers({
   festivalPathName: festivalPathNameReducer,
   festivalPost: festivalPostReducer,
   festivalLogo: festivalLogoReducer,
+  festivalStart: festivalStartReducer,
+  festivalEnd: festivalEndReducer,
   features: featuresReducer,
   currentTab: featureTabReducer,
   state: userStateReducer,
@@ -36,7 +40,8 @@ const allReducers = combineReducers({
   sponsor: sponsorReducer,
   primaryColor: primaryColorReducer,
   secondaryColor: secondaryColorReducer,
-  isGuide: guideReducer
+  isGuide: guideReducer,
+  
 });
 
 export default allReducers;

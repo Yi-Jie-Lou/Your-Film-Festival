@@ -57,7 +57,7 @@ function Price(props) {
     <>
       <Header userUID={props.userUID} userState={props.userState} />
       <PriceContainer />
-      <Footer />
+      <Footer userState={props.userState}/>
     </>
   );
 }

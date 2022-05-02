@@ -1,298 +1,191 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { firebase } from "../utils/firebase-config";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { updateState } from "../actions";
+import {
+  CubeNavLink,
+  SwitchCubeNavLink,
+  SwitchReloadData,
+  CustomerNavLink,
+} from "./CubeNavLink";
 import Logo from "../img/yourFilmLogoA.png";
 import CubeA from "../img/yourFilmCubeA.png";
 import CubeB from "../img/yourFilmCubeB.png";
 import CubeC from "../img/yourFilmCubeC.png";
 
-function Header(props) {
-  const dispatch = useDispatch();
-  const userUID = useSelector((state) => state.userID);
+function TemplateHeader() {
   const state = useSelector((state) => state.state);
+
+  return (
+    <div className=" flex fixed top-0 left-0 w-full my-0  z-30 rounded-lg bg-white cursor-pointer">
+      <NavLink to="/">
+        <div className=" py-2  my-2 mx-6 w-64 rounded text-center text-1xl">
+          <img src={Logo} />
+        </div>
+      </NavLink>
+      <div id="step1" className="flex  ml-auto  text-center text-1xl">
+        <CubeNavLink router="/news" cube={CubeB}>
+          最新消息
+        </CubeNavLink>
+        <CubeNavLink router="/price" cube={CubeC}>
+          購票資訊
+        </CubeNavLink>
+        <CubeNavLink router="/timetable" cube={CubeB}>
+          場次表
+        </CubeNavLink>
+        <CubeNavLink router="/workshop" cube={CubeC}>
+          工作坊
+        </CubeNavLink>
+
+        {state === "logout" ? (
+          <SwitchCubeNavLink router="/login" id="step2" cube={CubeA}>
+            登入客製化
+          </SwitchCubeNavLink>
+        ) : state === "login" ? (
+          <SwitchReloadData router="/backstage" id="step2" cube={CubeA}>
+            進入後台
+          </SwitchReloadData>
+        ) : (
+          <SwitchCubeNavLink router="/login" id="step2" cube={CubeA}>
+            Loading...
+          </SwitchCubeNavLink>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function BackstageHeader() {
+  return (
+    <div className=" flex fixed top-0 left-0 w-full my-0 mx-auto z-30 rounded-lg bg-white cursor-pointer">
+      <a href="/">
+        <div className=" py-2  my-2 mx-6 w-64 rounded text-center text-1xl">
+          <img src={Logo} />
+        </div>
+      </a>
+
+      <div className="flex ml-auto  text-center text-1xl">
+        <CubeNavLink router="/backstage" cube={CubeB}>
+          影展日期
+        </CubeNavLink>
+        <CubeNavLink router="/backstage/features" cube={CubeC}>
+          上傳影片
+        </CubeNavLink>
+        <CubeNavLink router="/backstage/news" cube={CubeB}>
+          編輯消息
+        </CubeNavLink>
+        <CubeNavLink router="/backstage/price" cube={CubeC}>
+          售票資訊
+        </CubeNavLink>
+        <CubeNavLink router="/backstage/workshop" cube={CubeB}>
+          新增工作坊
+        </CubeNavLink>
+        <CubeNavLink router="/backstage/edit-footer-color" cube={CubeC}>
+          自訂顏色
+        </CubeNavLink>
+        <SwitchCubeNavLink router="/preview" id="preview" cube={CubeA}>
+          Preview
+        </SwitchCubeNavLink>
+      </div>
+    </div>
+  );
+}
+
+function PreviewHeader() {
+  const userUID = useSelector((state) => state.userID);
   const festivalLogo = useSelector((state) => state.festivalLogo);
   const festivalPathName = useSelector((state) => state.festivalPathName);
   const primaryColor = useSelector((state) => state.primaryColor);
+
+  return (
+    <div
+      style={{
+        background: primaryColor,
+      }}
+      className=" flex fixed left-0 top-0 w-full my-0 mx-auto z-30 rounded-lg "
+    >
+      <CustomerNavLink router="/preview">
+        {festivalLogo ? (
+          <img className="h-14" src={festivalLogo} />
+        ) : (
+          "請上傳LOGO"
+        )}
+      </CustomerNavLink>
+      <div className="flex  my-4 mr-4 ml-auto  text-center text-1xl">
+        <CustomerNavLink router="/preview/news">最新消息</CustomerNavLink>
+        <CustomerNavLink router="/preview/price">購票資訊</CustomerNavLink>
+        <CustomerNavLink router="/preview/timetable">場次表</CustomerNavLink>
+        <CustomerNavLink router="/preview/workshop">工作坊</CustomerNavLink>
+        <NavLink className="vertical mx-2" to="/backstage/features">
+          <div className="w-40 py-2 border-2 rounded-xl text-center text-1xl bg-amber-400">
+            回到後台
+          </div>
+        </NavLink>
+        <div className="vertical mx-2 ">
+          <button
+            onClick={() => {
+              userUID
+                ? firebase.buildFestival(userUID, festivalPathName)
+                : alert("您好像還沒登入");
+            }}
+            className="w-40 py-2 border-2 text-center text-1xl rounded-xl bg-red-400"
+          >
+            Build
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function BuildHeader() {
+  const festivalPathName = useSelector((state) => state.festivalPathName);
+
+  return (
+    <div className=" flex fixed top-0 w-full my-0 mx-auto z-30 border-2 rounded-lg bg-neutral-300">
+      <NavLink to={`/festival=${festivalPathName}`}>
+        <div className="w-40 py-2 m-4 border-2 rounded text-center text-1xl">
+          {festivalPathName ? festivalPathName : "Your Film Festival"}
+        </div>
+      </NavLink>
+      <div className="flex  my-4 mr-4 ml-auto  text-center text-1xl">
+        <CustomerNavLink router={`/news/festival=${festivalPathName}`}>
+          最新消息
+        </CustomerNavLink>
+        <CustomerNavLink router={`/price/festival=${festivalPathName}`}>
+          購票資訊
+        </CustomerNavLink>
+        <CustomerNavLink router={`/timetable/festival=${festivalPathName}`}>
+          場次表
+        </CustomerNavLink>
+        <CustomerNavLink router={`/workshop/festival=${festivalPathName}`}>
+          工作坊
+        </CustomerNavLink>
+      </div>
+    </div>
+  );
+}
+
+function Header(props) {
+  const dispatch = useDispatch();
+  const [pageState, setPageState] = useState(props.userState);
+
   useEffect(() => {
-    dispatch(updateState(props.userState));
+    setPageState(props.userState);
   }, [props.userState]);
 
   return (
-    <div className=" flex fixed left-0 top-0 w-full my-0 mx-auto z-20 border-2 rounded-lg ">
-      {state === "preview" ? (
-        <>
-          <div
-            style={{
-              background: primaryColor,
-            }}
-            className=" flex fixed left-0 top-0 w-full my-0 mx-auto z-10 rounded-lg "
-          >
-            <NavLink className="vertical" to="/preview">
-              <div className="py-1 my-4 mx-6 rounded text-center text-1xl">
-                {festivalLogo ? (
-                  <img className="h-14" src={festivalLogo} />
-                ) : (
-                  "請上傳LOGO"
-                )}
-              </div>
-            </NavLink>
-            <div className="flex  my-4 mr-4 ml-auto  text-center text-1xl">
-              <NavLink className="vertical" to="/preview/news">
-                <div className="w-28 py-2  text-center leading-7  text-1xl">
-                  最新消息
-                </div>
-              </NavLink>
-              <NavLink className="vertical" to="/preview/price">
-                <div className="w-28 py-2  text-center leading-7 text-1xl">
-                  購票資訊
-                </div>
-              </NavLink>
-              <NavLink className="vertical" to="/preview/timetable">
-                <div className="w-28 py-2  text-center leading-7 text-1xl">
-                  場次表
-                </div>
-              </NavLink>
-              <NavLink className="vertical" to="/preview/workshop">
-                <div className="w-28 py-2 text-center leading-7 text-1xl">
-                  工作坊
-                </div>
-              </NavLink>
-              <NavLink className="vertical mx-2" to="/backstage/features">
-                <div className="w-40 py-2 border-2 rounded-xl text-center text-1xl bg-amber-400">
-                  回到後台
-                </div>
-              </NavLink>
-              <div className="vertical mx-2 ">
-                <button
-                  onClick={() => {
-                    userUID
-                      ? firebase.buildFestival(userUID, festivalPathName)
-                      : alert("您好像還沒登入");
-                  }}
-                  className="w-40 py-2 border-2 text-center text-1xl rounded-xl bg-red-400"
-                >
-                  Build
-                </button>
-              </div>
-            </div>
-          </div>
-        </>
-      ) : state === "editing" ? (
-        <>
-          <div className=" flex fixed top-0 left-0 w-full my-0 mx-auto z-10 rounded-lg bg-white">
-            <a href="/">
-              <div className=" py-2  my-2 mx-6 w-64 rounded text-center text-1xl">
-                <img src={Logo} />
-              </div>
-            </a>
-
-            <div className="flex ml-auto  text-center text-1xl">
-              <NavLink to="/backstage">
-                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl hover:top-[0px]">
-                  <img src={CubeB} />
-                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
-                    影展日期
-                  </span>
-                </div>
-              </NavLink>
-              <NavLink to="/backstage/features">
-                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl hover:top-[0px]">
-                  <img src={CubeC} />
-                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
-                    上傳影片
-                  </span>
-                </div>
-              </NavLink>
-              <NavLink to="/backstage/news">
-                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl hover:top-[0px]">
-                  <img src={CubeB} />
-                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
-                    編輯消息
-                  </span>
-                </div>
-              </NavLink>
-              <NavLink to="/backstage/price">
-                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl hover:top-[0px]">
-                  <img src={CubeC} />
-                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
-                    售票資訊
-                  </span>
-                </div>
-              </NavLink>
-              <NavLink to="/backstage/workshop">
-                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl hover:top-[0px]">
-                  <img src={CubeB} />
-                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
-                    新增工作坊
-                  </span>
-                </div>
-              </NavLink>
-
-              <NavLink to="/backstage/edit-footer-color">
-                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl hover:top-[0px]">
-                  <img src={CubeC} />
-                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
-                    自訂顏色
-                  </span>
-                </div>
-              </NavLink>
-              <NavLink to="/preview">
-                <div className="relative top-[-10px] w-40   text-center leading-7  text-1xl hover:top-[0px]">
-                  <img src={CubeA} />
-                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
-                    Preview
-                  </span>
-                </div>
-              </NavLink>
-            </div>
-          </div>
-        </>
-      ) : state === "login" ? (
-        <>
-          <div className=" flex fixed top-0 left-0 w-full my-0  z-10 rounded-lg bg-white">
-            <NavLink to="/">
-              <div className=" py-2  my-2 mx-6 w-64 rounded text-center text-1xl">
-                <img src={Logo} />
-              </div>
-            </NavLink>
-            <div id="step1" className="flex ml-auto  text-center text-1xl">
-              <NavLink to="/news">
-                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl hover:top-[0px]">
-                  <img src={CubeB} />
-                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
-                    最新消息
-                  </span>
-                </div>
-              </NavLink>
-              <NavLink to="/price">
-                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl hover:top-[0px]">
-                  <img src={CubeC} />
-                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
-                    購票資訊
-                  </span>
-                </div>
-              </NavLink>
-              <NavLink to="/timetable">
-                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl hover:top-[0px]">
-                  <img src={CubeB} />
-                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
-                    場次表
-                  </span>
-                </div>
-              </NavLink>
-              <NavLink to="/workshop">
-                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl hover:top-[0px]">
-                  <img src={CubeC} />
-                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
-                    工作坊
-                  </span>
-                </div>
-              </NavLink>
-              <a href="/backstage">
-                <div
-                  id="step2"
-                  className="relative top-[-10px] w-40    text-center leading-7  text-1xl hover:top-[0px]  "
-                >
-                  <img src={CubeA} />
-                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider ">
-                    進入後台
-                  </span>
-                </div>
-              </a>
-            </div>
-          </div>
-        </>
-      ) : state === "build" ? (
-        <>
-          <div className=" flex fixed top-0 w-full my-0 mx-auto z-10 border-2 rounded-lg bg-neutral-300">
-            <NavLink to={`/festival=${festivalPathName}`}>
-              <div className="w-40 py-2 m-4 border-2 rounded text-center text-1xl">
-                {festivalPathName ? festivalPathName : "Your Film Festival"}
-              </div>
-            </NavLink>
-            <div className="flex  my-4 mr-4 ml-auto  text-center text-1xl">
-              <NavLink to={`/news/festival=${festivalPathName}`}>
-                <div className="w-28 py-2  text-center leading-7  text-1xl">
-                  最新消息
-                </div>
-              </NavLink>
-              <NavLink to={`/price/festival=${festivalPathName}`}>
-                <div className="w-28 py-2  text-center leading-7 text-1xl">
-                  購票資訊
-                </div>
-              </NavLink>
-              <NavLink to={`/timetable/festival=${festivalPathName}`}>
-                <div className="w-28 py-2  text-center leading-7 text-1xl">
-                  場次表
-                </div>
-              </NavLink>
-              <NavLink to={`/workshop/festival=${festivalPathName}`}>
-                <div className="w-28 py-2 text-center leading-7 text-1xl">
-                  工作坊
-                </div>
-              </NavLink>
-            </div>
-          </div>
-        </>
+    <>
+      {pageState === "preview" ? (
+        <PreviewHeader />
+      ) : pageState === "editing" ? (
+        <BackstageHeader />
+      ) : pageState === "build" ? (
+        <BuildHeader />
       ) : (
-        <>
-          <div className=" flex fixed top-0 left-0 w-full my-0  z-10 rounded-lg bg-white">
-            <NavLink to="/">
-              <div className=" py-2  my-2 mx-6 w-64 rounded text-center text-1xl">
-                <img src={Logo} />
-              </div>
-            </NavLink>
-            <div id="step1" className="flex  ml-auto  text-center text-1xl">
-              <NavLink to="/news">
-                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl hover:top-[0px]">
-                  <img src={CubeB} />
-                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
-                    最新消息
-                  </span>
-                </div>
-              </NavLink>
-              <NavLink to="/price">
-                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl hover:top-[0px]">
-                  <img src={CubeC} />
-                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
-                    購票資訊
-                  </span>
-                </div>
-              </NavLink>
-              <NavLink to="/timetable">
-                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl hover:top-[0px]">
-                  <img src={CubeB} />
-                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
-                    場次表
-                  </span>
-                </div>
-              </NavLink>
-              <NavLink to="/workshop">
-                <div className="relative top-[-10px] w-28   text-center leading-7  text-1xl hover:top-[0px]">
-                  <img src={CubeC} />
-                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
-                    工作坊
-                  </span>
-                </div>
-              </NavLink>
-              <NavLink to="/login">
-                <div
-                  id="step2"
-                  className="relative top-[-10px] w-40   text-center leading-7  text-1xl hover:top-[0px]"
-                >
-                  <img src={CubeA} />
-                  <span className="absolute w-full top-6 left-0 text-white text-shadow-light tracking-wider">
-                    登入客製化
-                  </span>
-                </div>
-              </NavLink>
-            </div>
-          </div>
-        </>
+        <TemplateHeader />
       )}
-    </div>
+    </>
   );
 }
 

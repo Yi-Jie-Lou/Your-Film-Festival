@@ -159,7 +159,7 @@ function WorkshopInformation(props) {
     <>
       <Header userState={props.userState} />
       <WorkshopContainer />
-      <Footer />
+      <Footer  userState={props.userState}/>
     </>
   );
 }

@@ -13,8 +13,9 @@ function EditNewsContainer() {
   const dispatch = useDispatch();
   const userID = useSelector((state) => state.userID);
   const news = useSelector((state) => state.news);
+  const state = useSelector((state) => state.state);
 
-  if (!userID){
+  if (state === "logout"){
     alert("請先登入")
     window.location = "https://your-film-festival-d2cd4.web.app/"
   }

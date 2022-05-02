@@ -42,7 +42,7 @@ function Index(props) {
   return (
     <>
       <Header userUID={props.userUID} userState={props.userState} />
-      { state === "" && isFirstViewed ? (
+      { state === "logout" && isFirstViewed ? (
         <Joyride
           callback={handleJoyrideCallback}
           steps={steps}
@@ -61,7 +61,7 @@ function Index(props) {
         ""
       )}
 
-      <IndexContainer />
+      <IndexContainer userState={props.userState} />
       <Footer userState={props.userState} />
     </>
   );

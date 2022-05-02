@@ -12,8 +12,9 @@ function EditPriceContainer() {
   const userID = useSelector((state) => state.userID);
   const price = useSelector((state) => state.price);
   const traffic = useSelector((state) => state.traffic);
+  const state = useSelector((state) => state.state);
 
-  if (!userID){
+  if (state === "logout"){
     alert("請先登入")
     window.location = "https://your-film-festival-d2cd4.web.app/"
   }

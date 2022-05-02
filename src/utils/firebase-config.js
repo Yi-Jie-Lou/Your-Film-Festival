@@ -213,6 +213,7 @@ const firebase = {
       festivalStart: "",
       festivalPeriod: [{ dates: "", displayDates: "" }],
       locations: [],
+      state:"login",
       features: [
         {
           featureID: newID,
@@ -282,12 +283,13 @@ const firebase = {
         workshopID: uniqid(),
         isReadOnly:false
       }],
-      sponsor:[{
+      sponsor:{
         img:[""],
         text:[""]
-      }],
+      },
       primaryColor:"",
       secondaryColor:"",
+      isGuide:true,
     });
   },
 

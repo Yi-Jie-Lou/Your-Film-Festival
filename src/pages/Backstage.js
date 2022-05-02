@@ -25,16 +25,18 @@ function BackstageContainer(props) {
   const festivalPathName = useSelector((state) => state.festivalPathName);
   const festivalPost = useSelector((state) => state.festivalPost);
   const festivalLogo = useSelector((state) => state.festivalLogo);
+  const festivalStart = useSelector((state) => state.festivalStart);
+  const festivalEnd = useSelector((state) => state.festivalEnd);
+  const locations = useSelector((state) => state.festivalLocations);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const [theather, setTheather] = useState([{ name: "" }]);
   const userID = useSelector((state) => state.userID);
+  const state = useSelector((state) => state.state);
 
-
-  // if (!userID){
-  //   alert("請先登入")
-  //   window.location = "https://your-film-festival-d2cd4.web.app/"
-  // }
+  if (state === "logout"){
+    alert("請先登入")
+    window.location = "https://your-film-festival-d2cd4.web.app/"
+  }
 
   const selectionRange = {
     startDate: startDate,
@@ -45,23 +47,24 @@ function BackstageContainer(props) {
   const saveToFirebase = () => {
     if (!props.userUID) return;
     updateDoc(doc(db, "users", props.userUID), {
-      locations: theather.map((item) => item.name),
+      locations,
       festivalPeriod: getAvailableDates(),
       festivalPathName,
       festivalName,
       festivalPost,
       festivalLogo,
+      festivalStart: startDate,
+      festivalEnd: endDate,
     }).then(() => {
       dispatch(updatePeriod(getAvailableDates()));
-      dispatch(updateLocations(theather.map((item) => item.name)));
       alert("儲存成功!");
     });
   };
 
   const handleChange = (i, e) => {
-    const newTheather = [...theather];
-    newTheather[i].name = e.target.value;
-    setTheather(newTheather);
+    const newLocations = [...locations];
+    newLocations[i] = e.target.value;
+    dispatch(updateLocations(newLocations));
   };
 
   const handleSelect = (ranges) => {
@@ -84,8 +87,8 @@ function BackstageContainer(props) {
   };
 
   const addTheather = () => {
-    setTheather([...theather, { name: "" }]);
-    getAvailableDates();
+    const newLocations = [...locations, ""];
+    dispatch(updateLocations(newLocations));
   };
 
   const preview = async (e, key) => {
@@ -120,6 +123,7 @@ function BackstageContainer(props) {
           className="mx-auto mb-4"
           ranges={[selectionRange]}
           onChange={handleSelect}
+          preview={{ startDate: new Date(festivalStart.seconds*1000), endDate: new Date(festivalEnd.seconds*1000)}}
         />
       </div>
 
@@ -133,17 +137,18 @@ function BackstageContainer(props) {
             增加戲院
           </button>
         </div>
-        {theather.map((item, index) => (
-          <div className="flex justify-center mb-12" key={index}>
-            <label className="mr-4  my-8">戲院{index + 1}</label>
-            <input
-              className="pl-2 my-8 border-2 rounded-lg"
-              type="text"
-              value={item.name || ""}
-              onChange={(e) => handleChange(index, e)}
-            />
-          </div>
-        ))}
+        {locations &&
+          locations.map((item, index) => (
+            <div className="flex justify-center mb-12" key={index}>
+              <label className="mr-4  my-8">戲院{index + 1}</label>
+              <input
+                className="pl-2 my-8 border-2 rounded-lg"
+                type="text"
+                value={item}
+                onChange={(e) => handleChange(index, e)}
+              />
+            </div>
+          ))}
       </div>
 
       <div className="flex flex-col mt-16">

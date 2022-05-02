@@ -16,8 +16,9 @@ function Features() {
   const features = useSelector((state) => state.features);
   const currentTab = useSelector((state) => state.currentTab);
   const userID = useSelector((state) => state.userID);
+  const state = useSelector((state) => state.state);
 
-  if (!userID){
+  if (state === "logout"){
     alert("請先登入")
     window.location = "https://your-film-festival-d2cd4.web.app/"
   }

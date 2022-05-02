@@ -21,6 +21,8 @@ import {
   updatePrimaryColor,
   updateSecondaryColor,
   isGuide,
+  updateFestivalStart,
+  updateFestivalEnd
 } from "./actions";
 import { firebase } from "./utils/firebase-config";
 import Index from "./pages/Index";
@@ -42,14 +44,14 @@ import EditFooterAndColor from "./pages/EditFooterAndColor";
 function App() {
   const dispatch = useDispatch();
   const userID = useSelector((state) => state.userID);
+  const login = useSelector((state) => state.state);
   const [userUID, setUserUID] = useState("");
-  const [login, setLogin] = useState("");
   const [allPubished, setAllPubished] = useState([]);
   const currentText = useParams();
 
   useEffect(() => {
     const path = window.location.pathname;
-    const templatePath = ["/", "/news", "/timetable", "/workshop", "/price"];
+    const templatePath = ["/", "/news", "/timetable", "/workshop", "/price","/login"];
     const currentFestival = path.split("festival=")[1];
 
     console.log(currentText);
@@ -73,6 +75,8 @@ function App() {
       dispatch(updatePrimaryColor(res.primaryColor));
       dispatch(updateSecondaryColor(res.secondaryColor));
       dispatch(isGuide(res.isGuide));
+      dispatch(updateFestivalStart(res.festivalStart));
+      dispatch(updateFestivalEnd(res.festivalEnd));
     };
 
     //判斷登入
@@ -81,8 +85,8 @@ function App() {
       onAuthStateChanged(auth, (currentUser) => {
         if (currentUser) {
           dispatch(userLogin(currentUser.uid));
+          dispatch(updateState("login"));
           setUserUID(currentUser.uid);
-          setLogin("login");
           if (templatePath.some((item) => item === path)) {
             firebase
               .readFestivalData("BI9JlWinAzS8xdOnl1BrtUKPY1A3")
@@ -95,6 +99,8 @@ function App() {
             });
           }
         } else {
+          dispatch(userLogin(""));
+          dispatch(updateState("logout"));
           firebase
             .readFestivalData("BI9JlWinAzS8xdOnl1BrtUKPY1A3")
             .then((res) => {

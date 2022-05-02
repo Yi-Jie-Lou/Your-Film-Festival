@@ -14,8 +14,9 @@ function EditWorkshopContainer() {
   const dispatch = useDispatch();
   const userID = useSelector((state) => state.userID);
   const workshop = useSelector((state) => state.workshop);
+  const state = useSelector((state) => state.state);
 
-  if (!userID){
+  if (state === "logout"){
     alert("請先登入")
     window.location = "https://your-film-festival-d2cd4.web.app/"
   }
@@ -196,7 +197,7 @@ function EditWorkshopContainer() {
                   </div>
                 </div> :
 
-              <Cropper workshopNum={index} guestNum={guestIndex} />
+              <Cropper key={guestIndex} workshopNum={index} guestNum={guestIndex} />
             ))}
   
             </div>

@@ -132,3 +132,17 @@ export const isGuide = (payload) => {
         payload
     }
 }
+
+export const updateFestivalStart = (payload) => {
+    return {
+        type: 'UPDATE_START_DATE',
+        payload
+    }
+}
+
+export const updateFestivalEnd = (payload) => {
+    return {
+        type: 'UPDATE_END_DATE',
+        payload
+    }
+}
