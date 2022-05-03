@@ -98,7 +98,7 @@ function WorkshopContainer() {
               />
             ))}
         </div>
-        <h1 className=" w-full mx-auto mt-16 mb-8 text-center  text-xl tracking-wider">
+        <h1 className=" w-full  mx-auto mt-16 mb-8 text-center  text-xl tracking-wider">
           欲參加工作坊請填妥以下資訊：
         </h1>
         <Input
