@@ -394,7 +394,7 @@ function BuildFeatureContainer() {
           {normalFeatures.map((item, index) => (
             <NavLink
               key={index}
-              to={`/preview/feature-information/${item.featureID}`}
+              to={`/feature-information/${item.featureID}/festival=${festivalPathName}`}
             >
               <div
                 key={index}

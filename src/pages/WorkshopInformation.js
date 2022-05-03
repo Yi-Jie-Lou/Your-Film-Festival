@@ -48,9 +48,9 @@ function WorkshopContainer() {
       },
       body: JSON.stringify(state),
     }).then((res) => {
-      console.log(res);
-      if (res.status === "success") {
-        alert("Message Sent");
+      console.log(res.status);
+      if (res.status === 200) {
+        alert("表單已寄出囉！請耐心等候回覆");
       } else if (res.status === "fail") {
         alert("Message failed to send");
       }
@@ -68,7 +68,7 @@ function WorkshopContainer() {
   return (
     <div className="min-h-200">
    
-      <img className="w-full mt-24" src={currentWorkshop?.img} />
+      <img className="w-full mt-16" src={currentWorkshop?.img} />
       <h1 className="w-11/12 mx-auto mt-16 pb-8 mb-8 border-b-2 border-stone-700 text-center text-2xl tracking-wider">
         {currentWorkshop?.title}
       </h1>

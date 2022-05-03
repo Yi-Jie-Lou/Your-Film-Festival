@@ -41,7 +41,7 @@ function NewsInformation(props) {
     <>
       <Header userState={props.userState} />
       <NewsContainer />
-      <Footer />
+      <Footer userState={props.userState} />
     </>
   );
 }
