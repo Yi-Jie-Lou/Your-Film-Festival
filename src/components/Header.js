@@ -146,7 +146,7 @@ function BuildHeader() {
   return (
     <div   style={{
       background: primaryColor,
-    }} className=" flex fixed top-0 w-full my-0 mx-auto z-30 border-2 rounded-lg ">
+    }} className=" flex fixed top-0 w-full my-0 mx-auto z-30 rounded-lg ">
 
       <CustomerNavLink router={`/festival=${festivalPathName}`}>
         {festivalLogo ? (

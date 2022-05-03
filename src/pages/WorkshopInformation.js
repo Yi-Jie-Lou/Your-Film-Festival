@@ -48,9 +48,9 @@ function WorkshopContainer() {
       },
       body: JSON.stringify(state),
     }).then((res) => {
-      console.log(res);
-      if (res.status === "success") {
-        alert("Message Sent");
+      console.log(res.status);
+      if (res.status === 200) {
+        alert("表單已寄出囉！請耐心等候回覆");
       } else if (res.status === "fail") {
         alert("Message failed to send");
       }
