@@ -22,7 +22,7 @@ import {
   updateSecondaryColor,
   isGuide,
   updateFestivalStart,
-  updateFestivalEnd
+  updateFestivalEnd,
 } from "./actions";
 import { firebase } from "./utils/firebase-config";
 import Index from "./pages/Index";
@@ -51,10 +51,17 @@ function App() {
 
   useEffect(() => {
     const path = window.location.pathname;
-    const templatePath = ["/", "/news", "/timetable", "/workshop", "/price","/login"];
+    const templatePath = [
+      "/",
+      "/news",
+      "/timetable",
+      "/workshop",
+      "/price",
+      "/login",
+    ];
     const currentFestival = path.split("festival=")[1];
 
-    console.log(currentText);
+    console.log(currentFestival);
 
     const setupReduxStore = (res) => {
       console.log("keep mind!");
@@ -96,6 +103,7 @@ function App() {
           } else {
             firebase.readFestivalData(currentUser.uid).then((res) => {
               setupReduxStore(res);
+              console.log("wrong")
             });
           }
         } else {
@@ -123,6 +131,13 @@ function App() {
               />
               <Route
                 key={index}
+                path={`feature-information/:id/festival=${item}`}
+                element={
+                  <FeatureInformation userUID={userUID} userState={"build"} />
+                }
+              />
+              <Route
+                key={index}
                 path={`price/festival=${item}`}
                 element={<Price userUID={userUID} userState={"build"} />}
               />
@@ -133,13 +148,32 @@ function App() {
               />
               <Route
                 key={index}
+                path={`news/:id/festival=${item}`}
+                element={
+                  <NewsInformation userUID={userUID} userState={"build"} />
+                }
+              />
+              <Route
+                key={index}
                 path={`timetable/festival=${item}`}
+                element={<Timetable userUID={userUID} userState={"build"} />}
+              />
+              <Route
+                key={index}
+                path={`timetable/:id/festival=${item}`}
                 element={<Timetable userUID={userUID} userState={"build"} />}
               />
               <Route
                 key={index}
                 path={`workshop/festival=${item}`}
                 element={<Workshop userUID={userUID} userState={"build"} />}
+              />
+              <Route
+                key={index}
+                path={`workshop/:id/festival=${item}`}
+                element={
+                  <WorkshopInformation userUID={userUID} userState={"build"} />
+                }
               />
             </>
           );
@@ -151,6 +185,7 @@ function App() {
         if (festivalList.some((item) => item === currentFestival)) {
           firebase.readPublishedFestivalData(currentFestival).then((res) => {
             setupReduxStore(res);
+            console.log("correct")
           });
         } else {
           monitorAuthState();
@@ -169,11 +204,9 @@ function App() {
           path="/"
           element={<Index userUID={userUID} userState={login} />}
         />
-               <Route
+        <Route
           path="feature-information/:id"
-          element={
-            <FeatureInformation userUID={userUID} userState={login} />
-          }
+          element={<FeatureInformation userUID={userUID} userState={login} />}
         />
         <Route
           path="news"

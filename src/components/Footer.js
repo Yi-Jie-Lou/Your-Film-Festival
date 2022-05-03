@@ -40,7 +40,7 @@ function CustomerFooter() {
       </div>
       <div className="flex justify-center content-center flex-wrap max-w-530 ">
         {sponsor.text.map((item, index) => (
-          <div index={index} className="flex py-1  mx-4 text-start text-sm">
+          <div key={index} index={index} className="flex py-1  mx-4 text-start text-sm">
             <span> {item}</span>
           </div>
         ))}

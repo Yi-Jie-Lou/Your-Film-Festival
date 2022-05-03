@@ -140,14 +140,21 @@ function PreviewHeader() {
 
 function BuildHeader() {
   const festivalPathName = useSelector((state) => state.festivalPathName);
-
+  const festivalLogo = useSelector((state) => state.festivalLogo);
+  const primaryColor = useSelector((state) => state.primaryColor);
+  
   return (
-    <div className=" flex fixed top-0 w-full my-0 mx-auto z-30 border-2 rounded-lg bg-neutral-300">
-      <NavLink to={`/festival=${festivalPathName}`}>
-        <div className="w-40 py-2 m-4 border-2 rounded text-center text-1xl">
-          {festivalPathName ? festivalPathName : "Your Film Festival"}
-        </div>
-      </NavLink>
+    <div   style={{
+      background: primaryColor,
+    }} className=" flex fixed top-0 w-full my-0 mx-auto z-30 border-2 rounded-lg ">
+
+      <CustomerNavLink router={`/festival=${festivalPathName}`}>
+        {festivalLogo ? (
+          <img className="h-14" src={festivalLogo} />
+        ) : (
+          "請上傳LOGO"
+        )}
+      </CustomerNavLink>
       <div className="flex  my-4 mr-4 ml-auto  text-center text-1xl">
         <CustomerNavLink router={`/news/festival=${festivalPathName}`}>
           最新消息

@@ -29,7 +29,6 @@ function WorkshopContainer() {
   const [currentWorkshop, setCurrentWorkshop] = useState("");
   const [isRobot, setIsRobot] = useState(true);
 
-
   const handleChange = (value, key) => {
     dispatch({ type: key, payload: value });
   };
