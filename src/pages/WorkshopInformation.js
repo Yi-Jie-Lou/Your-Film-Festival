@@ -1,6 +1,4 @@
 import React, { useEffect, useState, useReducer } from "react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Input from "../components/Input";
@@ -21,13 +19,15 @@ function reducer(state, action) {
   }
 }
 
-function WorkshopContainer() {
+
+function WorkshopInformation() {
   const workshop = useSelector((state) => state.workshop);
   const currentID = useParams();
   const initialState = { name: "", email: "", phoneNumber: "" };
   const [state, dispatch] = useReducer(reducer, initialState);
   const [currentWorkshop, setCurrentWorkshop] = useState("");
   const [isRobot, setIsRobot] = useState(true);
+  console.log(currentID)
 
   const handleChange = (value, key) => {
     dispatch({ type: key, payload: value });
@@ -150,16 +150,6 @@ function WorkshopContainer() {
         </div>
       </div>
     </div>
-  );
-}
-
-function WorkshopInformation(props) {
-  return (
-    <>
-      <Header userState={props.userState} />
-      <WorkshopContainer />
-      <Footer  userState={props.userState}/>
-    </>
   );
 }
 

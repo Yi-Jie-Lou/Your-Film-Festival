@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import Creator from "../components/Creator";
 import FilmContent from "../components/FilmContent";
 import Booking from "../components/Booking";
 import Note from "../components/Note";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import { firebase } from "../utils/firebase-config";
 import { updateFeatures } from "../actions";
 import { useSelector, useDispatch } from "react-redux";
@@ -88,7 +86,6 @@ function Features() {
 
   return (
     <div className="wrap">
-      <Header userState={"editing"} />
 
       <div className="flex flex-wrap justify-center mt-32 ">
         {features.map((item, index) => (
@@ -129,7 +126,6 @@ function Features() {
           儲存本頁
         </button>
       </div>
-      <Footer />
     </div>
   );
 }

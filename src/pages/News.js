@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 
 function TemplateNewsContainer() {
   const news = useSelector((state) => state.news);
   const [importantNews, setImportantNews] = useState([]);
   const [normalNews, setNormalNews] = useState([]);
+
 
   useEffect(() => {
     const importantTag = news.filter((item) => item.important === true);
@@ -139,6 +140,8 @@ function BuildNewsContainer() {
   const festivalPathName = useSelector((state) => state.festivalPathName);
   const [importantNews, setImportantNews] = useState([]);
   const [normalNews, setNormalNews] = useState([]);
+  const currentID = useParams();
+  console.log(currentID)
 
   useEffect(() => {
     const importantTag = news.filter((item) => item.important === true);
@@ -154,7 +157,7 @@ function BuildNewsContainer() {
           {importantNews.map((item, index) => (
             <NavLink
               key={index}
-              to={`/news/${item.newsID}/festival=${festivalPathName}`}
+              to={`/build/news/${item.newsID}/festival=${festivalPathName}`}
             >
               <div className="relative  h-516 w-480 mb-8 mx-4 drop-shadow-2xl  cursor-pointer hover:scale-105 ease-in-out duration-300">
                 <div className="absolute m-7 bottom-0  text-white text-shadow text-xl">
@@ -179,7 +182,7 @@ function BuildNewsContainer() {
           {normalNews.map((item, index) => (
             <NavLink
               key={index}
-              to={`/news/${item.newsID}/festival=${festivalPathName}`}
+              to={`/build/news/${item.newsID}/festival=${festivalPathName}`}
             >
               <div className="relative w-300 h-250 mb-4   mx-4 drop-shadow-2xl  cursor-pointer hover:scale-105 ease-in-out duration-300">
                 <div className="absolute m-7 bottom-0  text-white text-shadow text-xl">
@@ -208,13 +211,14 @@ function BuildNewsContainer() {
 
 function News(props) {
   const [pageState, setPageState] = useState(props.userState);
+
   useEffect(() => {
     setPageState(props.userState);
   }, [props.userState]);
 
   return (
     <>
-      <Header userUID={props.userUID} userState={props.userState} />
+
       {pageState === "preview" ? (
         <PreviewNewsContainer />
       ) : pageState === "build" ? (
@@ -222,7 +226,7 @@ function News(props) {
       ) : (
         <TemplateNewsContainer />
       )}
-      <Footer userState={props.userState} />
+
     </>
   );
 }

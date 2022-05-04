@@ -178,7 +178,7 @@ function BuildCarousel() {
         {sourceImgs.map((item, index) => (
           <NavLink
             key={index}
-            to={`/feature-information/${item.id}/festival=${festivalPathName}`}
+            to={`/build/feature-information/${item.id}/festival=${festivalPathName}`}
           >
             <img
               className={`absolute top-0 left-0 w-full h-700  object-cover  object-center  transition-all duration-1000 ${
@@ -366,7 +366,7 @@ function BuildFeatureContainer() {
           {importantFeatures.map((item, index) => (
             <NavLink
               key={index}
-              to={`/feature-information/${item.featureID}/festival=${festivalPathName}`}
+              to={`/build/feature-information/${item.featureID}/festival=${festivalPathName}`}
             >
               <div
                 key={index}
@@ -394,7 +394,7 @@ function BuildFeatureContainer() {
           {normalFeatures.map((item, index) => (
             <NavLink
               key={index}
-              to={`/feature-information/${item.featureID}/festival=${festivalPathName}`}
+              to={`/build/feature-information/${item.featureID}/festival=${festivalPathName}`}
             >
               <div
                 key={index}

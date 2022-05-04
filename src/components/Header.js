@@ -148,7 +148,7 @@ function BuildHeader() {
       background: primaryColor,
     }} className=" flex fixed top-0 w-full my-0 mx-auto z-30 rounded-lg ">
 
-      <CustomerNavLink router={`/festival=${festivalPathName}`}>
+      <CustomerNavLink router={`/build/festival=${festivalPathName}`}>
         {festivalLogo ? (
           <img className="h-14" src={festivalLogo} />
         ) : (
@@ -156,16 +156,16 @@ function BuildHeader() {
         )}
       </CustomerNavLink>
       <div className="flex  my-4 mr-4 ml-auto  text-center text-1xl">
-        <CustomerNavLink router={`/news/festival=${festivalPathName}`}>
+        <CustomerNavLink router={`/build/news/festival=${festivalPathName}`}>
           最新消息
         </CustomerNavLink>
-        <CustomerNavLink router={`/price/festival=${festivalPathName}`}>
+        <CustomerNavLink router={`/build/price/festival=${festivalPathName}`}>
           購票資訊
         </CustomerNavLink>
-        <CustomerNavLink router={`/timetable/festival=${festivalPathName}`}>
+        <CustomerNavLink router={`/build/timetable/festival=${festivalPathName}`}>
           場次表
         </CustomerNavLink>
-        <CustomerNavLink router={`/workshop/festival=${festivalPathName}`}>
+        <CustomerNavLink router={`/build/workshop/festival=${festivalPathName}`}>
           工作坊
         </CustomerNavLink>
       </div>

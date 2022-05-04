@@ -1,7 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
 import { isGuide } from "../actions";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import IndexContainer from "../components/IndexContainer";
 import Joyride, { STATUS } from "react-joyride";
 
@@ -41,7 +39,7 @@ function Index(props) {
 
   return (
     <>
-      <Header userUID={props.userUID} userState={props.userState} />
+   
       { state === "logout" && isFirstViewed ? (
         <Joyride
           callback={handleJoyrideCallback}
@@ -62,7 +60,7 @@ function Index(props) {
       )}
 
       <IndexContainer userState={props.userState} />
-      <Footer userState={props.userState} />
+
     </>
   );
 }

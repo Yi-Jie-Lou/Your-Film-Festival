@@ -1,15 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Textarea from "../components/Textarea";
 import Input from "../components/Input";
 import Checkbox from "../components/Checkbox";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+
 import { updateNews } from "../actions";
 import { firebase } from "../utils/firebase-config";
 import uniqid from "uniqid";
 
-function EditNewsContainer() {
+function EditNews() {
   const dispatch = useDispatch();
   const userID = useSelector((state) => state.userID);
   const news = useSelector((state) => state.news);
@@ -169,16 +168,6 @@ function EditNewsContainer() {
         </button>
       </div>
     </div>
-  );
-}
-
-function EditNews() {
-  return (
-    <>
-      <Header userState={"editing"} />
-      <EditNewsContainer />
-      <Footer />
-    </>
   );
 }
 

@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import { NavLink } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
@@ -326,7 +324,7 @@ function BuildTimetableContainer() {
                   film.location === item ? (
                     <NavLink
                       key={index}
-                      to={`/feature-information/${film.featureID}/festival=${festivalPathName}`}
+                      to={`/build/feature-information/${film.featureID}/festival=${festivalPathName}`}
                     >
                       <div
                         key={index}
@@ -391,7 +389,7 @@ function Timetable(props) {
   }, [props.userState]);
   return (
     <>
-      <Header userUID={props.userUID} userState={props.userState} />
+
       {pageState === "preview" ? (
         <PreviewTimetableContainer />
       ) : pageState === "build" ? (
@@ -400,7 +398,7 @@ function Timetable(props) {
         <TemplateTimetableContainer />
       )}
 
-      <Footer userState={props.userState} />
+
     </>
   );
 }

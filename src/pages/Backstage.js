@@ -1,6 +1,4 @@
 import { useState } from "react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { DateRangePicker } from "react-date-range";
@@ -19,7 +17,7 @@ import {
 import { firebase } from "../utils/firebase-config";
 import { useDispatch, useSelector } from "react-redux";
 
-function BackstageContainer(props) {
+function Backstage() {
   const dispatch = useDispatch();
   const festivalName = useSelector((state) => state.festivalName);
   const festivalPathName = useSelector((state) => state.festivalPathName);
@@ -45,8 +43,8 @@ function BackstageContainer(props) {
   };
 
   const saveToFirebase = () => {
-    if (!props.userUID) return;
-    updateDoc(doc(db, "users", props.userUID), {
+    if (!userID) return;
+    updateDoc(doc(db, "users", userID), {
       locations,
       festivalPeriod: getAvailableDates(),
       festivalPathName,
@@ -235,16 +233,6 @@ function BackstageContainer(props) {
         </div>
       </div>
     </div>
-  );
-}
-
-function Backstage(props) {
-  return (
-    <>
-      <Header userState={"editing"} />
-      <BackstageContainer userUID={props.userUID} />
-      <Footer />
-    </>
   );
 }
 

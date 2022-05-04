@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import "react-image-gallery/styles/css/image-gallery.css";
 
-function NewsContainer() {
+function NewsInformation() {
   const news = useSelector((state) => state.news);
   const [currentNews, setCurrentNews] = useState("");
   const currentID = useParams();
@@ -23,8 +19,8 @@ function NewsContainer() {
       <div className="mx-auto my-12 w-11/12">
         {currentNews
           ? currentNews.content.split("\n").map((line, index) => (
-              <div className="my-1">
-                <span key={index}>
+              <div key={index} className="my-1">
+                <span >
                   {line}
                   <br />
                 </span>
@@ -33,16 +29,6 @@ function NewsContainer() {
           : ""}
       </div>
     </div>
-  );
-}
-
-function NewsInformation(props) {
-  return (
-    <>
-      <Header userState={props.userState} />
-      <NewsContainer />
-      <Footer userState={props.userState} />
-    </>
   );
 }
 

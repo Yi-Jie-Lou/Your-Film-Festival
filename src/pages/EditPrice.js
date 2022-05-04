@@ -2,12 +2,10 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Textarea from "../components/Textarea";
 import Input from "../components/Input";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import { updatePrice, updateTraffic } from "../actions";
 import { firebase } from "../utils/firebase-config";
 
-function EditPriceContainer() {
+function EditPrice() {
   const dispatch = useDispatch();
   const userID = useSelector((state) => state.userID);
   const price = useSelector((state) => state.price);
@@ -253,16 +251,6 @@ function EditPriceContainer() {
         </button>
       </div>
     </div>
-  );
-}
-
-function EditPrice() {
-  return (
-    <>
-      <Header userState={"editing"} />
-      <EditPriceContainer />
-      <Footer />
-    </>
   );
 }
 

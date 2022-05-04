@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -342,7 +340,7 @@ function BuildFeatureContainer() {
               {currentFeature.timetable.map((timetable, index) => (
                 <NavLink
                   key={index}
-                  to={`/timetable/${timetable.date}/festival=${festivalPathName}`}
+                  to={`/build/timetable/${timetable.date}/festival=${festivalPathName}`}
                 >
                   <div
                     style={{
@@ -410,7 +408,7 @@ function FeatureInformation(props) {
 
   return (
     <>
-      <Header userState={props.userState} />
+ 
       {pageState === "preview" ? (
         <PreviewFeatureContainer />
       ) : pageState === "build" ? (
@@ -419,7 +417,7 @@ function FeatureInformation(props) {
         <TemplateFeatureContainer />
       )}
 
-      <Footer userState={props.userState} />
+
     </>
   );
 }

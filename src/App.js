@@ -1,6 +1,12 @@
-import { useEffect, useState, ReactFragment } from "react";
+import { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { Routes, Route, BrowserRouter, useParams } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  BrowserRouter,
+  useParams,
+  Outlet,
+} from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   userLogin,
@@ -40,14 +46,16 @@ import FeatureInformation from "./pages/FeatureInformation";
 import NewsInformation from "./pages/NewsInformation";
 import WorkshopInformation from "./pages/WorkshopInformation";
 import EditFooterAndColor from "./pages/EditFooterAndColor";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
   const userID = useSelector((state) => state.userID);
   const login = useSelector((state) => state.state);
   const [userUID, setUserUID] = useState("");
-  const [allPubished, setAllPubished] = useState([]);
-  const currentText = useParams();
+  const currentID = useParams();
+  console.log(currentID);
 
   useEffect(() => {
     const path = window.location.pathname;
@@ -60,8 +68,6 @@ function App() {
       "/login",
     ];
     const currentFestival = path.split("festival=")[1];
-
-    console.log(currentFestival);
 
     const setupReduxStore = (res) => {
       console.log("keep mind!");
@@ -103,7 +109,7 @@ function App() {
           } else {
             firebase.readFestivalData(currentUser.uid).then((res) => {
               setupReduxStore(res);
-              console.log("wrong")
+              console.log("wrong");
             });
           }
         } else {
@@ -118,195 +124,143 @@ function App() {
       });
     };
 
-    firebase
-      .getAllPubished()
-      .then((festivalList) => {
-        const allPublishedRoutes = festivalList.map((item, index) => {
-          return (
-            <>
-              <Route
-                key={index}
-                path={`/festival=${item}`}
-                element={<Index userUID={userUID} userState={"build"} />}
-              />
-              <Route
-                key={index}
-                path={`feature-information/:id/festival=${item}`}
-                element={
-                  <FeatureInformation userUID={userUID} userState={"build"} />
-                }
-              />
-              <Route
-                key={index}
-                path={`price/festival=${item}`}
-                element={<Price userUID={userUID} userState={"build"} />}
-              />
-              <Route
-                key={index}
-                path={`news/festival=${item}`}
-                element={<News userUID={userUID} userState={"build"} />}
-              />
-              <Route
-                key={index}
-                path={`news/:id/festival=${item}`}
-                element={
-                  <NewsInformation userUID={userUID} userState={"build"} />
-                }
-              />
-              <Route
-                key={index}
-                path={`timetable/festival=${item}`}
-                element={<Timetable userUID={userUID} userState={"build"} />}
-              />
-              <Route
-                key={index}
-                path={`timetable/:id/festival=${item}`}
-                element={<Timetable userUID={userUID} userState={"build"} />}
-              />
-              <Route
-                key={index}
-                path={`workshop/festival=${item}`}
-                element={<Workshop userUID={userUID} userState={"build"} />}
-              />
-              <Route
-                key={index}
-                path={`workshop/:id/festival=${item}`}
-                element={
-                  <WorkshopInformation userUID={userUID} userState={"build"} />
-                }
-              />
-            </>
-          );
+    firebase.getAllPubished().then((festivalList) => {
+      if (festivalList.some((item) => item === currentFestival)) {
+        firebase.readPublishedFestivalData(currentFestival).then((res) => {
+          setupReduxStore(res);
+          console.log("correct");
         });
-        setAllPubished(allPublishedRoutes);
-        return festivalList;
-      })
-      .then((festivalList) => {
-        if (festivalList.some((item) => item === currentFestival)) {
-          firebase.readPublishedFestivalData(currentFestival).then((res) => {
-            setupReduxStore(res);
-            console.log("correct")
-          });
-        } else {
-          monitorAuthState();
-        }
-      });
+      } else {
+        monitorAuthState();
+      }
+    });
   }, []);
 
   return (
     <BrowserRouter>
       <Routes>
-        {allPubished}
         <Route path="login" element={<Login />} />
 
-        {/*Template*/}
-        <Route
-          path="/"
-          element={<Index userUID={userUID} userState={login} />}
-        />
-        <Route
-          path="feature-information/:id"
-          element={<FeatureInformation userUID={userUID} userState={login} />}
-        />
-        <Route
-          path="news"
-          element={<News userUID={userUID} userState={login} />}
-        />
-        <Route
-          path="news/:id"
-          element={<NewsInformation userUID={userUID} userState={login} />}
-        />
-        <Route
-          path="price"
-          element={<Price userUID={userUID} userState={login} />}
-        />
-        <Route
-          path="timetable"
-          element={<Timetable userUID={userUID} userState={login} />}
-        />
-        <Route
-          path="timetable/:id"
-          element={<Timetable userUID={userUID} userState={login} />}
-        />
-        <Route
-          path="workshop"
-          element={<Workshop userUID={userUID} userState={login} />}
-        />
-        <Route
-          path="workshop/:id"
-          element={<WorkshopInformation userUID={userUID} userState={login} />}
-        />
+        {/*Template Pages*/}
+        <Route path="/" element={<TemplateRouter userState={login} />}>
+          <Route path="" element={<Index userState={login} />} />
+          <Route
+            path="feature-information/:id"
+            element={<FeatureInformation userState={login} />}
+          />
+          <Route path="news" element={<News userState={login} />} />
+          <Route path="news/:id" element={<NewsInformation />} />
+          <Route path="price" element={<Price />} />
+          <Route path="timetable" element={<Timetable userState={login} />} />
+          <Route
+            path="timetable/:id"
+            element={<Timetable userState={login} />}
+          />
+          <Route path="workshop" element={<Workshop userState={login} />} />
+          <Route path="workshop/:id" element={<WorkshopInformation />} />
+        </Route>
 
-        {/*backstage */}
-        <Route path="backstage" element={<Backstage userUID={userUID} />} />
-        <Route
-          path="backstage/features"
-          element={<Features userUID={userUID} />}
-        />
-        <Route path="backstage/news" element={<EditNews userUID={userUID} />} />
-        <Route
-          path="backstage/price"
-          element={<EditPrice userUID={userUID} />}
-        />
-        <Route
-          path="backstage/workshop"
-          element={<EditWorkshop userUID={userUID} />}
-        />
-        <Route
-          path="backstage/edit-footer-color"
-          element={<EditFooterAndColor userUID={userUID} />}
-        />
+        {/*Preview Pages*/}
+        <Route path="preview" element={<PreviewRouter />}>
+          <Route path="" element={<Index userState="preview" />} />
+          <Route
+            path="feature-information/:id"
+            element={<FeatureInformation userState="preview" />}
+          />
+          <Route path="news" element={<News userState="preview" />} />
+          <Route path="news/:id" element={<NewsInformation />} />
+          <Route path="price" element={<Price />} />
+          <Route path="timetable" element={<Timetable userState="preview" />} />
+          <Route
+            path="timetable/:id"
+            element={<Timetable userState="preview" />}
+          />
+          <Route path="workshop" element={<Workshop userState="preview" />} />
+          <Route path="workshop/:id" element={<WorkshopInformation />} />
+        </Route>
 
-        {/*Preview */}
-        <Route
-          path="preview/timetable"
-          element={<Timetable userUID={userUID} userState={"preview"} />}
-        />
-        <Route
-          path="preview/timetable/:id"
-          element={<Timetable userUID={userUID} userState={"preview"} />}
-        />
-        <Route
-          path="preview/news"
-          element={<News userUID={userUID} userState={"preview"} />}
-        />
-        <Route
-          path="preview/news/:id"
-          element={<NewsInformation userUID={userUID} userState={"preview"} />}
-        />
-        <Route
-          path="preview/price"
-          element={<Price userUID={userUID} userState={"preview"} />}
-        />
-        <Route
-          path="/preview"
-          element={<Index userUID={userUID} userState={"preview"} />}
-        />
-        <Route
-          path="preview/workshop"
-          element={<Workshop userUID={userUID} userState={"preview"} />}
-        />
-        <Route
-          path="preview/workshop/:id"
-          element={
-            <WorkshopInformation userUID={userUID} userState={"preview"} />
-          }
-        />
-        <Route
-          path="preview/feature-information"
-          element={
-            <FeatureInformation userUID={userUID} userState={"preview"} />
-          }
-        />
-        <Route
-          path="preview/feature-information/:id"
-          element={
-            <FeatureInformation userUID={userUID} userState={"preview"} />
-          }
-        />
+        {/*Build Pages*/}
+        <Route path="build" element={<BuildRouter userState="build" />}>
+          <Route path=":festival" element={<Index userState="build" />} />
+          <Route
+            path="feature-information/:id/:festival"
+            element={<FeatureInformation userState="build" />}
+          />
+          <Route path="price/:festival" element={<Price userState="build" />} />
+          <Route path="news/:festival" element={<News userState="build" />} />
+          <Route
+            path="news/:id/:festival"
+            element={<NewsInformation userState="build" />}
+          />
+          <Route
+            path="timetable/:festival"
+            element={<Timetable userState="build" />}
+          />
+          <Route
+            path="timetable/:id/:festival"
+            element={<Timetable userState="build" />}
+          />
+          <Route
+            path="workshop/:festival"
+            element={<Workshop userState="build" />}
+          />
+          <Route
+            path="workshop/:id/:festival"
+            element={<WorkshopInformation />}
+          />
+        </Route>
+
+        {/*Backstage Pages*/}
+        <Route path="backstage" element={<BackstageRouter />}>
+          <Route path="" element={<Backstage />} />
+          <Route path="features" element={<Features />} />
+          <Route path="news" element={<EditNews />} />
+          <Route path="price" element={<EditPrice />} />
+          <Route path="workshop" element={<EditWorkshop />} />
+          <Route path="edit-footer-color" element={<EditFooterAndColor />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
 }
 
+function TemplateRouter(props) {
+  return (
+    <>
+      <Header userState={props.userState} />
+      <Outlet />
+      <Footer userState={props.userState} />
+    </>
+  );
+}
+
+function BackstageRouter() {
+  return (
+    <>
+      <Header userState={"editing"} />
+      <Outlet />
+      <Footer userState={"editing"} />
+    </>
+  );
+}
+
+function PreviewRouter() {
+  return (
+    <>
+      <Header userState={"preview"} />
+      <Outlet />
+      <Footer userState={"preview"} />
+    </>
+  );
+}
+
+function BuildRouter() {
+  return (
+    <>
+      <Header userState={"build"} />
+      <Outlet />
+      <Footer userState={"build"} />
+    </>
+  );
+}
 export default App;

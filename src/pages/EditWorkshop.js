@@ -3,14 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import Textarea from "../components/Textarea";
 import Input from "../components/Input";
 import Checkbox from "../components/Checkbox";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import Cropper from "../components/Cropper";
 import { updateWorkshop } from "../actions";
 import { firebase } from "../utils/firebase-config";
 import uniqid from "uniqid";
 
-function EditWorkshopContainer() {
+function EditWorkshop() {
   const dispatch = useDispatch();
   const userID = useSelector((state) => state.userID);
   const workshop = useSelector((state) => state.workshop);
@@ -265,16 +263,6 @@ function EditWorkshopContainer() {
         </button>
       </div>
     </div>
-  );
-}
-
-function EditWorkshop() {
-  return (
-    <>
-      <Header userState={"editing"} />
-      <EditWorkshopContainer />
-      <Footer />
-    </>
   );
 } 
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   updateSponsor,
@@ -7,11 +7,9 @@ import {
 } from "../actions";
 import { firebase } from "../utils/firebase-config";
 import Input from "../components/Input";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import ColorCube from "../components/ColorCube";
 
-function EditFooterContent() {
+function EditFooterAndColor() {
   const dispatch = useDispatch();
   const primaryColor = useSelector((state) => state.primaryColor);
   const secondaryColor = useSelector((state) => state.secondaryColor);
@@ -212,16 +210,6 @@ function EditFooterContent() {
           儲存本頁
         </button>
       </div>
-    </>
-  );
-}
-
-function EditFooterAndColor() {
-  return (
-    <>
-      <Header userState={"editing"} />
-      <EditFooterContent />
-      <Footer />
     </>
   );
 }
