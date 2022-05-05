@@ -1,23 +1,26 @@
-import loggedReducer from "./login";
-import periodReducer from "./updatePeriod";
-import locationsReducer from "./updateLocations";
-import featuresReducer from "./updateFeatures";
-import featureTabReducer from "./updateCurrentTab";
-import userStateReducer from "./updateUserState";
-import festivalNameReducer from "./updateFestivalName";
-import festivalPathNameReducer from "./updateFestivalPathName";
-import festivalPostReducer from "./updateFestivalPost";
-import festivalLogoReducer from "./updateFestivalLogo";
-import newsReducer from "./updateNews"
-import priceReducer from "./updatePrice";
-import trafficReducer from "./updateTraffic";
-import workshopReducer from "./updateWorkshop";
-import sponsorReducer from "./updateSponsor";
-import primaryColorReducer from "./updatePrimaryColor"
-import secondaryColorReducer from "./updateSecondaryColor"
-import guideReducer from "./isGuide";
-import festivalStartReducer from "./updateFestivalStart";
-import festivalEndReducer from "./updateFestivalEnd";
+import {
+  loggedReducer,
+  periodReducer,
+  locationsReducer,
+  featuresReducer,
+  featureTabReducer,
+  userStateReducer,
+  festivalNameReducer,
+  festivalPathNameReducer,
+  festivalPostReducer,
+  festivalLogoReducer,
+  newsReducer,
+  priceReducer,
+  trafficReducer,
+  workshopReducer,
+  sponsorReducer,
+  primaryColorReducer,
+  secondaryColorReducer,
+  guideReducer,
+  festivalStartReducer,
+  festivalEndReducer,
+} from "./allReducers.js";
+
 import { combineReducers } from "redux";
 
 const allReducers = combineReducers({
@@ -41,7 +44,6 @@ const allReducers = combineReducers({
   primaryColor: primaryColorReducer,
   secondaryColor: secondaryColorReducer,
   isGuide: guideReducer,
-  
 });
 
 export default allReducers;

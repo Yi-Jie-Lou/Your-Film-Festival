@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { isGuide } from "../actions";
-import IndexContainer from "../components/IndexContainer";
+import FilmsContainer from "../components/index/FilmsContainer";
+import Carousel from "../components/index/Carousel";
 import Joyride, { STATUS } from "react-joyride";
 
 function Index(props) {
@@ -30,7 +31,7 @@ function Index(props) {
   ];
 
   const handleJoyrideCallback = (data) => {
-    const {status} = data;
+    const { status } = data;
 
     if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
       dispatch(isGuide(false));
@@ -39,28 +40,29 @@ function Index(props) {
 
   return (
     <>
-   
-      { state === "logout" && isFirstViewed ? (
+      {state === "logout" && isFirstViewed ? (
         <Joyride
           callback={handleJoyrideCallback}
           steps={steps}
           continuous={true}
           styles={{
             options: {
-              arrowColor: '#fff',
-              backgroundColor:  "#fff",
+              arrowColor: "#fff",
+              backgroundColor: "#fff",
               primaryColor: "#f97316",
-              textColor: '#000',
+              textColor: "#000",
               zIndex: 1000,
-            }
+            },
           }}
         />
       ) : (
         ""
       )}
 
-      <IndexContainer userState={props.userState} />
-
+      <div className="mt-24 ">
+        <Carousel userState={props.userState} />
+        <FilmsContainer userState={props.userState} />
+      </div>
     </>
   );
 }

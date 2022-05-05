@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
   Routes,
   Route,
   BrowserRouter,
-  useParams,
   Outlet,
 } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -51,11 +50,7 @@ import Footer from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
-  const userID = useSelector((state) => state.userID);
   const login = useSelector((state) => state.state);
-  const [userUID, setUserUID] = useState("");
-  const currentID = useParams();
-  console.log(currentID);
 
   useEffect(() => {
     const path = window.location.pathname;
@@ -99,7 +94,6 @@ function App() {
         if (currentUser) {
           dispatch(userLogin(currentUser.uid));
           dispatch(updateState("login"));
-          setUserUID(currentUser.uid);
           if (templatePath.some((item) => item === path)) {
             firebase
               .readFestivalData("BI9JlWinAzS8xdOnl1BrtUKPY1A3")
@@ -237,9 +231,9 @@ function TemplateRouter(props) {
 function BackstageRouter() {
   return (
     <>
-      <Header userState={"editing"} />
+      <Header userState="editing" />
       <Outlet />
-      <Footer userState={"editing"} />
+      <Footer userState="editing" />
     </>
   );
 }
@@ -247,9 +241,9 @@ function BackstageRouter() {
 function PreviewRouter() {
   return (
     <>
-      <Header userState={"preview"} />
+      <Header userState="preview" />
       <Outlet />
-      <Footer userState={"preview"} />
+      <Footer userState="preview" />
     </>
   );
 }
@@ -257,9 +251,9 @@ function PreviewRouter() {
 function BuildRouter() {
   return (
     <>
-      <Header userState={"build"} />
+      <Header userState="build" />
       <Outlet />
-      <Footer userState={"build"} />
+      <Footer userState="build" />
     </>
   );
 }
