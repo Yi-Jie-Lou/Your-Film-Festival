@@ -1,11 +1,6 @@
-import { useEffect} from "react";
+import { useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import {
-  Routes,
-  Route,
-  BrowserRouter,
-  Outlet,
-} from "react-router-dom";
+import { Routes, Route, BrowserRouter, Outlet } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   userLogin,
@@ -33,7 +28,7 @@ import { firebase } from "./utils/firebase-config";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Backstage from "./pages/Backstage";
-import Features from "./pages/Features";
+import Features from "./pages/EditFeatures";
 import News from "./pages/News";
 import Timetable from "./pages/Timetable";
 import Price from "./pages/Price";
@@ -41,12 +36,12 @@ import Workshop from "./pages/Workshop";
 import EditNews from "./pages/EditNews";
 import EditPrice from "./pages/EditPrice";
 import EditWorkshop from "./pages/EditWorkshop";
-import FeatureInformation from "./pages/FeatureInformation";
-import NewsInformation from "./pages/NewsInformation";
-import WorkshopInformation from "./pages/WorkshopInformation";
+import FeatureDetails from "./pages/FeatureDetails";
+import NewsDetails from "./pages/NewsDetails";
+import WorkshopDetails from "./pages/WorkshopDetails";
 import EditFooterAndColor from "./pages/EditFooterAndColor";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Header from "./components/global/Header";
+import Footer from "./components/global/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -54,14 +49,6 @@ function App() {
 
   useEffect(() => {
     const path = window.location.pathname;
-    const templatePath = [
-      "/",
-      "/news",
-      "/timetable",
-      "/workshop",
-      "/price",
-      "/login",
-    ];
     const currentFestival = path.split("festival=")[1];
 
     const setupReduxStore = (res) => {
@@ -94,7 +81,11 @@ function App() {
         if (currentUser) {
           dispatch(userLogin(currentUser.uid));
           dispatch(updateState("login"));
-          if (templatePath.some((item) => item === path)) {
+          if (
+            path.split("/")[1] !== "backstage" &&
+            path.split("/")[1] !== "preview" &&
+            path.split("/")[1] !== "build"
+          ) {
             firebase
               .readFestivalData("BI9JlWinAzS8xdOnl1BrtUKPY1A3")
               .then((res) => {
@@ -135,15 +126,14 @@ function App() {
       <Routes>
         <Route path="login" element={<Login />} />
 
-        {/*Template Pages*/}
         <Route path="/" element={<TemplateRouter userState={login} />}>
           <Route path="" element={<Index userState={login} />} />
           <Route
-            path="feature-information/:id"
-            element={<FeatureInformation userState={login} />}
+            path="feature-details/:id"
+            element={<FeatureDetails userState={login} />}
           />
           <Route path="news" element={<News userState={login} />} />
-          <Route path="news/:id" element={<NewsInformation />} />
+          <Route path="news/:id" element={<NewsDetails />} />
           <Route path="price" element={<Price />} />
           <Route path="timetable" element={<Timetable userState={login} />} />
           <Route
@@ -151,18 +141,17 @@ function App() {
             element={<Timetable userState={login} />}
           />
           <Route path="workshop" element={<Workshop userState={login} />} />
-          <Route path="workshop/:id" element={<WorkshopInformation />} />
+          <Route path="workshop/:id" element={<WorkshopDetails />} />
         </Route>
 
-        {/*Preview Pages*/}
         <Route path="preview" element={<PreviewRouter />}>
           <Route path="" element={<Index userState="preview" />} />
           <Route
-            path="feature-information/:id"
-            element={<FeatureInformation userState="preview" />}
+            path="feature-details/:id"
+            element={<FeatureDetails userState="preview" />}
           />
           <Route path="news" element={<News userState="preview" />} />
-          <Route path="news/:id" element={<NewsInformation />} />
+          <Route path="news/:id" element={<NewsDetails />} />
           <Route path="price" element={<Price />} />
           <Route path="timetable" element={<Timetable userState="preview" />} />
           <Route
@@ -170,21 +159,20 @@ function App() {
             element={<Timetable userState="preview" />}
           />
           <Route path="workshop" element={<Workshop userState="preview" />} />
-          <Route path="workshop/:id" element={<WorkshopInformation />} />
+          <Route path="workshop/:id" element={<WorkshopDetails />} />
         </Route>
 
-        {/*Build Pages*/}
         <Route path="build" element={<BuildRouter userState="build" />}>
           <Route path=":festival" element={<Index userState="build" />} />
           <Route
-            path="feature-information/:id/:festival"
-            element={<FeatureInformation userState="build" />}
+            path="feature-details/:id/:festival"
+            element={<FeatureDetails userState="build" />}
           />
           <Route path="price/:festival" element={<Price userState="build" />} />
           <Route path="news/:festival" element={<News userState="build" />} />
           <Route
             path="news/:id/:festival"
-            element={<NewsInformation userState="build" />}
+            element={<NewsDetails userState="build" />}
           />
           <Route
             path="timetable/:festival"
@@ -200,11 +188,10 @@ function App() {
           />
           <Route
             path="workshop/:id/:festival"
-            element={<WorkshopInformation />}
+            element={<WorkshopDetails />}
           />
         </Route>
 
-        {/*Backstage Pages*/}
         <Route path="backstage" element={<BackstageRouter />}>
           <Route path="" element={<Backstage />} />
           <Route path="features" element={<Features />} />

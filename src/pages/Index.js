@@ -59,7 +59,7 @@ function Index(props) {
         ""
       )}
 
-      <div className="mt-24 ">
+      <div >
         <Carousel userState={props.userState} />
         <FilmsContainer userState={props.userState} />
       </div>

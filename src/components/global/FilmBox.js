@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 function FilmBox(props) {
   return (
-    <NavLink to={props.router}>
+    <NavLink className="w-full | sm:w-fit" to={props.router}>
       <div className={props.className}>
         <div className="absolute flex flex-col justify-center h-full  w-full  text-white  opacity-0 hover:opacity-100 backdrop-blur-sm  ">
           <h4 className="w-3/4 mx-auto text-shadow text-xl ">{props.title}</h4>

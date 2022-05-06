@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from "react";
-import FooterImg from "../img/yourFilmFooter.png";
-import AppWorksSchool from "../img/AppWorksSchool.png";
-import { useSelector, useDispatch } from "react-redux";
+import FooterImg from "../../img/yourFilmFooter.png";
+import AppWorksSchool from "../../img/AppWorksSchool.png";
+import { useSelector } from "react-redux";
 
 function TemplateFooter() {
   return (

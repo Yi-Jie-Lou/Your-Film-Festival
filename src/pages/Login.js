@@ -5,8 +5,8 @@ import {
 } from "firebase/auth";
 import { auth, firebase } from "../utils/firebase-config";
 import { signOut } from "firebase/auth";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import Header from "../components/global/Header";
+import Footer from "../components/global/Footer";
 import { useSelector } from "react-redux";
 import LoadingAnim from "../img/LoadingAnim.gif";
 

@@ -85,10 +85,10 @@ function Timetable(props) {
                       key={index}
                       router={
                         props.userState === "build"
-                          ? `/build/feature-information/${film.featureID}/festival=${festivalPathName}`
+                          ? `/build/feature-details/${film.featureID}/festival=${festivalPathName}`
                           : props.userState === "preview"
-                          ? `/preview/feature-information/${film.featureID}`
-                          : `/feature-information/${film.featureID}`
+                          ? `/preview/feature-details/${film.featureID}`
+                          : `/feature-details/${film.featureID}`
                       }
                       className="relative text-1xl w-64 h-64 mr-4 my-4 border-2 rounded "
                       text={`${film.name}${film.start}-${film.end}`}

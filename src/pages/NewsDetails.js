@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-function NewsInformation() {
+function NewsDetails() {
   const news = useSelector((state) => state.news);
   const [currentNews, setCurrentNews] = useState("");
   const currentID = useParams();
@@ -32,4 +32,4 @@ function NewsInformation() {
   );
 }
 
-export default NewsInformation;
+export default NewsDetails;

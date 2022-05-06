@@ -20,7 +20,7 @@ function reducer(state, action) {
 }
 
 
-function WorkshopInformation() {
+function WorkshopDetails() {
   const workshop = useSelector((state) => state.workshop);
   const currentID = useParams();
   const initialState = { name: "", email: "", phoneNumber: "" };
@@ -153,4 +153,4 @@ function WorkshopInformation() {
   );
 }
 
-export default WorkshopInformation;
+export default WorkshopDetails;

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateFeatures } from "../actions";
 import { firebase, storage } from "../utils/firebase-config";
 import { ref, uploadBytesResumable } from "firebase/storage";
-import Loading from "./Loading";
+import Loading from "./global/Loading";
 import Input from "./Input";
 import Textarea from "./Textarea";
 
@@ -115,6 +115,7 @@ function FilmContent() {
               {progress === 100 || progress === 0 ? (
                 <>
                   <p>請上傳預告片</p>
+                  <Loading progress={progress} />
                 </>
               ) : (
                 <>

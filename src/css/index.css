@@ -1,129 +1,159 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
 
+@layer utilities {
 
-.rdrDefinedRangesWrapper{
-    display: none  !important;
+  .shape {
+
+    clip-path: polygon(
+      20px 0, calc(100% - 20px) 0, 100% 20px, 
+      100% calc(100% - 20px), calc(100% - 20px) 100%, 
+      20px 100%, 0 calc(100% - 20px), 0 20px
+    );  
+
+  }
+
 }
 
+@tailwind utilities;
+
+.rdrDefinedRangesWrapper {
+  display: none !important;
+}
 
 @layer components {
-    .text-area {
-      @apply flex flex-col justify-around w-full h-32 my-2  mx-auto border-2 rounded-lg border-zinc-900
-    }
-    .text-area-large {
-        @apply flex flex-col justify-around w-full h-64 my-2  mx-auto border-2 rounded-lg border-zinc-900
-      }
-    .checkbox-left{
-      @apply flex   w-full  mx-auto my-2 
-    }
-    .checkbox-right{
-      @apply flex justify-end  w-full  mx-auto my-2 
-    }
-    .button-green{
-      @apply ml-3 py-1  w-28 border-2 rounded-lg  bg-green-200
-    }   
-     .button-red{
-      @apply mx-3  py-1  w-28 border-2 rounded-lg  bg-red-300
-    }
-    .button-blue{
-      @apply ml-3 py-1   w-28 border-2 rounded-lg bg-blue-300
-    }
-    .button-gray{
-      @apply ml-3 py-1   w-28 border-2 rounded-lg bg-stone-300
-    }
-    .input-full{
-      @apply flex flex-col justify-around w-full h-16 my-2  mx-auto border-2 rounded-lg border-zinc-900
-    }
-    .input-30{
-      @apply flex flex-col justify-around w-[30%] h-16 my-2  mx-auto border-2 rounded-lg border-zinc-900
-    }
-    .vertical{
-     @apply flex flex-col justify-center
-    }
-    .blur-hover{
-      @apply text-white  h-full w-full  opacity-0 hover:opacity-100 backdrop-blur-sm  
-    }
+  .text-area {
+    @apply flex flex-col justify-around w-full h-32 my-2  mx-auto border-2 rounded-lg border-zinc-900;
+  }
+  .text-area-large {
+    @apply flex flex-col justify-around w-full h-64 my-2  mx-auto border-2 rounded-lg border-zinc-900;
+  }
+  .checkbox-left {
+    @apply flex   w-full  mx-auto my-2;
+  }
+  .checkbox-right {
+    @apply flex justify-end  w-full  mx-auto my-2;
+  }
+  .button-green {
+    @apply ml-3 py-1  w-28 border-2 rounded-lg  bg-green-200;
+  }
+  .button-red {
+    @apply mx-3  py-1  w-28 border-2 rounded-lg  bg-red-300;
+  }
+  .button-blue {
+    @apply ml-3 py-1   w-28 border-2 rounded-lg bg-blue-300;
+  }
+  .button-gray {
+    @apply ml-3 py-1   w-28 border-2 rounded-lg bg-stone-300;
+  }
+  .input-full {
+    @apply flex flex-col justify-around w-full h-16 my-2  mx-auto border-2 rounded-lg border-zinc-900;
+  }
+  .input-30 {
+    @apply flex flex-col justify-around w-[30%] h-16 my-2  mx-auto border-2 rounded-lg border-zinc-900;
+  }
+  .vertical {
+    @apply flex flex-col justify-center;
+  }
+  .blur-hover {
+    @apply text-white  h-full w-full  opacity-0 hover:opacity-100 backdrop-blur-sm;
+  }
+  .header__container{
+    @apply flex fixed w-full top-0 left-0 my-0 z-30 rounded-b-lg border-gray-200 bg-white cursor-pointer justify-center border-b-4 sm:justify-start sm:border-b-0
+  }
+}
+
+@layer utilities {
   
+
+  .h-250 {
+    height: 250px;
+  }
+  .h-500 {
+    height: 500px;
+  }
+  .h-516 {
+    height: 516px;
+  }
+  .h-600 {
+    height: 600px;
+  }
+  .h-700 {
+    height: 700px;
+  }
+  .h-800 {
+    height: 800px;
   }
 
-  @layer utilities {
-    .h-800 {
-      height: 800px;
-    }
-    .h-700 {
-      height: 700px;
-    }
-    .h-600 {
-      height: 600px;
-    }
-    .h-500 {
-      height: 500px;
-    }
-    .h-516 {
-      height: 516px;
-    }
-    .h-250 {
-      height: 250px;
-    }
-    .w-1440 {
-      width: 1440px
-    }
-    .w-900 {
-      width: 900px
-    }
-    .w-800 {
-      width: 800px
-    }
-    .w-700 {
-      width: 700px
-    }
-    .w-650 {
-      width: 650px
-    }
-    .w-600 {
-      width: 600px
-    }
-    .w-550 {
-      width: 550px
-    }
-    .w-480 {
-      width: 466px
-    }
-    .w-400 {
-      width: 400px
-    }
-    .w-300 {
-      width: 300px
-    }
-    .max-w-1440 {
-      max-width: 1440px;
-    }
-
-    .max-w-530 {
-      max-width: 530px;
-    }
-
-
-    .min-h-10{
-      min-height: 40px
-    }
-    .min-w-30{
-      min-width: 120px
-    }
-
-    .min-h-200{
-      min-height: 800px
-    }
-
-    .text-shadow {
-      text-shadow: 1px 1px 2px black;
-    }
-
-    .text-shadow-light {
-      text-shadow: 1px 1px 3px gray;
-    }
-
-
+  .w-300 {
+    width: 300px;
   }
+  .w-400 {
+    width: 400px;
+  }
+  .w-480 {
+    width: 466px;
+  }
+  .w-550 {
+    width: 550px;
+  }
+  .w-600 {
+    width: 600px;
+  }
+  .w-650 {
+    width: 650px;
+  }
+  .w-700 {
+    width: 700px;
+  }
+  .w-800 {
+    width: 800px;
+  }
+  .w-900 {
+    width: 900px;
+  }
+  .w-1440 {
+    width: 1440px;
+  }
+
+  .max-w-530 {
+    max-width: 530px;
+  }
+
+  .max-w-1440 {
+    max-width: 1440px;
+  }
+
+  .min-h-10 {
+    min-height: 40px;
+  }
+  .min-w-30 {
+    min-width: 120px;
+  }
+  .min-h-200 {
+    min-height: 800px;
+  }
+
+  .text-shadow {
+    text-shadow: 1px 1px 2px black;
+  }
+  .text-shadow-light {
+    text-shadow: 1px 1px 3px gray;
+  }
+  
+  .loader div {
+    animation-duration: 0.5s;
+  }
+
+  .loader div:first-child {
+    animation-delay: 0.1s;
+  }
+
+  .loader div:nth-child(2) {
+    animation-delay: 0.3s;
+  }
+
+  .loader div:nth-child(3) {
+    animation-delay: 0.6s;
+  }
+}

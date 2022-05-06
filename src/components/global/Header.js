@@ -1,65 +1,89 @@
 import React, { useEffect, useState } from "react";
-import { firebase } from "../utils/firebase-config";
+import { firebase } from "../../utils/firebase-config";
 import { NavLink } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   CubeNavLink,
   SwitchCubeNavLink,
   SwitchReloadData,
   CustomerNavLink,
 } from "./CubeNavLink";
-import Logo from "../img/yourFilmLogoA.png";
-import CubeA from "../img/yourFilmCubeA.png";
-import CubeB from "../img/yourFilmCubeB.png";
-import CubeC from "../img/yourFilmCubeC.png";
+import Logo from "../../img/yourFilmLogoA.png";
+import CubeA from "../../img/yourFilmCubeA.png";
+import CubeB from "../../img/yourFilmCubeB.png";
+import CubeC from "../../img/yourFilmCubeC.png";
 
 function TemplateHeader() {
   const state = useSelector((state) => state.state);
+  const [isActive, setIsActive] = useState(false);
 
   return (
-    <div className=" flex fixed top-0 left-0 w-full my-0  z-30 rounded-lg bg-white cursor-pointer">
-      <NavLink to="/">
-        <div className=" py-2  my-2 mx-6 w-64 rounded text-center text-1xl">
-          <img src={Logo} />
-        </div>
-      </NavLink>
-      <div id="step1" className="flex  ml-auto  text-center text-1xl">
-        <CubeNavLink router="/news" cube={CubeB}>
-          最新消息
-        </CubeNavLink>
-        <CubeNavLink router="/price" cube={CubeC}>
-          購票資訊
-        </CubeNavLink>
-        <CubeNavLink router="/timetable" cube={CubeB}>
-          場次表
-        </CubeNavLink>
-        <CubeNavLink router="/workshop" cube={CubeC}>
-          工作坊
-        </CubeNavLink>
+    <>
+      <div className="header__container">
+        <NavLink to="/">
+          <div className="py-2 mx-6 | hidden my-1 | sm:block | md:my-2 ">
+            <img className="w-36 | md:w-44 | xl:w-64" src={Logo} />
+          </div>
+        </NavLink>
+          <div onClick={ () => {setIsActive(prev => (!prev)) } } className="w-full py-2 justify-center | flex | sm:hidden">
+            <img className="w-36" src={Logo} />
+          </div>
 
-        {state === "logout" ? (
-          <SwitchCubeNavLink router="/login" id="step2" cube={CubeA}>
-            登入客製化
-          </SwitchCubeNavLink>
-        ) : state === "login" ? (
-          <SwitchReloadData router="/backstage" id="step2" cube={CubeA}>
-            進入後台
-          </SwitchReloadData>
-        ) : (
-          <SwitchCubeNavLink router="/login" id="step2" cube={CubeA}>
-            Loading...
-          </SwitchCubeNavLink>
-        )}
+        <div
+          id="step1"
+          className="ml-auto text-center text-1xl | hidden | sm:flex"
+        >
+          <CubeNavLink router="/news" cube={CubeB}>
+            最新消息
+          </CubeNavLink>
+          <CubeNavLink router="/price" cube={CubeC}>
+            購票資訊
+          </CubeNavLink>
+          <CubeNavLink router="/timetable" cube={CubeB}>
+            場次表
+          </CubeNavLink>
+          <CubeNavLink router="/workshop" cube={CubeC}>
+            工作坊
+          </CubeNavLink>
+
+          {state === "logout" ? (
+            <SwitchCubeNavLink router="/login" id="step2" cube={CubeA}>
+              登入客製化
+            </SwitchCubeNavLink>
+          ) : state === "login" ? (
+            <SwitchReloadData router="/backstage" id="step2" cube={CubeA}>
+              進入後台
+            </SwitchReloadData>
+          ) : (
+            <SwitchCubeNavLink router="/login" id="step2" cube={CubeA}>
+              Loading...
+            </SwitchCubeNavLink>
+          )}
+        </div>
       </div>
-    </div>
+      <div
+        className={`fixed flex flex-col items-center  w-full  ${
+          isActive ? "h-full" : "h-0 duration-0"
+        }  bg-stone-900/50 z-30 | flex | sm:hidden`}
+      >
+   
+        <div className={`shape w-[94%] ${isActive ? "h-16 delay-[100ms] transition-all  duration-700" : "h-0 duration-0"} bg-[#f4cd7f] rounded-lg  z-50`}></div>
+        <div className={`shape vertical w-[94%] ${isActive ? "h-16 delay-[200ms] transition-all  duration-700" : "h-0 duration-0"} bg-[#57bdc8] rounded-lg z-50`}><span className=" text-white text-center text-xl text-shadow-light">最新消息</span></div>
+        <div className={`shape w-[94%] ${isActive ? "h-16 delay-[300ms] transition-all  duration-700" : "h-0 duration-0"} bg-[#f4cd7f] rounded-lg  z-50`}></div>
+        <div className={`shape w-[94%] ${isActive ? "h-16 delay-[400ms] transition-all  duration-700" : "h-0 duration-0"} bg-[#57bdc8] rounded-lg z-50`}></div>
+        <div className={`shape w-[94%] ${isActive ? "h-16 delay-[500ms] transition-all  duration-700" : "h-0 duration-0"} bg-[#f4cd7f] rounded-lg  z-50`}></div>
+        <div className={`shape w-[94%] ${isActive ? "h-16 delay-[600ms] transition-all  duration-700" : "h-0 duration-0"} bg-[#57bdc8] rounded-lg z-50`}></div>
+        <div className={`shape w-[94%] ${isActive ? "h-16 delay-[700ms] transition-all  duration-700" : "h-0 duration-0"} bg-[#f08074] rounded-lg   z-50`}></div>
+      </div>
+    </>
   );
 }
 
 function BackstageHeader() {
   return (
-    <div className=" flex fixed top-0 left-0 w-full my-0 mx-auto z-30 rounded-lg bg-white cursor-pointer">
+    <div className="header__container">
       <a href="/">
-        <div className=" py-2  my-2 mx-6 w-64 rounded text-center text-1xl">
+        <div className="py-2 my-2 mx-6 w-64 rounded text-center text-1xl">
           <img src={Logo} />
         </div>
       </a>
@@ -102,7 +126,7 @@ function PreviewHeader() {
       style={{
         background: primaryColor,
       }}
-      className=" flex fixed left-0 top-0 w-full my-0 mx-auto z-30 rounded-lg "
+      className="header__container"
     >
       <CustomerNavLink router="/preview">
         {festivalLogo ? (
@@ -142,12 +166,14 @@ function BuildHeader() {
   const festivalPathName = useSelector((state) => state.festivalPathName);
   const festivalLogo = useSelector((state) => state.festivalLogo);
   const primaryColor = useSelector((state) => state.primaryColor);
-  
-  return (
-    <div   style={{
-      background: primaryColor,
-    }} className=" flex fixed top-0 w-full my-0 mx-auto z-30 rounded-lg ">
 
+  return (
+    <div
+      style={{
+        background: primaryColor,
+      }}
+      className=" flex fixed top-0 duration-0 w-full my-0 duration-0 mx-auto z-30 rounded-lg "
+    >
       <CustomerNavLink router={`/build/festival=${festivalPathName}`}>
         {festivalLogo ? (
           <img className="h-14" src={festivalLogo} />
@@ -162,10 +188,14 @@ function BuildHeader() {
         <CustomerNavLink router={`/build/price/festival=${festivalPathName}`}>
           購票資訊
         </CustomerNavLink>
-        <CustomerNavLink router={`/build/timetable/festival=${festivalPathName}`}>
+        <CustomerNavLink
+          router={`/build/timetable/festival=${festivalPathName}`}
+        >
           場次表
         </CustomerNavLink>
-        <CustomerNavLink router={`/build/workshop/festival=${festivalPathName}`}>
+        <CustomerNavLink
+          router={`/build/workshop/festival=${festivalPathName}`}
+        >
           工作坊
         </CustomerNavLink>
       </div>
@@ -174,7 +204,6 @@ function BuildHeader() {
 }
 
 function Header(props) {
-  const dispatch = useDispatch();
   const [pageState, setPageState] = useState(props.userState);
 
   useEffect(() => {

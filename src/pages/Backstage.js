@@ -17,6 +17,7 @@ import {
 import { firebase } from "../utils/firebase-config";
 import { useDispatch, useSelector } from "react-redux";
 
+
 function Backstage() {
   const dispatch = useDispatch();
   const festivalName = useSelector((state) => state.festivalName);
@@ -114,6 +115,7 @@ function Backstage() {
   };
 
   return (
+
     <div className="w-11/12  mx-auto">
       <div className="flex flex-col flex-wrap border-b-2 mt-28 border-b-zinc-400">
         <h2 className="mx-auto mb-8 text-center text-lg  ">舉辦日期</h2>
