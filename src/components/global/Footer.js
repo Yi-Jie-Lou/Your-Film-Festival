@@ -1,11 +1,12 @@
 import React,{useState,useEffect} from "react";
 import FooterImg from "../../img/yourFilmFooter.png";
+import CloudsImg from "../../img/Cloud.png"
 import AppWorksSchool from "../../img/AppWorksSchool.png";
 import { useSelector } from "react-redux";
 
 function TemplateFooter() {
   return (
-    <div className="relative flex justify-center z-10 h-32   mx-auto">
+    <div className="relative flex justify-center -z-10 h-32   mx-auto">
       <div className="flex mt-5 z-20 text-center text-1xl">
         <div className="vertical w-full mr-4 text-center text-1xl text-black  tracking-wider ">
           <span>贊助</span>
@@ -21,6 +22,7 @@ function TemplateFooter() {
         className="absolute bottom-0 h-full w-full object-cover "
         src={FooterImg}
       />
+      <img className="absolute bottom-40 right-20 w-64 -z-50" src={CloudsImg} />
     </div>
   );
 }

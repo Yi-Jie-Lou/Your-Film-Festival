@@ -16,9 +16,9 @@ function News(props) {
   }, [news]);
 
   return (
-    <div className="my-32 ">
-      <div className="flex flex-wrap justify-center w-11/12 min-h-200  mt-4 mx-auto rounded-lg">
-        <div className="flex flex-wrap">
+    <div className=" my-24 | xl:my-32 ">
+      <div className="flex flex-col w-11/12 min-h-[500px]  mx-auto rounded-lg">
+        <div className="flex flex-wrap justify-center">
           {importantNews.map((item, index) => (
             <NewsBox
               key={index}
@@ -29,7 +29,8 @@ function News(props) {
                   ? `/preview/news/${item.newsID}`
                   : `/news/${item.newsID}`
               }
-              className="relative  h-516 w-480 mb-8 mx-4 drop-shadow-2xl  cursor-pointer hover:scale-105 ease-in-out duration-300"
+              navLinkClassName=""
+              className="mx-4 drop-shadow-2xl cursor-pointer hover:scale-105 ease-in-out duration-300 | w-full h-[250px] mb-4 | md:w-[calc((100%-64px)/2)] md:h-[300px] md:mb-8 | xl:h-[480px]  "
               text={item.title}
               img={item.img}
             />
@@ -46,7 +47,7 @@ function News(props) {
                   ? `/preview/news/${item.newsID}`
                   : `/news/${item.newsID}`
               }
-              className="relative w-300 h-250 mb-4   mx-4 drop-shadow-2xl  cursor-pointer hover:scale-105 ease-in-out duration-300"
+              className="mb-4 mx-4 drop-shadow-2xl cursor-pointer hover:scale-105 ease-in-out duration-300 w-full h-[250px] | md:w-[calc((100%-96px)/3)]"
               text={item.title}
               img={item.img}
             />

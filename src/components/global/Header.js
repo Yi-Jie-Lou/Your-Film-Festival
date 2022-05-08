@@ -1,21 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { firebase } from "../../utils/firebase-config";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {
   CubeNavLink,
   SwitchCubeNavLink,
   SwitchReloadData,
   CustomerNavLink,
+  MobileNavLink
 } from "./CubeNavLink";
 import Logo from "../../img/yourFilmLogoA.png";
 import CubeA from "../../img/yourFilmCubeA.png";
 import CubeB from "../../img/yourFilmCubeB.png";
 import CubeC from "../../img/yourFilmCubeC.png";
 
+
 function TemplateHeader() {
+  const path = useParams()
   const state = useSelector((state) => state.state);
   const [isActive, setIsActive] = useState(false);
+
+  useEffect(()=>{
+    setIsActive(false)
+  },[path])
 
   return (
     <>
@@ -62,18 +69,18 @@ function TemplateHeader() {
         </div>
       </div>
       <div
-        className={`fixed flex flex-col items-center  w-full  ${
-          isActive ? "h-full" : "h-0 duration-0"
-        }  bg-stone-900/50 z-30 | flex | sm:hidden`}
+        className={`fixed flex top-14 left-0 flex-col items-center  w-full  ${
+          isActive ? "h-full z-30" : "h-0 duration-0 z-0"
+        }  bg-stone-900/50  | flex | sm:hidden`}
       >
-   
-        <div className={`shape w-[94%] ${isActive ? "h-16 delay-[100ms] transition-all  duration-700" : "h-0 duration-0"} bg-[#f4cd7f] rounded-lg  z-50`}></div>
-        <div className={`shape vertical w-[94%] ${isActive ? "h-16 delay-[200ms] transition-all  duration-700" : "h-0 duration-0"} bg-[#57bdc8] rounded-lg z-50`}><span className=" text-white text-center text-xl text-shadow-light">最新消息</span></div>
-        <div className={`shape w-[94%] ${isActive ? "h-16 delay-[300ms] transition-all  duration-700" : "h-0 duration-0"} bg-[#f4cd7f] rounded-lg  z-50`}></div>
-        <div className={`shape w-[94%] ${isActive ? "h-16 delay-[400ms] transition-all  duration-700" : "h-0 duration-0"} bg-[#57bdc8] rounded-lg z-50`}></div>
-        <div className={`shape w-[94%] ${isActive ? "h-16 delay-[500ms] transition-all  duration-700" : "h-0 duration-0"} bg-[#f4cd7f] rounded-lg  z-50`}></div>
-        <div className={`shape w-[94%] ${isActive ? "h-16 delay-[600ms] transition-all  duration-700" : "h-0 duration-0"} bg-[#57bdc8] rounded-lg z-50`}></div>
-        <div className={`shape w-[94%] ${isActive ? "h-16 delay-[700ms] transition-all  duration-700" : "h-0 duration-0"} bg-[#f08074] rounded-lg   z-50`}></div>
+
+      <MobileNavLink onClick={()=> setIsActive(false)} isActive={isActive} router="/" className={isActive ? "h-16 delay-[100ms] transition-all  duration-700 bg-[#f4cd7f]" : "h-0 duration-0"} >回到首頁</MobileNavLink>
+      <MobileNavLink isActive={isActive} router="/news" className={isActive ? "h-16 delay-[200ms] transition-all  duration-700 bg-[#57bdc8]" : "h-0 duration-0"} >最新消息</MobileNavLink>
+      <MobileNavLink isActive={isActive} router="/price" className={isActive ? "h-16 delay-[300ms] transition-all  duration-700 bg-[#f4cd7f]" : "h-0 duration-0"} >購票資訊</MobileNavLink>
+      <MobileNavLink isActive={isActive} router="/timetable" className={isActive ? "h-16 delay-[400ms] transition-all  duration-700 bg-[#57bdc8]" : "h-0 duration-0"} >場次表</MobileNavLink>
+      <MobileNavLink isActive={isActive} router="/workshop" className={isActive ? "h-16 delay-[500ms] transition-all  duration-700 bg-[#f4cd7f]" : "h-0 duration-0"} >工作坊</MobileNavLink>
+      <MobileNavLink isActive={isActive} router="/login" className={isActive ? "h-16 delay-[700ms] transition-all  duration-700 bg-[#f08074]" : "h-0 duration-0"} >登入客製化</MobileNavLink>
+
       </div>
     </>
   );

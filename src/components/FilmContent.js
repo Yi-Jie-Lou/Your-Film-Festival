@@ -6,6 +6,7 @@ import { ref, uploadBytesResumable } from "firebase/storage";
 import Loading from "./global/Loading";
 import Input from "./Input";
 import Textarea from "./Textarea";
+import LoadingAnim from "../img/LoadingAnim.gif";
 
 function FilmContent() {
   const dispatch = useDispatch();
@@ -29,6 +30,14 @@ function FilmContent() {
   const preview = async (e, index) => {
     if (!e.target.files[0]) return;
     const uploadImg = e.target.files[0];
+    const uploadSize = e.target.files[0].size;
+
+    if (uploadSize / 1024 > 200) {
+      alert(
+        `上傳檔案需請小於200KB，您的檔案為${Math.floor(uploadSize / 1024)}KB`
+      );
+      return;
+    }
 
     await firebase.uploadImgs(uploadImg);
     firebase.getUploadImgs(uploadImg).then((uploadUrl) => {
@@ -50,6 +59,17 @@ function FilmContent() {
 
   const uploadVideo = async (e) => {
     if (!e.target.files[0]) return;
+
+    const uploadSize = e.target.files[0].size;
+
+    if (uploadSize / 1024 > 30720) {
+      alert(
+        `上傳檔案需請小於30MB，您的檔案為${Math.floor(
+          uploadSize / 1024 / 1024
+        )}MB`
+      );
+      return;
+    }
     const uploadVideo = e.target.files[0];
     const storageRef = ref(storage, uploadVideo.name);
     const uploadTask = uploadBytesResumable(storageRef, uploadVideo);
@@ -114,12 +134,23 @@ function FilmContent() {
             >
               {progress === 100 || progress === 0 ? (
                 <>
-                  <p>請上傳預告片</p>
-                  <Loading progress={progress} />
+                  <p>請上傳預告片</p> 
+                  <Loading /> 
                 </>
               ) : (
                 <>
-                  <Loading progress={progress} />
+                <div className="flex justify-center">
+                    <div
+                      className=" w-36  h-36  "
+                      style={{
+                        background: `url(${LoadingAnim})`,
+                        backgroundPosition: "center",
+                        backgroundSize: "cover",
+                        backgroundRepeat: "no-repeat",
+                      }}
+                    ></div>
+                  </div>
+                  <h1 className="text-3xl text-slate-400 font-bold mt-1">{progress} %</h1> 
                 </>
               )}
               <input

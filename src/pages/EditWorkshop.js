@@ -28,6 +28,15 @@ function EditWorkshop() {
   const preview = async (e, index) => {
     if (!e.target.files[0]) return;
     const uploadImg = e.target.files[0];
+    const uploadSize = e.target.files[0].size;
+
+    if (uploadSize / 1024 > 200) {
+      alert(
+        `上傳檔案需請小於200KB，您的檔案為${Math.floor(uploadSize / 1024)}KB`
+      );
+      return;
+    }
+    
 
     await firebase.uploadImgs(uploadImg);
     firebase.getUploadImgs(uploadImg).then((uploadUrl) => {
@@ -40,6 +49,14 @@ function EditWorkshop() {
   const previewGuest = async (e, index, guestIndex) => {
     if (!e.target.files[0]) return;
     const uploadImg = e.target.files[0];
+    const uploadSize = e.target.files[0].size;
+
+    if (uploadSize / 1024 > 200) {
+      alert(
+        `上傳檔案需請小於200KB，您的檔案為${Math.floor(uploadSize / 1024)}KB`
+      );
+      return;
+    }
 
     console.log(uploadImg)
     await firebase.uploadImgs(uploadImg);

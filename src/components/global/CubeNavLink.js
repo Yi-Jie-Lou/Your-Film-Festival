@@ -46,11 +46,25 @@ export const SwitchReloadData = (props) => {
 };
 
 export const CustomerNavLink = (props) => {
-  return(
+  return (
     <NavLink className="vertical" to={props.router}>
-    <div className="w-28 py-2  text-center leading-7  text-1xl">
-    {props.children}
-    </div>
-  </NavLink>
-  )
-}
+      <div className="w-28 py-2  text-center leading-7  text-1xl">
+        {props.children}
+      </div>
+    </NavLink>
+  );
+};
+
+export const MobileNavLink = (props) => {
+  return (
+    <NavLink className="flex justify-center w-full" to={props.router}>
+      <div
+        className={` opacity-90 hover:delay-[0ms] hover:scale-105 vertical rounded-3xl w-[90%] z-50 ${props.className}`}
+      >
+        <span className={` ${props.isActive ? "transition-all duration-[2000ms] opacity-100" : "opacity-0" }   text-white text-center text-xl text-shadow-light`}>
+          {props.children}
+        </span>
+      </div>
+    </NavLink>
+  );
+};

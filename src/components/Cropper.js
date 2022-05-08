@@ -9,6 +9,16 @@ function Cropper(props) {
   const apply = async (file) => {
 
     if (!file) return;
+    const uploadSize = file.size;
+    console.log(file.size,file)
+
+    if (uploadSize / 102.4 > 200) {
+      alert(
+        `上傳檔案需請小於200KB，您的檔案裁切後為${Math.floor(uploadSize / 102.4)}KB`
+      );
+      return;
+    }
+
     await firebase.uploadCropImgs(file);
     firebase.getUploadCropImgs(file).then((uploadUrl) => {
       const newWorkshop = [...workshop];

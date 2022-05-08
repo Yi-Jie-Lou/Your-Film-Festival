@@ -2,8 +2,8 @@ import { NavLink } from "react-router-dom";
 
 function NewsBox(props) {
   return (
-    <NavLink to={props.router}>
-      <div className={props.className}>
+    <NavLink className={props.className} to={props.router}>
+      <div className="relative w-full h-full">
         <div className="absolute m-7 bottom-0  text-white text-shadow text-xl">
           {props.text.split("\n").map((line, index) => (
             <p key={index} className="my-1">

@@ -40,7 +40,7 @@ function FilmsContainer(props) {
           ))}
         </>
       </div>
-      <div className="flex flex-wrap mb-16 max-w-1440 | justify-center mx-auto | md:justify-start md:mx-6 | xl:justify-center xl:mx-auto ">
+      <div className="flex flex-wrap mb-16 max-w-1440 | justify-center mx-auto | md:justify-start md:mx-3 | xl:justify-center xl:mx-auto ">
         <>
           {normalFeatures.map((item, index) => (
             <FilmBox
@@ -52,7 +52,7 @@ function FilmsContainer(props) {
                   ? `/preview/feature-details/${item.featureID}`
                   : `/feature-details/${item.featureID}`
               }
-              className="relative cursor-pointer | h-48 w-full my-1 | sm:w-[290px] sm:my-2 sm:mx-2 | md:w-[calc((100vw-96px)/3)] | xl:w-72 xl:h-72 xl:mx-3 xl:my-0 "
+              className="relative cursor-pointer | h-48 w-full my-1 | sm:w-[290px] sm:my-2 sm:mx-2 | md:w-[calc((100vw-88px)/3)] | xl:w-72 xl:h-72 xl:mx-3 xl:my-0 "
               title={item.title}
               text={item.shortInfo}
               img={item.featureImgs[1]}

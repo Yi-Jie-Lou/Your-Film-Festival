@@ -5,7 +5,7 @@ function Price() {
   const price = useSelector((state) => state.price);
   const traffic = useSelector((state) => state.traffic);
   return (
-    <div className="my-32 ">
+    <div className="my-24 | sm:my-32">
       {price.map((item, index) => (
         <div
           key={index}
