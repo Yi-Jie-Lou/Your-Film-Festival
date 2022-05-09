@@ -26,17 +26,17 @@ function TimetableLink(props) {
             }}
             className="flex py-2 px-4 my-2 justify-between border-2 rounded-lg border-stone-500"
           >
-            <p>
+            <p className="text-white text-shadow tracking-wider">
               {timetable.date} {timetable.start}
             </p>
             <div className="flex">
-              <p>{timetable.location} </p>
+              <p className="text-white text-shadow tracking-wider">{timetable.location} </p>
               <div className="vertical ml-2">
-                {timetable.workshop ? <AiFillStar /> : ""}
+                {timetable.workshop ? <AiFillStar fill="white" /> : ""}
               </div>
               <div className="ml-2 mt-1">
                 {timetable.opening || timetable.closing ? (
-                  <AiOutlineCaretUp />
+                  <AiOutlineCaretUp fill="white"/>
                 ) : (
                   ""
                 )}

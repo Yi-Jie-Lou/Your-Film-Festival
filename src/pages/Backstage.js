@@ -17,7 +17,6 @@ import {
 import { firebase } from "../utils/firebase-config";
 import { useDispatch, useSelector } from "react-redux";
 
-
 function Backstage() {
   const dispatch = useDispatch();
   const festivalName = useSelector((state) => state.festivalName);
@@ -32,9 +31,9 @@ function Backstage() {
   const userID = useSelector((state) => state.userID);
   const state = useSelector((state) => state.state);
 
-  if (state === "logout"){
-    alert("請先登入")
-    window.location = "https://your-film-festival-d2cd4.web.app/"
+  if (state === "logout") {
+    alert("請先登入");
+    window.location = "https://your-film-festival-d2cd4.web.app/";
   }
 
   const selectionRange = {
@@ -115,34 +114,35 @@ function Backstage() {
   };
 
   return (
-
-    <div className="w-11/12  mx-auto">
-      <div className="flex flex-col flex-wrap border-b-2 mt-28 border-b-zinc-400">
-        <h2 className="mx-auto mb-8 text-center text-lg  ">舉辦日期</h2>
+    <div className="w-11/12  mx-auto mt-40">
+      <div className="flex flex-col flex-wrap border-b-2  border-b-zinc-400 ">
+        <h2 className="mx-auto mb-8 text-center text-2xl text-slate-600 ">舉辦日期</h2>
         <DateRangePicker
           className="mx-auto mb-4"
           ranges={[selectionRange]}
           onChange={handleSelect}
-          preview={{ startDate: new Date(festivalStart.seconds*1000), endDate: new Date(festivalEnd.seconds*1000)}}
+          preview={{
+            startDate: new Date(festivalStart.seconds * 1000),
+            endDate: new Date(festivalEnd.seconds * 1000),
+          }}
         />
       </div>
 
       <div className="flex flex-col content-center mx-auto my-16 border-b-2 border-b-zinc-400">
-        <h2 className="text-center text-lg">播映戲院</h2>
+        <h2 className="mx-auto mb-4 text-center text-2xl text-slate-600 ">播映戲院</h2>
         <div className="flex justify-center">
-          <button
-            className="button-blue mx-3 my-12 "
-            onClick={addTheather}
-          >
+          <button className="button-blue mx-3 my-12 " onClick={addTheather}>
             增加戲院
           </button>
         </div>
         {locations &&
           locations.map((item, index) => (
             <div className="flex justify-center mb-12" key={index}>
-              <label className="mr-4  my-8">戲院{index + 1}</label>
+              <div className="vertical">
+                <label className="mr-6 text-xl my-8 text-slate-600 ">戲院{index + 1}</label>
+              </div>
               <input
-                className="pl-2 my-8 border-4 rounded-lg border-[#94bed1] outline-none"
+                className="pl-2 h-12 my-8 border-4 rounded-lg border-[#94bed1] outline-none"
                 type="text"
                 value={item}
                 onChange={(e) => handleChange(index, e)}
@@ -153,7 +153,7 @@ function Backstage() {
 
       <div className="flex flex-col mt-16">
         <div className="flex  justify-between w-96 my-8 mx-auto">
-          <h2 className="flex flex-col justify-center w-32  text-2xl text-zinc-700">
+          <h2 className="flex flex-col justify-center w-32  text-2xl text-slate-600  ">
             <span>LOGO</span>
           </h2>
 
@@ -180,7 +180,7 @@ function Backstage() {
           </label>
         </div>
         <div className="flex justify-between w-96 my-8  mx-auto">
-          <h2 className="flex flex-col justify-center w-32  text-2xl text-zinc-700 ">
+          <h2 className="flex flex-col justify-center w-32  text-2xl text-slate-600 ">
             <span>主視覺海報</span>
           </h2>
 
@@ -208,18 +208,18 @@ function Backstage() {
 
       <div className="flex flex-col mt-16">
         <div className="flex  justify-between w-96  my-8 mx-auto ">
-          <h2 className=" text-center text-lg ">影展名稱</h2>
+          <h2 className=" text-center  text-2xl text-slate-600">影展名稱</h2>
           <input
-            className="pl-2 border-4 rounded-lg border-[#94bed1] outline-none "
+            className="pl-2 border-4 h-12 rounded-lg border-[#94bed1] outline-none "
             type="text"
             value={festivalName}
             onChange={(e) => onChangeName(e)}
           />
         </div>
         <div className="flex justify-between w-96 my-8  mx-auto ">
-          <h2 className=" text-center text-lg">影展英文名稱</h2>
+          <h2 className=" text-center text-2xl text-slate-600">影展英文名稱</h2>
           <input
-            className="pl-2 border-4 rounded-lg border-[#94bed1] outline-none"
+            className="pl-2 border-4 h-12 rounded-lg border-[#94bed1] outline-none"
             type="text"
             value={festivalPathName}
             onChange={(e) => onChangePathName(e)}
@@ -227,7 +227,7 @@ function Backstage() {
         </div>
         <div className="flex justify-center">
           <button
-            className=" my-12 w-28 button-blue  mx-0"
+            className=" my-24 w-28 button-blue  mx-0"
             onClick={saveToFirebase}
           >
             儲存本頁

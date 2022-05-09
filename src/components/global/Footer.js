@@ -8,7 +8,7 @@ function TemplateFooter() {
   return (
     <div className="relative flex justify-center -z-10    mx-auto | h-[96px] | xl:h-[120px]">
       <div className="flex mt-5 z-20 text-center text-1xl">
-        <div className="vertical w-full mr-4 text-center text-1xl text-black  tracking-wider ">
+        <div className="vertical w-full mr-4 text-center  text-stone-600   tracking-wider ">
           <span>贊助</span>
         </div>
       </div>
@@ -37,7 +37,7 @@ function CustomerFooter() {
         background: primaryColor,
       }}
     >
-      <div className="vertical mr-12 py-1 text-center text-1xl">
+      <div className="vertical mr-12 py-1 text-center text-1xl ">
         <span>贊助</span>
       </div>
       <div className="flex justify-center content-center flex-wrap max-w-530 ">

@@ -62,8 +62,9 @@ function Login() {
   return (
     <>
       <Header userState={state} />
-      <div className="vertical | h-[calc(100vh-96px)] | xl:h-[calc(100vh-120px)] ">
+      <div className="vertical mt-4  | h-[calc(100vh-96px)] | xl:h-[calc(100vh-136px)] ">
         <div className="flex flex-wrap justify-center  mx-auto w-11/12 ">
+        <div className="vertical">
           <div
             className=" w-64  h-64  "
             style={{
@@ -73,17 +74,17 @@ function Login() {
               backgroundRepeat: "no-repeat",
             }}
           ></div>
-
+          </div>
           <div className="flex  flex-wrap justify-center w-1/3 ">
             <h1 className=" my-4 p-2 w-full text-center text-xl tracking-wider  rounded-lg ">
               登入開始上傳您的影片
             </h1>
-            <div className="flex justify-center my-4 w-2/3 ">
-              <label className="mr-4" htmlFor="Email">
-                信箱:
+            <div className="flex justify-center my-4 w-2/3  ">
+              <label className="vertical mr-4" htmlFor="Email">
+                <span>信箱:</span>
               </label>
               <input
-                className="pl-2 border-8 rounded-lg"
+                className="pl-2 h-10 border-4 rounded-lg border-[#94bed1] outline-none"
                 id="Email"
                 placeholder="Email"
                 value={userEmail}
@@ -93,11 +94,11 @@ function Login() {
               />
             </div>
             <div className="flex justify-center my-4 w-2/3">
-              <label className="mr-4" htmlFor="Password">
-                密碼:
+              <label className="vertical mr-4" htmlFor="Password">
+                <span>密碼:</span>
               </label>
               <input
-                className="pl-2 border-8 rounded-lg"
+                className="pl-2 h-10 border-4 rounded-lg border-[#94bed1] outline-none"
                 id="Password"
                 placeholder="Password"
                 value={userPassword}
@@ -108,7 +109,7 @@ function Login() {
             </div>
             <div className="flex justify-center my-4 w-2/3">
               <button
-                className="mx-3 w-28 border-8 rounded-lg bg-blue-300"
+                className="button-blue mx-3 w-28"
                 onClick={register}
               >
                 {" "}
@@ -116,14 +117,14 @@ function Login() {
               </button>
               {userID ? (
                 <button
-                  className="mx-3 w-28 border-8 rounded-lg bg-blue-300"
+                  className="button-red mx-3 w-28"
                   onClick={logout}
                 >
                   登出
                 </button>
               ) : (
                 <button
-                  className="mx-3 w-28 border-8 rounded-lg bg-blue-300"
+                  className="button-blue  mx-3 w-28"
                   onClick={login}
                 >
                   登入

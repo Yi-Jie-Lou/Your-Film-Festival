@@ -100,9 +100,14 @@ function EditPrice() {
 
   return (
     <div className="flex flex-col  my-24 mx-auto w-11/12">
-      <button className="button-blue ml-0 my-3" onClick={addPrice}>
-        Add
-      </button>
+      <div className="flex ml-1">
+        <h2 className="vertical ">
+          <span className="text-2xl text-slate-600 mr-4 ">交通資訊</span>
+        </h2>
+        <button className="button-blue my-3" onClick={addPrice}>
+          Add
+        </button>
+      </div>
       {price &&
         price.map((item, index) => (
           <div
@@ -186,17 +191,25 @@ function EditPrice() {
             </Input>
           </div>
         ))}
+      <div className="flex ml-1">
+        <h2 className="vertical ">
+          <span className="text-2xl text-slate-600 mr-4 ">交通資訊</span>
+        </h2>
         <button
-        className="button-blue  my-auto"
-        onClick={() => {
-          addTraffic();
-        }}
-      >
-        Add
-      </button>
+          className="button-blue my-auto"
+          onClick={() => {
+            addTraffic();
+          }}
+        >
+          Add
+        </button>
+      </div>
       {traffic &&
         traffic.map((item, index) => (
-          <div key={index} className="flex ml-3 mt-6 my-1">
+          <div
+            key={index}
+            className="flex  mt-6 pb-12 border-b-2 border-b-zinc-400"
+          >
             <Textarea
               className="text-area-large w-1/3 mx-0"
               attribute="text"
@@ -241,8 +254,7 @@ function EditPrice() {
           </div>
         ))}
 
-
-      <div className="flex justify-center mt-12 w-full">
+      <div className="flex justify-center mt-24 w-full">
         <button
           onClick={() => firebase.savePricePage(userID, price, traffic)}
           className="button-blue  mx-0"

@@ -94,7 +94,7 @@ function Creator() {
               <div key={index} className="flex mx-2 flex-col  ">
                 <div className="flex">
                   <h2 className="flex flex-col justify-center">
-                    <span>創作者</span>
+                    <span className="text-2xl text-slate-600 ml-1">創作者</span>
                   </h2>
                   <button
                     className="button-red ml-3 my-6 h-10 w-24 "
@@ -129,7 +129,7 @@ function Creator() {
 
                   <div className="vertical w-96  mx-8">
                     <label
-                      className="block border-4 h-52 w-full rounded-lg text-center cursor-pointer border-[#628fa4]"
+                      className="block border-4 min-h-[208px] h- w-full rounded-lg text-center cursor-pointer border-[#628fa4]"
                       htmlFor={`creator${index}`}
                     >
                       {item.img && (

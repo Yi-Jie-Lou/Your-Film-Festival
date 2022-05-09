@@ -62,8 +62,8 @@ function Booking() {
   return (
     <div>
       <div className="w-11/12 mt-14 mx-auto  pb-16 border-b-2 border-b-zinc-400">
-        <div className="flex">
-          <h2 className="my-1 text-lg ml-1">場次時刻表</h2>
+        <div className="flex mb-8">
+          <h2 className="vertical "> <span className="text-2xl text-slate-600 ml-1">場次時刻表</span></h2>
           <button
             className="button-blue mx-3 h-10 w-24 "
             onClick={addTimetable}

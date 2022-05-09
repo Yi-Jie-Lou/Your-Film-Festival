@@ -134,7 +134,7 @@ function FilmContent() {
             >
               {progress === 100 || progress === 0 ? (
                 <>
-                  <p>請上傳預告片</p> 
+                  <p className="text-2xl text-slate-500 italic tracking-wider my-2">請上傳預告片</p> 
                   <Loading /> 
                 </>
               ) : (
@@ -168,7 +168,7 @@ function FilmContent() {
         {featureImgs.map((item, index) => (
           <div className="w-[360px] mt-5 mx-2" key={index}>
             <label
-              className="block border-4 h-56 w-full rounded-lg text-center cursor-pointer border-[#628fa4] "
+              className="block border-4 min-h-[208px] w-full rounded-lg text-center cursor-pointer border-[#628fa4] "
               htmlFor={`upload${index}`}
             >
               {item ? (

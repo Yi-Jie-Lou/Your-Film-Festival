@@ -112,7 +112,7 @@ function Features() {
       <Creator />
       <Booking />
       <Note />
-      <div className="flex justify-center my-12">
+      <div className="flex justify-center my-24">
         <button
           className="button-red w-28 p-2 mx-2"
           onClick={deleteFeature}
