@@ -58,7 +58,7 @@ function Timetable(props) {
 
   return (
     <>
-      <div className="mt-32 mb-32">
+      <div className="mt-32 mb-32 min-h-[500px]">
         <select
           className="block  mb-0 mx-auto  border-4 rounded-xl text-center  border-[#94bed1]"
           onChange={(event) => setQureyDate(event.target.value)}

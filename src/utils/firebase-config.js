@@ -48,6 +48,11 @@ const firebase = {
     });
   },
 
+  readPublishedFestivalData(UID) {
+    return getDoc(doc(db, "build", `${UID}`)).then((res) => {
+      return res.data();
+    });
+  },
 
   saveFeatures(UID, data) {
     return updateDoc(doc(db, `users`, `${UID}`), {

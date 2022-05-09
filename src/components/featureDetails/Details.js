@@ -13,8 +13,7 @@ function Details(props) {
       </p>
       <p>
         {props.currentFeatureObject.format} | {props.currentFeatureObject.color}{" "}
-        | {props.currentFeatureObject.length}分 |
-        {props.currentFeatureObject.language}
+        | {props.currentFeatureObject.length}分 | {props.currentFeatureObject.language}
       </p>
       <p className="my-4">{props.currentFeatureObject.longInfo}</p>
     </div>

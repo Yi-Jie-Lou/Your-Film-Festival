@@ -9,9 +9,9 @@ function Price() {
       {price.map((item, index) => (
         <div
           key={index}
-          className="flex flex-col w-11/12 mt-8 mx-auto rounded-lg   border-8 border-[#94bed1] "
+          className="flex flex-col w-11/12 mt-8 mx-auto rounded-lg   border-4 border-[#77929a] "
         >
-          <div className="vertical  h-10 border-b-2 border-stone-500 bg-slate-300 text-center  ">
+          <div className="vertical rounded-t  h-10 border-b-2 border-stone-500 bg-slate-300 text-center  ">
             {item.category}
           </div>
           {item.tickets.map((ticket, index) => (

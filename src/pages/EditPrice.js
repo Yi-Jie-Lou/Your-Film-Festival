@@ -102,7 +102,7 @@ function EditPrice() {
     <div className="flex flex-col  my-24 mx-auto w-11/12">
       <div className="flex ml-1">
         <h2 className="vertical ">
-          <span className="text-2xl text-slate-600 mr-4 ">交通資訊</span>
+          <span className="text-2xl text-slate-600 mr-4 ">售票資訊</span>
         </h2>
         <button className="button-blue my-3" onClick={addPrice}>
           Add
