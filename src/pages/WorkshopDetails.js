@@ -5,7 +5,6 @@ import Input from "../components/Input";
 import "react-image-gallery/styles/css/image-gallery.css";
 import ReCAPTCHA from "react-google-recaptcha";
 
-
 function reducer(state, action) {
   switch (action.type) {
     case "setName":
@@ -19,7 +18,6 @@ function reducer(state, action) {
   }
 }
 
-
 function WorkshopDetails() {
   const workshop = useSelector((state) => state.workshop);
   const currentID = useParams();
@@ -27,7 +25,7 @@ function WorkshopDetails() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [currentWorkshop, setCurrentWorkshop] = useState("");
   const [isRobot, setIsRobot] = useState(true);
-  console.log(currentID)
+  console.log(currentWorkshop);
 
   const handleChange = (value, key) => {
     dispatch({ type: key, payload: value });
@@ -67,13 +65,11 @@ function WorkshopDetails() {
 
   return (
     <div className="min-h-200">
-   
       <img className="w-full mt-16" src={currentWorkshop?.img} />
-      <h1 className="w-11/12 mx-auto mt-16 pb-8 mb-8 border-b-2 border-stone-700 text-center text-2xl tracking-wider">
+      <h1 className="w-11/12 mx-auto mt-16 pb-8 mb-8 border-b-2 border-stone-500 text-center text-2xl tracking-wider">
         {currentWorkshop?.title}
       </h1>
       <div className="mx-auto my-12 w-11/12">
-
         {currentWorkshop
           ? currentWorkshop.text.split("\n").map((line, index) => (
               <div key={index} className="my-1">
@@ -84,8 +80,11 @@ function WorkshopDetails() {
               </div>
             ))
           : ""}
-   
-        <h1 id="H1" className=" w-full mx-auto mt-16 mb-8  text-2xl tracking-wider">
+
+        <h1
+          id="H1"
+          className=" w-full mx-auto mt-16 mb-8  text-2xl tracking-wider"
+        >
           影人出席
         </h1>
         <div className="flex flex-wrap">
@@ -101,15 +100,19 @@ function WorkshopDetails() {
         <h1 className=" w-full  mx-auto mt-16 mb-8 text-center  text-xl tracking-wider">
           欲參加工作坊請填妥以下資訊：
         </h1>
-        <Input
-          className="input-30"
-          attribute="setName"
-          value={state.name}
-          name="name"
-          onChange={handleChange}
-        >
-          姓名 / Name（必填）
-        </Input>
+        {currentWorkshop.name && (
+          <Input
+            className="input-30"
+            attribute="setName"
+            value={state.name}
+            name="name"
+            onChange={handleChange}
+          >
+            姓名 / Name（必填）
+          </Input>
+        )}
+
+        {currentWorkshop.email &&
         <Input
           className="input-30"
           attribute="setEmail"
@@ -118,7 +121,9 @@ function WorkshopDetails() {
           onChange={handleChange}
         >
           信箱 / Email（必填）
-        </Input>
+        </Input>}
+
+        {currentWorkshop.phone &&
         <Input
           className="input-30"
           attribute="setPhoneNumber"
@@ -128,6 +133,7 @@ function WorkshopDetails() {
         >
           電話 / Phone Number（必填）
         </Input>
+        }
 
         <div className="flex flex-col  justify-center">
           <ReCAPTCHA

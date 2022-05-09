@@ -19,7 +19,7 @@ function FilmsContainer(props) {
   }, [features]);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col mb-52  mx-auto w-[90%] |  md:w-11/12 | xl:w-[96%]">
       <div className="flex flex-wrap mx-auto max-w-[1440px] w-full justify-center">
         <>
           {importantFeatures.map((item, index) => (
@@ -32,7 +32,7 @@ function FilmsContainer(props) {
                   ? `/preview/feature-details/${item.featureID}`
                   : `/feature-details/${item.featureID}`
               }
-              className="relative cursor-pointer | w-full h-48 my-1 | sm:w-600 sm:h-64 sm:my-2 | md:w-[calc(50vw-36px)] md:h-80 md:mx-2 md:my-2 | xl:my-6 xl:mx-3 xl:w-600 xl:h-96 "
+              className="relative cursor-pointer | w-full h-48 my-1 | sm:w-full sm:h-64 sm:my-2 sm:mx-2 | md:w-[calc((100%-32px)/2)] md:h-80 md:mx-2 md:my-2 | xl:mt-6 xl:h-96 "
               title={item.commercialInfo}
               text={item.shortInfo}
               img={item.featureImgs[1]}
@@ -40,7 +40,7 @@ function FilmsContainer(props) {
           ))}
         </>
       </div>
-      <div className="flex flex-wrap mb-16 max-w-1440 | justify-center mx-auto | md:justify-start md:mx-3 | xl:justify-center xl:mx-auto ">
+      <div className="flex flex-wrap max-w-1440 | justify-center mx-auto | md:justify-start | xl:justify-center xl:mx-auto ">
         <>
           {normalFeatures.map((item, index) => (
             <FilmBox
@@ -52,7 +52,7 @@ function FilmsContainer(props) {
                   ? `/preview/feature-details/${item.featureID}`
                   : `/feature-details/${item.featureID}`
               }
-              className="relative cursor-pointer | h-48 w-full my-1 | sm:w-[290px] sm:my-2 sm:mx-2 | md:w-[calc((100vw-88px)/3)] | xl:w-72 xl:h-72 xl:mx-3 xl:my-0 "
+              className="relative  cursor-pointer | h-48 w-full my-1 | sm:w-[calc((100%-32px)/2)] sm:h-64 sm:my-2 sm:mx-2 | md:w-[calc((100%-48px)/3)] | xl:w-[calc((100%-64px)/4)] xl:h-72 "
               title={item.title}
               text={item.shortInfo}
               img={item.featureImgs[1]}

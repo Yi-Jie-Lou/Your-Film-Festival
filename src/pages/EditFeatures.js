@@ -93,8 +93,8 @@ function Features() {
             onClick={() => {
               dispatch(switchTab(item.featureID));
             }}
-            className={`w-32 border-2 rounded-lg text-center ${
-              item.featureID === currentTab ? "bg-slate-400" : "bg-slate-600"
+            className={`w-32 button-orange ${
+              item.featureID === currentTab ? "bg-[#f4cd7f]" : "bg-[#eb9666]"
             } `}
             key={index}
           >
@@ -102,7 +102,7 @@ function Features() {
           </button>
         ))}
         <button
-          className="absolute right-10 mx-3  w-28 border-2 rounded-lg bg-blue-300"
+          className="absolute right-10 mx-3  w-28 button-blue"
           onClick={addFeature}
         >
           增加影片
@@ -112,16 +112,16 @@ function Features() {
       <Creator />
       <Booking />
       <Note />
-      <div className="flex justify-center my-8">
+      <div className="flex justify-center my-12">
         <button
-          className="w-28 p-2 mx-2 border-2 rounded-lg bg-red-300"
+          className="button-red w-28 p-2 mx-2"
           onClick={deleteFeature}
         >
           刪除影片
         </button>
         <button
           onClick={saveFeatures}
-          className="w-28 p-2 mx-2 border-2 rounded-lg bg-blue-300"
+          className="button-blue w-28 p-2 mx-2"
         >
           儲存本頁
         </button>

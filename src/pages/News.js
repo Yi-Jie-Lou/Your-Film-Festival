@@ -16,7 +16,7 @@ function News(props) {
   }, [news]);
 
   return (
-    <div className=" my-24 | xl:my-32 ">
+    <div className=" mt-24 mb-52 | xl:mt-32 ">
       <div className="flex flex-col w-11/12 min-h-[500px]  mx-auto rounded-lg">
         <div className="flex flex-wrap justify-center">
           {importantNews.map((item, index) => (

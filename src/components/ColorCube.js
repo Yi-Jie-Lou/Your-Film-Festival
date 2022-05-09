@@ -245,7 +245,7 @@ function ColorCube(props) {
               currentSelectedIndex === index ? "border-4 border-red-700" : ""
             } hover:scale-105 ease-in-out duration-300 hover:border-4 border-sky-700 `}
           ></button>
-          <p className="text-right mr-3">{color.slice(4, 11)}</p>
+     
         </div>
       ))}
 

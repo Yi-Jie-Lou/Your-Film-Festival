@@ -148,8 +148,8 @@ function PreviewHeader() {
         <CustomerNavLink router="/preview/timetable">場次表</CustomerNavLink>
         <CustomerNavLink router="/preview/workshop">工作坊</CustomerNavLink>
         <NavLink className="vertical mx-2" to="/backstage/features">
-          <div className="w-40 py-2 border-2 rounded-xl text-center text-1xl bg-amber-400">
-            回到後台
+          <div className="vertical button-blue border-2 w-40 py-2  text-center text-1xl ">
+            <span>回到後台</span>
           </div>
         </NavLink>
         <div className="vertical mx-2 ">
@@ -159,9 +159,9 @@ function PreviewHeader() {
                 ? firebase.buildFestival(userUID, festivalPathName)
                 : alert("您好像還沒登入");
             }}
-            className="w-40 py-2 border-2 text-center text-1xl rounded-xl bg-red-400"
+            className="flex justify-center border-2 items-center button-red w-40   text-center text-1xl "
           >
-            Build
+            <span className="text-center">Build</span>
           </button>
         </div>
       </div>

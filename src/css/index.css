@@ -1,6 +1,35 @@
+body{
+  color: #1b1b1bdf;
+}
+
+.rdrDefinedRangesWrapper {
+  display: none !important;
+}
+.rdrDateRangePickerWrapper{
+  width: 500px;
+}
+
+.rdrDateRangeWrapper{
+  width: 100%;
+}
+
+
+.rdrMonth{
+  width: 100%;
+}
+
+.rdrDateDisplayWrapper {
+  background-color: #57bdc8a1 !important;
+  border-radius: 10px;
+}
+
+.rdrStartEdge, .rdrInRange, .rdrEndEdge{
+  color:#57bdc8 !important;
+}
+
+
 @tailwind base;
 @tailwind components;
-
 @layer utilities {
 
   .shape {
@@ -17,16 +46,14 @@
 
 @tailwind utilities;
 
-.rdrDefinedRangesWrapper {
-  display: none !important;
-}
+
 
 @layer components {
   .text-area {
-    @apply flex flex-col justify-around w-full h-32 my-2  mx-auto border-2 rounded-lg border-zinc-900;
+    @apply flex flex-col justify-around w-full h-32 my-2  mx-auto border-4 rounded-lg border-[#94bed1] ;
   }
   .text-area-large {
-    @apply flex flex-col justify-around w-full h-64 my-2  mx-auto border-2 rounded-lg border-zinc-900;
+    @apply flex flex-col justify-around w-full h-64 my-2  mx-auto border-4 rounded-lg border-[#94bed1] ;
   }
   .checkbox-left {
     @apply flex   w-full  mx-auto my-2;
@@ -34,23 +61,23 @@
   .checkbox-right {
     @apply flex justify-end  w-full  mx-auto my-2;
   }
-  .button-green {
-    @apply ml-3 py-1  w-28 border-2 rounded-lg  bg-green-200;
+  .button-orange {
+    @apply ml-3 py-1  w-28 h-12 rounded-lg   bg-[#f4cd7f] text-white text-shadow-btn text-lg tracking-wider hover:scale-105 ease-in-out;
   }
   .button-red {
-    @apply mx-3  py-1  w-28 border-2 rounded-lg  bg-red-300;
+    @apply mx-3  py-1  w-28 h-12 rounded-lg   bg-[#f08074]  text-white text-shadow-btn text-lg tracking-wider hover:scale-105 ease-in-out;
   }
   .button-blue {
-    @apply ml-3 py-1   w-28 border-2 rounded-lg bg-blue-300;
+    @apply ml-3 py-1   w-28 h-12 rounded-lg bg-[#57bdc8]  text-white text-shadow-btn text-lg tracking-wider hover:scale-105 ease-in-out;
   }
   .button-gray {
-    @apply ml-3 py-1   w-28 border-2 rounded-lg bg-stone-300;
+    @apply ml-3 py-1   w-28 h-12 rounded-lg bg-stone-300  text-white text-shadow-btn text-lg tracking-wider hover:scale-105 ease-in-out;
   }
   .input-full {
-    @apply flex flex-col justify-around w-full h-16 my-2  mx-auto border-2 rounded-lg border-zinc-900;
+    @apply flex flex-col justify-around w-full h-16 my-2  mx-auto border-4 rounded-lg border-[#94bed1]  ;
   }
   .input-30 {
-    @apply flex flex-col justify-around w-[30%] h-16 my-2  mx-auto border-2 rounded-lg border-zinc-900;
+    @apply flex flex-col justify-around w-[30%] h-16 my-2  mx-auto border-4 rounded-lg border-[#94bed1] ;
   }
   .vertical {
     @apply flex flex-col justify-center;
@@ -59,7 +86,7 @@
     @apply text-white  h-full w-full  opacity-0 hover:opacity-100 backdrop-blur-sm;
   }
   .header__container{
-    @apply flex fixed w-full top-0 left-0 my-0 z-30 rounded-b-lg border-gray-200 bg-white cursor-pointer justify-center border-b-4 sm:justify-start sm:border-b-0
+    @apply flex fixed w-full top-0 left-0 my-0 z-30 rounded-b-lg border-gray-200 bg-white cursor-pointer justify-center border-b-2 sm:justify-start sm:border-b-0
   }
 }
 
@@ -139,6 +166,10 @@
   }
   .text-shadow-light {
     text-shadow: 1px 1px 3px gray;
+  }
+
+  .text-shadow-btn {
+    text-shadow: 1px 1px 3px #424242;
   }
   
   .loader div {

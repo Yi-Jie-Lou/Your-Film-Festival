@@ -97,7 +97,7 @@ function Creator() {
                     <span>創作者</span>
                   </h2>
                   <button
-                    className="ml-3 my-6 py-1  w-28 border-2 rounded-lg  bg-red-300"
+                    className="button-red ml-3 my-6 h-10 w-24 "
                     onClick={() => {
                       deleteCreators(index);
                     }}
@@ -127,14 +127,14 @@ function Creator() {
                     </Textarea>
                   </div>
 
-                  <div className="w-96  mx-8">
+                  <div className="vertical w-96  mx-8">
                     <label
-                      className="block border-2 h-56 w-full rounded-lg text-center cursor-pointer"
+                      className="block border-4 h-52 w-full rounded-lg text-center cursor-pointer border-[#628fa4]"
                       htmlFor={`creator${index}`}
                     >
                       {item.img && (
                         <img
-                          className="border-0 object-cover h-56 w-full mr-0"
+                          className="border-0 object-cover h-52 w-full mr-0"
                           src={item.img}
                         />
                       )}
@@ -152,7 +152,7 @@ function Creator() {
             ))}
         </div>
         <button
-          className="ml-3 my-6 py-1  w-28 border-2 rounded-lg bg-blue-300"
+          className="button-blue ml-3 my-6 h-10 w-24"
           onClick={() => {
             addCreators();
           }}

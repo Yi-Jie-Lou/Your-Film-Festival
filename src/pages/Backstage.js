@@ -131,7 +131,7 @@ function Backstage() {
         <h2 className="text-center text-lg">播映戲院</h2>
         <div className="flex justify-center">
           <button
-            className="mx-3 my-12 w-28 border-2 rounded-lg bg-blue-300"
+            className="button-blue mx-3 my-12 "
             onClick={addTheather}
           >
             增加戲院
@@ -142,7 +142,7 @@ function Backstage() {
             <div className="flex justify-center mb-12" key={index}>
               <label className="mr-4  my-8">戲院{index + 1}</label>
               <input
-                className="pl-2 my-8 border-2 rounded-lg"
+                className="pl-2 my-8 border-4 rounded-lg border-[#94bed1] outline-none"
                 type="text"
                 value={item}
                 onChange={(e) => handleChange(index, e)}
@@ -158,8 +158,8 @@ function Backstage() {
           </h2>
 
           <label
-            className={`block  w-60   cursor-pointer  border-2  rounded-lg  text-center align-middle  text-white ${
-              festivalLogo ? "" : "bg-blue-400"
+            className={`vertical w-40 button-blue text-center align-middle cursor-pointer ${
+              festivalLogo ? "" : <span>上傳</span>
             } `}
             htmlFor={`festival_logo`}
           >
@@ -180,15 +180,15 @@ function Backstage() {
           </label>
         </div>
         <div className="flex justify-between w-96 my-8  mx-auto">
-          <h2 className="flex flex-col justify-center w-32  text-2xl text-zinc-700">
+          <h2 className="flex flex-col justify-center w-32  text-2xl text-zinc-700 ">
             <span>主視覺海報</span>
           </h2>
 
           <label
-            className="block  w-60   cursor-pointer  border-2  rounded-lg  text-center align-middle  text-white bg-blue-400 "
+            className="vertical w-40 button-blue text-center align-middle cursor-pointer "
             htmlFor={`festival_post`}
           >
-            {festivalPost ? "" : "上傳"}
+            {festivalPost ? "" : <span>上傳</span>}
             {festivalPost && (
               <img
                 className="  border-0 object-cover mr-0"
@@ -207,19 +207,19 @@ function Backstage() {
       </div>
 
       <div className="flex flex-col mt-16">
-        <div className="flex  justify-between w-96  my-8 mx-auto">
+        <div className="flex  justify-between w-96  my-8 mx-auto ">
           <h2 className=" text-center text-lg ">影展名稱</h2>
           <input
-            className="pl-2 border-2 rounded-lg"
+            className="pl-2 border-4 rounded-lg border-[#94bed1] outline-none "
             type="text"
             value={festivalName}
             onChange={(e) => onChangeName(e)}
           />
         </div>
-        <div className="flex justify-between w-96 my-8  mx-auto">
+        <div className="flex justify-between w-96 my-8  mx-auto ">
           <h2 className=" text-center text-lg">影展英文名稱</h2>
           <input
-            className="pl-2 border-2 rounded-lg"
+            className="pl-2 border-4 rounded-lg border-[#94bed1] outline-none"
             type="text"
             value={festivalPathName}
             onChange={(e) => onChangePathName(e)}
@@ -227,7 +227,7 @@ function Backstage() {
         </div>
         <div className="flex justify-center">
           <button
-            className=" my-12 w-28 border-2 rounded-lg bg-blue-300"
+            className=" my-12 w-28 button-blue  mx-0"
             onClick={saveToFirebase}
           >
             儲存本頁

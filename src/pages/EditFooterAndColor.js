@@ -45,8 +45,16 @@ function EditFooterAndColor() {
   };
 
   const previewSponsorImg = async (e, index) => {
-    if (!e.target.files[0]) return;
+   if (!e.target.files[0]) return;
     const uploadImg = e.target.files[0];
+    const uploadSize = e.target.files[0].size;
+
+    if (uploadSize / 1024 > 200) {
+      alert(
+        `上傳檔案需請小於200KB，您的檔案為${Math.floor(uploadSize / 1024)}KB`
+      );
+      return;
+    }
 
     await firebase.uploadImgs(uploadImg);
     firebase.getUploadImgs(uploadImg).then((uploadUrl) => {
@@ -75,7 +83,7 @@ function EditFooterAndColor() {
           增加贊助商
         </h1>
         <button
-          className=" my-3 py-1  w-28 border-2 rounded-lg bg-blue-300"
+          className="button-blue ml-0 my-4"
           onClick={() => {
             addSponsor("text");
           }}
@@ -110,7 +118,7 @@ function EditFooterAndColor() {
         </div>
         <div className="flex flex-col  ">
           <button
-            className=" mt-8 py-1  w-28 border-2 rounded-lg bg-blue-300"
+            className="button-blue ml-0 mt-8"
             onClick={() => {
               addSponsor("img");
             }}
@@ -122,7 +130,7 @@ function EditFooterAndColor() {
               sponsor.img.map((item, index) => (
                 <div key={index} className="flex flex-wrap mx-6  my-12 w-250">
                   <label
-                    className="block w-52 h-52  rounded-full text-center  border-2 border-zinc-900 cursor-pointer"
+                    className="block w-52 h-52  rounded-full text-center  border-4 border-[#94bed1]  cursor-pointer"
                     htmlFor={`sponsor${index}`}
                   >
                     {item ? (
@@ -157,11 +165,11 @@ function EditFooterAndColor() {
               ))}
           </div>
         </div>
-        <h1 className=" w-full mx-auto mt-32 mb-8 border-b-2 border-stone-700 text-2xl tracking-wider">
+        <h1 className=" w-full mx-auto mt-32 mb-8 border-b-2 border-stone-500 text-2xl tracking-wider">
           選擇主色 / Primary color
         </h1>
         <ColorCube color={"primary"} />
-        <h1 className=" w-full mx-auto mt-14 mb-8 border-b-2 border-stone-700 text-2xl tracking-wider">
+        <h1 className=" w-full mx-auto mt-14 mb-8 border-b-2 border-stone-500 text-2xl tracking-wider">
           選擇輔色 / Secondary color
         </h1>
         <ColorCube color={"secondary"} />
@@ -175,7 +183,7 @@ function EditFooterAndColor() {
               onChange={(e) => {
                 handleColorCode(e, "primary");
               }}
-              className=" w-36 h-10 pl-3 mt-1 outline-none border-2 border-gray-400 rounded-xl "
+              className=" w-36 h-10 pl-3 mt-1 outline-none border-4 border-[#94bed1] rounded-xl "
             ></input>
             <div
               style={{ background: primaryColor }}
@@ -191,7 +199,7 @@ function EditFooterAndColor() {
               onChange={(e) => {
                 handleColorCode(e, "secondary");
               }}
-              className=" w-36 h-10 pl-3 mt-1 outline-none border-2 border-gray-400 rounded-xl "
+              className=" w-36 h-10 pl-3 mt-1 outline-none border-4 border-[#94bed1] rounded-xl "
             ></input>
             <div
               style={{ background: secondaryColor }}
@@ -205,7 +213,7 @@ function EditFooterAndColor() {
           onClick={() => {
             firebase.saveSponsor(userID, sponsor, primaryColor, secondaryColor);
           }}
-          className="w-28 p-2 mx-2 border-2 rounded-lg bg-blue-300"
+          className="button-blue my-0 mx-0"
         >
           儲存本頁
         </button>

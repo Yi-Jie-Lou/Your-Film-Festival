@@ -4,8 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateFeatures } from "../actions";
 import "../css/TimePicker.css";
 
-
-
 function Booking() {
   const dispatch = useDispatch();
   const period = useSelector((state) => state.festivalPeriod);
@@ -15,7 +13,6 @@ function Booking() {
   const [timetable, setTimetable] = useState([]);
 
   const addTimetable = () => {
-
     const emptyTimetable = {
       date: "default",
       start: "10:00",
@@ -23,9 +20,9 @@ function Booking() {
       location: "default",
       opening: false,
       closing: false,
-      name:"",
+      name: "",
       workshop: false,
-      featureID: currentTab
+      featureID: currentTab,
     };
 
     const newFeatures = [...features];
@@ -56,11 +53,6 @@ function Booking() {
     dispatch(updateFeatures(newFeatures));
   };
 
-  const check = (index) => {
-    console.log(timetable[index]);
-    alert("場次沒有重複!");
-  };
-
   useEffect(() => {
     if (!currentTab) return;
     const current = features.filter((item) => item.featureID === currentTab);
@@ -73,7 +65,7 @@ function Booking() {
         <div className="flex">
           <h2 className="my-1 text-lg ml-1">場次時刻表</h2>
           <button
-            className="mx-3  w-28 border-2 rounded-lg bg-blue-300"
+            className="button-blue mx-3 h-10 w-24 "
             onClick={addTimetable}
           >
             Add
@@ -81,14 +73,14 @@ function Booking() {
         </div>
         {timetable.map((item, index) => (
           <div
-            className="flex justify-between flex-wrap w-2/3 mt-3 mx-auto"
+            className="flex justify-between flex-wrap w-3/4 mt-6 mx-auto"
             key={index}
           >
             <h2 className="w-full my-3 text-lg ml-1">場次{index + 1}</h2>
             <div className="flex flex-col">
               <select
                 value={item.date}
-                className="mb-2 w-32 h-10 border-2 rounded text-center"
+                className="mb-2 w-32 h-10 border-4 rounded-xl text-center border-[#94bed1]"
                 onChange={(event) =>
                   handleChange(event.target.value, index, "date")
                 }
@@ -101,7 +93,7 @@ function Booking() {
                 ))}
               </select>
               <select
-                className="w-32 h-10 border-2 rounded text-center"
+                className="w-32 h-10 border-4 rounded-xl text-center border-[#94bed1]"
                 onChange={(event) =>
                   handleChange(event.target.value, index, "location")
                 }
@@ -123,7 +115,7 @@ function Booking() {
             <div className="flex flex-col">
               {/* <Select /> */}
               <TimePicker
-                className={"mb-2  h-10 border-2 bor rounded text-center"}
+                className={"mb-2  h-10 border-4 rounded-xl text-center border-[#94bed1]"}
                 clearIcon={null}
                 disableClock={true}
                 onChange={(value) => handleChange(value, index, "start")}
@@ -131,7 +123,7 @@ function Booking() {
                 locale={"en-EN"}
               />
               <TimePicker
-                className={"h-10 border-2 bor rounded text-center"}
+                className={"h-10 border-4 rounded-xl text-center border-[#94bed1]"}
                 clearIcon={null}
                 disableClock={true}
                 onChange={(value) => handleChange(value, index, "end")}
@@ -139,51 +131,45 @@ function Booking() {
                 locale={"en-EN"}
               />
             </div>
-            <div className="flex flex-col justify-around">
-              <div className="flex justify-center">
+            <div className="flex">
+              <div className="vertical">
+                <div>
+                  <input
+                    className="ml-2"
+                    checked={item.opening}
+                    onChange={(event) =>
+                      handleChange(event.target.checked, index, "opening")
+                    }
+                    type="checkbox"
+                  />
+                  <label className="ml-2">開幕片</label>
+                  <input
+                    className="ml-2"
+                    checked={item.closing}
+                    onChange={(event) =>
+                      handleChange(event.target.checked, index, "closing")
+                    }
+                    type="checkbox"
+                  />
+                  <label className="ml-2">閉幕片</label>
+                  <input
+                    className="ml-2"
+                    checked={item.workshop}
+                    onChange={(event) =>
+                      handleChange(event.target.checked, index, "workshop")
+                    }
+                    type="checkbox"
+                  />
+                  <label className="ml-2">影人出席</label>
+                </div>
+              </div>
+              <div className="vertical mx-4">
                 <button
-                  className="mx-3 w-28 border-2 rounded-lg bg-blue-300"
-                  onClick={() => {
-                    check(index, item.img);
-                  }}
-                >
-                  Check
-                </button>
-                <button
-                  className="mx-3 w-28 border-2 rounded-lg bg-red-300"
+                  className="button-red  h-10 w-24 "
                   onClick={() => deleteTimetable(index)}
                 >
                   Delete
                 </button>
-              </div>
-              <div>
-                <input
-                  className="ml-2"
-                  checked={item.opening}
-                  onChange={(event) =>
-                    handleChange(event.target.checked, index, "opening")
-                  }
-                  type="checkbox"
-                />
-                <label className="ml-2">開幕片</label>
-                <input
-                  className="ml-2"
-                  checked={item.closing}
-                  onChange={(event) =>
-                    handleChange(event.target.checked, index, "closing")
-                  }
-                  type="checkbox"
-                />
-                <label className="ml-2">閉幕片</label>
-                <input
-                  className="ml-2"
-                  checked={item.workshop}
-                  onChange={(event) =>
-                    handleChange(event.target.checked, index, "workshop")
-                  }
-                  type="checkbox"
-                />
-                <label className="ml-2">影人出席</label>
               </div>
             </div>
           </div>

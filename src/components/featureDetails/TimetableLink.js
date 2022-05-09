@@ -24,7 +24,7 @@ function TimetableLink(props) {
             style={{
               background: secondaryColor,
             }}
-            className="flex py-2 px-4 my-2 justify-between border-2 rounded-lg border-stone-700 bg-orange-300"
+            className="flex py-2 px-4 my-2 justify-between border-2 rounded-lg border-stone-500"
           >
             <p>
               {timetable.date} {timetable.start}

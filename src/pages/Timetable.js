@@ -58,9 +58,9 @@ function Timetable(props) {
 
   return (
     <>
-      <div className="mt-28 mb-32">
+      <div className="mt-32 mb-32">
         <select
-          className="block  mb-0 mx-auto border-2"
+          className="block  mb-0 mx-auto  border-4 rounded-xl text-center  border-[#94bed1]"
           onChange={(event) => setQureyDate(event.target.value)}
           value={queryDate}
         >
@@ -75,10 +75,10 @@ function Timetable(props) {
         {locations &&
           locations.map((item, index) => (
             <div key={index} className=" my-4 mx-auto w-4/5  rounded-lg">
-              <div className=" flex mx-auto w-4/5 p-1 rounded-lg text-xl">
+              <div className=" flex mx-auto  p-1 rounded-lg text-xl">
                 {item}
               </div>
-              <div className=" flex mx-auto w-4/5 h-72   border-t-2 border-stone-700 ">
+              <div className=" flex flex-wrap mx-auto   border-t-2 border-stone-500   ">
                 {queryTimetable.map((film, index) =>
                   film.location === item ? (
                     <FilmBox
@@ -90,7 +90,7 @@ function Timetable(props) {
                           ? `/preview/feature-details/${film.featureID}`
                           : `/feature-details/${film.featureID}`
                       }
-                      className="relative text-1xl w-64 h-64 mr-4 my-4 border-2 rounded "
+                      className="relative text-1xl mr-4 my-4 border-4 rounded w-48 h-48 | md:w-64 md:h-64 "
                       text={`${film.name}${film.start}-${film.end}`}
                       img={film.img}
                     />
@@ -101,10 +101,10 @@ function Timetable(props) {
               </div>
             </div>
           ))}
-        <div className="w-2/3 mt-10 mx-auto">
+        <div className="w-4/5  mt-10 mx-auto">
           {rankIcons.map((item) => (
             <MovieRating
-              className={`w-6 h-6 mr-2 text-center text-shadow-light text-white rounded-md ${item.color} `}
+              className={`min-w-[24px] h-6 mr-2 text-center text-shadow-light text-white rounded-md ${item.color} `}
               rank={item.rank}
               text={item.text}
             />

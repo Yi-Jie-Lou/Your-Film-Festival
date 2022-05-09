@@ -12,9 +12,9 @@ function EditPrice() {
   const traffic = useSelector((state) => state.traffic);
   const state = useSelector((state) => state.state);
 
-  if (state === "logout"){
-    alert("請先登入")
-    window.location = "https://your-film-festival-d2cd4.web.app/"
+  if (state === "logout") {
+    alert("請先登入");
+    window.location = "https://your-film-festival-d2cd4.web.app/";
   }
 
   const handleChange = (value, key, index) => {
@@ -28,7 +28,6 @@ function EditPrice() {
     newTraffic[index][key] = value;
     dispatch(updateTraffic(newTraffic));
   };
-
 
   const handleTicketChange = (value, key, indexObj) => {
     const newPrice = [...price];
@@ -121,7 +120,7 @@ function EditPrice() {
                 分類 / Category（必填）
               </Input>
               <button
-                className="button-red h-1/2 my-auto"
+                className="button-red my-auto"
                 onClick={() => {
                   deletePrice(index);
                 }}
@@ -150,7 +149,7 @@ function EditPrice() {
                   票價 / Price（必填）
                 </Input>
                 <button
-                  className="button-blue h-1/2 my-auto"
+                  className="button-blue my-auto"
                   onClick={() => {
                     addTicket(index);
                   }}
@@ -158,7 +157,7 @@ function EditPrice() {
                   Add
                 </button>
                 <button
-                  className="button-red h-1/2 my-auto"
+                  className="button-red  my-auto"
                   onClick={() => {
                     deleteTicket(index, ticketIndex);
                   }}
@@ -187,65 +186,66 @@ function EditPrice() {
             </Input>
           </div>
         ))}
-      {traffic && traffic.map((item, index) => (
-        <div key={index} className="flex justify-between my-1">
-          <Textarea
-            className="text-area-large w-1/3 mx-0"
-            attribute="text"
-            value={item.text}
-            index={index}
-            onChange={handleTrafficChange}
-          >
-            交通資訊
-          </Textarea>
-          <div className="flex flex-col justify-center w-96 mx-8" key={index}>
-            <label
-              className="block border-2 h-64 w-full rounded-lg text-center cursor-pointer"
-              htmlFor={`traffic${index}`}
+        <button
+        className="button-blue  my-auto"
+        onClick={() => {
+          addTraffic();
+        }}
+      >
+        Add
+      </button>
+      {traffic &&
+        traffic.map((item, index) => (
+          <div key={index} className="flex ml-3 mt-6 my-1">
+            <Textarea
+              className="text-area-large w-1/3 mx-0"
+              attribute="text"
+              value={item.text}
+              index={index}
+              onChange={handleTrafficChange}
             >
-              {item.img ? (
-                <img
-                  className="border-0 object-cover h-64 w-full mr-0"
-                  src={item ? item.img : ""}
+              交通資訊
+            </Textarea>
+            <div className="flex flex-col justify-center w-96 mx-8" key={index}>
+              <label
+                className="block border-4 min-h-[256px] w-full rounded-lg  text-center cursor-pointer border-[#94bed1]"
+                htmlFor={`traffic${index}`}
+              >
+                {item.img ? (
+                  <img
+                    className="border-0 object-cover h-64 w-full mr-0"
+                    src={item ? item.img : ""}
+                  />
+                ) : (
+                  ""
+                )}
+                <input
+                  id={`traffic${index}`}
+                  className="hidden border-1 "
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => preview(e, index)}
                 />
-              ) : (
-                ""
-              )}
-              <input
-                id={`traffic${index}`}
-                className="hidden border-1 "
-                type="file"
-                accept="image/*"
-                onChange={(e) => preview(e, index)}
-              />
-            </label>
+              </label>
+            </div>
+            <div className="flex">
+              <button
+                className="button-red  my-auto"
+                onClick={() => {
+                  deleteTraffic(index);
+                }}
+              >
+                Delete
+              </button>
+            </div>
           </div>
-          <div className="flex">
-        
-          <button
-            className="button-red  my-auto"
-            onClick={() => {
-              deleteTraffic(index);
-            }}
-          >
-            Delete
-          </button>
-          </div>
-        </div>
-      ))}
-      <button
-            className="button-blue  my-auto"
-            onClick={() => {
-              addTraffic();
-            }}
-          >
-            Add
-          </button>
+        ))}
+
 
       <div className="flex justify-center mt-12 w-full">
         <button
           onClick={() => firebase.savePricePage(userID, price, traffic)}
-          className="button-blue"
+          className="button-blue  mx-0"
         >
           儲存本頁
         </button>

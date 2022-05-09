@@ -103,7 +103,7 @@ function EditNews() {
 
             <div className="my-5">
               <label
-                className="block w-full  rounded-lg text-center  border-2 border-zinc-900 cursor-pointer"
+                className="block w-full  rounded-lg text-center  border-4 border-[#94bed1]  cursor-pointer"
                 htmlFor={`news${index}`}
               >
                 {item.img ? (
@@ -149,7 +149,7 @@ function EditNews() {
             </Checkbox>
             <div className="flex justify-end mt-3 mb-9 ">
               <button
-                className="button-green"
+                className="button-orange"
                 onClick={() => {
                   editNews(index);
                 }}
@@ -170,7 +170,7 @@ function EditNews() {
       <div className="flex justify-center mt-12 w-full">
         <button
           onClick={saveNews}
-          className="button-blue"
+          className="button-blue  mx-0"
         >
           儲存本頁
         </button>

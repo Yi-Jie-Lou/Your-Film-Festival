@@ -40,8 +40,8 @@ function Carousel(props) {
   }, [length]);
 
   return (
-    <div className="mb-4 | mt-14 | sm:mt-16 | md-mt-20 | xl:mt-24">
-      <div className="relative w-full cursor-pointer | h-64 | sm:h-80 | md:h-96 | xl:h-[700px]">
+    <div className="mb-4 | mt-14 | sm:mt-16 | md:mt-20 | xl:mt-24">
+      <div className="relative w-full cursor-pointer | h-64 | sm:h-80 | md:h-[500px] | xl:h-[700px]">
         <FaArrowAltCircleRight
           onClick={nextSlide}
           className="absolute z-20 opacity-80 cursor-pointer | top-28 right-6 w-10 h-10 | sm:top-32 sm:right-6 sm:w-12 sm:h-12 | md:top-44 md:right-6 md:w-12 md:h-12 | xl:top-80 xl:right-12 xl:w-16 xl:h-16 "
@@ -66,7 +66,7 @@ function Carousel(props) {
             img={item.img}
             className={`absolute top-0 left-0 w-full object-cover object-center transition-all duration-1000 ${
               current === index ? "z-10 opacity-100" : " opacity-0 "
-            } h-64 | sm:h-80 | md:h-96 | xl:h-[700px]  `}
+            } h-full `}
           />
         ))}
       </div>

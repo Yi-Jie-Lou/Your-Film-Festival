@@ -121,7 +121,7 @@ function FilmContent() {
       <div className="flex flex-wrap justify-center w-10/12 mb-8 mt-16   mx-auto ">
         {currentFeature.trailer ? (
           <video
-            className="border-2   "
+            className="border-8   "
             src={currentFeature.trailer}
             type="video/mp4"
             controls
@@ -129,7 +129,7 @@ function FilmContent() {
         ) : (
           <>
             <label
-              className="flex flex-col justify-center border-2  w-96 h-56  text-center cursor-pointer rounded-lg border-stone-700"
+              className="flex flex-col justify-center border-4  w-96 h-56  text-center cursor-pointer rounded-lg border-[#628fa4]"
               htmlFor={`trailer${currentTab}`}
             >
               {progress === 100 || progress === 0 ? (
@@ -166,9 +166,9 @@ function FilmContent() {
       </div>
       <div className="flex flex-wrap justify-center w-11/12 mt-8  mx-auto ">
         {featureImgs.map((item, index) => (
-          <div className="w-96 mt-5 mx-2" key={index}>
+          <div className="w-[360px] mt-5 mx-2" key={index}>
             <label
-              className="block border-2 h-56 w-full rounded-lg text-center cursor-pointer"
+              className="block border-4 h-56 w-full rounded-lg text-center cursor-pointer border-[#628fa4] "
               htmlFor={`upload${index}`}
             >
               {item ? (

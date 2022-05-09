@@ -62,7 +62,7 @@ function Login() {
   return (
     <>
       <Header userState={state} />
-      <div className="vertical h-[calc(100vh-128px)]">
+      <div className="vertical | h-[calc(100vh-96px)] | xl:h-[calc(100vh-120px)] ">
         <div className="flex flex-wrap justify-center  mx-auto w-11/12 ">
           <div
             className=" w-64  h-64  "
@@ -83,7 +83,7 @@ function Login() {
                 信箱:
               </label>
               <input
-                className="pl-2 border-2 rounded-lg"
+                className="pl-2 border-8 rounded-lg"
                 id="Email"
                 placeholder="Email"
                 value={userEmail}
@@ -97,7 +97,7 @@ function Login() {
                 密碼:
               </label>
               <input
-                className="pl-2 border-2 rounded-lg"
+                className="pl-2 border-8 rounded-lg"
                 id="Password"
                 placeholder="Password"
                 value={userPassword}
@@ -108,7 +108,7 @@ function Login() {
             </div>
             <div className="flex justify-center my-4 w-2/3">
               <button
-                className="mx-3 w-28 border-2 rounded-lg bg-blue-300"
+                className="mx-3 w-28 border-8 rounded-lg bg-blue-300"
                 onClick={register}
               >
                 {" "}
@@ -116,14 +116,14 @@ function Login() {
               </button>
               {userID ? (
                 <button
-                  className="mx-3 w-28 border-2 rounded-lg bg-blue-300"
+                  className="mx-3 w-28 border-8 rounded-lg bg-blue-300"
                   onClick={logout}
                 >
                   登出
                 </button>
               ) : (
                 <button
-                  className="mx-3 w-28 border-2 rounded-lg bg-blue-300"
+                  className="mx-3 w-28 border-8 rounded-lg bg-blue-300"
                   onClick={login}
                 >
                   登入
