@@ -131,7 +131,7 @@ function Backstage() {
       <div className="flex flex-col content-center mx-auto my-16 border-b-2 border-b-zinc-400">
         <h2 className="mx-auto mb-4 text-center text-2xl text-slate-600 ">播映戲院</h2>
         <div className="flex justify-center">
-          <button className="button-blue mx-3 my-12 " onClick={addTheather}>
+          <button className="button-blue w-48 mx-3 my-12 " onClick={addTheather}>
             增加戲院
           </button>
         </div>
@@ -158,8 +158,8 @@ function Backstage() {
           </h2>
 
           <label
-            className={`vertical w-40 button-blue text-center align-middle cursor-pointer ${
-              festivalLogo ? "" : <span>上傳</span>
+            className={`vertical w-48   text-center align-middle cursor-pointer ${
+              festivalLogo ? "" : "button-blue"
             } `}
             htmlFor={`festival_logo`}
           >
@@ -185,7 +185,7 @@ function Backstage() {
           </h2>
 
           <label
-            className="vertical w-40 button-blue text-center align-middle cursor-pointer "
+            className={`vertical w-48 text-center align-middle cursor-pointer ${festivalPost ?  "" : "button-blue"}` }
             htmlFor={`festival_post`}
           >
             {festivalPost ? "" : <span>上傳</span>}
@@ -208,7 +208,8 @@ function Backstage() {
 
       <div className="flex flex-col mt-16">
         <div className="flex  justify-between w-96  my-8 mx-auto ">
-          <h2 className=" text-center  text-2xl text-slate-600">影展名稱</h2>
+        
+          <h2 className="vertical text-center  text-2xl text-slate-600"><span>影展名稱</span></h2>
           <input
             className="pl-2 border-4 h-12 rounded-lg border-[#94bed1] outline-none "
             type="text"
@@ -217,7 +218,7 @@ function Backstage() {
           />
         </div>
         <div className="flex justify-between w-96 my-8  mx-auto ">
-          <h2 className=" text-center text-2xl text-slate-600">影展英文名稱</h2>
+          <h2 className="vertical text-center text-2xl text-slate-600"><span>影展英文名稱</span></h2>
           <input
             className="pl-2 border-4 h-12 rounded-lg border-[#94bed1] outline-none"
             type="text"
