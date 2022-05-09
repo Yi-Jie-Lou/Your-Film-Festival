@@ -216,7 +216,7 @@ const firebase = {
     return getDoc(doc(db, "users", UID)).then((res) => {
       setDoc(doc(db, "build", `${path}`), res.data()).then((_) => {
         alert("儲存成功!");
-        window.location.href = `https://your-film-festival-d2cd4.web.app/festival=${path}`;
+        window.location.href = `https://your-film-festival-d2cd4.web.app/build/festival=${path}`;
       });
     });
   },
