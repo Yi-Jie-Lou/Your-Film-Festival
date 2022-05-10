@@ -35,7 +35,7 @@ function FeatureDetails(props) {
     <div className="mx-auto min-h-200  w-11/12">
       {imgArray && (
         <>
-          <div className="flex justify-center mt-32 pb-12  border-b-2 border-stone-500 ">
+          <div className="flex justify-center mt-32 pb-12 min-h-[500px]  border-b-2 border-stone-500 ">
             <div className="mx-6 w-5/12">
               <ImageGallery items={imgArray} />
             </div>

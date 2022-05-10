@@ -186,10 +186,7 @@ function App() {
             path="workshop/:festival"
             element={<Workshop userState="build" />}
           />
-          <Route
-            path="workshop/:id/:festival"
-            element={<WorkshopDetails />}
-          />
+          <Route path="workshop/:id/:festival" element={<WorkshopDetails />} />
         </Route>
 
         <Route path="backstage" element={<BackstageRouter />}>
@@ -226,6 +223,10 @@ function BackstageRouter() {
 }
 
 function PreviewRouter() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    console.log("test");
+  }, []);
   return (
     <>
       <Header userState="preview" />
