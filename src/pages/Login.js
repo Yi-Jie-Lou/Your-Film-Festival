@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 import { auth, firebase } from "../utils/firebase-config";
 import { signOut } from "firebase/auth";
 import Header from "../components/global/Header";
@@ -15,6 +16,7 @@ function Login() {
   const [userEmail, setUserEmail] = useState("newdemo@gmail.com");
   const [userPassword, setUserPassword] = useState("test1234");
   const state = useSelector((state) => state.state);
+  const navigate = useNavigate();
 
   const handleError = (error) => {
     error === "Firebase: Error (auth/wrong-password)."
@@ -40,6 +42,7 @@ function Login() {
   };
 
   const login = async () => {
+    
     try {
       const user = await signInWithEmailAndPassword(
         auth,
@@ -48,6 +51,7 @@ function Login() {
       );
 
       alert("登入成功");
+      navigate("/backstage")
     } catch (error) {
       handleError(error.message);
     }
@@ -77,7 +81,7 @@ function Login() {
           </div>
           <div className="flex  flex-wrap justify-center w-1/3 ">
             <h1 className=" my-4 p-2 w-full text-center text-xl tracking-wider  rounded-lg ">
-              登入開始上傳您的影片
+              登入開始建立您的影展
             </h1>
             <div className="flex justify-center my-4 w-2/3  ">
               <label className="vertical mr-4" htmlFor="Email">

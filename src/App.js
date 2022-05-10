@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Routes, Route, BrowserRouter, Outlet } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -42,10 +42,12 @@ import WorkshopDetails from "./pages/WorkshopDetails";
 import EditFooterAndColor from "./pages/EditFooterAndColor";
 import Header from "./components/global/Header";
 import Footer from "./components/global/Footer";
+import Loading from "./components/global/Loading";
 
 function App() {
   const dispatch = useDispatch();
   const login = useSelector((state) => state.state);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const path = window.location.pathname;
@@ -81,40 +83,34 @@ function App() {
         if (currentUser) {
           dispatch(userLogin(currentUser.uid));
           dispatch(updateState("login"));
-          if (
-            path.split("/")[1] !== "backstage" &&
-            path.split("/")[1] !== "preview" &&
-            path.split("/")[1] !== "build"
-          ) {
-            firebase
-              .readFestivalData("BI9JlWinAzS8xdOnl1BrtUKPY1A3")
-              .then((res) => {
-                setupReduxStore(res);
-              });
-          } else {
-            firebase.readFestivalData(currentUser.uid).then((res) => {
+          firebase
+            .readFestivalData(currentUser.uid)
+            .then((res) => {
               setupReduxStore(res);
-              console.log("wrong");
+            })
+            .then((_) => {
+              setIsLoading(false);
             });
-          }
         } else {
           dispatch(userLogin(""));
           dispatch(updateState("logout"));
-          firebase
-            .readFestivalData("BI9JlWinAzS8xdOnl1BrtUKPY1A3")
-            .then((res) => {
-              setupReduxStore(res);
-            });
         }
       });
     };
 
+    console.log("test2");
+
     firebase.getAllPubished().then((festivalList) => {
       if (festivalList.some((item) => item === currentFestival)) {
-        firebase.readPublishedFestivalData(currentFestival).then((res) => {
-          setupReduxStore(res);
-          console.log("correct");
-        });
+        firebase
+          .readPublishedFestivalData(currentFestival)
+          .then((res) => {
+            setupReduxStore(res);
+            console.log("correct");
+          })
+          .then((_) => {
+            setIsLoading(false);
+          });
       } else {
         monitorAuthState();
       }
@@ -124,27 +120,9 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="login" element={<Login />} />
+        <Route path="/" element={<Login />} />
 
-        <Route path="/" element={<TemplateRouter userState={login} />}>
-          <Route path="" element={<Index userState={login} />} />
-          <Route
-            path="feature-details/:id"
-            element={<FeatureDetails userState={login} />}
-          />
-          <Route path="news" element={<News userState={login} />} />
-          <Route path="news/:id" element={<NewsDetails />} />
-          <Route path="price" element={<Price />} />
-          <Route path="timetable" element={<Timetable userState={login} />} />
-          <Route
-            path="timetable/:id"
-            element={<Timetable userState={login} />}
-          />
-          <Route path="workshop" element={<Workshop userState={login} />} />
-          <Route path="workshop/:id" element={<WorkshopDetails />} />
-        </Route>
-
-        <Route path="preview" element={<PreviewRouter />}>
+        <Route path="preview" element={<PreviewRouter isLoading={isLoading} />}>
           <Route path="" element={<Index userState="preview" />} />
           <Route
             path="feature-details/:id"
@@ -162,7 +140,7 @@ function App() {
           <Route path="workshop/:id" element={<WorkshopDetails />} />
         </Route>
 
-        <Route path="build" element={<BuildRouter userState="build" />}>
+        <Route path="build" element={<BuildRouter isLoading={isLoading} />}>
           <Route path=":festival" element={<Index userState="build" />} />
           <Route
             path="feature-details/:id/:festival"
@@ -189,7 +167,10 @@ function App() {
           <Route path="workshop/:id/:festival" element={<WorkshopDetails />} />
         </Route>
 
-        <Route path="backstage" element={<BackstageRouter />}>
+        <Route
+          path="backstage"
+          element={<BackstageRouter isLoading={isLoading} />}
+        >
           <Route path="" element={<Backstage />} />
           <Route path="features" element={<Features />} />
           <Route path="news" element={<EditNews />} />
@@ -202,46 +183,60 @@ function App() {
   );
 }
 
-function TemplateRouter(props) {
+function BackstageRouter(props) {
   return (
     <>
-      <Header userState={props.userState} />
-      <Outlet />
-      <Footer userState={props.userState} />
+      {props.isLoading ? (
+        <div className="h-screen vertical">
+          <Loading />
+        </div>
+      ) : (
+        <>
+          <Header userState="editing" />
+          <Outlet />
+          <Footer userState="editing" />
+        </>
+      )}
     </>
   );
 }
 
-function BackstageRouter() {
-  return (
-    <>
-      <Header userState="editing" />
-      <Outlet />
-      <Footer userState="editing" />
-    </>
-  );
-}
-
-function PreviewRouter() {
+function PreviewRouter(props) {
   useEffect(() => {
     window.scrollTo(0, 0);
     console.log("test");
   }, []);
   return (
     <>
-      <Header userState="preview" />
-      <Outlet />
-      <Footer userState="preview" />
+      {props.isLoading ? (
+        <div className="h-screen vertical">
+          <Loading />
+        </div>
+      ) : (
+        <>
+          <Header userState="preview" />
+          <Outlet />
+          <Footer userState="preview" />
+        </>
+      )}
     </>
   );
 }
 
-function BuildRouter() {
+function BuildRouter(props) {
   return (
     <>
-      <Header userState="build" />
-      <Outlet />
-      <Footer userState="build" />
+      {props.isLoading ? (
+        <div className="h-screen vertical">
+          <Loading />
+        </div>
+      ) : (
+        <>
+          <Header userState="build" />
+          <Outlet />
+          <Footer userState="build" />
+        </>
+      )}
     </>
   );
 }

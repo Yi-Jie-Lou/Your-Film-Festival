@@ -19,7 +19,7 @@ function FilmsContainer(props) {
   }, [features]);
 
   return (
-    <div className="flex flex-col mb-52  mx-auto w-[90%] |  md:w-11/12 | xl:w-[96%]">
+    <div className="flex flex-col mb-10 mx-auto w-[90%] |  md:w-11/12 | xl:w-[96%]">
       <div className="flex flex-wrap mx-auto max-w-[1440px] w-full justify-center">
         <>
           {importantFeatures.map((item, index) => (

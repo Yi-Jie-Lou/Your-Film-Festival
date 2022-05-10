@@ -7,22 +7,23 @@ import {
   SwitchCubeNavLink,
   SwitchReloadData,
   CustomerNavLink,
-  MobileNavLink
+  MobileNavLink,
+  LoginNavLink,
+  LoginLink
 } from "./CubeNavLink";
 import Logo from "../../img/yourFilmLogoA.png";
 import CubeA from "../../img/yourFilmCubeA.png";
 import CubeB from "../../img/yourFilmCubeB.png";
 import CubeC from "../../img/yourFilmCubeC.png";
 
-
 function TemplateHeader() {
-  const path = useParams()
+  const path = useParams();
   const state = useSelector((state) => state.state);
   const [isActive, setIsActive] = useState(false);
 
-  useEffect(()=>{
-    setIsActive(false)
-  },[path])
+  useEffect(() => {
+    setIsActive(false);
+  }, [path]);
 
   return (
     <>
@@ -32,39 +33,33 @@ function TemplateHeader() {
             <img className="w-36 | md:w-44 | xl:w-64" src={Logo} />
           </div>
         </NavLink>
-          <div onClick={ () => {setIsActive(prev => (!prev)) } } className="w-full py-2 justify-center | flex | sm:hidden">
-            <img className="w-36" src={Logo} />
-          </div>
-
         <div
-          id="step1"
-          className="ml-auto text-center text-1xl | hidden | sm:flex"
+          onClick={() => {
+            setIsActive((prev) => !prev);
+          }}
+          className="w-full py-2 justify-center | flex | sm:hidden"
         >
-          <CubeNavLink router="/news" cube={CubeB}>
-            最新消息
-          </CubeNavLink>
-          <CubeNavLink router="/price" cube={CubeC}>
-            購票資訊
-          </CubeNavLink>
-          <CubeNavLink router="/timetable" cube={CubeB}>
-            場次表
-          </CubeNavLink>
-          <CubeNavLink router="/workshop" cube={CubeC}>
-            工作坊
-          </CubeNavLink>
+          <img className="w-36" src={Logo} />
+        </div>
+
+        <div className="ml-auto text-center text-1xl | hidden | sm:flex">
+          <LoginLink router="/build/festival=YourFilmFestival" id="step1" cube={CubeB}>
+            Template
+          </LoginLink>
+          
 
           {state === "logout" ? (
-            <SwitchCubeNavLink router="/login" id="step2" cube={CubeA}>
-              登入客製化
-            </SwitchCubeNavLink>
+            <LoginNavLink router="/" id="step2" cube={CubeC}>
+              請先登入
+            </LoginNavLink>
           ) : state === "login" ? (
-            <SwitchReloadData router="/backstage" id="step2" cube={CubeA}>
+            <LoginNavLink router="/backstage" id="step2" cube={CubeC}>
               進入後台
-            </SwitchReloadData>
+            </LoginNavLink>
           ) : (
-            <SwitchCubeNavLink router="/login" id="step2" cube={CubeA}>
+            <LoginNavLink router="/" id="step2" cube={CubeC}>
               Loading...
-            </SwitchCubeNavLink>
+            </LoginNavLink>
           )}
         </div>
       </div>
@@ -73,14 +68,13 @@ function TemplateHeader() {
           isActive ? "h-full z-30" : "h-0 duration-0 z-0"
         }  bg-stone-900/50  | flex | sm:hidden`}
       >
-
+        {/* 
       <MobileNavLink onClick={()=> setIsActive(false)} isActive={isActive} router="/" className={isActive ? "h-16 delay-[100ms] transition-all  duration-700 bg-[#f4cd7f]" : "h-0 duration-0"} >回到首頁</MobileNavLink>
       <MobileNavLink isActive={isActive} router="/news" className={isActive ? "h-16 delay-[200ms] transition-all  duration-700 bg-[#57bdc8]" : "h-0 duration-0"} >最新消息</MobileNavLink>
       <MobileNavLink isActive={isActive} router="/price" className={isActive ? "h-16 delay-[300ms] transition-all  duration-700 bg-[#f4cd7f]" : "h-0 duration-0"} >購票資訊</MobileNavLink>
       <MobileNavLink isActive={isActive} router="/timetable" className={isActive ? "h-16 delay-[400ms] transition-all  duration-700 bg-[#57bdc8]" : "h-0 duration-0"} >場次表</MobileNavLink>
       <MobileNavLink isActive={isActive} router="/workshop" className={isActive ? "h-16 delay-[500ms] transition-all  duration-700 bg-[#f4cd7f]" : "h-0 duration-0"} >工作坊</MobileNavLink>
-      <MobileNavLink isActive={isActive} router="/login" className={isActive ? "h-16 delay-[700ms] transition-all  duration-700 bg-[#f08074]" : "h-0 duration-0"} >登入客製化</MobileNavLink>
-
+      <MobileNavLink isActive={isActive} router="/login" className={isActive ? "h-16 delay-[700ms] transition-all  duration-700 bg-[#f08074]" : "h-0 duration-0"} >登入客製化</MobileNavLink> */}
       </div>
     </>
   );
@@ -89,11 +83,11 @@ function TemplateHeader() {
 function BackstageHeader() {
   return (
     <div className="header__container">
-      <a href="/">
-        <div className="py-2 my-2 mx-6 w-64 rounded text-center text-1xl">
-          <img src={Logo} />
+      <NavLink to="/">
+        <div className="py-2 mx-6 | hidden my-1 | sm:block | md:my-2 ">
+          <img className="w-36 | md:w-44 | xl:w-64" src={Logo} />
         </div>
-      </a>
+      </NavLink>
 
       <div className="flex ml-auto  text-center text-1xl">
         <CubeNavLink router="/backstage" cube={CubeB}>
@@ -133,16 +127,16 @@ function PreviewHeader() {
       style={{
         background: primaryColor,
       }}
-      className="header__container"
+      className="header__container justify-between"
     >
       <CustomerNavLink router="/preview">
         {festivalLogo ? (
-          <img className="h-14" src={festivalLogo} />
+          <img className="h-16 ml-2" src={festivalLogo} />
         ) : (
           "請上傳LOGO"
         )}
       </CustomerNavLink>
-      <div className="flex  my-4 mr-4 ml-auto  text-center text-1xl">
+      <div className="flex h-[48px]  my-6 mr-4 ml-auto  text-center text-1xl">
         <CustomerNavLink router="/preview/news">最新消息</CustomerNavLink>
         <CustomerNavLink router="/preview/price">購票資訊</CustomerNavLink>
         <CustomerNavLink router="/preview/timetable">場次表</CustomerNavLink>
@@ -179,16 +173,16 @@ function BuildHeader() {
       style={{
         background: primaryColor,
       }}
-      className=" flex fixed top-0 duration-0 w-full my-0 duration-0 mx-auto z-30 rounded-lg "
+      className="header__container justify-between"
     >
       <CustomerNavLink router={`/build/festival=${festivalPathName}`}>
         {festivalLogo ? (
-          <img className="h-14" src={festivalLogo} />
+          <img className="h-16 ml-2" src={festivalLogo} />
         ) : (
           "請上傳LOGO"
         )}
       </CustomerNavLink>
-      <div className="flex  my-4 mr-4 ml-auto  text-center text-1xl">
+      <div className="flex h-[48px]  my-6 mr-4 ml-auto  text-center text-1xl">
         <CustomerNavLink router={`/build/news/festival=${festivalPathName}`}>
           最新消息
         </CustomerNavLink>

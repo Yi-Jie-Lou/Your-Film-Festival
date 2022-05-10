@@ -8,7 +8,7 @@ function Workshop(props) {
   const festivalPathName = useSelector((state) => state.festivalPathName);
 
   return (
-    <div className="flex flex-wrap justify-center w-full min-h-[600px]  mt-24 mb-52 | xl:mt-32 mx-auto rounded-lg">
+    <div className="flex flex-wrap justify-center w-full min-h-[600px]  mt-24 mb-10 | xl:mt-32 mx-auto rounded-lg">
       {workshop &&
         workshop.map((item, index) => (
           <>
