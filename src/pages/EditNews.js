@@ -3,21 +3,20 @@ import { useDispatch, useSelector } from "react-redux";
 import Textarea from "../components/Textarea";
 import Input from "../components/Input";
 import Checkbox from "../components/Checkbox";
-
 import { updateNews } from "../actions";
 import { firebase } from "../utils/firebase-config";
+import DarkBlueCloudImg from "../img/DarkBlueCloud.png";
+import { limitAlert } from "../utils/customAlert";
+import BlueCloudImg from "../img/BlueCloud.png";
+import { saveAlert } from "../utils/customAlert";
+import { useNavigate } from "react-router-dom";
 import uniqid from "uniqid";
 
 function EditNews() {
   const dispatch = useDispatch();
   const userID = useSelector((state) => state.userID);
   const news = useSelector((state) => state.news);
-  const state = useSelector((state) => state.state);
-  console.log("test")
-  if (state === "logout"){
-    alert("請先登入")
-    window.location = "https://your-film-festival-d2cd4.web.app/"
-  }
+  const navigate = useNavigate();
 
   const handleChange = (value, key, index) => {
     const newNews = [...news];
@@ -32,9 +31,9 @@ function EditNews() {
     const uploadSize = e.target.files[0].size;
 
     if (uploadSize / 1024 > 200) {
-      alert(
-        `上傳檔案需請小於200KB，您的檔案為${Math.floor(uploadSize / 1024)}KB`
-      );
+      limitAlert(
+        `上傳檔案需請小於200KB\n您的檔案為${Math.floor(uploadSize / 1024)}KB`
+      ,DarkBlueCloudImg);
       return;
     }
     await firebase.uploadImgs(uploadImg);
@@ -76,7 +75,13 @@ function EditNews() {
       return item
     })
     dispatch(updateNews(newNews));
-    firebase.saveNews(userID,news)
+    firebase.saveNews(userID,news).then((_) =>{
+      saveAlert("影展越來越完整囉\n我們來制定票價和公告交通資訊吧", BlueCloudImg).then(res => {
+        if(res.isConfirmed){
+          navigate("/backstage/price")
+        }
+      });
+    })
   }
 
   return (

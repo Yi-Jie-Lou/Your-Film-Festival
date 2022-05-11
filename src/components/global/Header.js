@@ -15,6 +15,8 @@ import Logo from "../../img/yourFilmLogoA.png";
 import CubeA from "../../img/yourFilmCubeA.png";
 import CubeB from "../../img/yourFilmCubeB.png";
 import CubeC from "../../img/yourFilmCubeC.png";
+import PuzzleImg from "../../img/Puzzle.png";
+import {errorAlert } from "../../utils/customAlert";
 
 function TemplateHeader() {
   const path = useParams();
@@ -49,15 +51,15 @@ function TemplateHeader() {
           
 
           {state === "logout" ? (
-            <LoginNavLink router="/" id="step2" cube={CubeC}>
+            <LoginNavLink router="/" cube={CubeC}>
               請先登入
             </LoginNavLink>
           ) : state === "login" ? (
-            <LoginNavLink router="/backstage" id="step2" cube={CubeC}>
+            <LoginNavLink router="/backstage"  cube={CubeC}>
               進入後台
             </LoginNavLink>
           ) : (
-            <LoginNavLink router="/" id="step2" cube={CubeC}>
+            <LoginNavLink router="/"  cube={CubeC}>
               Loading...
             </LoginNavLink>
           )}
@@ -151,7 +153,7 @@ function PreviewHeader() {
             onClick={() => {
               userUID
                 ? firebase.buildFestival(userUID, festivalPathName)
-                : alert("您好像還沒登入");
+                : errorAlert('您好像還沒登入', PuzzleImg)
             }}
             className="flex justify-center border-2 items-center button-red w-40   text-center text-1xl "
           >

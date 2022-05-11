@@ -11,6 +11,8 @@ import {
 import { getStorage, getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { getAuth } from "firebase/auth";
 import uniqid from "uniqid";
+import BlueCloudImg from "../img/BlueCloud.png";
+import { saveAlert } from "./customAlert";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAXxoQUDtYZTpNVNCmeZCQ97Co5rFrN6ic",
@@ -57,25 +59,19 @@ const firebase = {
   saveFeatures(UID, data) {
     return updateDoc(doc(db, `users`, `${UID}`), {
       features: data,
-    }).then(() => {
-      alert("儲存成功!");
-    });
+    })
   },
 
   saveNews(UID, data) {
     return updateDoc(doc(db, `users`, `${UID}`), {
       news: data,
-    }).then(() => {
-      alert("儲存成功!");
-    });
+    })
   },
 
   saveWorkshop(UID, data) {
     return updateDoc(doc(db, `users`, `${UID}`), {
       workshop: data,
-    }).then(() => {
-      alert("儲存成功!");
-    });
+    })
   },
 
   saveSponsor(UID, sponsor, primaryColor, secondaryColor) {
@@ -83,18 +79,14 @@ const firebase = {
       sponsor,
       primaryColor,
       secondaryColor,
-    }).then(() => {
-      alert("儲存成功!");
-    });
+    })
   },
 
   savePricePage(UID, price, traffic) {
     return updateDoc(doc(db, `users`, `${UID}`), {
       price,
       traffic,
-    }).then(() => {
-      alert("儲存成功!");
-    });
+    })
   },
 
   uploadImgs(file) {

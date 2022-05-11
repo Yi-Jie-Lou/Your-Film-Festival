@@ -8,18 +8,16 @@ import { updateFeatures } from "../actions";
 import { useSelector, useDispatch } from "react-redux";
 import { switchTab } from "../actions";
 import uniqid from "uniqid";
+import BlueCloudImg from "../img/BlueCloud.png";
+import { saveAlert } from "../utils/customAlert";
+import { useNavigate } from "react-router-dom";
 
 function Features() {
   const dispatch = useDispatch();
   const features = useSelector((state) => state.features);
   const currentTab = useSelector((state) => state.currentTab);
   const userID = useSelector((state) => state.userID);
-  const state = useSelector((state) => state.state);
-
-  if (state === "logout"){
-    alert("請先登入")
-    window.location = "https://your-film-festival-d2cd4.web.app/"
-  }
+  const navigate = useNavigate();
 
   const addFeature = () => {
     const newID = uniqid() 
@@ -79,7 +77,13 @@ function Features() {
       })
     })
     dispatch(updateFeatures(newFeatures));
-    firebase.saveFeatures(userID, features)
+    firebase.saveFeatures(userID, features).then((_) =>{
+      saveAlert("影片都上傳完畢了嗎\n接著我們來發布影展公告吧", BlueCloudImg).then(res => {
+        if(res.isConfirmed){
+          navigate("/backstage/news")
+        }
+      });
+    })
   }
 
 

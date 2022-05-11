@@ -16,6 +16,9 @@ import {
 } from "../actions";
 import { firebase } from "../utils/firebase-config";
 import { useDispatch, useSelector } from "react-redux";
+import BlueCloudImg from "../img/BlueCloud.png";
+import { saveAlert } from "../utils/customAlert";
+import { useNavigate } from "react-router-dom";
 
 function Backstage() {
   const dispatch = useDispatch();
@@ -29,12 +32,7 @@ function Backstage() {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const userID = useSelector((state) => state.userID);
-  const state = useSelector((state) => state.state);
-
-  if (state === "logout") {
-    alert("請先登入");
-    window.location = "https://your-film-festival-d2cd4.web.app/";
-  }
+  const navigate = useNavigate();
 
   const selectionRange = {
     startDate: startDate,
@@ -55,8 +53,13 @@ function Backstage() {
       festivalEnd: endDate,
     }).then(() => {
       dispatch(updatePeriod(getAvailableDates()));
-      alert("儲存成功!");
-    });
+    }).then((_) =>{
+      saveAlert("您已經完成第一步囉\n接著來上傳影片吧", BlueCloudImg).then(res => {
+        if(res.isConfirmed){
+          navigate("/backstage/features")
+        }
+      });
+    })
   };
 
   const handleChange = (i, e) => {

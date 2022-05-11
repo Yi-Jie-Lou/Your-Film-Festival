@@ -2,6 +2,8 @@ import AvatarImageCropper from "react-avatar-image-cropper";
 import { useDispatch, useSelector } from "react-redux";
 import { firebase } from "../utils/firebase-config";
 import { updateWorkshop } from "../actions";
+import { limitAlert } from "../utils/customAlert";
+
 function Cropper(props) {
   const dispatch = useDispatch();
   const workshop = useSelector((state) => state.workshop);
@@ -13,8 +15,8 @@ function Cropper(props) {
     console.log(file.size,file)
 
     if (uploadSize / 1024 > 200) {
-      alert(
-        `上傳檔案需請小於200KB，您的檔案裁切後為${Math.floor(uploadSize / 1024)}KB`
+      limitAlert(
+        `上傳檔案需請小於200KB\n您的檔案裁切後為${Math.floor(uploadSize / 1024)}KB`
       );
       return;
     }

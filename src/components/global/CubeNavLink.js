@@ -16,7 +16,7 @@ export const CubeNavLink = (props) => {
 export const LoginNavLink = (props) => {
   return (
     <NavLink to={props.router}>
-      <div className="relative top-[-10px] text-center leading-7 hover:top-[0px] w-20 | sm:text-sm  | md:w-24 md:text-base | xl:w-32">
+      <div  className="relative top-[-10px] text-center leading-7 hover:top-[0px] w-20 | sm:text-sm  | md:w-24 md:text-base | xl:w-32">
         <img  src={props.cube} />
         <span className="absolute w-full left-0 text-white text-lg text-shadow-light tracking-wider top-5 | md:top-6 | xl:top-8 ">
           {props.children}
@@ -28,7 +28,7 @@ export const LoginNavLink = (props) => {
 
 export const LoginLink = (props) => {
   return (
-    <Link target="_blank" to={props.router}>
+    <Link  id={props.id} target="_blank" to={props.router}>
       <div className="relative top-[-10px] text-center leading-7 hover:top-[0px] w-20 | sm:text-sm  | md:w-24 md:text-base | xl:w-32">
         <img  src={props.cube} />
         <span className="absolute w-full left-0 text-white text-lg text-shadow-light tracking-wider top-5 | md:top-6 | xl:top-8 ">

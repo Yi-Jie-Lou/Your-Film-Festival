@@ -8,6 +8,11 @@ import {
 import { firebase } from "../utils/firebase-config";
 import Input from "../components/Input";
 import ColorCube from "../components/ColorCube";
+import DarkBlueCloudImg from "../img/DarkBlueCloud.png";
+import { limitAlert } from "../utils/customAlert";
+import BlueCloudImg from "../img/BlueCloud.png";
+import { saveAlert } from "../utils/customAlert";
+import { useNavigate } from "react-router-dom";
 
 function EditFooterAndColor() {
   const dispatch = useDispatch();
@@ -15,12 +20,7 @@ function EditFooterAndColor() {
   const secondaryColor = useSelector((state) => state.secondaryColor);
   const sponsor = useSelector((state) => state.sponsor);
   const userID = useSelector((state) => state.userID);
-  const state = useSelector((state) => state.state);
-
-  if (state === "logout"){
-    alert("請先登入")
-    window.location = "https://your-film-festival-d2cd4.web.app/"
-  }
+  const navigate = useNavigate();
 
   const handleChange = (value, _, index) => {
     const newSponsor = { ...sponsor };
@@ -50,9 +50,9 @@ function EditFooterAndColor() {
     const uploadSize = e.target.files[0].size;
 
     if (uploadSize / 1024 > 200) {
-      alert(
-        `上傳檔案需請小於200KB，您的檔案為${Math.floor(uploadSize / 1024)}KB`
-      );
+      limitAlert(
+        `上傳檔案需請小於200KB\n您的檔案為${Math.floor(uploadSize / 1024)}KB`
+      ,DarkBlueCloudImg);
       return;
     }
 
@@ -61,7 +61,7 @@ function EditFooterAndColor() {
       const newSponsor = { ...sponsor };
       newSponsor.img[index] = uploadUrl;
       dispatch(updateSponsor(newSponsor));
-    });
+    })
   };
 
   const deleteSponsorImg = (index) => {
@@ -74,6 +74,16 @@ function EditFooterAndColor() {
     newSponsor.text.splice(index, 1);
     dispatch(updateSponsor(newSponsor));
   };
+
+  const saveSponsorAndColors = () =>{
+    firebase.saveSponsor(userID, sponsor, primaryColor, secondaryColor).then((_) =>{
+      saveAlert("來預覽您的網站吧\n您可以隨時回來做修改", BlueCloudImg).then(res => {
+        if(res.isConfirmed){
+          navigate("/preview")
+        }
+      });
+    })
+  }
 
 
   return (
@@ -210,9 +220,7 @@ function EditFooterAndColor() {
       </div>
       <div className="flex justify-center mb-24">
         <button
-          onClick={() => {
-            firebase.saveSponsor(userID, sponsor, primaryColor, secondaryColor);
-          }}
+          onClick={saveSponsorAndColors}
           className="button-blue my-0 mx-0"
         >
           儲存本頁

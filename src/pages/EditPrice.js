@@ -4,18 +4,18 @@ import Textarea from "../components/Textarea";
 import Input from "../components/Input";
 import { updatePrice, updateTraffic } from "../actions";
 import { firebase } from "../utils/firebase-config";
+import DarkBlueCloudImg from "../img/DarkBlueCloud.png";
+import { limitAlert } from "../utils/customAlert";
+import BlueCloudImg from "../img/BlueCloud.png";
+import { saveAlert } from "../utils/customAlert";
+import { useNavigate } from "react-router-dom";
 
 function EditPrice() {
   const dispatch = useDispatch();
   const userID = useSelector((state) => state.userID);
   const price = useSelector((state) => state.price);
   const traffic = useSelector((state) => state.traffic);
-  const state = useSelector((state) => state.state);
-
-  if (state === "logout") {
-    alert("請先登入");
-    window.location = "https://your-film-festival-d2cd4.web.app/";
-  }
+  const navigate = useNavigate();
 
   const handleChange = (value, key, index) => {
     const newPrice = [...price];
@@ -38,6 +38,15 @@ function EditPrice() {
   const preview = async (e, index) => {
     if (!e.target.files[0]) return;
     const uploadImg = e.target.files[0];
+    const uploadSize = e.target.files[0].size;
+
+    if (uploadSize / 1024 > 200) {
+      limitAlert(
+        `上傳檔案需請小於200KB\n您的檔案為${Math.floor(uploadSize / 1024)}KB`
+      , DarkBlueCloudImg);
+      return;
+    }
+
 
     await firebase.uploadImgs(uploadImg);
     firebase.getUploadImgs(uploadImg).then((uploadUrl) => {
@@ -97,6 +106,16 @@ function EditPrice() {
     newTraffic.splice(index, 1);
     dispatch(updateTraffic(newTraffic));
   };
+
+  const savePrice = () =>{
+    firebase.savePricePage(userID, price, traffic).then((_) =>{
+      saveAlert("就要完成囉\n快來建立一個工作坊吧", BlueCloudImg).then(res => {
+        if(res.isConfirmed){
+          navigate("/backstage/workshop")
+        }
+      });
+    })
+  }
 
   return (
     <div className="flex flex-col  my-24 mx-auto w-11/12">
@@ -256,7 +275,7 @@ function EditPrice() {
 
       <div className="flex justify-center mt-24 w-full">
         <button
-          onClick={() => firebase.savePricePage(userID, price, traffic)}
+          onClick={savePrice}
           className="button-blue  mx-0"
         >
           儲存本頁

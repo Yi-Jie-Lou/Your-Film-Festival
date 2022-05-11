@@ -7,6 +7,8 @@ import Loading from "./global/Loading";
 import Input from "./Input";
 import Textarea from "./Textarea";
 import LoadingAnim from "../img/LoadingAnim.gif";
+import DarkBlueCloudImg from "../img/DarkBlueCloud.png";
+import { limitAlert } from "../utils/customAlert";
 
 function FilmContent() {
   const dispatch = useDispatch();
@@ -33,9 +35,9 @@ function FilmContent() {
     const uploadSize = e.target.files[0].size;
 
     if (uploadSize / 1024 > 200) {
-      alert(
-        `上傳檔案需請小於200KB，您的檔案為${Math.floor(uploadSize / 1024)}KB`
-      );
+      limitAlert(
+        `上傳檔案需請小於200KB\n您的檔案為${Math.floor(uploadSize / 1024)}KB`
+      ,DarkBlueCloudImg);
       return;
     }
 
@@ -63,10 +65,10 @@ function FilmContent() {
     const uploadSize = e.target.files[0].size;
 
     if (uploadSize / 1024 > 30720) {
-      alert(
-        `上傳檔案需請小於30MB，您的檔案為${Math.floor(
+      limitAlert(
+        `上傳影片需請小於30MB\n您的影片為${Math.floor(
           uploadSize / 1024 / 1024
-        )}MB`
+        )}MB`,DarkBlueCloudImg
       );
       return;
     }

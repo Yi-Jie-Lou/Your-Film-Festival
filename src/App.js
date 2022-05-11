@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { Routes, Route, BrowserRouter, Outlet } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  BrowserRouter,
+  Outlet,
+  Navigate,
+} from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   userLogin,
@@ -43,6 +49,8 @@ import EditFooterAndColor from "./pages/EditFooterAndColor";
 import Header from "./components/global/Header";
 import Footer from "./components/global/Footer";
 import Loading from "./components/global/Loading";
+import RedirectPage from "./components/global/Redirect";
+import ScrollToTop from "./components/global/ScrollToTop";
 
 function App() {
   const dispatch = useDispatch();
@@ -94,6 +102,7 @@ function App() {
         } else {
           dispatch(userLogin(""));
           dispatch(updateState("logout"));
+          setIsLoading(false);
         }
       });
     };
@@ -119,66 +128,86 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Login />} />
+      <ScrollToTop>
+        <Routes>
+          <Route path="/" element={<Login />} />
 
-        <Route path="preview" element={<PreviewRouter isLoading={isLoading} />}>
-          <Route path="" element={<Index userState="preview" />} />
           <Route
-            path="feature-details/:id"
-            element={<FeatureDetails userState="preview" />}
-          />
-          <Route path="news" element={<News userState="preview" />} />
-          <Route path="news/:id" element={<NewsDetails />} />
-          <Route path="price" element={<Price />} />
-          <Route path="timetable" element={<Timetable userState="preview" />} />
-          <Route
-            path="timetable/:id"
-            element={<Timetable userState="preview" />}
-          />
-          <Route path="workshop" element={<Workshop userState="preview" />} />
-          <Route path="workshop/:id" element={<WorkshopDetails />} />
-        </Route>
+            path="preview"
+            element={<PreviewRouter isLoading={isLoading} />}
+          >
+            <Route path="" element={<Index userState="preview" />} />
+            <Route
+              path="feature-details/:id"
+              element={<FeatureDetails userState="preview" />}
+            />
+            <Route path="news" element={<News userState="preview" />} />
+            <Route path="news/:id" element={<NewsDetails />} />
+            <Route path="price" element={<Price />} />
+            <Route
+              path="timetable"
+              element={<Timetable userState="preview" />}
+            />
+            <Route
+              path="timetable/:id"
+              element={<Timetable userState="preview" />}
+            />
+            <Route path="workshop" element={<Workshop userState="preview" />} />
+            <Route path="workshop/:id" element={<WorkshopDetails />} />
+          </Route>
 
-        <Route path="build" element={<BuildRouter isLoading={isLoading} />}>
-          <Route path=":festival" element={<Index userState="build" />} />
-          <Route
-            path="feature-details/:id/:festival"
-            element={<FeatureDetails userState="build" />}
-          />
-          <Route path="price/:festival" element={<Price userState="build" />} />
-          <Route path="news/:festival" element={<News userState="build" />} />
-          <Route
-            path="news/:id/:festival"
-            element={<NewsDetails userState="build" />}
-          />
-          <Route
-            path="timetable/:festival"
-            element={<Timetable userState="build" />}
-          />
-          <Route
-            path="timetable/:id/:festival"
-            element={<Timetable userState="build" />}
-          />
-          <Route
-            path="workshop/:festival"
-            element={<Workshop userState="build" />}
-          />
-          <Route path="workshop/:id/:festival" element={<WorkshopDetails />} />
-        </Route>
+          <Route path="build" element={<BuildRouter isLoading={isLoading} />}>
+            <Route path=":festival" element={<Index userState="build" />} />
+            <Route
+              path="feature-details/:id/:festival"
+              element={<FeatureDetails userState="build" />}
+            />
+            <Route
+              path="price/:festival"
+              element={<Price userState="build" />}
+            />
+            <Route path="news/:festival" element={<News userState="build" />} />
+            <Route
+              path="news/:id/:festival"
+              element={<NewsDetails userState="build" />}
+            />
+            <Route
+              path="timetable/:festival"
+              element={<Timetable userState="build" />}
+            />
+            <Route
+              path="timetable/:id/:festival"
+              element={<Timetable userState="build" />}
+            />
+            <Route
+              path="workshop/:festival"
+              element={<Workshop userState="build" />}
+            />
+            <Route
+              path="workshop/:id/:festival"
+              element={<WorkshopDetails />}
+            />
+          </Route>
 
-        <Route
-          path="backstage"
-          element={<BackstageRouter isLoading={isLoading} />}
-        >
-          <Route path="" element={<Backstage />} />
-          <Route path="features" element={<Features />} />
-          <Route path="news" element={<EditNews />} />
-          <Route path="price" element={<EditPrice />} />
-          <Route path="workshop" element={<EditWorkshop />} />
-          <Route path="edit-footer-color" element={<EditFooterAndColor />} />
-        </Route>
-      </Routes>
+          <Route
+            path="backstage"
+            element={
+              login === "login" ? (
+                <BackstageRouter isLoading={isLoading} />
+              ) : (
+                <RedirectPage />
+              )
+            }
+          >
+            <Route path="" element={<Backstage />} />
+            <Route path="features" element={<Features />} />
+            <Route path="news" element={<EditNews />} />
+            <Route path="price" element={<EditPrice />} />
+            <Route path="workshop" element={<EditWorkshop />} />
+            <Route path="edit-footer-color" element={<EditFooterAndColor />} />
+          </Route>
+        </Routes>
+      </ScrollToTop>
     </BrowserRouter>
   );
 }

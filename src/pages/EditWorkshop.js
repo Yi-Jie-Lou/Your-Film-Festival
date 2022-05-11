@@ -6,18 +6,18 @@ import Checkbox from "../components/Checkbox";
 import Cropper from "../components/Cropper";
 import { updateWorkshop } from "../actions";
 import { firebase } from "../utils/firebase-config";
+import DarkBlueCloudImg from "../img/DarkBlueCloud.png";
+import { limitAlert } from "../utils/customAlert";
 import uniqid from "uniqid";
+import BlueCloudImg from "../img/BlueCloud.png";
+import { saveAlert } from "../utils/customAlert";
+import { useNavigate } from "react-router-dom";
 
 function EditWorkshop() {
   const dispatch = useDispatch();
   const userID = useSelector((state) => state.userID);
   const workshop = useSelector((state) => state.workshop);
-  const state = useSelector((state) => state.state);
-
-  if (state === "logout"){
-    alert("請先登入")
-    window.location = "https://your-film-festival-d2cd4.web.app/"
-  }
+  const navigate = useNavigate();
 
   const handleChange = (value, key, index) => {
     const newWorkshop = [...workshop];
@@ -31,9 +31,9 @@ function EditWorkshop() {
     const uploadSize = e.target.files[0].size;
 
     if (uploadSize / 1024 > 200) {
-      alert(
-        `上傳檔案需請小於200KB，您的檔案為${Math.floor(uploadSize / 1024)}KB`
-      );
+      limitAlert(
+        `上傳檔案需請小於200KB\n您的檔案為${Math.floor(uploadSize / 1024)}KB`
+      , DarkBlueCloudImg);
       return;
     }
     
@@ -52,9 +52,9 @@ function EditWorkshop() {
     const uploadSize = e.target.files[0].size;
 
     if (uploadSize / 1024 > 200) {
-      alert(
-        `上傳檔案需請小於200KB，您的檔案為${Math.floor(uploadSize / 1024)}KB`
-      );
+      limitAlert(
+        `上傳檔案需請小於200KB\n您的檔案為${Math.floor(uploadSize / 1024)}KB`
+      , DarkBlueCloudImg);
       return;
     }
 
@@ -111,7 +111,13 @@ function EditWorkshop() {
       return item
     })
     dispatch(updateWorkshop(newWorkshop));
-    firebase.saveWorkshop(userID, workshop)
+    firebase.saveWorkshop(userID, workshop).then((_) =>{
+      saveAlert("最後，來點顏色和增加贊助商吧", BlueCloudImg).then(res => {
+        if(res.isConfirmed){
+          navigate("/backstage/edit-footer-color")
+        }
+      });
+    })
   }
 
   return (

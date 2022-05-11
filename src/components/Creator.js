@@ -4,6 +4,8 @@ import { updateFeatures } from "../actions";
 import { firebase } from "../utils/firebase-config";
 import Input from "./Input";
 import Textarea from "./Textarea";
+import DarkBlueCloudImg from "../img/DarkBlueCloud.png";
+import { limitAlert } from "../utils/customAlert";
 
 function Creator() {
   const dispatch = useDispatch();
@@ -46,9 +48,7 @@ function Creator() {
     const uploadSize = e.target.files[0].size;
 
     if (uploadSize / 1024 > 200) {
-      alert(
-        `上傳檔案需請小於200KB，您的檔案為${Math.floor(uploadSize / 1024)}KB`
-      );
+      limitAlert( `上傳檔案需請小於200KB\n您的檔案為${Math.floor(uploadSize / 1024)}KB`, DarkBlueCloudImg)
       return;
     }
 
