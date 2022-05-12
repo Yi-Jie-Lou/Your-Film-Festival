@@ -27,6 +27,7 @@ import {
   updatePrimaryColor,
   updateSecondaryColor,
   isGuide,
+  updateTextColor,
   updateFestivalStart,
   updateFestivalEnd,
 } from "./actions";
@@ -79,6 +80,7 @@ function App() {
       dispatch(updateSponsor(res.sponsor));
       dispatch(updatePrimaryColor(res.primaryColor));
       dispatch(updateSecondaryColor(res.secondaryColor));
+      dispatch(updateTextColor(res.secondaryColor));
       // dispatch(isGuide(res.isGuide));
       dispatch(updateFestivalStart(res.festivalStart));
       dispatch(updateFestivalEnd(res.festivalEnd));

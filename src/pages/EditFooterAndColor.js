@@ -4,20 +4,27 @@ import {
   updateSponsor,
   updatePrimaryColor,
   updateSecondaryColor,
+  updateTextColor,
 } from "../actions";
 import { firebase } from "../utils/firebase-config";
 import Input from "../components/Input";
 import ColorCube from "../components/ColorCube";
+import TextColorCube from "../components/TextColorCube";
 import DarkBlueCloudImg from "../img/DarkBlueCloud.png";
 import { limitAlert } from "../utils/customAlert";
 import BlueCloudImg from "../img/BlueCloud.png";
 import { saveAlert } from "../utils/customAlert";
 import { useNavigate } from "react-router-dom";
+import PuzzleImg from "../img/Puzzle.png";
+import { errorAlert } from "../utils/customAlert";
+
+
 
 function EditFooterAndColor() {
   const dispatch = useDispatch();
   const primaryColor = useSelector((state) => state.primaryColor);
   const secondaryColor = useSelector((state) => state.secondaryColor);
+  const textColor = useSelector((state) => state.textColor);
   const sponsor = useSelector((state) => state.sponsor);
   const userID = useSelector((state) => state.userID);
   const navigate = useNavigate();
@@ -33,6 +40,8 @@ function EditFooterAndColor() {
         return dispatch(updatePrimaryColor(e.target.value));
       case "secondary":
         return dispatch(updateSecondaryColor(e.target.value));
+      case "text":
+        return dispatch(updateTextColor(e.target.value));
       default:
         throw new Error();
     }
@@ -45,14 +54,15 @@ function EditFooterAndColor() {
   };
 
   const previewSponsorImg = async (e, index) => {
-   if (!e.target.files[0]) return;
+    if (!e.target.files[0]) return;
     const uploadImg = e.target.files[0];
     const uploadSize = e.target.files[0].size;
 
     if (uploadSize / 1024 > 200) {
       limitAlert(
-        `上傳檔案需請小於200KB\n您的檔案為${Math.floor(uploadSize / 1024)}KB`
-      ,DarkBlueCloudImg);
+        `上傳檔案需請小於200KB\n您的檔案為${Math.floor(uploadSize / 1024)}KB`,
+        DarkBlueCloudImg
+      );
       return;
     }
 
@@ -61,7 +71,7 @@ function EditFooterAndColor() {
       const newSponsor = { ...sponsor };
       newSponsor.img[index] = uploadUrl;
       dispatch(updateSponsor(newSponsor));
-    })
+    });
   };
 
   const deleteSponsorImg = (index) => {
@@ -75,16 +85,25 @@ function EditFooterAndColor() {
     dispatch(updateSponsor(newSponsor));
   };
 
-  const saveSponsorAndColors = () =>{
-    firebase.saveSponsor(userID, sponsor, primaryColor, secondaryColor).then((_) =>{
-      saveAlert("來預覽您的網站吧\n您可以隨時回來做修改", BlueCloudImg).then(res => {
-        if(res.isConfirmed){
-          navigate("/preview")
-        }
-      });
-    })
-  }
+  const saveSponsorAndColors = () => {
+    const reg = /^#([0-9a-f]{3}){1,2}$/i;
 
+    if (!reg.test(primaryColor) || !reg.test(secondaryColor) || !reg.test(textColor)) {
+      errorAlert("請輸入正確色碼", PuzzleImg);
+      return;
+    }
+    firebase
+      .saveSponsor(userID, sponsor, primaryColor, secondaryColor, textColor)
+      .then((_) => {
+        saveAlert("來預覽您的網站吧\n您可以隨時回來做修改", BlueCloudImg).then(
+          (res) => {
+            if (res.isConfirmed) {
+              navigate("/preview");
+            }
+          }
+        );
+      });
+  };
 
   return (
     <>
@@ -183,6 +202,10 @@ function EditFooterAndColor() {
           選擇輔色 / Secondary color
         </h1>
         <ColorCube color={"secondary"} />
+        <h1 className=" w-full mx-auto mt-14 mb-8 border-b-2 border-stone-500 text-2xl tracking-wider">
+          選擇字色 / Text color
+        </h1>
+        <TextColorCube color={"text"} />
         <div className="flex flex-col mt-12">
           <div className="flex justify-center my-4">
             <h1 className="vertical mx-4 text-2xl">
@@ -213,6 +236,22 @@ function EditFooterAndColor() {
             ></input>
             <div
               style={{ background: secondaryColor }}
+              className={` h-12 w-24 mx-4 rounded-lg `}
+            ></div>
+          </div>
+          <div className="flex justify-center my-4">
+            <h1 className="vertical mx-4 text-2xl">
+              <span>您選擇的字色為：</span>
+            </h1>
+            <input
+              value={textColor}
+              onChange={(e) => {
+                handleColorCode(e, "text");
+              }}
+              className=" w-36 h-10 pl-3 mt-1 outline-none border-4 border-[#94bed1] rounded-xl "
+            ></input>
+            <div
+              style={{ background: textColor }}
               className={` h-12 w-24 mx-4 rounded-lg `}
             ></div>
           </div>

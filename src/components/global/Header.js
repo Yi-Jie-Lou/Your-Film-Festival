@@ -123,11 +123,13 @@ function PreviewHeader() {
   const festivalLogo = useSelector((state) => state.festivalLogo);
   const festivalPathName = useSelector((state) => state.festivalPathName);
   const primaryColor = useSelector((state) => state.primaryColor);
+  const textColor = useSelector((state) => state.textColor);
 
   return (
     <div
       style={{
         background: primaryColor,
+        color: textColor
       }}
       className="header__container justify-between"
     >
@@ -169,11 +171,13 @@ function BuildHeader() {
   const festivalPathName = useSelector((state) => state.festivalPathName);
   const festivalLogo = useSelector((state) => state.festivalLogo);
   const primaryColor = useSelector((state) => state.primaryColor);
+  const textColor = useSelector((state) => state.textColor);
 
   return (
     <div
       style={{
         background: primaryColor,
+        color: textColor
       }}
       className="header__container justify-between"
     >

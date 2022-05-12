@@ -1,8 +1,22 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {updatePrimaryColor, updateSecondaryColor} from "../actions"
+import { updatePrimaryColor, updateSecondaryColor } from "../actions";
 
 const mainColor = [
+  {
+    slate: [
+      "bg-[#f8fafc]",
+      "bg-[#f1f5f9]",
+      "bg-[#e2e8f0]",
+      "bg-[#cbd5e1]",
+      "bg-[#94a3b8]",
+      "bg-[#64748b]",
+      "bg-[#475569]",
+      "bg-[#334155]",
+      "bg-[#1e293b]",
+      "bg-[#0f172a]",
+    ],
+  },
   {
     red: [
       "bg-[#fef2f2]",
@@ -200,6 +214,7 @@ const mainColor = [
       "bg-[#581c87]",
     ],
   },
+ 
 ];
 
 const colorCategoryList = mainColor.reduce(
@@ -217,16 +232,15 @@ const allcolors = colorCategoryList.reduce(
 
 function ColorCube(props) {
   const [currentSelectedIndex, setCurrentSelectedIndex] = useState("");
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const choseMainColor = (color, index) => {
-
     setCurrentSelectedIndex(index);
 
     switch (props.color) {
       case "primary":
-        return  dispatch(updatePrimaryColor(color.slice(4, 11)));
+        return dispatch(updatePrimaryColor(color.slice(4, 11)));
       case "secondary":
-        return  dispatch(updateSecondaryColor(color.slice(4, 11)));
+        return dispatch(updateSecondaryColor(color.slice(4, 11)));
       default:
         throw new Error();
     }
@@ -234,21 +248,18 @@ function ColorCube(props) {
   return (
     <div className="flex flex-wrap ">
       {allcolors.map((color, index) => (
-        <div  key={index}>
+        <div key={index}>
           <p>{index}</p>
           <button
             onClick={() => {
               choseMainColor(color, index);
             }}
-           
             className={`m-2 h-12 w-24  ${color}  rounded-lg ${
               currentSelectedIndex === index ? "border-4 border-red-700" : ""
             } hover:scale-105 ease-in-out duration-300 hover:border-4 border-sky-700 `}
           ></button>
-     
         </div>
       ))}
-
     </div>
   );
 }

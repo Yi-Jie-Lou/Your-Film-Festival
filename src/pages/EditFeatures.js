@@ -70,11 +70,9 @@ function Features() {
 
   const saveFeatures = () => {
     const newFeatures = [...features];
-    let isError = false
+    let isError = false;
 
     newFeatures.forEach((film) => {
-
-      console.log(film)
       if (
         !film.color.trim() ||
         !film.language.trim() ||
@@ -82,21 +80,31 @@ function Features() {
         !film.format.trim() ||
         !film.length.trim() ||
         !film.title.trim() ||
-        !film.nation.trim()
-      ){
-        errorAlert("必填欄位不可以是空白的噢", PuzzleImg)
-        isError = true
-        return
+        !film.nation.trim() ||
+        !film.commercialInfo.trim() 
+      ) {
+        isError = true;
       }
-        film.timetable.forEach((timetable) => {
-          timetable.name = film.title;
-          timetable.featureID = film.featureID;
-          timetable.img = film.featureImgs[2];
-        });
+
+      film.creators.forEach((creator) => {
+        if (!creator.name.trim() || !creator.info.trim()) {
+          isError = true;
+        }
+      });
     });
 
-    if(isError) return
+    if (isError) {
+      errorAlert("必填欄位不可以是空白的噢", PuzzleImg);
+      return;
+    }
 
+    newFeatures.forEach((film) => {
+      film.timetable.forEach((timetable) => {
+        timetable.name = film.title;
+        timetable.featureID = film.featureID;
+        timetable.img = film.featureImgs[2];
+      });
+    });
 
     dispatch(updateFeatures(newFeatures));
     firebase.saveFeatures(userID, features).then((_) => {

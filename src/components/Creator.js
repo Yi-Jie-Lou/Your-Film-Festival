@@ -17,7 +17,7 @@ function Creator() {
     img: "",
     info: "",
   }]);
-
+  
   const addCreators = () => {
     const emptyCreator = {
       name: "",

@@ -126,6 +126,13 @@ export const updateSecondaryColor = (payload) => {
     }
 }
 
+export const updateTextColor = (payload) => {
+    return {
+        type: 'UPDATE_TEXT_COLOR',
+        payload
+    }
+}
+
 export const isGuide = (payload) => {
     return {
         type: 'FINISH',

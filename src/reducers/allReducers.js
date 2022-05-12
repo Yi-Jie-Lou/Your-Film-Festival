@@ -142,6 +142,16 @@ export const secondaryColorReducer = (state = "", action) => {
     }
 }
 
+export const textColorReducer = (state = "", action) => {
+    switch (action.type) {
+      case "UPDATE_TEXT_COLOR":
+        return state =  action.payload;
+      default:
+        return state;
+    }
+  };
+
+
 export const sponsorReducer = (state = {text:["",""],img:[""]}, action) => {
     switch(action.type){
         case 'UPDATE_SPONSOR':

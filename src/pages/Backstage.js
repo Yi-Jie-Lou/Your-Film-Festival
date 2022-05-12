@@ -17,8 +17,10 @@ import {
 import { firebase } from "../utils/firebase-config";
 import { useDispatch, useSelector } from "react-redux";
 import BlueCloudImg from "../img/BlueCloud.png";
+import PuzzleImg from "../img/Puzzle.png";
 import { saveAlert } from "../utils/customAlert";
 import { useNavigate } from "react-router-dom";
+import { errorAlert } from "../utils/customAlert";
 
 function Backstage() {
   const dispatch = useDispatch();
@@ -42,6 +44,24 @@ function Backstage() {
 
   const saveToFirebase = () => {
     if (!userID) return;
+    let isError = false
+    locations.forEach(loaction =>{
+      if(!loaction.trim()){
+        isError = true
+      }
+    })
+
+    if(isError){
+      errorAlert("舉辦地點不可以是空白的噢", PuzzleImg);
+      return
+    }
+
+    if(!festivalName.trim() || !festivalPathName.trim() ){
+      errorAlert("請填寫影展名稱", PuzzleImg);
+      return;
+    }
+
+
     updateDoc(doc(db, "users", userID), {
       locations,
       festivalPeriod: getAvailableDates(),

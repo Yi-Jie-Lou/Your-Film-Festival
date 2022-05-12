@@ -11,6 +11,8 @@ import BlueCloudImg from "../img/BlueCloud.png";
 import { saveAlert } from "../utils/customAlert";
 import { useNavigate } from "react-router-dom";
 import uniqid from "uniqid";
+import PuzzleImg from "../img/Puzzle.png";
+import { errorAlert } from "../utils/customAlert";
 
 function EditNews() {
   const dispatch = useDispatch();
@@ -70,6 +72,11 @@ function EditNews() {
   }
 
   const saveNews = () => {
+    if(news.some(item => (!item.title.trim()))){
+      errorAlert("舉辦地點不可以是空白的噢", PuzzleImg);
+      return
+    }
+
     const newNews = news.map(item => {
       item.isReadOnly = true
       return item

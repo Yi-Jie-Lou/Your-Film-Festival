@@ -9,6 +9,8 @@ import { limitAlert } from "../utils/customAlert";
 import BlueCloudImg from "../img/BlueCloud.png";
 import { saveAlert } from "../utils/customAlert";
 import { useNavigate } from "react-router-dom";
+import PuzzleImg from "../img/Puzzle.png";
+import { errorAlert } from "../utils/customAlert";
 
 function EditPrice() {
   const dispatch = useDispatch();
@@ -108,6 +110,26 @@ function EditPrice() {
   };
 
   const savePrice = () =>{
+    let isError = false
+
+    price.forEach((item)=>{
+      if(!item.category.trim()|| !item.saleTime.trim() || !item.marketing.trim()){
+        isError = true
+      }
+
+      item.tickets.forEach(ticket => {
+        if(!ticket.kind.trim()|| !ticket.price.trim()){
+          isError = true
+        }
+      })
+    })
+
+    if(isError){
+      errorAlert("售票資訊有空白欄位噢", PuzzleImg);
+      return
+    }
+
+
     firebase.savePricePage(userID, price, traffic).then((_) =>{
       saveAlert("就要完成囉\n快來建立一個工作坊吧", BlueCloudImg).then(res => {
         if(res.isConfirmed){

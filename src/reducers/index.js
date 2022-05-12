@@ -19,6 +19,7 @@ import {
   guideReducer,
   festivalStartReducer,
   festivalEndReducer,
+  textColorReducer
 } from "./allReducers.js";
 
 import { combineReducers } from "redux";
@@ -43,6 +44,7 @@ const allReducers = combineReducers({
   sponsor: sponsorReducer,
   primaryColor: primaryColorReducer,
   secondaryColor: secondaryColorReducer,
+  textColor:textColorReducer,
   isGuide: guideReducer,
 });
 

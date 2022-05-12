@@ -12,6 +12,9 @@ import uniqid from "uniqid";
 import BlueCloudImg from "../img/BlueCloud.png";
 import { saveAlert } from "../utils/customAlert";
 import { useNavigate } from "react-router-dom";
+import PuzzleImg from "../img/Puzzle.png";
+import { errorAlert } from "../utils/customAlert";
+
 
 function EditWorkshop() {
   const dispatch = useDispatch();
@@ -106,6 +109,12 @@ function EditWorkshop() {
 
 
   const saveWorkshop= () => {
+
+    if(workshop.some(item => (!item.title.trim()))){
+      errorAlert("工作坊名稱不可以是空白的噢", PuzzleImg);
+      return
+    }
+
     const newWorkshop= workshop.map(item => {
       item.isReadOnly = true
       return item

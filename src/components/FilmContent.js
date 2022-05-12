@@ -12,7 +12,6 @@ import { limitAlert } from "../utils/customAlert";
 
 function FilmContent() {
   const dispatch = useDispatch();
-
   const currentTab = useSelector((state) => state.currentTab);
   const features = useSelector((state) => state.features);
   const [featureImgs, setFeatureImgs] = useState([]);
@@ -28,9 +27,6 @@ function FilmContent() {
     shortInfo: "",
     longInfo: "",
   });
-  const [errorMessage, setErrorMessage] = useState(
-    { year: "", nation: "", format: "" },
-  );
 
   const preview = async (e, index) => {
     if (!e.target.files[0]) return;
@@ -107,13 +103,7 @@ function FilmContent() {
     );
   };
 
-  const handleErrorInputMessage = (value, key) =>{
-    if(!value){
-      setErrorMessage(prev =>  ({...prev, [key]: '此選項必填'}))
-    }else{
-      setErrorMessage(prev =>  ({...prev, [key]: ''}))
-    }
-  }
+
 
   const handleChange = (value, key, _) => {
     const newFeatures = [...features];
@@ -122,7 +112,6 @@ function FilmContent() {
     );
     newFeatures[editIndex][key] = value;
     dispatch(updateFeatures(newFeatures));
-    handleErrorInputMessage(value,key)
   };
 
   useEffect(() => {
@@ -219,7 +208,6 @@ function FilmContent() {
             value={currentFeature.year}
             onChange={handleChange}
             className="input-full"
-            errorMessage={errorMessage.year}
             type="number"
           >
             年份 / Year（必填）
@@ -229,7 +217,6 @@ function FilmContent() {
             value={currentFeature.nation}
             onChange={handleChange}
             className="input-full"
-            errorMessage={errorMessage.nation}
           >
             國家 / Nation（必填）
           </Input>
@@ -238,7 +225,6 @@ function FilmContent() {
             value={currentFeature.format}
             onChange={handleChange}
             className="input-full"
-            errorMessage={errorMessage.format}
           >
             放映格式 / Format（必填）
           </Input>
@@ -247,7 +233,6 @@ function FilmContent() {
             value={currentFeature.color}
             onChange={handleChange}
             className="input-full"
-            errorMessage={errorMessage.color}
           >
             色彩 / Color（必填）
           </Input>
@@ -256,7 +241,6 @@ function FilmContent() {
             value={currentFeature.language}
             onChange={handleChange}
             className="input-full"
-            errorMessage={errorMessage.language}
           >
             語言 / Language（必填）
           </Input>
@@ -265,7 +249,6 @@ function FilmContent() {
             value={currentFeature.length}
             onChange={handleChange}
             className="input-full"
-            errorMessage={errorMessage.length}
             type="number"
           >
             片長（min）（必填）
@@ -277,7 +260,6 @@ function FilmContent() {
             value={currentFeature.title}
             onChange={handleChange}
             className="input-full"
-            errorMessage={errorMessage.title}
           >
             片名 /Film Title（必填）
           </Input>

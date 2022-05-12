@@ -74,11 +74,12 @@ const firebase = {
     })
   },
 
-  saveSponsor(UID, sponsor, primaryColor, secondaryColor) {
+  saveSponsor(UID, sponsor, primaryColor, secondaryColor,textColor) {
     return updateDoc(doc(db, `users`, `${UID}`), {
       sponsor,
       primaryColor,
       secondaryColor,
+      textColor
     })
   },
 
@@ -200,6 +201,7 @@ const firebase = {
       },
       primaryColor:"",
       secondaryColor:"",
+      textColor:"",
       isGuide:true,
     });
   },
