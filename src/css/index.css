@@ -28,6 +28,68 @@ body{
   color:#57bdc8 !important;
 }
 
+.custom-icon{
+  border: none !important;
+  width:100% !important;
+  margin-top: 32px !important
+}
+
+.error-icon{
+  border: none !important;
+  width:100% !important;
+}
+
+.error-confirm-button{
+  width:100% !important;
+  margin-top: 16px !important;
+}
+
+.error-actions{
+  width: 128px !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+
+.limit-icon{
+  border: none !important;
+  width:100% !important;
+  margin-top: 48px !important
+}
+
+.limit-confirm-button{
+  width:100% !important;
+  margin-top: 36px !important;
+}
+
+.limit-actions{
+  width: 128px !important;
+}
+
+
+.save-title{
+  width: 384px !important;
+}
+
+.save-icon{
+  border: none !important;
+  width:100% !important;
+  margin-top: 56px !important;
+}
+
+.save-button{
+  width: 112px !important;
+  margin: 20px 8px !important ;
+  border: none !important;
+  letter-spacing: 0.05em !important;
+}
+.save-actions{
+ width: 256px !important;
+ height: 80px !important;
+ margin-top: 48px !important;
+ display: flex !important;
+ flex-direction: row-reverse !important;
+}
+
 
 @tailwind base;
 @tailwind components;
@@ -51,7 +113,7 @@ body{
 
 @layer components {
   .text-area {
-    @apply flex flex-col justify-around w-full h-32 my-2  mx-auto border-4 rounded-lg border-[#94bed1] ;
+    @apply flex flex-col justify-around  w-full h-32 my-2 mx-auto border-4 rounded-lg border-[#94bed1] ;
   }
   .text-area-large {
     @apply flex flex-col justify-around w-full h-64 my-2  mx-auto border-4 rounded-lg border-[#94bed1] ;

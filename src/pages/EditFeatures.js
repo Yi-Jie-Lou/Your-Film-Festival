@@ -9,7 +9,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { switchTab } from "../actions";
 import uniqid from "uniqid";
 import BlueCloudImg from "../img/BlueCloud.png";
-import { saveAlert } from "../utils/customAlert";
+import PuzzleImg from "../img/Puzzle.png";
+import { saveAlert, errorAlert } from "../utils/customAlert";
 import { useNavigate } from "react-router-dom";
 
 function Features() {
@@ -20,7 +21,7 @@ function Features() {
   const navigate = useNavigate();
 
   const addFeature = () => {
-    const newID = uniqid() 
+    const newID = uniqid();
     const emptyFeature = {
       featureID: newID,
       timetable: [
@@ -34,7 +35,7 @@ function Features() {
           name: "",
           img: "",
           workshop: false,
-          featureID: newID
+          featureID: newID,
         },
       ],
       creators: [{ img: "", info: "", name: "" }],
@@ -67,30 +68,51 @@ function Features() {
     dispatch(switchTab(newFeatures[0].featureID));
   };
 
-  const saveFeatures = () =>{
-    const newFeatures = [...features]
-    newFeatures.forEach(film =>{
-      film.timetable.forEach(timetable =>{
-        timetable.name = film.title
-        timetable.featureID = film.featureID
-        timetable.img = film.featureImgs[2]
-      })
-    })
+  const saveFeatures = () => {
+    const newFeatures = [...features];
+    let isError = false
+
+    newFeatures.forEach((film) => {
+
+      console.log(film)
+      if (
+        !film.color.trim() ||
+        !film.language.trim() ||
+        !film.year.trim() ||
+        !film.format.trim() ||
+        !film.length.trim() ||
+        !film.title.trim() ||
+        !film.nation.trim()
+      ){
+        errorAlert("必填欄位不可以是空白的噢", PuzzleImg)
+        isError = true
+        return
+      }
+        film.timetable.forEach((timetable) => {
+          timetable.name = film.title;
+          timetable.featureID = film.featureID;
+          timetable.img = film.featureImgs[2];
+        });
+    });
+
+    if(isError) return
+
+
     dispatch(updateFeatures(newFeatures));
-    firebase.saveFeatures(userID, features).then((_) =>{
-      saveAlert("影片都上傳完畢了嗎\n接著我們來發布影展公告吧", BlueCloudImg).then(res => {
-        if(res.isConfirmed){
-          navigate("/backstage/news")
+    firebase.saveFeatures(userID, features).then((_) => {
+      saveAlert(
+        "影片都上傳完畢了嗎\n接著我們來發布影展公告吧",
+        BlueCloudImg
+      ).then((res) => {
+        if (res.isConfirmed) {
+          navigate("/backstage/news");
         }
       });
-    })
-  }
-
-
+    });
+  };
 
   return (
     <div className="wrap">
-
       <div className="flex flex-wrap justify-center mt-32 ">
         {features.map((item, index) => (
           <button
@@ -117,16 +139,10 @@ function Features() {
       <Booking />
       <Note />
       <div className="flex justify-center my-24">
-        <button
-          className="button-red w-28 p-2 mx-2"
-          onClick={deleteFeature}
-        >
+        <button className="button-red w-28 p-2 mx-2" onClick={deleteFeature}>
           刪除影片
         </button>
-        <button
-          onClick={saveFeatures}
-          className="button-blue w-28 p-2 mx-2"
-        >
+        <button onClick={saveFeatures} className="button-blue w-28 p-2 mx-2">
           儲存本頁
         </button>
       </div>

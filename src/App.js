@@ -79,7 +79,7 @@ function App() {
       dispatch(updateSponsor(res.sponsor));
       dispatch(updatePrimaryColor(res.primaryColor));
       dispatch(updateSecondaryColor(res.secondaryColor));
-      dispatch(isGuide(res.isGuide));
+      // dispatch(isGuide(res.isGuide));
       dispatch(updateFestivalStart(res.festivalStart));
       dispatch(updateFestivalEnd(res.festivalEnd));
     };

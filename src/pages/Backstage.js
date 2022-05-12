@@ -51,15 +51,19 @@ function Backstage() {
       festivalLogo,
       festivalStart: startDate,
       festivalEnd: endDate,
-    }).then(() => {
-      dispatch(updatePeriod(getAvailableDates()));
-    }).then((_) =>{
-      saveAlert("您已經完成第一步囉\n接著來上傳影片吧", BlueCloudImg).then(res => {
-        if(res.isConfirmed){
-          navigate("/backstage/features")
-        }
-      });
     })
+      .then(() => {
+        dispatch(updatePeriod(getAvailableDates()));
+      })
+      .then((_) => {
+        saveAlert("您已經完成第一步囉\n接著來上傳影片吧", BlueCloudImg).then(
+          (res) => {
+            if (res.isConfirmed) {
+              navigate("/backstage/features");
+            }
+          }
+        );
+      });
   };
 
   const handleChange = (i, e) => {
@@ -92,6 +96,12 @@ function Backstage() {
     dispatch(updateLocations(newLocations));
   };
 
+  const deleteTheather = (index) => {
+    const newLocations = [...locations];
+    newLocations.splice(index, 1);
+    dispatch(updateLocations(newLocations));
+  };
+
   const preview = async (e, key) => {
     if (!e.target.files[0]) return;
     const uploadImg = e.target.files[0];
@@ -119,7 +129,9 @@ function Backstage() {
   return (
     <div className="w-11/12  mx-auto mt-40">
       <div className="flex flex-col flex-wrap border-b-2  border-b-zinc-400 ">
-        <h2 className="mx-auto mb-8 text-center text-2xl text-slate-600 ">舉辦日期</h2>
+        <h2 className="mx-auto mb-8 text-center text-2xl text-slate-600 ">
+          舉辦日期
+        </h2>
         <DateRangePicker
           className="mx-auto mb-4"
           ranges={[selectionRange]}
@@ -132,9 +144,14 @@ function Backstage() {
       </div>
 
       <div className="flex flex-col content-center mx-auto my-16 border-b-2 border-b-zinc-400">
-        <h2 className="mx-auto mb-4 text-center text-2xl text-slate-600 ">播映戲院</h2>
+        <h2 className="mx-auto mb-4 text-center text-2xl text-slate-600 ">
+          播映戲院
+        </h2>
         <div className="flex justify-center">
-          <button className="button-blue w-48 mx-3 my-12 " onClick={addTheather}>
+          <button
+            className="button-blue w-48 mx-3 my-12 "
+            onClick={addTheather}
+          >
             增加戲院
           </button>
         </div>
@@ -142,7 +159,9 @@ function Backstage() {
           locations.map((item, index) => (
             <div className="flex justify-center mb-12" key={index}>
               <div className="vertical">
-                <label className="mr-6 text-xl my-8 text-slate-600 ">戲院{index + 1}</label>
+                <label className="mr-6 text-xl my-8 text-slate-600 ">
+                  戲院{index + 1}
+                </label>
               </div>
               <input
                 className="pl-2 h-12 my-8 border-4 rounded-lg border-[#94bed1] outline-none"
@@ -150,6 +169,16 @@ function Backstage() {
                 value={item}
                 onChange={(e) => handleChange(index, e)}
               />
+              <div className="vertical ml-2"> 
+              <button
+                className="button-red"
+                onClick={() => {
+                  deleteTheather(index);
+                }}
+              >
+                Delete
+              </button>
+              </div>
             </div>
           ))}
       </div>
@@ -188,7 +217,9 @@ function Backstage() {
           </h2>
 
           <label
-            className={`vertical w-48 text-center align-middle cursor-pointer ${festivalPost ?  "" : "button-blue"}` }
+            className={`vertical w-48 text-center align-middle cursor-pointer ${
+              festivalPost ? "" : "button-blue"
+            }`}
             htmlFor={`festival_post`}
           >
             {festivalPost ? "" : <span>上傳</span>}
@@ -211,8 +242,9 @@ function Backstage() {
 
       <div className="flex flex-col mt-16">
         <div className="flex  justify-between w-96  my-8 mx-auto ">
-        
-          <h2 className="vertical text-center  text-2xl text-slate-600"><span>影展名稱</span></h2>
+          <h2 className="vertical text-center  text-2xl text-slate-600">
+            <span>影展名稱</span>
+          </h2>
           <input
             className="pl-2 border-4 h-12 rounded-lg border-[#94bed1] outline-none "
             type="text"
@@ -221,7 +253,9 @@ function Backstage() {
           />
         </div>
         <div className="flex justify-between w-96 my-8  mx-auto ">
-          <h2 className="vertical text-center text-2xl text-slate-600"><span>影展英文名稱</span></h2>
+          <h2 className="vertical text-center text-2xl text-slate-600">
+            <span>影展英文名稱</span>
+          </h2>
           <input
             className="pl-2 border-4 h-12 rounded-lg border-[#94bed1] outline-none"
             type="text"

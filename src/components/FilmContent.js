@@ -28,6 +28,9 @@ function FilmContent() {
     shortInfo: "",
     longInfo: "",
   });
+  const [errorMessage, setErrorMessage] = useState(
+    { year: "", nation: "", format: "" },
+  );
 
   const preview = async (e, index) => {
     if (!e.target.files[0]) return;
@@ -36,8 +39,9 @@ function FilmContent() {
 
     if (uploadSize / 1024 > 200) {
       limitAlert(
-        `上傳檔案需請小於200KB\n您的檔案為${Math.floor(uploadSize / 1024)}KB`
-      ,DarkBlueCloudImg);
+        `上傳檔案需請小於200KB\n您的檔案為${Math.floor(uploadSize / 1024)}KB`,
+        DarkBlueCloudImg
+      );
       return;
     }
 
@@ -68,7 +72,8 @@ function FilmContent() {
       limitAlert(
         `上傳影片需請小於30MB\n您的影片為${Math.floor(
           uploadSize / 1024 / 1024
-        )}MB`,DarkBlueCloudImg
+        )}MB`,
+        DarkBlueCloudImg
       );
       return;
     }
@@ -102,6 +107,14 @@ function FilmContent() {
     );
   };
 
+  const handleErrorInputMessage = (value, key) =>{
+    if(!value){
+      setErrorMessage(prev =>  ({...prev, [key]: '此選項必填'}))
+    }else{
+      setErrorMessage(prev =>  ({...prev, [key]: ''}))
+    }
+  }
+
   const handleChange = (value, key, _) => {
     const newFeatures = [...features];
     const editIndex = newFeatures.findIndex(
@@ -109,6 +122,7 @@ function FilmContent() {
     );
     newFeatures[editIndex][key] = value;
     dispatch(updateFeatures(newFeatures));
+    handleErrorInputMessage(value,key)
   };
 
   useEffect(() => {
@@ -117,6 +131,8 @@ function FilmContent() {
     setFeatureImgs(current[0].featureImgs);
     setCurrentFeature(current[0]);
   }, [currentTab, features]);
+
+
 
   return (
     <>
@@ -136,12 +152,14 @@ function FilmContent() {
             >
               {progress === 100 || progress === 0 ? (
                 <>
-                  <p className="text-2xl text-slate-500 italic tracking-wider my-2">請上傳預告片</p> 
-                  <Loading /> 
+                  <p className="text-2xl text-slate-500 italic tracking-wider my-2">
+                    請上傳預告片
+                  </p>
+                  <Loading />
                 </>
               ) : (
                 <>
-                <div className="flex justify-center">
+                  <div className="flex justify-center">
                     <div
                       className=" w-36  h-36  "
                       style={{
@@ -152,7 +170,9 @@ function FilmContent() {
                       }}
                     ></div>
                   </div>
-                  <h1 className="text-3xl text-slate-400 font-bold mt-1">{progress} %</h1> 
+                  <h1 className="text-3xl text-slate-400 font-bold mt-1">
+                    {progress} %
+                  </h1>
                 </>
               )}
               <input
@@ -199,6 +219,8 @@ function FilmContent() {
             value={currentFeature.year}
             onChange={handleChange}
             className="input-full"
+            errorMessage={errorMessage.year}
+            type="number"
           >
             年份 / Year（必填）
           </Input>
@@ -207,6 +229,7 @@ function FilmContent() {
             value={currentFeature.nation}
             onChange={handleChange}
             className="input-full"
+            errorMessage={errorMessage.nation}
           >
             國家 / Nation（必填）
           </Input>
@@ -215,6 +238,7 @@ function FilmContent() {
             value={currentFeature.format}
             onChange={handleChange}
             className="input-full"
+            errorMessage={errorMessage.format}
           >
             放映格式 / Format（必填）
           </Input>
@@ -223,6 +247,7 @@ function FilmContent() {
             value={currentFeature.color}
             onChange={handleChange}
             className="input-full"
+            errorMessage={errorMessage.color}
           >
             色彩 / Color（必填）
           </Input>
@@ -231,6 +256,7 @@ function FilmContent() {
             value={currentFeature.language}
             onChange={handleChange}
             className="input-full"
+            errorMessage={errorMessage.language}
           >
             語言 / Language（必填）
           </Input>
@@ -239,6 +265,8 @@ function FilmContent() {
             value={currentFeature.length}
             onChange={handleChange}
             className="input-full"
+            errorMessage={errorMessage.length}
+            type="number"
           >
             片長（min）（必填）
           </Input>
@@ -249,6 +277,7 @@ function FilmContent() {
             value={currentFeature.title}
             onChange={handleChange}
             className="input-full"
+            errorMessage={errorMessage.title}
           >
             片名 /Film Title（必填）
           </Input>
