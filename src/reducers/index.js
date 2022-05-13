@@ -19,13 +19,15 @@ import {
   guideReducer,
   festivalStartReducer,
   festivalEndReducer,
-  textColorReducer
+  textColorReducer,
+  emailReducer
 } from "./allReducers.js";
 
 import { combineReducers } from "redux";
 
 const allReducers = combineReducers({
   userID: loggedReducer,
+  userEmail:emailReducer,
   festivalPeriod: periodReducer,
   festivalLocations: locationsReducer,
   festivalName: festivalNameReducer,

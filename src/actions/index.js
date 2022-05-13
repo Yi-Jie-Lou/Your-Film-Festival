@@ -5,6 +5,13 @@ export const userLogin = (payload) => {
     }
 }
 
+export const getUserEmail = (payload) => {
+    return {
+        type: 'GET_EMAIL',
+        payload
+    }
+}
+
 export const updatePeriod = (payload) => {
     return {
         type: 'GET_PERIOD',

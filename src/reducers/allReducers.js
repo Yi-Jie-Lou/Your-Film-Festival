@@ -16,6 +16,15 @@ export const loggedReducer = (state = "", action) => {
     }
 }
 
+export const emailReducer = (state = "", action) => {
+    switch(action.type){
+        case 'GET_EMAIL':
+            return state = action.payload
+        default:
+            return state
+    }
+}
+
 export const featureTabReducer = (state = "", action) => {
     switch(action.type){
         case 'SWITCH_FEATURE_TAB':

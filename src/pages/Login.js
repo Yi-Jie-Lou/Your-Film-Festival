@@ -73,8 +73,9 @@ function Login() {
         userEmail,
         userPassword
       );
+      console.log(user.user)
       firebase
-        .initDataBase(user.user.uid)
+        .initDataBase(user.user.uid,user.user.email)
         .then((_) => {
           alert("註冊成功");
         })

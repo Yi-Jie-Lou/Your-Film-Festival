@@ -30,6 +30,7 @@ import {
   updateTextColor,
   updateFestivalStart,
   updateFestivalEnd,
+  getUserEmail
 } from "./actions";
 import { firebase } from "./utils/firebase-config";
 import Index from "./pages/Index";
@@ -84,6 +85,7 @@ function App() {
       // dispatch(isGuide(res.isGuide));
       dispatch(updateFestivalStart(res.festivalStart));
       dispatch(updateFestivalEnd(res.festivalEnd));
+      dispatch(getUserEmail(res.userEmail));
     };
 
     //判斷登入
@@ -91,7 +93,9 @@ function App() {
       const auth = getAuth();
       onAuthStateChanged(auth, (currentUser) => {
         if (currentUser) {
+          console.log(currentUser)
           dispatch(userLogin(currentUser.uid));
+   
           dispatch(updateState("login"));
           firebase
             .readFestivalData(currentUser.uid)
