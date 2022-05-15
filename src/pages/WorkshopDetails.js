@@ -462,7 +462,7 @@ function WorkshopDetails() {
                                     <tr>
                                       <td align="center" style="font-size:0px;padding:15px 0px 0px 0px;">
                                    
-                                        <div style="font-family:Roboto, Helvetica, Arial, sans-serif;font-size:35px;font-weight:400;line-height:40px;text-align:center;color:#009bff;">${title}</div>
+                                        <div style="font-family:Roboto, Helvetica, Arial, sans-serif;font-size:35px;font-weight:400;line-height:40px;text-align:center;color:#009bff;white-space: pre;">${title}</div>
                                       </td>
                                     </tr>
                                   </tbody>
@@ -492,7 +492,7 @@ function WorkshopDetails() {
                                   <tbody>
                                     <tr>
                                       <td align="center" style="font-size:0px;padding:20px 0;">
-                                        <div style="font-family:Roboto, Helvetica, Arial, sans-serif;font-size:20px;font-weight:400;line-height:40px;text-align:center;color:#5a5a5a;white-space: pre;">${content}</div>
+                                        <div style="font-family:Roboto, Helvetica, Arial, sans-serif;font-size:20px;font-weight:400;line-height:40px;text-align:center;color:#5a5a5a;white-space: pre-wrap;">${content}</div>
                                       </td>
                                     </tr>
                                     <tr>
@@ -534,7 +534,7 @@ function WorkshopDetails() {
       email: state.email,
       phoneNumber: state.phoneNumber,
       content: generateMailContent(
-        `您已成功報名${currentWorkshop.title}囉！`,
+        `您已成功報名\n ${currentWorkshop.title}！`,
         "請注意信箱與簡訊，若有異動會再另行通知",
         festivalLogo
       ),
