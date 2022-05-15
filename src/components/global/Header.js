@@ -179,7 +179,7 @@ function BuildHeader() {
         background: primaryColor,
         color: textColor
       }}
-      className="header__container ounded-b-none justify-between"
+      className="header__container  rounded-b-none  justify-between"
     >
       <CustomerNavLink router={`/build/festival=${festivalPathName}`}>
         {festivalLogo ? (
@@ -188,7 +188,7 @@ function BuildHeader() {
           "請上傳LOGO"
         )}
       </CustomerNavLink>
-      <div className="flex h-[48px]  my-6 mr-4 ml-auto  text-center text-1xl">
+      <div className="flex h-[48px]  my-6 mr-6 ml-auto  text-center text-1xl">
         <CustomerNavLink router={`/build/news/festival=${festivalPathName}`}>
           最新消息
         </CustomerNavLink>
