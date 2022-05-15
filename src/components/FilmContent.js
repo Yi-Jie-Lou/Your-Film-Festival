@@ -188,7 +188,9 @@ function FilmContent() {
                   src={item ? item : ""}
                 />
               ) : (
-                ""
+                <p className="text-2xl text-slate-500 italic tracking-wider my-2">
+                    請上傳劇照
+                  </p>
               )}
               <input
                 id={`upload${index}`}

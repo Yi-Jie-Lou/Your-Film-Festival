@@ -26,7 +26,7 @@ function reducer(state, action) {
 function WorkshopDetails() {
   const workshop = useSelector((state) => state.workshop);
   const currentID = useParams();
-  const initialState = { name: "", email: "", phoneNumber: "" };
+  const initialState = { name: "Roger", email: "dumpling82@livemail.tw", phoneNumber: "0987181315" };
   const festivalLogo = useSelector((state) => state.festivalLogo);
   const festivalPathName = useSelector((state) => state.festivalPathName);
   const hostEmail = useSelector((state) => state.userEmail);
