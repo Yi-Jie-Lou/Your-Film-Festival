@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import MovieRating from "../components/timetable/MovieRating";
-import FilmBox from "../components/global/FilmBox";
+import TimetableFilmBox from "../components/global/TimetableBox";
 
 function Timetable(props) {
   const initQureyDate = useParams();
@@ -81,7 +81,7 @@ function Timetable(props) {
               <div className=" flex flex-wrap mx-auto   border-t-2 border-stone-500   ">
                 {queryTimetable.map((film, index) =>
                   film.location === item ? (
-                    <FilmBox
+                    <TimetableFilmBox
                       key={index}
                       router={
                         props.userState === "build"

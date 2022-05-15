@@ -90,6 +90,23 @@ body{
  flex-direction: row-reverse !important;
 }
 
+.react-joyride__tooltip{
+  color: #1b1b1bdf !important;
+}
+
+.react-joyride__tooltip > div {
+  margin-top: 10px !important;
+}
+
+.react-joyride__tooltip > div > div{
+  padding: 15px 10px 5px 10px !important;
+}
+
+.react-joyride__tooltip h4{
+  font-size: 28px !important;
+
+}
+
 
 @tailwind base;
 @tailwind components;

@@ -552,7 +552,7 @@ function WorkshopDetails() {
       ),
     };
 
-    const sendToClient = await fetch("http://localhost:3001/send", {
+    const sendToClient = await fetch("https://stark-mountain-00642.herokuapp.com/send", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -566,7 +566,7 @@ function WorkshopDetails() {
       }
     });
 
-    const sendToHost = await fetch("http://localhost:3001/send/host", {
+    const sendToHost = await fetch("https://stark-mountain-00642.herokuapp.com/send/host", {
       method: "POST",
       headers: {
         "Content-type": "application/json",

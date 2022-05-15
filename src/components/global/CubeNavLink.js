@@ -74,7 +74,7 @@ export const SwitchReloadData = (props) => {
 export const CustomerNavLink = (props) => {
   return (
     <NavLink className="vertical" to={props.router}>
-      <div className="mx-5 py-2  text-center leading-7  text-1xl">
+      <div className="mx-5 py-2  text-center leading-7 text-xl tracking-wider text-shadow-light hover:text-amber-200">
         {props.children}
       </div>
     </NavLink>

@@ -1,7 +1,7 @@
 function Details(props) {
   return (
-    <div>
-      <h1 className="mt-6 text-3xl">{props.currentFeatureObject.title}</h1>
+    <div className="max-h-[500px]">
+      <h1 className="mt-4 text-3xl">{props.currentFeatureObject.title}</h1>
       {props.currentFeatureObject.creators.map((creator, index) => (
         <p key={index} className="my-4">
           {creator.name}

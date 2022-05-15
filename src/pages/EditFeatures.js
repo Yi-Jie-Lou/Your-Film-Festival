@@ -81,7 +81,7 @@ function Features() {
         !film.length.trim() ||
         !film.title.trim() ||
         !film.nation.trim() ||
-        !film.commercialInfo.trim() 
+        !film.commercialInfo.trim()
       ) {
         isError = true;
       }
@@ -120,27 +120,26 @@ function Features() {
   };
 
   return (
-    <div className="wrap">
-      <div className="flex flex-wrap justify-center mt-32 ">
+    <div className="wrap ">
+      <div className="w-9/12 mx-auto">
+        <button className="w-36 button-blue mt-32 mb-3 ml-2" onClick={addFeature}>
+          增加影片
+        </button>
+      </div>
+      <div className="flex flex-wrap w-9/12 mx-auto justify-start ">
         {features.map((item, index) => (
           <button
             onClick={() => {
               dispatch(switchTab(item.featureID));
             }}
-            className={`w-32 button-orange ${
+            className={`w-[calc((100%-96px)/6)] button-orange mx-2 mt-2 ${
               item.featureID === currentTab ? "bg-[#f4cd7f]" : "bg-[#eb9666]"
             } `}
             key={index}
           >
-            Feature{index + 1}
+            電影 {index + 1}
           </button>
         ))}
-        <button
-          className="absolute right-10 mx-3  w-28 button-blue"
-          onClick={addFeature}
-        >
-          增加影片
-        </button>
       </div>
       <FilmContent />
       <Creator />

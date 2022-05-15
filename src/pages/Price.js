@@ -36,13 +36,13 @@ function Price() {
         </div>
       ))}
 
-      <h2 className="w-11/12 mx-auto mt-8 text-xl">交通方式</h2>
+      <h2 className="w-11/12  mx-auto mt-8 text-xl">交通方式</h2>
       {traffic.map((item, index) => (
         <div key={index} className="flex  w-11/12  mt-4 mx-auto | flex-col | md:flex-row ">
         <div className="vertical | w-full | md:w-1/2">
           <div >{item.text}</div>
           </div>
-          <img className="w-full | md:w-1/2" src={item.img} />
+          <img className=" rounded-lg   border-4 border-[#77929a] w-full  my-2  | md:mx-6 md:w-5/12" src={item.img} />
         </div>
       ))}
     </div>

@@ -46,7 +46,7 @@ function TemplateHeader() {
 
         <div className="ml-auto text-center text-1xl | hidden | sm:flex">
           <LoginLink router="/build/festival=YourFilmFestival" id="step1" cube={CubeB}>
-            Template
+            範例網站
           </LoginLink>
           
 
@@ -111,7 +111,7 @@ function BackstageHeader() {
           自訂顏色
         </CubeNavLink>
         <SwitchCubeNavLink router="/preview" id="preview" cube={CubeA}>
-          Preview
+          預覽網站
         </SwitchCubeNavLink>
       </div>
     </div>
@@ -131,7 +131,7 @@ function PreviewHeader() {
         background: primaryColor,
         color: textColor
       }}
-      className="header__container justify-between"
+      className="header__container rounded-b-none justify-between"
     >
       <CustomerNavLink router="/preview">
         {festivalLogo ? (
@@ -159,7 +159,7 @@ function PreviewHeader() {
             }}
             className="flex justify-center border-2 items-center button-red w-40   text-center text-1xl "
           >
-            <span className="text-center">Build</span>
+            <span className="text-center">建立網站</span>
           </button>
         </div>
       </div>
@@ -179,7 +179,7 @@ function BuildHeader() {
         background: primaryColor,
         color: textColor
       }}
-      className="header__container justify-between"
+      className="header__container ounded-b-none justify-between"
     >
       <CustomerNavLink router={`/build/festival=${festivalPathName}`}>
         {festivalLogo ? (
