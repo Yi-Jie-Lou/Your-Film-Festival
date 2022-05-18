@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import uniqid from "uniqid";
@@ -8,18 +7,19 @@ import Textarea from "../components/Textarea";
 import Input from "../components/Input";
 import Checkbox from "../components/Checkbox";
 import Cropper from "../components/Cropper";
+import useRoutePush from "../hooks/useRoutePush";
 import { updateWorkshop } from "../actions";
 import { firebase } from "../utils/firebase-config";
-import { limitAlert, saveAlert, errorAlert } from "../utils/customAlert";
+import { limitAlert, errorAlert } from "../utils/customAlert";
 import DarkBlueCloudImg from "../img/DarkBlueCloud.png";
-import BlueCloudImg from "../img/BlueCloud.png";
 import PuzzleImg from "../img/Puzzle.png";
 
 function EditWorkshop() {
   const dispatch = useDispatch();
+  const routerHandler = useRoutePush()
   const userID = useSelector((state) => state.userID);
   const workshop = useSelector((state) => state.workshop);
-  const navigate = useNavigate();
+
 
   const handleChange = (value, key, index) => {
     const newWorkshop = [...workshop];
@@ -117,12 +117,9 @@ function EditWorkshop() {
       return item
     })
     dispatch(updateWorkshop(newWorkshop));
+
     firebase.saveWorkshop(userID, workshop).then((_) =>{
-      saveAlert("最後，來點顏色和增加贊助商吧", BlueCloudImg).then(res => {
-        if(res.isConfirmed){
-          navigate("/backstage/edit-footer-color")
-        }
-      });
+      routerHandler("最後，來點顏色和增加贊助商吧","/backstage/edit-footer-color")
     })
   }
 

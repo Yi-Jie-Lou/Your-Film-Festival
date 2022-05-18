@@ -1,22 +1,22 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import Textarea from "../components/Textarea";
 import Input from "../components/Input";
+import useRoutePush from "../hooks/useRoutePush";
 import { updatePrice, updateTraffic } from "../actions";
 import { firebase } from "../utils/firebase-config";
-import { limitAlert, saveAlert, errorAlert } from "../utils/customAlert";
+import { limitAlert, errorAlert } from "../utils/customAlert";
 import DarkBlueCloudImg from "../img/DarkBlueCloud.png";
-import BlueCloudImg from "../img/BlueCloud.png";
 import PuzzleImg from "../img/Puzzle.png";
 
 function EditPrice() {
   const dispatch = useDispatch();
+  const routerHandler = useRoutePush()
   const userID = useSelector((state) => state.userID);
   const price = useSelector((state) => state.price);
   const traffic = useSelector((state) => state.traffic);
-  const navigate = useNavigate();
+
 
   const handleChange = (value, key, index) => {
     const newPrice = [...price];
@@ -130,11 +130,7 @@ function EditPrice() {
 
 
     firebase.savePricePage(userID, price, traffic).then((_) =>{
-      saveAlert("就要完成囉\n快來建立一個工作坊吧", BlueCloudImg).then(res => {
-        if(res.isConfirmed){
-          navigate("/backstage/workshop")
-        }
-      });
+      routerHandler("就要完成囉\n快來建立一個工作坊吧","/backstage/workshop")
     })
   }
 

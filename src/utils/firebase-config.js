@@ -52,6 +52,13 @@ const firebase = {
     });
   },
 
+  saveFestivalDetail(UID, data) {
+    console.log(data)
+    return updateDoc(doc(db, `users`, `${UID}`), {
+      ...data
+    })
+  },
+
   saveFeatures(UID, data) {
     return updateDoc(doc(db, `users`, `${UID}`), {
       features: data,

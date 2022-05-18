@@ -10,24 +10,21 @@ import { firebase } from "../utils/firebase-config";
 import Input from "../components/Input";
 import ColorCube from "../components/ColorCube";
 import TextColorCube from "../components/TextColorCube";
+import useRoutePush from "../hooks/useRoutePush";
 import DarkBlueCloudImg from "../img/DarkBlueCloud.png";
 import { limitAlert } from "../utils/customAlert";
-import BlueCloudImg from "../img/BlueCloud.png";
-import { saveAlert } from "../utils/customAlert";
-import { useNavigate } from "react-router-dom";
 import PuzzleImg from "../img/Puzzle.png";
 import { errorAlert } from "../utils/customAlert";
 
-
-
 function EditFooterAndColor() {
   const dispatch = useDispatch();
+  const routerHandler = useRoutePush()
   const primaryColor = useSelector((state) => state.primaryColor);
   const secondaryColor = useSelector((state) => state.secondaryColor);
   const textColor = useSelector((state) => state.textColor);
   const sponsor = useSelector((state) => state.sponsor);
   const userID = useSelector((state) => state.userID);
-  const navigate = useNavigate();
+
 
   const handleChange = (value, _, index) => {
     const newSponsor = { ...sponsor };
@@ -95,13 +92,7 @@ function EditFooterAndColor() {
     firebase
       .saveSponsor(userID, sponsor, primaryColor, secondaryColor, textColor)
       .then((_) => {
-        saveAlert("來預覽您的網站吧\n您可以隨時回來做修改", BlueCloudImg).then(
-          (res) => {
-            if (res.isConfirmed) {
-              navigate("/preview");
-            }
-          }
-        );
+        routerHandler("來預覽您的網站吧\n您可以隨時回來做修改","/preview")
       });
   };
 

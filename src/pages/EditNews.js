@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import uniqid from "uniqid";
@@ -7,19 +6,18 @@ import uniqid from "uniqid";
 import Textarea from "../components/Textarea";
 import Input from "../components/Input";
 import Checkbox from "../components/Checkbox";
-
+import useRoutePush from "../hooks/useRoutePush";
 import { updateNews } from "../actions";
 import { firebase } from "../utils/firebase-config";
-import { errorAlert, limitAlert, saveAlert } from "../utils/customAlert";
+import { errorAlert, limitAlert} from "../utils/customAlert";
 import DarkBlueCloudImg from "../img/DarkBlueCloud.png";
-import BlueCloudImg from "../img/BlueCloud.png";
 import PuzzleImg from "../img/Puzzle.png";
 
 function EditNews() {
   const dispatch = useDispatch();
   const userID = useSelector((state) => state.userID);
   const news = useSelector((state) => state.news);
-  const navigate = useNavigate();
+  const routerHandler = useRoutePush()
 
   const handleChange = (value, key, index) => {
     const newNews = [...news];
@@ -83,15 +81,9 @@ function EditNews() {
       return item;
     });
     dispatch(updateNews(newNews));
+
     firebase.saveNews(userID, news).then((_) => {
-      saveAlert(
-        "影展越來越完整囉\n我們來制定票價和公告交通資訊吧",
-        BlueCloudImg
-      ).then((res) => {
-        if (res.isConfirmed) {
-          navigate("/backstage/price");
-        }
-      });
+      routerHandler("影展越來越完整囉\n我們來制定票價和公告交通資訊吧","/backstage/price")
     });
   };
 

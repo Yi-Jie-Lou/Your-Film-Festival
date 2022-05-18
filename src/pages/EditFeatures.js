@@ -1,6 +1,5 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 import uniqid from "uniqid";
 
@@ -8,19 +7,18 @@ import Creator from "../components/Creator";
 import FilmContent from "../components/FilmContent";
 import Booking from "../components/Booking";
 import Note from "../components/Note";
+import useRoutePush from "../hooks/useRoutePush";
 import { firebase } from "../utils/firebase-config";
-import { saveAlert, errorAlert } from "../utils/customAlert";
+import { errorAlert } from "../utils/customAlert";
 import { updateFeatures, switchTab } from "../actions";
-import BlueCloudImg from "../img/BlueCloud.png";
 import PuzzleImg from "../img/Puzzle.png";
 
 function Features() {
   const dispatch = useDispatch();
+  const routerHandler = useRoutePush();
   const features = useSelector((state) => state.features);
   const currentTab = useSelector((state) => state.currentTab);
   const userID = useSelector((state) => state.userID);
-  const navigate = useNavigate();
-
 
   const addFeature = () => {
     const newID = uniqid();
@@ -110,21 +108,20 @@ function Features() {
 
     dispatch(updateFeatures(newFeatures));
     firebase.saveFeatures(userID, features).then((_) => {
-      saveAlert(
+      routerHandler(
         "影片都上傳完畢了嗎\n接著我們來發布影展公告吧",
-        BlueCloudImg
-      ).then((res) => {
-        if (res.isConfirmed) {
-          navigate("/backstage/news");
-        }
-      });
+        "/backstage/news"
+      );
     });
   };
 
   return (
     <div className="wrap ">
       <div className="w-9/12 mx-auto">
-        <button className="w-36 button-blue mt-32 mb-3 ml-2" onClick={addFeature}>
+        <button
+          className="w-36 button-blue mt-32 mb-3 ml-2"
+          onClick={addFeature}
+        >
           增加影片
         </button>
       </div>

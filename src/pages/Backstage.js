@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { doc, updateDoc } from "firebase/firestore";
 import { DateRangePicker } from "react-date-range";
 import Moment from "moment";
 import { extendMoment } from "moment-range";
@@ -14,16 +13,14 @@ import {
   updateFestivalPost,
   updateFestivalLogo,
 } from "../actions";
-import { db } from "../utils/firebase-config";
 import { firebase } from "../utils/firebase-config";
-import BlueCloudImg from "../img/BlueCloud.png";
+import useRoutePush from "../hooks/useRoutePush";
 import PuzzleImg from "../img/Puzzle.png";
-import { saveAlert } from "../utils/customAlert";
-import { useNavigate } from "react-router-dom";
 import { errorAlert } from "../utils/customAlert";
 
 function Backstage() {
   const dispatch = useDispatch();
+  const routerHandler = useRoutePush()
   const festivalName = useSelector((state) => state.festivalName);
   const festivalPathName = useSelector((state) => state.festivalPathName);
   const festivalPost = useSelector((state) => state.festivalPost);
@@ -34,7 +31,7 @@ function Backstage() {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const userID = useSelector((state) => state.userID);
-  const navigate = useNavigate();
+ 
 
   const selectionRange = {
     startDate: startDate,
@@ -61,8 +58,7 @@ function Backstage() {
       return;
     }
 
-
-    updateDoc(doc(db, "users", userID), {
+    const festivalObj = {
       locations,
       festivalPeriod: getAvailableDates(),
       festivalPathName,
@@ -71,18 +67,13 @@ function Backstage() {
       festivalLogo,
       festivalStart: startDate,
       festivalEnd: endDate,
-    })
-      .then(() => {
+    } 
+
+    firebase.saveFestivalDetail(userID,festivalObj).then(() => {
         dispatch(updatePeriod(getAvailableDates()));
       })
       .then((_) => {
-        saveAlert("您已經完成第一步囉\n接著來上傳影片吧", BlueCloudImg).then(
-          (res) => {
-            if (res.isConfirmed) {
-              navigate("/backstage/features");
-            }
-          }
-        );
+        routerHandler("您已經完成第一步囉\n接著來上傳影片吧","/backstage/features")
       });
   };
 
