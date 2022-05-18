@@ -14,12 +14,12 @@ function TemplateFooter() {
         target="_blank"
       >
         <div className="flex h-full">
-          <div className="flex items-center mt-5 z-20 text-center text-1xl">
+          <div className="flex items-center mt-5 z-20 text-center text-xl">
             <div className="mx-2 rounded-full ">
               <img className="w-9 mx-auto opacity-80" src={GitLogo} />
             </div>
           </div>
-          <div className="flex mt-5 z-20 text-center text-1xl">
+          <div className="flex mt-5 z-20 text-center text-xl">
             <div className="vertical w-full mr-4 text-center  text-stone-600   tracking-wider ">
               <span>Github</span>
             </div>
@@ -51,10 +51,10 @@ function CustomerFooter() {
         background: primaryColor,
       }}
     >
-      <div className="vertical text-shadow-light mr-12 py-1 text-center text-1xl ">
+      <div className="vertical text-shadow-light mr-12 py-1 text-center text-xl ">
         <span>贊助</span>
       </div>
-      <div className="flex justify-center text-shadow-light content-center flex-wrap max-w-530 ">
+      <div className="flex justify-center text-shadow-light content-center flex-wrap max-w-[530px] ">
         {sponsor.text.map((item, index) => (
           <div
             key={index}

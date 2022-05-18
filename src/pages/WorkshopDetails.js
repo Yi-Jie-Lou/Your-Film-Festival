@@ -604,7 +604,7 @@ function WorkshopDetails() {
       ) : (
         ""
       )}
-      <div className="min-h-200">
+      <div className="min-h-[800px]">
         <img className="w-full mt-16" src={currentWorkshop?.img} />
         <h1 className="w-11/12 mx-auto mt-16 pb-8 mb-8 border-b-2 border-stone-500 text-center text-2xl tracking-wider">
           {currentWorkshop?.title}

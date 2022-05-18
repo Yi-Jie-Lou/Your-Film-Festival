@@ -19,7 +19,6 @@ import CubeB from "../../img/yourFilmCubeB.png";
 import CubeC from "../../img/yourFilmCubeC.png";
 import PuzzleImg from "../../img/Puzzle.png";
 
-
 function TemplateHeader() {
   const path = useParams();
   const state = useSelector((state) => state.state);
@@ -74,8 +73,7 @@ function TemplateHeader() {
         className={`fixed flex top-14 left-0 flex-col items-center  w-full  ${
           isActive ? "h-full z-30" : "h-0 duration-0 z-0"
         }  bg-stone-900/50  | flex | sm:hidden`}
-      >
-      </div>
+      ></div>
     </>
   );
 }
@@ -89,23 +87,47 @@ function BackstageHeader() {
         </div>
       </NavLink>
 
-      <div className="flex ml-auto  text-center text-1xl">
-        <CubeNavLink router="/backstage" cube={CubeB}>
+      <div className="flex ml-auto text-center text-xl">
+        <CubeNavLink
+          router="/backstage"
+          className="sm:text-sm | lg:text-base | lg:w-24 | xl:w-28"
+          cube={CubeB}
+        >
           影展日期
         </CubeNavLink>
-        <CubeNavLink router="/backstage/features" cube={CubeC}>
+        <CubeNavLink
+          router="/backstage/features"
+          className="sm:text-sm | lg:text-base | lg:w-24 | xl:w-28"
+          cube={CubeC}
+        >
           上傳影片
         </CubeNavLink>
-        <CubeNavLink router="/backstage/news" cube={CubeB}>
+        <CubeNavLink
+          router="/backstage/news"
+          className="sm:text-sm | lg:text-base | lg:w-24 | xl:w-28"
+          cube={CubeB}
+        >
           編輯消息
         </CubeNavLink>
-        <CubeNavLink router="/backstage/price" cube={CubeC}>
+        <CubeNavLink
+          router="/backstage/price"
+          className="sm:text-sm | lg:text-base | lg:w-24 | xl:w-28"
+          cube={CubeC}
+        >
           售票資訊
         </CubeNavLink>
-        <CubeNavLink router="/backstage/workshop" cube={CubeB}>
+        <CubeNavLink
+          router="/backstage/workshop"
+          className="sm:text-sm | lg:text-base | lg:w-24 | xl:w-28"
+          cube={CubeB}
+        >
           新增工作坊
         </CubeNavLink>
-        <CubeNavLink router="/backstage/edit-footer-color" cube={CubeC}>
+        <CubeNavLink
+          router="/backstage/edit-footer-color"
+          className="sm:text-sm | lg:text-base | lg:w-24 | xl:w-28"
+          cube={CubeC}
+        >
           自訂顏色
         </CubeNavLink>
         <SwitchCubeNavLink router="/preview" id="preview" cube={CubeA}>

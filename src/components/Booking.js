@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import TimePicker from "react-time-picker/dist/entry.nostyle";
 import { updateFeatures } from "../actions";
-import "../css/TimePicker.css";
 
 function Booking() {
   const dispatch = useDispatch();
@@ -94,8 +93,7 @@ function Booking() {
               </select>
               <select
                 className="w-32 h-10 border-4 rounded-xl text-center border-[#94bed1]"
-                onChange={(event) =>
-                  handleChange(event.target.value, index, "location")
+                onChange={(event) => handleChange(event.target.value, index, "location")
                 }
                 value={item.location || ""}
               >

@@ -3,7 +3,7 @@ import { NavLink, Link } from "react-router-dom";
 export const CubeNavLink = (props) => {
   return (
     <NavLink to={props.router}>
-      <div className="w-20 lg:w-24 xl:w-28  relative top-[-10px]   text-center leading-7 sm:text-sm lg:text-base  hover:top-[0px]">
+      <div className={`relative top-[-10px] hover:top-[0px] text-center leading-7 w-20 ${props.className}`}>
         <img src={props.cube} />
         <span className="top-5 lg:top-6 xl:top-7 absolute w-full left-0 text-white text-shadow-light tracking-wider">
           {props.children}

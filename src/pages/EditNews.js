@@ -7,6 +7,7 @@ import uniqid from "uniqid";
 import Textarea from "../components/Textarea";
 import Input from "../components/Input";
 import Checkbox from "../components/Checkbox";
+
 import { updateNews } from "../actions";
 import { firebase } from "../utils/firebase-config";
 import { errorAlert, limitAlert, saveAlert } from "../utils/customAlert";

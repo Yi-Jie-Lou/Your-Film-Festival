@@ -122,7 +122,7 @@ function EditFooterAndColor() {
         <div className="flex flex-wrap w-full mb-4 ">
           {sponsor &&
             sponsor.text.map((item, index) => (
-              <div key={index} className="flex w-550">
+              <div key={index} className="flex w-[550px]">
                 <Input
                   attribute="text"
                   value={item}

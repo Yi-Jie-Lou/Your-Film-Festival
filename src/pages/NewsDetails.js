@@ -13,7 +13,7 @@ function NewsDetails() {
   }, [news]);
 
   return (
-    <div className="min-h-200">
+    <div className="min-h-[800px]">
       <h1 className="w-11/12 mx-auto mt-32 pb-8 mb-8 border-b-2 border-stone-500 text-center text-2xl tracking-wider">{currentNews?.title}</h1>
       <img className="w-full" src={currentNews?.img} />
       <div className="mx-auto my-12 w-11/12">

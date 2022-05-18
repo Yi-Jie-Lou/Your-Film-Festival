@@ -34,7 +34,7 @@ function FeatureDetails(props) {
   }, [currentFeatureObject]);
 
   return (
-    <div className="mx-auto min-h-200  w-11/12">
+    <div className="mx-auto min-h-[800px]  w-11/12">
       {imgArray && (
         <>
           <div className="flex justify-center mt-36 pb-12 max-h-[500px]  border-b-2 border-stone-500 ">

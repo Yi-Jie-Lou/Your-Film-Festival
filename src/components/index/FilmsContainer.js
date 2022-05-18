@@ -41,7 +41,7 @@ function FilmsContainer(props) {
           ))}
         </>
       </div>
-      <div className="flex flex-wrap max-w-1440 | justify-center mx-auto | md:justify-start | xl:justify-center xl:mx-auto ">
+      <div className="flex flex-wrap max-w-[1440px] | justify-center mx-auto | md:justify-start | xl:justify-center xl:mx-auto ">
         <>
           {normalFeatures.map((item, index) => (
             <FilmBox
