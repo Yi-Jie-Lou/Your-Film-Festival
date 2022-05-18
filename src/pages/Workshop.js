@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import "react-image-gallery/styles/css/image-gallery.css";
+
 import NewsBox from "../components/global/NewsBox";
 
 function Workshop(props) {

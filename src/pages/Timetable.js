@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+
 import MovieRating from "../components/timetable/MovieRating";
 import TimetableFilmBox from "../components/global/TimetableBox";
 

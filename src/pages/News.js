@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+
 import NewsBox from "../components/global/NewsBox";
 
 function News(props) {

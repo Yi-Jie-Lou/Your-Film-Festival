@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateFeatures } from "../actions";
+
 import Textarea from "./Textarea";
 import Checkbox from "./Checkbox";
+import { updateFeatures } from "../actions";
 
 function Note() {
   const dispatch = useDispatch();

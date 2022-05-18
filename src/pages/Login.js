@@ -1,23 +1,23 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut
 } from "firebase/auth";
+import { customImgAlert, errorAlert } from "../utils/customAlert";
+import Joyride, { STATUS } from "react-joyride";
+
+import { auth, firebase } from "../utils/firebase-config";
+import { isGuide } from "../actions";
+import Header from "../components/global/Header";
+import Footer from "../components/global/Footer";
 import DarkBlueCloudImg from "../img/DarkBlueCloud.png";
 import BlueCloudImg from "../img/BlueCloud.png";
 import PuzzleImg from "../img/Puzzle.png";
-import { customImgAlert, errorAlert } from "../utils/customAlert";
-import { useNavigate } from "react-router-dom";
-import { auth, firebase } from "../utils/firebase-config";
-import { signOut } from "firebase/auth";
-import Header from "../components/global/Header";
-import Footer from "../components/global/Footer";
-import { useSelector, useDispatch } from "react-redux";
 import LoadingAnim from "../img/LoadingAnim.gif";
-import { isGuide } from "../actions";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
-import Joyride, { STATUS } from "react-joyride";
 
 function Login() {
   const navigate = useNavigate();
@@ -73,7 +73,6 @@ function Login() {
         userEmail,
         userPassword
       );
-      console.log(user.user)
       firebase
         .initDataBase(user.user.uid,user.user.email)
         .then((_) => {
@@ -112,7 +111,6 @@ function Login() {
 
   return (
     <>
-    
       <Header userState={state} />
       <div className="vertical mt-4  | h-[calc(100vh-96px)] | xl:h-[calc(100vh-136px)] ">
         <div className="flex flex-wrap justify-center  mx-auto w-11/12 | flex-col | sm:flex-row ">

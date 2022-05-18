@@ -1,14 +1,13 @@
 import React, { useEffect, useState, useReducer } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import Input from "../components/Input";
-import "react-image-gallery/styles/css/image-gallery.css";
+
 import ReCAPTCHA from "react-google-recaptcha";
+
+import Input from "../components/Input";
+import { customImgAlert, errorAlert } from "../utils/customAlert";
 import BlueCloudImg from "../img/BlueCloud.png";
 import PuzzleImg from "../img/Puzzle.png";
-import { customImgAlert } from "../utils/customAlert";
-import { errorAlert } from "../utils/customAlert";
-import Logo from "../img/yourFilmLogoA.png";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -34,7 +33,6 @@ function WorkshopDetails() {
   const [currentWorkshop, setCurrentWorkshop] = useState("");
   const [isRobot, setIsRobot] = useState(true);
   const [isLoaing, setIsLoading] = useState(false);
-  console.log(currentWorkshop);
 
   const handleChange = (value, key) => {
     dispatch({ type: key, payload: value });
@@ -559,7 +557,6 @@ function WorkshopDetails() {
       },
       body: JSON.stringify(toCustomer),
     }).then((res) => {
-      console.log(res.status);
       if (res.status === 404) {
         errorAlert("出錯了\n請聯繫主辦方", PuzzleImg);
         setIsLoading(false);
@@ -573,8 +570,6 @@ function WorkshopDetails() {
       },
       body: JSON.stringify(toHost),
     }).then((res) => {
-      console.log(res.status);
-
       if (res.status === 200) {
         customImgAlert("您已成功報名活動囉", BlueCloudImg);
         setIsLoading(false);

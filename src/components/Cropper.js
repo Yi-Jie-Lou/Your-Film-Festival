@@ -1,8 +1,10 @@
-import AvatarImageCropper from "react-avatar-image-cropper";
 import { useDispatch, useSelector } from "react-redux";
+
+import AvatarImageCropper from "react-avatar-image-cropper";
+
 import { firebase } from "../utils/firebase-config";
-import { updateWorkshop } from "../actions";
 import { limitAlert } from "../utils/customAlert";
+import { updateWorkshop } from "../actions";
 
 function Cropper(props) {
   const dispatch = useDispatch();
@@ -12,7 +14,6 @@ function Cropper(props) {
 
     if (!file) return;
     const uploadSize = file.size;
-    console.log(file.size,file)
 
     if (uploadSize / 1024 > 200) {
       limitAlert(

@@ -1,20 +1,19 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
+import uniqid from "uniqid";
+
 import Textarea from "../components/Textarea";
 import Input from "../components/Input";
 import Checkbox from "../components/Checkbox";
 import Cropper from "../components/Cropper";
 import { updateWorkshop } from "../actions";
 import { firebase } from "../utils/firebase-config";
+import { limitAlert, saveAlert, errorAlert } from "../utils/customAlert";
 import DarkBlueCloudImg from "../img/DarkBlueCloud.png";
-import { limitAlert } from "../utils/customAlert";
-import uniqid from "uniqid";
 import BlueCloudImg from "../img/BlueCloud.png";
-import { saveAlert } from "../utils/customAlert";
-import { useNavigate } from "react-router-dom";
 import PuzzleImg from "../img/Puzzle.png";
-import { errorAlert } from "../utils/customAlert";
-
 
 function EditWorkshop() {
   const dispatch = useDispatch();
@@ -61,7 +60,6 @@ function EditWorkshop() {
       return;
     }
 
-    console.log(uploadImg)
     await firebase.uploadImgs(uploadImg);
     firebase.getUploadImgs(uploadImg).then((uploadUrl) => {
       const newWorkshop = [...workshop];
@@ -106,7 +104,6 @@ function EditWorkshop() {
     newWorkshop[index].isReadOnly = false;
     dispatch(updateWorkshop(newWorkshop));
   }
-
 
   const saveWorkshop= () => {
 

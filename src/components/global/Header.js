@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { firebase } from "../../utils/firebase-config";
 import { NavLink, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+
 import {
   CubeNavLink,
   SwitchCubeNavLink,
-  SwitchReloadData,
   CustomerNavLink,
   MobileNavLink,
   LoginNavLink,
   LoginLink,
   MobileBuild,
 } from "./CubeNavLink";
+import { firebase } from "../../utils/firebase-config";
+import { errorAlert } from "../../utils/customAlert";
 import Logo from "../../img/yourFilmLogoA.png";
 import CubeA from "../../img/yourFilmCubeA.png";
 import CubeB from "../../img/yourFilmCubeB.png";
 import CubeC from "../../img/yourFilmCubeC.png";
 import PuzzleImg from "../../img/Puzzle.png";
-import { errorAlert } from "../../utils/customAlert";
+
 
 function TemplateHeader() {
   const path = useParams();
@@ -74,13 +75,6 @@ function TemplateHeader() {
           isActive ? "h-full z-30" : "h-0 duration-0 z-0"
         }  bg-stone-900/50  | flex | sm:hidden`}
       >
-        {/* 
-      <MobileNavLink onClick={()=> setIsActive(false)} isActive={isActive} router="/" className={isActive ? "h-16 delay-[100ms] transition-all  duration-700 bg-[#f4cd7f]" : "h-0 duration-0"} >回到首頁</MobileNavLink>
-      <MobileNavLink isActive={isActive} router="/news" className={isActive ? "h-16 delay-[200ms] transition-all  duration-700 bg-[#57bdc8]" : "h-0 duration-0"} >最新消息</MobileNavLink>
-      <MobileNavLink isActive={isActive} router="/price" className={isActive ? "h-16 delay-[300ms] transition-all  duration-700 bg-[#f4cd7f]" : "h-0 duration-0"} >購票資訊</MobileNavLink>
-      <MobileNavLink isActive={isActive} router="/timetable" className={isActive ? "h-16 delay-[400ms] transition-all  duration-700 bg-[#57bdc8]" : "h-0 duration-0"} >場次表</MobileNavLink>
-      <MobileNavLink isActive={isActive} router="/workshop" className={isActive ? "h-16 delay-[500ms] transition-all  duration-700 bg-[#f4cd7f]" : "h-0 duration-0"} >工作坊</MobileNavLink>
-      <MobileNavLink isActive={isActive} router="/login" className={isActive ? "h-16 delay-[700ms] transition-all  duration-700 bg-[#f08074]" : "h-0 duration-0"} >登入客製化</MobileNavLink> */}
       </div>
     </>
   );

@@ -1,18 +1,18 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
+import uniqid from "uniqid";
+
 import Textarea from "../components/Textarea";
 import Input from "../components/Input";
 import Checkbox from "../components/Checkbox";
 import { updateNews } from "../actions";
 import { firebase } from "../utils/firebase-config";
+import { errorAlert, limitAlert, saveAlert } from "../utils/customAlert";
 import DarkBlueCloudImg from "../img/DarkBlueCloud.png";
-import { limitAlert } from "../utils/customAlert";
 import BlueCloudImg from "../img/BlueCloud.png";
-import { saveAlert } from "../utils/customAlert";
-import { useNavigate } from "react-router-dom";
-import uniqid from "uniqid";
 import PuzzleImg from "../img/Puzzle.png";
-import { errorAlert } from "../utils/customAlert";
 
 function EditNews() {
   const dispatch = useDispatch();
@@ -33,8 +33,9 @@ function EditNews() {
 
     if (uploadSize / 1024 > 200) {
       limitAlert(
-        `上傳檔案需請小於200KB\n您的檔案為${Math.floor(uploadSize / 1024)}KB`
-      ,DarkBlueCloudImg);
+        `上傳檔案需請小於200KB\n您的檔案為${Math.floor(uploadSize / 1024)}KB`,
+        DarkBlueCloudImg
+      );
       return;
     }
     await firebase.uploadImgs(uploadImg);
@@ -51,10 +52,10 @@ function EditNews() {
       img: "",
       important: false,
       content: "",
-      newsID:uniqid(),
-      isReadOnly:false
+      newsID: uniqid(),
+      isReadOnly: false,
     };
-    const newNews = [ emptyNews, ...news];
+    const newNews = [emptyNews, ...news];
     dispatch(updateNews(newNews));
   };
 
@@ -68,27 +69,30 @@ function EditNews() {
     const newNews = [...news];
     newNews[index].isReadOnly = false;
     dispatch(updateNews(newNews));
-  }
+  };
 
   const saveNews = () => {
-    if(news.some(item => (!item.title.trim()))){
+    if (news.some((item) => !item.title.trim())) {
       errorAlert("舉辦地點不可以是空白的噢", PuzzleImg);
-      return
+      return;
     }
 
-    const newNews = news.map(item => {
-      item.isReadOnly = true
-      return item
-    })
+    const newNews = news.map((item) => {
+      item.isReadOnly = true;
+      return item;
+    });
     dispatch(updateNews(newNews));
-    firebase.saveNews(userID,news).then((_) =>{
-      saveAlert("影展越來越完整囉\n我們來制定票價和公告交通資訊吧", BlueCloudImg).then(res => {
-        if(res.isConfirmed){
-          navigate("/backstage/price")
+    firebase.saveNews(userID, news).then((_) => {
+      saveAlert(
+        "影展越來越完整囉\n我們來制定票價和公告交通資訊吧",
+        BlueCloudImg
+      ).then((res) => {
+        if (res.isConfirmed) {
+          navigate("/backstage/price");
         }
       });
-    })
-  }
+    });
+  };
 
   return (
     <div className="flex flex-col  my-24 mx-auto w-11/12">
@@ -143,7 +147,6 @@ function EditNews() {
               isReadOnly={item.isReadOnly}
               index={index}
               onChange={handleChange}
- 
             >
               編輯消息 / News
             </Textarea>
@@ -179,10 +182,7 @@ function EditNews() {
           </div>
         ))}
       <div className="flex justify-center mt-12 w-full">
-        <button
-          onClick={saveNews}
-          className="button-blue  mx-0"
-        >
+        <button onClick={saveNews} className="button-blue  mx-0">
           儲存本頁
         </button>
       </div>

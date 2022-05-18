@@ -1,11 +1,11 @@
 import { useState } from "react";
-import "react-date-range/dist/styles.css";
-import "react-date-range/dist/theme/default.css";
-import { DateRangePicker } from "react-date-range";
+import { useDispatch, useSelector } from "react-redux";
+
 import { doc, updateDoc } from "firebase/firestore";
-import { db } from "../utils/firebase-config";
+import { DateRangePicker } from "react-date-range";
 import Moment from "moment";
 import { extendMoment } from "moment-range";
+
 import {
   updateFestivalName,
   updateLocations,
@@ -14,8 +14,8 @@ import {
   updateFestivalPost,
   updateFestivalLogo,
 } from "../actions";
+import { db } from "../utils/firebase-config";
 import { firebase } from "../utils/firebase-config";
-import { useDispatch, useSelector } from "react-redux";
 import BlueCloudImg from "../img/BlueCloud.png";
 import PuzzleImg from "../img/Puzzle.png";
 import { saveAlert } from "../utils/customAlert";
@@ -99,7 +99,6 @@ function Backstage() {
 
   const getAvailableDates = () => {
     const moment = extendMoment(Moment);
-
     const dateRange = moment.range(moment(startDate), moment(endDate));
     const dateArray = Array.from(dateRange.by("days"));
     const availableDates = dateArray.map((item) => {

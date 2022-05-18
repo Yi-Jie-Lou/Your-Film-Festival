@@ -1,17 +1,18 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+import uniqid from "uniqid";
+
 import Creator from "../components/Creator";
 import FilmContent from "../components/FilmContent";
 import Booking from "../components/Booking";
 import Note from "../components/Note";
 import { firebase } from "../utils/firebase-config";
-import { updateFeatures } from "../actions";
-import { useSelector, useDispatch } from "react-redux";
-import { switchTab } from "../actions";
-import uniqid from "uniqid";
+import { saveAlert, errorAlert } from "../utils/customAlert";
+import { updateFeatures, switchTab } from "../actions";
 import BlueCloudImg from "../img/BlueCloud.png";
 import PuzzleImg from "../img/Puzzle.png";
-import { saveAlert, errorAlert } from "../utils/customAlert";
-import { useNavigate } from "react-router-dom";
 
 function Features() {
   const dispatch = useDispatch();

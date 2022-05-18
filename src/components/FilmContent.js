@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateFeatures } from "../actions";
-import { firebase, storage } from "../utils/firebase-config";
+
 import { ref, uploadBytesResumable } from "firebase/storage";
+
 import Loading from "./global/Loading";
 import Input from "./Input";
 import Textarea from "./Textarea";
+import { updateFeatures } from "../actions";
+import { firebase, storage } from "../utils/firebase-config";
+import { limitAlert } from "../utils/customAlert";
 import LoadingAnim from "../img/LoadingAnim.gif";
 import DarkBlueCloudImg from "../img/DarkBlueCloud.png";
-import { limitAlert } from "../utils/customAlert";
 
 function FilmContent() {
   const dispatch = useDispatch();
@@ -83,7 +85,6 @@ function FilmContent() {
         const progress = Math.round(
           (res.bytesTransferred / res.totalBytes) * 100
         );
-        console.log(progress);
         setProgress(progress);
       },
       (error) => {
@@ -103,8 +104,6 @@ function FilmContent() {
     );
   };
 
-
-
   const handleChange = (value, key, _) => {
     const newFeatures = [...features];
     const editIndex = newFeatures.findIndex(
@@ -120,8 +119,6 @@ function FilmContent() {
     setFeatureImgs(current[0].featureImgs);
     setCurrentFeature(current[0]);
   }, [currentTab, features]);
-
-
 
   return (
     <>

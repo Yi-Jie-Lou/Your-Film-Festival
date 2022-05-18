@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import TimePicker from "react-time-picker/dist/entry.nostyle";
 import { useSelector, useDispatch } from "react-redux";
+import TimePicker from "react-time-picker/dist/entry.nostyle";
 import { updateFeatures } from "../actions";
 import "../css/TimePicker.css";
 
@@ -113,7 +113,6 @@ function Booking() {
             </div>
 
             <div className="flex flex-col">
-              {/* <Select /> */}
               <TimePicker
                 className={"mb-2  h-10 border-4 rounded-xl text-center border-[#94bed1]"}
                 clearIcon={null}

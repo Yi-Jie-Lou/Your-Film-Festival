@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+
 import ImageGallery from "react-image-gallery";
+
 import Details from "../components/featureDetails/Details";
 import Trailer from "../components/featureDetails/Trailer";
 import Creators from "../components/featureDetails/Creators";
 import TimetableLink from "../components/featureDetails/TimetableLink";
 import Reminder from "../components/featureDetails/Reminder";
-import "react-image-gallery/styles/css/image-gallery.css";
+
 
 function FeatureDetails(props) {
   const features = useSelector((state) => state.features);

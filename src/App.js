@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
   Routes,
   Route,
   BrowserRouter,
   Outlet,
-  Navigate,
 } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 import {
   userLogin,
   updateState,
@@ -26,7 +27,6 @@ import {
   updateSponsor,
   updatePrimaryColor,
   updateSecondaryColor,
-  isGuide,
   updateTextColor,
   updateFestivalStart,
   updateFestivalEnd,
@@ -64,8 +64,7 @@ function App() {
     const currentFestival = path.split("festival=")[1];
 
     const setupReduxStore = (res) => {
-      console.log("keep mind!");
-      console.log(res);
+      console.log("Keep mind of firebase usage！ : init redux data");
       dispatch(updatePeriod(res.festivalPeriod));
       dispatch(updateLocations(res.locations));
       dispatch(updateFeatures(res.features));
@@ -82,7 +81,6 @@ function App() {
       dispatch(updatePrimaryColor(res.primaryColor));
       dispatch(updateSecondaryColor(res.secondaryColor));
       dispatch(updateTextColor(res.textColor));
-      // dispatch(isGuide(res.isGuide));
       dispatch(updateFestivalStart(res.festivalStart));
       dispatch(updateFestivalEnd(res.festivalEnd));
       dispatch(getUserEmail(res.userEmail));
@@ -92,9 +90,7 @@ function App() {
       const auth = getAuth();
       onAuthStateChanged(auth, (currentUser) => {
         if (currentUser) {
-          console.log(currentUser)
           dispatch(userLogin(currentUser.uid));
-   
           dispatch(updateState("login"));
           firebase
             .readFestivalData(currentUser.uid)
@@ -112,15 +108,12 @@ function App() {
       });
     };
 
-    console.log("test2");
-
     firebase.getAllPubished().then((festivalList) => {
       if (festivalList.some((item) => item === currentFestival)) {
         firebase
           .readPublishedFestivalData(currentFestival)
           .then((res) => {
             setupReduxStore(res);
-            console.log("correct");
           })
           .then((_) => {
             setIsLoading(false);
@@ -238,7 +231,6 @@ function BackstageRouter(props) {
 function PreviewRouter(props) {
   useEffect(() => {
     window.scrollTo(0, 0);
-    console.log("test");
   }, []);
   return (
     <>

@@ -10,9 +10,11 @@ import {
 } from "firebase/firestore";
 import { getStorage, getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { getAuth } from "firebase/auth";
+
 import uniqid from "uniqid";
-import BlueCloudImg from "../img/BlueCloud.png";
 import { saveAlert } from "./customAlert";
+
+import BlueCloudImg from "../img/BlueCloud.png";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAXxoQUDtYZTpNVNCmeZCQ97Co5rFrN6ic",
@@ -21,12 +23,6 @@ const firebaseConfig = {
   storageBucket: "your-film-festival-d2cd4.appspot.com",
   messagingSenderId: "949992507014",
   appId: "1:949992507014:web:7c9e03ee195d4929613307",
-  // apiKey: "AIzaSyDz4pHOLWAbEXPB5Xa2Ks-czqAMemfHOLI",
-  // authDomain: "project2-draft.firebaseapp.com",
-  // projectId: "project2-draft",
-  // storageBucket: "project2-draft.appspot.com",
-  // messagingSenderId: "98376440747",
-  // appId: "1:98376440747:web:159654289e8cda601890ee",
 };
 
 const app = initializeApp(firebaseConfig);

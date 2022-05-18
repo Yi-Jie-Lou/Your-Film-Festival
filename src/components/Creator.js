@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateFeatures } from "../actions";
-import { firebase } from "../utils/firebase-config";
+
 import Input from "./Input";
 import Textarea from "./Textarea";
-import DarkBlueCloudImg from "../img/DarkBlueCloud.png";
+import { updateFeatures } from "../actions";
+import { firebase } from "../utils/firebase-config";
 import { limitAlert } from "../utils/customAlert";
+import DarkBlueCloudImg from "../img/DarkBlueCloud.png";
 
 function Creator() {
   const dispatch = useDispatch();
@@ -54,7 +55,6 @@ function Creator() {
 
     await firebase.uploadImgs(uploadImg);
     firebase.getUploadImgs(uploadImg).then((uploadUrl) => {
-      console.log(uploadUrl);
       const newFeatures = [...features];
       const newCreators = [...currentFeatureCreators];
       newCreators[index].img = uploadUrl;

@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { updatePrimaryColor, updateSecondaryColor } from "../actions";
 
 const mainColor = [
@@ -214,7 +214,6 @@ const mainColor = [
       "bg-[#581c87]",
     ],
   },
- 
 ];
 
 const colorCategoryList = mainColor.reduce(

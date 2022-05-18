@@ -1,8 +1,10 @@
-import Loading from "./Loading";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+
+import Loading from "./Loading";
 import { redirectAlert } from "../../utils/customAlert";
 import PuzzleImg from "../../img/Puzzle.png";
-import { useNavigate } from "react-router-dom";
+
 
 function RedirectPage() {
   const login = useSelector((state) => state.state);

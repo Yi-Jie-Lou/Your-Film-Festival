@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import FooterImg from "../../img/FooterImgNew_1920.png";
 import CloudsImg from "../../img/Cloud.png";
 import GitLogo from "../../img/GitLogo.png";
-import { useSelector } from "react-redux";
+
 
 function TemplateFooter() {
   return (

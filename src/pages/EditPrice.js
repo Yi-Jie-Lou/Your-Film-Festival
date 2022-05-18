@@ -1,16 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
 import Textarea from "../components/Textarea";
 import Input from "../components/Input";
 import { updatePrice, updateTraffic } from "../actions";
 import { firebase } from "../utils/firebase-config";
+import { limitAlert, saveAlert, errorAlert } from "../utils/customAlert";
 import DarkBlueCloudImg from "../img/DarkBlueCloud.png";
-import { limitAlert } from "../utils/customAlert";
 import BlueCloudImg from "../img/BlueCloud.png";
-import { saveAlert } from "../utils/customAlert";
-import { useNavigate } from "react-router-dom";
 import PuzzleImg from "../img/Puzzle.png";
-import { errorAlert } from "../utils/customAlert";
 
 function EditPrice() {
   const dispatch = useDispatch();

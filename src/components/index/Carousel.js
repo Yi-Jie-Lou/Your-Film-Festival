@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
+
 import CarouselFrame from "./CarouselFrame";
 
 function Carousel(props) {
