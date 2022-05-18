@@ -115,7 +115,7 @@ function Login() {
     
       <Header userState={state} />
       <div className="vertical mt-4  | h-[calc(100vh-96px)] | xl:h-[calc(100vh-136px)] ">
-        <div className="flex flex-wrap justify-center  mx-auto w-11/12 ">
+        <div className="flex flex-wrap justify-center  mx-auto w-11/12 | flex-col | sm:flex-row ">
           <div className="vertical">
             <div
               className=" w-64  h-64  "
@@ -127,7 +127,7 @@ function Login() {
               }}
             ></div>
           </div>
-          <div id='step2'  className="flex  flex-wrap justify-center w-1/3 ">
+          <div id='step2'  className="flex  flex-wrap justify-center w-1/3 z-10 ">
             <h1 className=" my-4 p-2 w-full text-center text-xl tracking-wider  rounded-lg ">
               登入開始建立您的影展
             </h1>

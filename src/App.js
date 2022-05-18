@@ -88,7 +88,6 @@ function App() {
       dispatch(getUserEmail(res.userEmail));
     };
 
-    //判斷登入
     const monitorAuthState = async () => {
       const auth = getAuth();
       onAuthStateChanged(auth, (currentUser) => {

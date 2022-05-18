@@ -9,14 +9,15 @@ import {
   CustomerNavLink,
   MobileNavLink,
   LoginNavLink,
-  LoginLink
+  LoginLink,
+  MobileBuild,
 } from "./CubeNavLink";
 import Logo from "../../img/yourFilmLogoA.png";
 import CubeA from "../../img/yourFilmCubeA.png";
 import CubeB from "../../img/yourFilmCubeB.png";
 import CubeC from "../../img/yourFilmCubeC.png";
 import PuzzleImg from "../../img/Puzzle.png";
-import {errorAlert } from "../../utils/customAlert";
+import { errorAlert } from "../../utils/customAlert";
 
 function TemplateHeader() {
   const path = useParams();
@@ -45,21 +46,24 @@ function TemplateHeader() {
         </div>
 
         <div className="ml-auto text-center text-1xl | hidden | sm:flex">
-          <LoginLink router="/build/festival=YourFilmFestival" id="step1" cube={CubeB}>
+          <LoginLink
+            router="/build/festival=YourFilmFestival"
+            id="step1"
+            cube={CubeB}
+          >
             範例網站
           </LoginLink>
-          
 
           {state === "logout" ? (
             <LoginNavLink router="/" cube={CubeC}>
               請先登入
             </LoginNavLink>
           ) : state === "login" ? (
-            <LoginNavLink router="/backstage"  cube={CubeC}>
+            <LoginNavLink router="/backstage" cube={CubeC}>
               進入後台
             </LoginNavLink>
           ) : (
-            <LoginNavLink router="/"  cube={CubeC}>
+            <LoginNavLink router="/" cube={CubeC}>
               Loading...
             </LoginNavLink>
           )}
@@ -120,44 +124,158 @@ function BackstageHeader() {
 
 function PreviewHeader() {
   const userUID = useSelector((state) => state.userID);
+  const secondaryColor = useSelector((state) => state.secondaryColor);
   const festivalLogo = useSelector((state) => state.festivalLogo);
   const festivalPathName = useSelector((state) => state.festivalPathName);
   const primaryColor = useSelector((state) => state.primaryColor);
   const textColor = useSelector((state) => state.textColor);
+  const [isActive, setIsActive] = useState(false);
+  const path = useParams();
+
+  useEffect(() => {
+    setIsActive(false);
+  }, [path]);
 
   return (
     <div
       style={{
         background: primaryColor,
-        color: textColor
+        color: textColor,
       }}
-      className="header__container rounded-b-none justify-between"
+      className="header__container border-b-0 rounded-b-none justify-between"
     >
       <CustomerNavLink router="/preview">
         {festivalLogo ? (
-          <img className="h-16 ml-2" src={festivalLogo} />
+          <img
+            className="h-16 ml-2 py-2 mx-6 | hidden my-1 | md:block | md:my-2 "
+            src={festivalLogo}
+          />
         ) : (
           "請上傳LOGO"
         )}
       </CustomerNavLink>
-      <div className="flex h-[48px]  my-6 mr-4 ml-auto  text-center text-1xl">
+
+      <div
+        onClick={() => {
+          setIsActive((prev) => !prev);
+        }}
+        className="w-full h-[67px] py-2 justify-center | flex | md:hidden"
+      >
+        <img className=" h-full" src={festivalLogo} />
+      </div>
+
+      <div
+        className={`fixed flex top-[67px] left-0 flex-col items-center  w-full  ${
+          isActive ? "h-full z-30" : "h-0 duration-0 z-0"
+        }  bg-stone-900/50  | flex | md:hidden`}
+      >
+        <MobileNavLink
+          isActive={isActive}
+          router="/preview"
+          color={`${secondaryColor}`}
+          className={
+            isActive
+              ? "h-16 delay-[100ms] transition-all  duration-700"
+              : "h-0 duration-0"
+          }
+        >
+          首頁
+        </MobileNavLink>
+        <MobileNavLink
+          isActive={isActive}
+          router="/preview/news"
+          color={`${primaryColor}`}
+          className={
+            isActive
+              ? "h-16 delay-[200ms] transition-all  duration-700"
+              : "h-0 duration-0"
+          }
+        >
+          最新消息
+        </MobileNavLink>
+        <MobileNavLink
+          isActive={isActive}
+          router="/preview/price"
+          color={`${secondaryColor}`}
+          className={
+            isActive
+              ? "h-16 delay-[300ms] transition-all  duration-700"
+              : "h-0 duration-0"
+          }
+        >
+          購票資訊
+        </MobileNavLink>
+        <MobileNavLink
+          isActive={isActive}
+          router="/preview/timetable"
+          color={`${primaryColor}`}
+          className={
+            isActive
+              ? "h-16 delay-[400ms] transition-all  duration-700"
+              : "h-0 duration-0"
+          }
+        >
+          場次表
+        </MobileNavLink>
+        <MobileNavLink
+          isActive={isActive}
+          router="/preview/workshop"
+          color={`${secondaryColor}`}
+          className={
+            isActive
+              ? "h-16 delay-[500ms] transition-all  duration-700"
+              : "h-0 duration-0"
+          }
+        >
+          工作坊
+        </MobileNavLink>
+        <MobileNavLink
+          isActive={isActive}
+          router="/backstage/features"
+          className={
+            isActive
+              ? "h-16 delay-[100ms] transition-all  duration-700 bg-[#57bdc8]"
+              : "h-0 duration-0"
+          }
+        >
+          回到後台
+        </MobileNavLink>
+        <MobileBuild
+          onClick={() => {
+            userUID
+              ? firebase.buildFestival(userUID, festivalPathName)
+              : errorAlert("您好像還沒登入", PuzzleImg);
+          }}
+          isActive={isActive}
+          className={
+            isActive
+              ? "h-16 delay-[700ms] transition-all  duration-700 bg-[#f08074]"
+              : "h-0 duration-0"
+          }
+        >
+          建立網站
+        </MobileBuild>
+      </div>
+
+      <div className=" h-[48px]  my-6 mr-4 ml-auto  text-center text-1xl | hidden | md:flex ">
         <CustomerNavLink router="/preview/news">最新消息</CustomerNavLink>
         <CustomerNavLink router="/preview/price">購票資訊</CustomerNavLink>
         <CustomerNavLink router="/preview/timetable">場次表</CustomerNavLink>
         <CustomerNavLink router="/preview/workshop">工作坊</CustomerNavLink>
         <NavLink className="vertical mx-2" to="/backstage/features">
-          <div className="vertical button-blue border-2 w-40 py-2  text-center text-1xl ">
+          <div className="vertical button-blue border-2 py-2  text-center text-1xl w-32 | xl:w-40">
             <span>回到後台</span>
           </div>
         </NavLink>
+
         <div className="vertical mx-2 ">
           <button
             onClick={() => {
               userUID
                 ? firebase.buildFestival(userUID, festivalPathName)
-                : errorAlert('您好像還沒登入', PuzzleImg)
+                : errorAlert("您好像還沒登入", PuzzleImg);
             }}
-            className="flex justify-center border-2 items-center button-red w-40   text-center text-1xl "
+            className="flex justify-center border-2 items-center button-red text-center text-1xl w-32 | xl:w-40"
           >
             <span className="text-center">建立網站</span>
           </button>
@@ -172,23 +290,109 @@ function BuildHeader() {
   const festivalLogo = useSelector((state) => state.festivalLogo);
   const primaryColor = useSelector((state) => state.primaryColor);
   const textColor = useSelector((state) => state.textColor);
+  const secondaryColor = useSelector((state) => state.secondaryColor);
+  const [isActive, setIsActive] = useState(false);
+  const path = useParams();
+
+  useEffect(() => {
+    setIsActive(false);
+  }, [path]);
 
   return (
     <div
       style={{
         background: primaryColor,
-        color: textColor
+        color: textColor,
       }}
-      className="header__container  rounded-b-none  justify-between"
+      className="header__container border-b-0 rounded-b-none  justify-between"
     >
+      <div
+        onClick={() => {
+          setIsActive((prev) => !prev);
+        }}
+        className="w-full h-[67px] py-2 justify-center | flex | md:hidden"
+      >
+        <img className=" h-full" src={festivalLogo} />
+      </div>
+
+      <div
+        className={`fixed flex top-[67px] left-0 flex-col items-center  w-full  ${
+          isActive ? "h-full z-30" : "h-0 duration-0 z-0"
+        }  bg-stone-900/50  | flex | md:hidden`}
+      >
+        <MobileNavLink
+          isActive={isActive}
+          router={`/build/festival=${festivalPathName}`}
+          color={`${secondaryColor}`}
+          className={
+            isActive
+              ? "h-16 delay-[100ms] transition-all  duration-700"
+              : "h-0 duration-0"
+          }
+        >
+          首頁
+        </MobileNavLink>
+        <MobileNavLink
+          isActive={isActive}
+          router={`/build/news/festival=${festivalPathName}`}
+          color={`${primaryColor}`}
+          className={
+            isActive
+              ? "h-16 delay-[200ms] transition-all  duration-700"
+              : "h-0 duration-0"
+          }
+        >
+          最新消息
+        </MobileNavLink>
+        <MobileNavLink
+          isActive={isActive}
+          router={`/build/price/festival=${festivalPathName}`}
+          color={`${secondaryColor}`}
+          className={
+            isActive
+              ? "h-16 delay-[300ms] transition-all  duration-700"
+              : "h-0 duration-0"
+          }
+        >
+          購票資訊
+        </MobileNavLink>
+        <MobileNavLink
+          isActive={isActive}
+          router={`/build/timetable/festival=${festivalPathName}`}
+          color={`${primaryColor}`}
+          className={
+            isActive
+              ? "h-16 delay-[400ms] transition-all  duration-700"
+              : "h-0 duration-0"
+          }
+        >
+          場次表
+        </MobileNavLink>
+        <MobileNavLink
+          isActive={isActive}
+          router={`/build/workshop/festival=${festivalPathName}`}
+          color={`${secondaryColor}`}
+          className={
+            isActive
+              ? "h-16 delay-[500ms] transition-all  duration-700"
+              : "h-0 duration-0"
+          }
+        >
+          工作坊
+        </MobileNavLink>
+      </div>
+
       <CustomerNavLink router={`/build/festival=${festivalPathName}`}>
         {festivalLogo ? (
-          <img className="h-16 ml-2" src={festivalLogo} />
+          <img
+            className="h-16 ml-2  | hidden my-1 | md:block | md:my-2"
+            src={festivalLogo}
+          />
         ) : (
           "請上傳LOGO"
         )}
       </CustomerNavLink>
-      <div className="flex h-[48px]  my-6 mr-6 ml-auto  text-center text-1xl">
+      <div className="h-[48px]  my-6 mr-4 ml-auto  text-center text-1xl | hidden | md:flex">
         <CustomerNavLink router={`/build/news/festival=${festivalPathName}`}>
           最新消息
         </CustomerNavLink>

@@ -28,7 +28,6 @@ function EditNews() {
 
   const preview = async (e, index) => {
     if (!e.target.files[0]) return;
-    if (!e.target.files[0]) return;
     const uploadImg = e.target.files[0];
     const uploadSize = e.target.files[0].size;
 
