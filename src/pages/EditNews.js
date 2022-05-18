@@ -7,17 +7,17 @@ import Textarea from "../components/Textarea";
 import Input from "../components/Input";
 import Checkbox from "../components/Checkbox";
 import useRoutePush from "../hooks/useRoutePush";
+import checkUploadImgSize from "../helper/checkUploadSize";
 import { updateNews } from "../actions";
 import { firebase } from "../utils/firebase-config";
-import { errorAlert, limitAlert} from "../utils/customAlert";
-import DarkBlueCloudImg from "../img/DarkBlueCloud.png";
+import { errorAlert } from "../utils/customAlert";
 import PuzzleImg from "../img/Puzzle.png";
 
 function EditNews() {
   const dispatch = useDispatch();
   const userID = useSelector((state) => state.userID);
   const news = useSelector((state) => state.news);
-  const routerHandler = useRoutePush()
+  const routerHandler = useRoutePush();
 
   const handleChange = (value, key, index) => {
     const newNews = [...news];
@@ -26,17 +26,10 @@ function EditNews() {
   };
 
   const preview = async (e, index) => {
-    if (!e.target.files[0]) return;
     const uploadImg = e.target.files[0];
-    const uploadSize = e.target.files[0].size;
+    const isValidImgSize = checkUploadImgSize(uploadImg);
+    if (!isValidImgSize) return;
 
-    if (uploadSize / 1024 > 200) {
-      limitAlert(
-        `上傳檔案需請小於200KB\n您的檔案為${Math.floor(uploadSize / 1024)}KB`,
-        DarkBlueCloudImg
-      );
-      return;
-    }
     await firebase.uploadImgs(uploadImg);
     firebase.getUploadImgs(uploadImg).then((uploadUrl) => {
       const newNews = [...news];
@@ -70,11 +63,19 @@ function EditNews() {
     dispatch(updateNews(newNews));
   };
 
-  const saveNews = () => {
+  const checkInputValue = () =>{
+    let isError = false
     if (news.some((item) => !item.title.trim())) {
       errorAlert("舉辦地點不可以是空白的噢", PuzzleImg);
-      return;
+      isError = true
+      return isError  
     }
+    return isError
+  }
+
+  const saveNews = () => {
+    const isError = checkInputValue()
+    if (isError) return
 
     const newNews = news.map((item) => {
       item.isReadOnly = true;
@@ -83,7 +84,10 @@ function EditNews() {
     dispatch(updateNews(newNews));
 
     firebase.saveNews(userID, news).then((_) => {
-      routerHandler("影展越來越完整囉\n我們來制定票價和公告交通資訊吧","/backstage/price")
+      routerHandler(
+        "影展越來越完整囉\n我們來制定票價和公告交通資訊吧",
+        "/backstage/price"
+      );
     });
   };
 

@@ -4,19 +4,18 @@ import { useDispatch, useSelector } from "react-redux";
 import Textarea from "../components/Textarea";
 import Input from "../components/Input";
 import useRoutePush from "../hooks/useRoutePush";
+import checkUploadImgSize from "../helper/checkUploadSize";
 import { updatePrice, updateTraffic } from "../actions";
 import { firebase } from "../utils/firebase-config";
-import { limitAlert, errorAlert } from "../utils/customAlert";
-import DarkBlueCloudImg from "../img/DarkBlueCloud.png";
+import { errorAlert } from "../utils/customAlert";
 import PuzzleImg from "../img/Puzzle.png";
 
 function EditPrice() {
   const dispatch = useDispatch();
-  const routerHandler = useRoutePush()
+  const routerHandler = useRoutePush();
   const userID = useSelector((state) => state.userID);
   const price = useSelector((state) => state.price);
   const traffic = useSelector((state) => state.traffic);
-
 
   const handleChange = (value, key, index) => {
     const newPrice = [...price];
@@ -37,17 +36,9 @@ function EditPrice() {
   };
 
   const preview = async (e, index) => {
-    if (!e.target.files[0]) return;
     const uploadImg = e.target.files[0];
-    const uploadSize = e.target.files[0].size;
-
-    if (uploadSize / 1024 > 200) {
-      limitAlert(
-        `上傳檔案需請小於200KB\n您的檔案為${Math.floor(uploadSize / 1024)}KB`
-      , DarkBlueCloudImg);
-      return;
-    }
-
+    const isValidImgSize = checkUploadImgSize(uploadImg);
+    if (!isValidImgSize) return;
 
     await firebase.uploadImgs(uploadImg);
     firebase.getUploadImgs(uploadImg).then((uploadUrl) => {
@@ -108,31 +99,40 @@ function EditPrice() {
     dispatch(updateTraffic(newTraffic));
   };
 
-  const savePrice = () =>{
-    let isError = false
+  const checkInputValue = () =>{
+    let isError = false;
 
-    price.forEach((item)=>{
-      if(!item.category.trim()|| !item.saleTime.trim() || !item.marketing.trim()){
-        isError = true
+    price.forEach((item) => {
+      if (
+        !item.category.trim() ||
+        !item.saleTime.trim() ||
+        !item.marketing.trim()
+      ) {
+        isError = true;
       }
 
-      item.tickets.forEach(ticket => {
-        if(!ticket.kind.trim()|| !ticket.price.trim()){
-          isError = true
+      item.tickets.forEach((ticket) => {
+        if (!ticket.kind.trim() || !ticket.price.trim()) {
+          isError = true;
         }
-      })
-    })
+      });
+    });
 
-    if(isError){
+    if (isError) {
       errorAlert("售票資訊有空白欄位噢", PuzzleImg);
-      return
+      return isError
     }
-
-
-    firebase.savePricePage(userID, price, traffic).then((_) =>{
-      routerHandler("就要完成囉\n快來建立一個工作坊吧","/backstage/workshop")
-    })
+    return isError
   }
+
+  const savePrice = () => {
+    const isError = checkInputValue()
+    if(isError) return
+
+    firebase.savePricePage(userID, price, traffic).then((_) => {
+      routerHandler("就要完成囉\n快來建立一個工作坊吧", "/backstage/workshop");
+    });
+  };
 
   return (
     <div className="flex flex-col  my-24 mx-auto w-11/12">
@@ -291,10 +291,7 @@ function EditPrice() {
         ))}
 
       <div className="flex justify-center mt-24 w-full">
-        <button
-          onClick={savePrice}
-          className="button-blue  mx-0"
-        >
+        <button onClick={savePrice} className="button-blue  mx-0">
           儲存本頁
         </button>
       </div>

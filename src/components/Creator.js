@@ -4,9 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Input from "./Input";
 import Textarea from "./Textarea";
 import { updateFeatures } from "../actions";
+import checkUploadImgSize from "../helper/checkUploadSize";
 import { firebase } from "../utils/firebase-config";
-import { limitAlert } from "../utils/customAlert";
-import DarkBlueCloudImg from "../img/DarkBlueCloud.png";
 
 function Creator() {
   const dispatch = useDispatch();
@@ -44,14 +43,9 @@ function Creator() {
   };
 
   const preview = async (e, index) => {
-    if (!e.target.files[0]) return;
     const uploadImg = e.target.files[0];
-    const uploadSize = e.target.files[0].size;
-
-    if (uploadSize / 1024 > 200) {
-      limitAlert( `上傳檔案需請小於200KB\n您的檔案為${Math.floor(uploadSize / 1024)}KB`, DarkBlueCloudImg)
-      return;
-    }
+    const isValidImgSize = checkUploadImgSize(uploadImg)
+    if(!isValidImgSize) return
 
     await firebase.uploadImgs(uploadImg);
     firebase.getUploadImgs(uploadImg).then((uploadUrl) => {

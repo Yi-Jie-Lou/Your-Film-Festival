@@ -20,7 +20,7 @@ import { errorAlert } from "../utils/customAlert";
 
 function Backstage() {
   const dispatch = useDispatch();
-  const routerHandler = useRoutePush()
+  const routerHandler = useRoutePush();
   const festivalName = useSelector((state) => state.festivalName);
   const festivalPathName = useSelector((state) => state.festivalPathName);
   const festivalPost = useSelector((state) => state.festivalPost);
@@ -31,7 +31,6 @@ function Backstage() {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const userID = useSelector((state) => state.userID);
- 
 
   const selectionRange = {
     startDate: startDate,
@@ -39,24 +38,31 @@ function Backstage() {
     key: "selection",
   };
 
+  const checkInputValue = () => {
+    let isError = false;
+    locations.forEach((loaction) => {
+      if (!loaction.trim()) {
+        isError = true;
+      }
+    });
+
+    if (isError) {
+      errorAlert("舉辦地點不可以是空白的噢", PuzzleImg);
+      return isError;
+    }
+
+    if (!festivalName.trim() || !festivalPathName.trim()) {
+      errorAlert("請填寫影展名稱", PuzzleImg);
+      isError = true;
+      return isError;
+    }
+    return isError;
+  };
+
   const saveToFirebase = () => {
     if (!userID) return;
-    let isError = false
-    locations.forEach(loaction =>{
-      if(!loaction.trim()){
-        isError = true
-      }
-    })
-
-    if(isError){
-      errorAlert("舉辦地點不可以是空白的噢", PuzzleImg);
-      return
-    }
-
-    if(!festivalName.trim() || !festivalPathName.trim() ){
-      errorAlert("請填寫影展名稱", PuzzleImg);
-      return;
-    }
+    const isError = checkInputValue();
+    if (isError) return;
 
     const festivalObj = {
       locations,
@@ -67,13 +73,18 @@ function Backstage() {
       festivalLogo,
       festivalStart: startDate,
       festivalEnd: endDate,
-    } 
+    };
 
-    firebase.saveFestivalDetail(userID,festivalObj).then(() => {
+    firebase
+      .saveFestivalDetail(userID, festivalObj)
+      .then(() => {
         dispatch(updatePeriod(getAvailableDates()));
       })
       .then((_) => {
-        routerHandler("您已經完成第一步囉\n接著來上傳影片吧","/backstage/features")
+        routerHandler(
+          "您已經完成第一步囉\n接著來上傳影片吧",
+          "/backstage/features"
+        );
       });
   };
 
@@ -179,15 +190,15 @@ function Backstage() {
                 value={item}
                 onChange={(e) => handleChange(index, e)}
               />
-              <div className="vertical ml-2"> 
-              <button
-                className="button-red"
-                onClick={() => {
-                  deleteTheather(index);
-                }}
-              >
-                Delete
-              </button>
+              <div className="vertical ml-2">
+                <button
+                  className="button-red"
+                  onClick={() => {
+                    deleteTheather(index);
+                  }}
+                >
+                  Delete
+                </button>
               </div>
             </div>
           ))}

@@ -68,7 +68,7 @@ function Features() {
     dispatch(switchTab(newFeatures[0].featureID));
   };
 
-  const saveFeatures = () => {
+  const checkInputValue = () =>{
     const newFeatures = [...features];
     let isError = false;
 
@@ -95,9 +95,16 @@ function Features() {
 
     if (isError) {
       errorAlert("必填欄位不可以是空白的噢", PuzzleImg);
-      return;
+      return isError
     }
+    return isError
+  }
 
+  const saveFeatures = () => {
+    const isError = checkInputValue()
+    if(isError) return
+    
+    const newFeatures = [...features];
     newFeatures.forEach((film) => {
       film.timetable.forEach((timetable) => {
         timetable.name = film.title;
@@ -105,8 +112,8 @@ function Features() {
         timetable.img = film.featureImgs[2];
       });
     });
-
     dispatch(updateFeatures(newFeatures));
+
     firebase.saveFeatures(userID, features).then((_) => {
       routerHandler(
         "影片都上傳完畢了嗎\n接著我們來發布影展公告吧",

@@ -7,12 +7,11 @@ import {
   updateTextColor,
 } from "../actions";
 import { firebase } from "../utils/firebase-config";
+import checkUploadImgSize from "../helper/checkUploadSize";
 import Input from "../components/Input";
 import ColorCube from "../components/ColorCube";
 import TextColorCube from "../components/TextColorCube";
 import useRoutePush from "../hooks/useRoutePush";
-import DarkBlueCloudImg from "../img/DarkBlueCloud.png";
-import { limitAlert } from "../utils/customAlert";
 import PuzzleImg from "../img/Puzzle.png";
 import { errorAlert } from "../utils/customAlert";
 
@@ -51,18 +50,11 @@ function EditFooterAndColor() {
   };
 
   const previewSponsorImg = async (e, index) => {
-    if (!e.target.files[0]) return;
     const uploadImg = e.target.files[0];
-    const uploadSize = e.target.files[0].size;
+    const isValidImgSize = checkUploadImgSize(uploadImg)
 
-    if (uploadSize / 1024 > 200) {
-      limitAlert(
-        `上傳檔案需請小於200KB\n您的檔案為${Math.floor(uploadSize / 1024)}KB`,
-        DarkBlueCloudImg
-      );
-      return;
-    }
-
+    if(!isValidImgSize) return
+   
     await firebase.uploadImgs(uploadImg);
     firebase.getUploadImgs(uploadImg).then((uploadUrl) => {
       const newSponsor = { ...sponsor };
@@ -82,13 +74,22 @@ function EditFooterAndColor() {
     dispatch(updateSponsor(newSponsor));
   };
 
-  const saveSponsorAndColors = () => {
+  const checkInputValue = () =>{
+    let isError = false
     const reg = /^#([0-9a-f]{3}){1,2}$/i;
 
     if (!reg.test(primaryColor) || !reg.test(secondaryColor) || !reg.test(textColor)) {
       errorAlert("請輸入正確色碼", PuzzleImg);
-      return;
+      isError = true
+      return isError
     }
+    return isError
+  }
+
+  const saveSponsorAndColors = () => {
+    const isError = checkInputValue()
+    if(isError) return
+    
     firebase
       .saveSponsor(userID, sponsor, primaryColor, secondaryColor, textColor)
       .then((_) => {

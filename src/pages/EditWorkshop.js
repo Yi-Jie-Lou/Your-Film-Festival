@@ -8,10 +8,10 @@ import Input from "../components/Input";
 import Checkbox from "../components/Checkbox";
 import Cropper from "../components/Cropper";
 import useRoutePush from "../hooks/useRoutePush";
+import checkUploadImgSize from "../helper/checkUploadSize";
 import { updateWorkshop } from "../actions";
 import { firebase } from "../utils/firebase-config";
-import { limitAlert, errorAlert } from "../utils/customAlert";
-import DarkBlueCloudImg from "../img/DarkBlueCloud.png";
+import { errorAlert } from "../utils/customAlert";
 import PuzzleImg from "../img/Puzzle.png";
 
 function EditWorkshop() {
@@ -28,17 +28,9 @@ function EditWorkshop() {
   };
 
   const preview = async (e, index) => {
-    if (!e.target.files[0]) return;
     const uploadImg = e.target.files[0];
-    const uploadSize = e.target.files[0].size;
-
-    if (uploadSize / 1024 > 200) {
-      limitAlert(
-        `上傳檔案需請小於200KB\n您的檔案為${Math.floor(uploadSize / 1024)}KB`
-      , DarkBlueCloudImg);
-      return;
-    }
-    
+    const isValidImgSize = checkUploadImgSize(uploadImg)
+    if(!isValidImgSize) return
 
     await firebase.uploadImgs(uploadImg);
     firebase.getUploadImgs(uploadImg).then((uploadUrl) => {
@@ -49,16 +41,9 @@ function EditWorkshop() {
   };
 
   const previewGuest = async (e, index, guestIndex) => {
-    if (!e.target.files[0]) return;
     const uploadImg = e.target.files[0];
-    const uploadSize = e.target.files[0].size;
-
-    if (uploadSize / 1024 > 200) {
-      limitAlert(
-        `上傳檔案需請小於200KB\n您的檔案為${Math.floor(uploadSize / 1024)}KB`
-      , DarkBlueCloudImg);
-      return;
-    }
+    const isValidImgSize = checkUploadImgSize(uploadImg)
+    if(!isValidImgSize) return
 
     await firebase.uploadImgs(uploadImg);
     firebase.getUploadImgs(uploadImg).then((uploadUrl) => {
@@ -105,12 +90,21 @@ function EditWorkshop() {
     dispatch(updateWorkshop(newWorkshop));
   }
 
-  const saveWorkshop= () => {
+  const checkInputValue = () => {
+    let isError = false 
 
     if(workshop.some(item => (!item.title.trim()))){
       errorAlert("工作坊名稱不可以是空白的噢", PuzzleImg);
-      return
-    }
+      isError = true
+      return isError
+    }    
+    return isError
+  }
+
+  const saveWorkshop= () => {
+
+    const isError = checkInputValue()
+    if(isError) return
 
     const newWorkshop= workshop.map(item => {
       item.isReadOnly = true
