@@ -1,118 +1,175 @@
 import { NavLink, Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
-export const CubeNavLink = (props) => {
+function CubeNavLink({ router, cube, children, className }) {
   return (
-    <NavLink to={props.router}>
-      <div className={`relative top-[-10px] hover:top-[0px] text-center leading-7 w-20 ${props.className}`}>
-        <img src={props.cube} />
+    <NavLink to={router}>
+      <div
+        className={`relative top-[-10px] hover:top-[0px] text-center leading-7 w-20 ${className}`}
+      >
+        <img src={cube} />
         <span className="top-5 lg:top-6 xl:top-7 absolute w-full left-0 text-white text-shadow-light tracking-wider">
-          {props.children}
+          {children}
         </span>
       </div>
     </NavLink>
   );
+}
+
+CubeNavLink.propTypes = {
+  router: PropTypes.string.isRequired,
+  cube: PropTypes.string.isRequired,
+  children: PropTypes.string.isRequired,
 };
 
-export const LoginNavLink = (props) => {
-  return (
-    <NavLink to={props.router}>
-      <div  className="relative top-[-10px] text-center leading-7 hover:top-[0px] w-20 | sm:text-sm  | lg:w-24 lg:text-base | xl:w-32">
-        <img  src={props.cube} />
-        <span className="absolute w-full left-0 text-white text-lg text-shadow-light tracking-wider top-5 | lg:top-6 | xl:top-8 ">
-          {props.children}
-        </span>
-      </div>
-    </NavLink>
-  );
-};
 
-export const LoginLink = (props) => {
+function LoginNavLink({ router, cube, children }) {
   return (
-    <Link  id={props.id} target="_blank" to={props.router}>
+    <NavLink to={router}>
       <div className="relative top-[-10px] text-center leading-7 hover:top-[0px] w-20 | sm:text-sm  | lg:w-24 lg:text-base | xl:w-32">
-        <img  src={props.cube} />
+        <img src={cube} />
         <span className="absolute w-full left-0 text-white text-lg text-shadow-light tracking-wider top-5 | lg:top-6 | xl:top-8 ">
-          {props.children}
+          {children}
+        </span>
+      </div>
+    </NavLink>
+  );
+}
+
+LoginNavLink.propTypes = {
+  router: PropTypes.string.isRequired,
+  cube: PropTypes.string.isRequired,
+  children: PropTypes.string.isRequired,
+};
+
+
+function LoginLink({ router, cube, children, id }) {
+  return (
+    <Link id={id} target="_blank" to={router}>
+      <div className="relative top-[-10px] text-center leading-7 hover:top-[0px] w-20 | sm:text-sm  | lg:w-24 lg:text-base | xl:w-32">
+        <img src={cube} />
+        <span className="absolute w-full left-0 text-white text-lg text-shadow-light tracking-wider top-5 | lg:top-6 | xl:top-8 ">
+          {children}
         </span>
       </div>
     </Link>
   );
+}
+
+LoginLink.propTypes = {
+  router: PropTypes.string.isRequired,
+  cube: PropTypes.string.isRequired,
+  children: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
-export const SwitchCubeNavLink = (props) => {
+function SwitchCubeNavLink({ router, cube, children }) {
   return (
-    <NavLink to={props.router}>
+    <NavLink to={router}>
       <div
-        id={props.id}
         className="w-28 sm:text-sm lg:w-36 lg:text-base xl:w-40 relative top-[-10px] text-center leading-7 hover:top-[0px]"
       >
-        <img src={props.cube} />
+        <img src={cube} />
         <span className="top-5 lg:top-6 xl:top-7 absolute w-full  left-0 text-white text-shadow-light tracking-wider">
-          {props.children}
+          {children}
         </span>
       </div>
     </NavLink>
   );
+}
+
+SwitchCubeNavLink.propTypes = {
+  router: PropTypes.string.isRequired,
+  cube: PropTypes.string.isRequired,
+  children: PropTypes.string.isRequired,
 };
 
-export const SwitchReloadData = (props) => {
-  return (
-    <a href={props.router}>
-      <div
-        id={props.id}
-        className="w-28 sm:text-sm lg:w-36 lg:text-base xl:w-40 relative top-[-10px] text-center leading-7 hover:top-[0px]"
-      >
-        <img src={props.cube} />
-        <span className="top-5 lg:top-[23px]  xl:top-[28px] absolute w-full  left-0 text-white text-shadow-light tracking-wider ">
-          {props.children}
-        </span>
-      </div>
-    </a>
-  );
-};
 
-export const CustomerNavLink = (props) => {
+function CustomerNavLink({ router, children }) {
   return (
-    <NavLink className="vertical" to={props.router}>
+    <NavLink className="vertical" to={router}>
       <div className=" py-2  text-center leading-7 text-xl tracking-wider text-shadow-light hover:text-amber-200  md:mx-3 | xl:mx-5">
-        {props.children}
+        {children}
       </div>
     </NavLink>
   );
+}
+
+CustomerNavLink.propTypes = {
+  router: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([PropTypes.string.isRequired,PropTypes.element.isRequired])
 };
 
-export const MobileNavLink = (props) => {
+
+function MobileNavLink({ router, children, className, color, isActive }) {
+ 
   return (
-    <NavLink className="flex justify-center w-full" to={props.router}>
+    <NavLink className="flex justify-center w-full" to={router}>
       <div
-       style={{
-        background: props.color
-      }}
-        className={` opacity-90 hover:delay-[0ms] hover:scale-105 vertical  w-[90%] z-50 ${props.className}`}
+        style={{
+          background: color,
+        }}
+        className={` opacity-90 hover:delay-[0ms] hover:scale-105 vertical  w-[90%] z-50 ${className}`}
       >
-        <span className={` ${props.isActive ? "transition-all duration-[2000ms] opacity-100" : "opacity-0 pointer-events-none" }   text-white text-center text-xl text-shadow-light`}>
-          {props.children}
+        <span
+          className={` ${
+            isActive
+              ? "transition-all duration-[2000ms] opacity-100"
+              : "opacity-0 pointer-events-none"
+          }   text-white text-center text-xl text-shadow-light`}
+        >
+          {children}
         </span>
       </div>
     </NavLink>
   );
+}
+
+MobileNavLink.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.string.isRequired,
+  router: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
+  isActive: PropTypes.bool.isRequired
 };
 
-export const MobileBuild = (props) => {
 
+function MobileBuild({ children, className, color, isActive, onClick }) {
   return (
-
-      <div
-       style={{
-        background: props.color
+    <div
+      style={{
+        background: color,
       }}
-        className={` opacity-90 hover:delay-[0ms] hover:scale-105 vertical  w-[90%] z-50 ${props.className}`}
-        onClick={props.onClick}
+      className={` opacity-90 hover:delay-[0ms] hover:scale-105 vertical  w-[90%] z-50 ${className}`}
+      onClick={onClick}
+    >
+      <span
+        className={` ${
+          isActive
+            ? "transition-all duration-[2000ms] opacity-100"
+            : "opacity-0 pointer-events-none"
+        }   text-white text-center text-xl text-shadow-light`}
       >
-        <span className={` ${props.isActive ? "transition-all duration-[2000ms] opacity-100" : "opacity-0 pointer-events-none" }   text-white text-center text-xl text-shadow-light`}>
-          {props.children}
-        </span>
-      </div>
-
+        {children}
+      </span>
+    </div>
   );
+}
+
+MobileBuild.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
+  isActive: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired
+};
+
+export {
+  CubeNavLink,
+  LoginNavLink,
+  LoginLink,
+  SwitchCubeNavLink,
+  CustomerNavLink,
+  MobileNavLink,
+  MobileBuild,
 };

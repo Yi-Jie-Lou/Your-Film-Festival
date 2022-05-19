@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+import propTypes from "prop-types";
 import {
   CubeNavLink,
   SwitchCubeNavLink,
@@ -130,7 +131,7 @@ function BackstageHeader() {
         >
           自訂顏色
         </CubeNavLink>
-        <SwitchCubeNavLink router="/preview" id="preview" cube={CubeA}>
+        <SwitchCubeNavLink router="/preview" cube={CubeA}>
           預覽網站
         </SwitchCubeNavLink>
       </div>
@@ -248,15 +249,17 @@ function PreviewHeader() {
         <MobileNavLink
           isActive={isActive}
           router="/backstage/features"
+          color="#57bdc8"
           className={
             isActive
-              ? "h-16 delay-[100ms] transition-all  duration-700 bg-[#57bdc8]"
+              ? "h-16 delay-[100ms] transition-all  duration-700 "
               : "h-0 duration-0"
           }
         >
           回到後台
         </MobileNavLink>
         <MobileBuild
+          color="#f08074"
           onClick={() => {
             userUID
               ? firebase.buildFestival(userUID, festivalPathName)
@@ -265,7 +268,7 @@ function PreviewHeader() {
           isActive={isActive}
           className={
             isActive
-              ? "h-16 delay-[700ms] transition-all  duration-700 bg-[#f08074]"
+              ? "h-16 delay-[700ms] transition-all duration-700"
               : "h-0 duration-0"
           }
         >
@@ -430,12 +433,12 @@ function BuildHeader() {
   );
 }
 
-function Header(props) {
-  const [pageState, setPageState] = useState(props.userState);
+function Header({userState}) {
+  const [pageState, setPageState] = useState(userState);
 
   useEffect(() => {
-    setPageState(props.userState);
-  }, [props.userState]);
+    setPageState(userState);
+  }, [userState]);
 
   return (
     <>
@@ -451,5 +454,9 @@ function Header(props) {
     </>
   );
 }
+
+Header.propTypes = {
+  userState: propTypes.oneOf(["preview", "editing", "build"]),
+};
 
 export default Header;

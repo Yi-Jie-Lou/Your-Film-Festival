@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import ImageGallery from "react-image-gallery";
+import PropTypes from "prop-types"
 
 import Details from "../components/featureDetails/Details";
 import Trailer from "../components/featureDetails/Trailer";
@@ -11,7 +12,7 @@ import TimetableLink from "../components/featureDetails/TimetableLink";
 import Reminder from "../components/featureDetails/Reminder";
 
 
-function FeatureDetails(props) {
+function FeatureDetails({userState}) {
   const features = useSelector((state) => state.features);
   const [currentFeatureObject, setCurrentFeatureObject] = useState();
   const [imgArray, setImgArray] = useState();
@@ -54,7 +55,7 @@ function FeatureDetails(props) {
 
             <div className="vertical mx-auto mt-8 w-4/5">
               <TimetableLink
-                userState={props.userState}
+                userState={userState}
                 currentFeatureObject={currentFeatureObject}
               />
               <Reminder currentFeatureObject={currentFeatureObject} />
@@ -64,6 +65,10 @@ function FeatureDetails(props) {
       )}
     </div>
   );
+}
+
+FeatureDetails.propTypes = {
+  userState: PropTypes.string.isRequired
 }
 
 export default FeatureDetails;

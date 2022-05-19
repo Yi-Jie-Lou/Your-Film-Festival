@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
+import PropTypes from "prop-types";
 import FilmBox from "../global/FilmBox";
 
-function FilmsContainer(props) {
+function FilmsContainer({userState}) {
   const features = useSelector((state) => state.features);
   const festivalPathName = useSelector((state) => state.festivalPathName);
   const [importantFeatures, setImportantFeatures] = useState([]);
@@ -27,9 +28,9 @@ function FilmsContainer(props) {
             <FilmBox
               key={index}
               router={
-                props.userState === "build"
+                userState === "build"
                   ? `/build/feature-details/${item.featureID}/festival=${festivalPathName}`
-                  : props.userState === "preview"
+                  : userState === "preview"
                   ? `/preview/feature-details/${item.featureID}`
                   : `/feature-details/${item.featureID}`
               }
@@ -47,9 +48,9 @@ function FilmsContainer(props) {
             <FilmBox
               key={index}
               router={
-                props.userState === "build"
+                userState === "build"
                   ? `/build/feature-details/${item.featureID}/festival=${festivalPathName}`
-                  : props.userState === "preview"
+                  : userState === "preview"
                   ? `/preview/feature-details/${item.featureID}`
                   : `/feature-details/${item.featureID}`
               }
@@ -64,5 +65,9 @@ function FilmsContainer(props) {
     </div>
   );
 }
+
+FilmsContainer.propTypes = {
+  userState: PropTypes.oneOf(["build", "preview", ""]).isRequired,
+};
 
 export default FilmsContainer;

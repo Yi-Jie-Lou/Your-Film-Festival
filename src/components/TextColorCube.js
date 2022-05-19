@@ -33,19 +33,16 @@ const allcolors = colorCategoryList.reduce(
   []
 );
 
-function TextColorCube(props) {
+function TextColorCube() {
   const [currentSelectedIndex, setCurrentSelectedIndex] = useState("");
   const dispatch = useDispatch();
+
   const choseMainColor = (color, index) => {
     setCurrentSelectedIndex(index);
-
-    switch (props.color) {
-      case "text":
-        return dispatch(updateTextColor(color.slice(4, 11)));
-      default:
-        throw new Error();
-    }
+    dispatch(updateTextColor(color.slice(4, 11)));
+    
   };
+
   return (
     <div className="flex flex-wrap ">
       {allcolors.map((color, index) => (

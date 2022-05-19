@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signOut
+  signOut,
 } from "firebase/auth";
 import { customImgAlert, errorAlert } from "../utils/customAlert";
 import Joyride, { STATUS } from "react-joyride";
@@ -74,7 +74,7 @@ function Login() {
         userPassword
       );
       firebase
-        .initDataBase(user.user.uid,user.user.email)
+        .initDataBase(user.user.uid, user.user.email)
         .then((_) => {
           alert("註冊成功");
         })
@@ -125,7 +125,10 @@ function Login() {
               }}
             ></div>
           </div>
-          <div id='step2'  className="flex  flex-wrap justify-center w-1/3 z-10 ">
+          <div
+            id="step2"
+            className="flex  flex-wrap justify-center w-1/3 z-10 "
+          >
             <h1 className=" my-4 p-2 w-full text-center text-xl tracking-wider  rounded-lg ">
               登入開始建立您的影展
             </h1>
@@ -176,7 +179,7 @@ function Login() {
         </div>
       </div>
       <Footer />
-        {state === "logout" && isFirstViewed ? (
+      {state === "logout" && isFirstViewed ? (
         <Joyride
           callback={handleJoyrideCallback}
           steps={steps}

@@ -14,6 +14,7 @@
     "moment": "^2.29.2",
     "moment-range": "^4.0.2",
     "nodemailer": "^6.7.3",
+    "prop-types": "^15.8.1",
     "react": "^18.0.0",
     "react-avatar-image-cropper": "^1.4.2",
     "react-date-range": "^1.4.0",

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { updatePrimaryColor, updateSecondaryColor } from "../actions";
+import PropTypes from "prop-types"
 
 const mainColor = [
   {
@@ -261,6 +262,10 @@ function ColorCube(props) {
       ))}
     </div>
   );
+}
+
+ColorCube.propTypes = {
+  color: PropTypes.oneOf(["primary","secondary"]).isRequired
 }
 
 export default ColorCube;

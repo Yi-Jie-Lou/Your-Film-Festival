@@ -1,7 +1,10 @@
-function Creators(props) {
+import PropTypes from "prop-types";
+
+function Creators({ currentFeatureObject }) {
+  const { creators } = currentFeatureObject;
   return (
     <>
-      {props.currentFeatureObject.creators.map((creator, index) => (
+      {creators.map((creator, index) => (
         <div key={index} className="flex justify-center">
           <div className="mx-4 w-1/4">
             <p className="mb-6 text-xl">{creator.name}</p>
@@ -15,4 +18,9 @@ function Creators(props) {
     </>
   );
 }
+
+Creators.propTypes = {
+  currentFeatureObject: PropTypes.shape({ creators: PropTypes.array }),
+};
+
 export default Creators;

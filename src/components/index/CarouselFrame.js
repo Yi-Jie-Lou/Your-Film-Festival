@@ -1,14 +1,21 @@
 import { NavLink } from "react-router-dom";
+import PropTypes from 'prop-types'
 
-function CarouselFrame(props) {
+function CarouselFrame({className, router, img}) {
   return (
-    <NavLink to={props.router}>
+    <NavLink to={router}>
       <img
-        className={props.className}
-        src={props.img}
+        className={className}
+        src={img}
       />
     </NavLink>
   );
+}
+
+CarouselFrame.propTypes = {
+  className: PropTypes.string,
+  router: PropTypes.string.isRequired,
+  img: PropTypes.string.isRequired
 }
 
 export default CarouselFrame;

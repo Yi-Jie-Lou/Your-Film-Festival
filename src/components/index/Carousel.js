@@ -1,10 +1,10 @@
 import { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
-
+import PropTypes from "prop-types";
 import CarouselFrame from "./CarouselFrame";
 
-function Carousel(props) {
+function Carousel({userState}) {
   const features = useSelector((state) => state.features);
   const festivalPathName = useSelector((state) => state.festivalPathName);
   const [sourceImgs, setSourceImgs] = useState([]);
@@ -58,9 +58,9 @@ function Carousel(props) {
           <CarouselFrame
             key={index}
             router={
-              props.userState === "build"
+              userState === "build"
                 ? `/build/feature-details/${item.id}/festival=${festivalPathName}`
-                : props.userState === "preview"
+                : userState === "preview"
                 ? `/preview/feature-details/${item.id}`
                 : `/feature-details/${item.id}`
             }
@@ -74,5 +74,9 @@ function Carousel(props) {
     </div>
   );
 }
+
+Carousel.propTypes = {
+  userState: PropTypes.oneOf(["build", "preview", ""]).isRequired,
+};
 
 export default Carousel;

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 import FooterImg from "../../img/FooterImgNew_1920.png";
 import CloudsImg from "../../img/Cloud.png";
 import GitLogo from "../../img/GitLogo.png";
-
 
 function TemplateFooter() {
   return (
@@ -75,12 +75,12 @@ function CustomerFooter() {
   );
 }
 
-function Footer(props) {
-  const [pageState, setPageState] = useState(props.userState);
+function Footer({ userState }) {
+  const [pageState, setPageState] = useState(userState);
 
   useEffect(() => {
-    setPageState(props.userState);
-  }, [props.userState]);
+    setPageState(userState);
+  }, [userState]);
 
   return (
     <>
@@ -92,5 +92,9 @@ function Footer(props) {
     </>
   );
 }
+
+Footer.propTypes = {
+  userState: PropTypes.oneOf(["preview", "build", "editing", ""]),
+};
 
 export default Footer;

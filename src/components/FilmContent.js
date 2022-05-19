@@ -98,6 +98,7 @@ function FilmContent() {
   };
 
   const handleChange = (value, key, _) => {
+    console.log(typeof(value))
     const newFeatures = [...features];
     const editIndex = newFeatures.findIndex(
       (item) => item.featureID === currentTab

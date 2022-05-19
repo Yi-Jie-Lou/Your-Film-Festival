@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
+import PropTypes from "prop-types"
 import NewsBox from "../components/global/NewsBox";
 
-function News(props) {
+function News({userState}) {
   const news = useSelector((state) => state.news);
   const [importantNews, setImportantNews] = useState([]);
   const [normalNews, setNormalNews] = useState([]);
@@ -24,15 +25,15 @@ function News(props) {
             <NewsBox
               key={index}
               router={
-                props.userState === "build"
+                userState === "build"
                   ? `/build/news/${item.newsID}/festival=${festivalPathName}`
-                  : props.userState === "preview"
+                  : userState === "preview"
                   ? `/preview/news/${item.newsID}`
                   : `/news/${item.newsID}`
               }
               navLinkClassName=""
               className="mx-4 drop-shadow-2xl cursor-pointer hover:scale-105 ease-in-out duration-300 | w-full h-[250px] mb-4 | md:w-[calc((100%-64px)/2)] md:h-[300px] md:mb-8 | xl:h-[480px]  "
-              text={item.title}
+              title={item.title}
               img={item.img}
             />
           ))}
@@ -42,14 +43,14 @@ function News(props) {
             <NewsBox
               key={index}
               router={
-                props.userState === "build"
+                userState === "build"
                   ? `/build/news/${item.newsID}/festival=${festivalPathName}`
-                  : props.userState === "preview"
+                  : userState === "preview"
                   ? `/preview/news/${item.newsID}`
                   : `/news/${item.newsID}`
               }
               className="mb-4 mx-4 drop-shadow-2xl cursor-pointer hover:scale-105 ease-in-out duration-300 w-full h-[250px] | md:w-[calc((100%-96px)/3)]"
-              text={item.title}
+              title={item.title}
               img={item.img}
             />
           ))}
@@ -57,6 +58,10 @@ function News(props) {
       </div>
     </div>
   );
+}
+
+News.propTypes = {
+  userState: PropTypes.oneOf(["build", "preview", ""])
 }
 
 export default News;

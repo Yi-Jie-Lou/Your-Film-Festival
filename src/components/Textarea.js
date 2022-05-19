@@ -1,21 +1,40 @@
-function Textarea(props) {
+import PropTypes from "prop-types";
+
+function Textarea({
+  attribute,
+  className,
+  children,
+  isReadOnly,
+  value,
+  index,
+  onChange,
+}) {
   return (
-    <label
-      htmlFor={props.attribute}
-      className={props.className}
-    >
-      <h2 className="ml-2 text-sm "> {props.children}</h2>
+    <label htmlFor={attribute} className={className}>
+      <h2 className="ml-2 text-sm "> {children}</h2>
       <textarea
-        id={props.attribute}
-        className={`px-2 h-4/5 focus:outline-none  ${props.isReadOnly? "text-slate-400" : "text-slate-600"}`}
-        value={props.value}
-        readOnly={props.isReadOnly}
+        id={attribute}
+        className={`px-2 h-4/5 focus:outline-none  ${
+          isReadOnly ? "text-slate-400" : "text-slate-600"
+        }`}
+        value={value}
+        readOnly={isReadOnly}
         onChange={(e) => {
-          props.onChange(e.target.value, props.attribute, props.index);
+          onChange(e.target.value, attribute, index);
         }}
       ></textarea>
     </label>
   );
 }
+
+Textarea.propTypes = {
+  className: PropTypes.string,
+  isReadOnly: PropTypes.bool,
+  value: PropTypes.string,
+  index: PropTypes.number,
+  attribute: PropTypes.string.isRequired,
+  children: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default Textarea;

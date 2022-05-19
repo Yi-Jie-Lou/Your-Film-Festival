@@ -1,13 +1,9 @@
 import { useEffect, useState } from "react";
-import {
-  Routes,
-  Route,
-  BrowserRouter,
-  Outlet,
-} from "react-router-dom";
+import { Routes, Route, BrowserRouter, Outlet } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import PropTypes from "prop-types";
 
 import {
   userLogin,
@@ -30,7 +26,7 @@ import {
   updateTextColor,
   updateFestivalStart,
   updateFestivalEnd,
-  getUserEmail
+  getUserEmail,
 } from "./actions";
 import { firebase } from "./utils/firebase-config";
 import Index from "./pages/Index";
@@ -210,10 +206,10 @@ function App() {
   );
 }
 
-function BackstageRouter(props) {
+function BackstageRouter({isLoading}) {
   return (
     <>
-      {props.isLoading ? (
+      {isLoading ? (
         <div className="h-screen vertical">
           <Loading />
         </div>
@@ -228,13 +224,13 @@ function BackstageRouter(props) {
   );
 }
 
-function PreviewRouter(props) {
+function PreviewRouter({isLoading}) {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
   return (
     <>
-      {props.isLoading ? (
+      {isLoading ? (
         <div className="h-screen vertical">
           <Loading />
         </div>
@@ -246,13 +242,13 @@ function PreviewRouter(props) {
         </>
       )}
     </>
-  );
+  )
 }
 
-function BuildRouter(props) {
+function BuildRouter({isLoading}) {
   return (
     <>
-      {props.isLoading ? (
+      {isLoading ? (
         <div className="h-screen vertical">
           <Loading />
         </div>
@@ -266,4 +262,15 @@ function BuildRouter(props) {
     </>
   );
 }
+
+BackstageRouter.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+};
+PreviewRouter.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+};
+BuildRouter.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+};
+
 export default App;

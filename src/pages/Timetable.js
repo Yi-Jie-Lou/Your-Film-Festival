@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
+import PropTypes from "prop-types"
 import MovieRating from "../components/timetable/MovieRating";
 import TimetableFilmBox from "../components/global/TimetableBox";
 
-function Timetable(props) {
+function Timetable({userState}) {
   const initQureyDate = useParams();
   const features = useSelector((state) => state.features);
   const period = useSelector((state) => state.festivalPeriod);
@@ -85,9 +86,9 @@ function Timetable(props) {
                     <TimetableFilmBox
                       key={index}
                       router={
-                        props.userState === "build"
+                        userState === "build"
                           ? `/build/feature-details/${film.featureID}/festival=${festivalPathName}`
-                          : props.userState === "preview"
+                          : userState === "preview"
                           ? `/preview/feature-details/${film.featureID}`
                           : `/feature-details/${film.featureID}`
                       }
@@ -116,6 +117,10 @@ function Timetable(props) {
       </div>
     </>
   );
+}
+
+Timetable.propTypes = {
+  userState: PropTypes.oneOf(["build","preview"]).isRequired
 }
 
 export default Timetable;

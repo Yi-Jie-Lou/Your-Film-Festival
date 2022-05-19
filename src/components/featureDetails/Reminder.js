@@ -1,7 +1,8 @@
-
 import { AiOutlineCaretUp, AiFillStar } from "react-icons/ai";
+import PropTypes from "prop-types";
 
-function Reminder(props) {
+function Reminder({ currentFeatureObject }) {
+  const { note } = currentFeatureObject;
   return (
     <>
       <div className="flex mt-6 my-2">
@@ -15,9 +16,9 @@ function Reminder(props) {
         <p> 開幕片或閉幕片</p>
       </div>
       <div>
-        {props.currentFeatureObject.note.split("\n").map((line, index) => (
+        {note.split("\n").map((line, index) => (
           <div key={index} className="my-2">
-            <span >
+            <span>
               {line}
               <br />
             </span>
@@ -27,5 +28,11 @@ function Reminder(props) {
     </>
   );
 }
+
+Reminder.propTypes = {
+  currentFeatureObject: PropTypes.shape({
+    note: PropTypes.string.isRequired,
+  }),
+};
 
 export default Reminder;
