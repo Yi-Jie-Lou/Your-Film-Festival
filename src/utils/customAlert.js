@@ -1,5 +1,5 @@
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 export const customImgAlert = (title, img) => {
   const MySwal = withReactContent(Swal);
@@ -7,12 +7,12 @@ export const customImgAlert = (title, img) => {
     iconHtml: `<div class="flex flex-wrap justify-center italic"><h1 class='text-2xl'>${title}</h1>
         <img class=' w-28 my-6 mx-1' src=${img}></div>`,
     customClass: {
-      icon: "custom-icon",
+      icon: 'custom-icon',
     },
-    width: "300px",
-    background: "rgba(255,255,255,.9)",
+    width: '300px',
+    background: 'rgba(255,255,255,.9)',
     showConfirmButton: false,
-    padding: "2rem",
+    padding: '2rem',
   });
 };
 
@@ -29,15 +29,15 @@ export const errorAlert = (text, img) => {
     </div>
         `,
     customClass: {
-      icon: "error-icon",
-      confirmButton: "error-confirm-button",
-      actions: "error-actions",
+      icon: 'error-icon',
+      confirmButton: 'error-confirm-button',
+      actions: 'error-actions',
     },
-    width: "300px",
-    background: "rgba(255,255,255,.9)",
+    width: '300px',
+    background: 'rgba(255,255,255,.9)',
     showConfirmButton: true,
-    padding: "2rem",
-    confirmButtonColor: "#4794b9",
+    padding: '2rem',
+    confirmButtonColor: '#4794b9',
   });
 };
 
@@ -54,15 +54,15 @@ export const limitAlert = (text, img) => {
       </div>
           `,
     customClass: {
-      icon: "limit-icon",
-      confirmButton: "limit-confirm-button",
-      actions: "limit-actions",
+      icon: 'limit-icon',
+      confirmButton: 'limit-confirm-button',
+      actions: 'limit-actions',
     },
-    width: "300px",
-    background: "rgba(255,255,255,.9)",
+    width: '300px',
+    background: 'rgba(255,255,255,.9)',
     showConfirmButton: true,
-    padding: "2rem",
-    confirmButtonColor: "#4794b9",
+    padding: '2rem',
+    confirmButtonColor: '#4794b9',
   });
 };
 
@@ -79,21 +79,21 @@ export const saveAlert = (text, img) => {
       </div>
           `,
     customClass: {
-      title: "save-title",
-      icon: "save-icon",
-      confirmButton: "save-button",
-      cancelButton: "save-button",
-      actions: "save-actions",
+      title: 'save-title',
+      icon: 'save-icon',
+      confirmButton: 'save-button',
+      cancelButton: 'save-button',
+      actions: 'save-actions',
     },
-    width: "320px",
-    background: "rgba(255,255,255,.9)",
+    width: '320px',
+    background: 'rgba(255,255,255,.9)',
     showCancelButton: true,
     showConfirmButton: true,
-    padding: "2rem",
-    confirmButtonColor: "#57bdc8",
-    cancelButtonColor: "#4794b9",
-    confirmButtonText: "下一頁",
-    cancelButtonText: "留在這裡",
+    padding: '2rem',
+    confirmButtonColor: '#57bdc8',
+    cancelButtonColor: '#4794b9',
+    confirmButtonText: '下一頁',
+    cancelButtonText: '留在這裡',
   });
 };
 
@@ -110,14 +110,14 @@ export const redirectAlert = (text, img) => {
       </div>
           `,
     customClass: {
-      icon: "error-icon",
-      confirmButton: "error-confirm-button",
-      actions: "error-actions",
+      icon: 'error-icon',
+      confirmButton: 'error-confirm-button',
+      actions: 'error-actions',
     },
-    width: "300px",
-    background: "rgba(255,255,255,.9)",
+    width: '300px',
+    background: 'rgba(255,255,255,.9)',
     showConfirmButton: true,
-    padding: "2rem",
-    confirmButtonColor: "#4794b9",
+    padding: '2rem',
+    confirmButtonColor: '#4794b9',
   });
 };

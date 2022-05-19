@@ -1,29 +1,29 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
-import PropTypes from "prop-types"
-import MovieRating from "../components/timetable/MovieRating";
-import TimetableFilmBox from "../components/global/TimetableBox";
+import PropTypes from 'prop-types';
+import MovieRating from '../components/timetable/MovieRating';
+import TimetableFilmBox from '../components/global/TimetableBox';
 
-function Timetable({userState}) {
+function Timetable({ userState }) {
   const initQureyDate = useParams();
   const features = useSelector((state) => state.features);
   const period = useSelector((state) => state.festivalPeriod);
   const locations = useSelector((state) => state.festivalLocations);
-  const [queryDate, setQureyDate] = useState("");
+  const [queryDate, setQureyDate] = useState('');
   const [queryTimetable, setQureyTimetable] = useState([]);
   const [Alltimetables, setAllTimetables] = useState([]);
   const festivalPathName = useSelector((state) => state.festivalPathName);
   const rankIcons = [
-    { rank: "普", text: "一般觀眾皆可觀賞。", color: "bg-lime-500" },
+    { rank: '普', text: '一般觀眾皆可觀賞。', color: 'bg-lime-500' },
     {
-      rank: "護",
-      text: "未滿六歲之兒童不得觀賞，六歲以上十二歲未滿之兒童須父母、師長或成年親友陪伴輔導觀賞。",
-      color: "bg-blue-500",
+      rank: '護',
+      text: '未滿六歲之兒童不得觀賞，六歲以上十二歲未滿之兒童須父母、師長或成年親友陪伴輔導觀賞。',
+      color: 'bg-blue-500',
     },
-    { rank: "輔", text: "未滿十五歲之人不得觀賞。", color: "bg-orange-500" },
-    { rank: "限", text: "未滿十八歲之人不得觀賞。", color: "bg-red-500" },
+    { rank: '輔', text: '未滿十五歲之人不得觀賞。', color: 'bg-orange-500' },
+    { rank: '限', text: '未滿十八歲之人不得觀賞。', color: 'bg-red-500' },
   ];
 
   useEffect(() => {
@@ -86,9 +86,9 @@ function Timetable({userState}) {
                     <TimetableFilmBox
                       key={index}
                       router={
-                        userState === "build"
+                        userState === 'build'
                           ? `/build/feature-details/${film.featureID}/festival=${festivalPathName}`
-                          : userState === "preview"
+                          : userState === 'preview'
                           ? `/preview/feature-details/${film.featureID}`
                           : `/feature-details/${film.featureID}`
                       }
@@ -98,14 +98,14 @@ function Timetable({userState}) {
                       img={film.img}
                     />
                   ) : (
-                    ""
+                    ''
                   )
                 )}
               </div>
             </div>
           ))}
         <div className="w-4/5  mt-10 mx-auto">
-          {rankIcons.map((item,index) => (
+          {rankIcons.map((item, index) => (
             <MovieRating
               className={`min-w-[24px] h-6 mr-2 text-center text-shadow-light text-white rounded-md ${item.color} `}
               rank={item.rank}
@@ -120,7 +120,7 @@ function Timetable({userState}) {
 }
 
 Timetable.propTypes = {
-  userState: PropTypes.oneOf(["build","preview"]).isRequired
-}
+  userState: PropTypes.oneOf(['build', 'preview']).isRequired,
+};
 
 export default Timetable;

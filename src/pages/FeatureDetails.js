@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
-import ImageGallery from "react-image-gallery";
-import PropTypes from "prop-types"
+import ImageGallery from 'react-image-gallery';
+import PropTypes from 'prop-types';
 
-import Details from "../components/featureDetails/Details";
-import Trailer from "../components/featureDetails/Trailer";
-import Creators from "../components/featureDetails/Creators";
-import TimetableLink from "../components/featureDetails/TimetableLink";
-import Reminder from "../components/featureDetails/Reminder";
+import Details from '../components/featureDetails/Details';
+import Trailer from '../components/featureDetails/Trailer';
+import Creators from '../components/featureDetails/Creators';
+import TimetableLink from '../components/featureDetails/TimetableLink';
+import Reminder from '../components/featureDetails/Reminder';
 
-
-function FeatureDetails({userState}) {
+function FeatureDetails({ userState }) {
   const features = useSelector((state) => state.features);
   const [currentFeatureObject, setCurrentFeatureObject] = useState();
   const [imgArray, setImgArray] = useState();
@@ -68,7 +67,7 @@ function FeatureDetails({userState}) {
 }
 
 FeatureDetails.propTypes = {
-  userState: PropTypes.string.isRequired
-}
+  userState: PropTypes.string.isRequired,
+};
 
 export default FeatureDetails;

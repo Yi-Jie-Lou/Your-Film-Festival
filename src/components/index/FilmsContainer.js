@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
-import PropTypes from "prop-types";
-import FilmBox from "../global/FilmBox";
+import PropTypes from 'prop-types';
+import FilmBox from '../global/FilmBox';
 
-function FilmsContainer({userState}) {
+function FilmsContainer({ userState }) {
   const features = useSelector((state) => state.features);
   const festivalPathName = useSelector((state) => state.festivalPathName);
   const [importantFeatures, setImportantFeatures] = useState([]);
@@ -28,9 +28,9 @@ function FilmsContainer({userState}) {
             <FilmBox
               key={index}
               router={
-                userState === "build"
+                userState === 'build'
                   ? `/build/feature-details/${item.featureID}/festival=${festivalPathName}`
-                  : userState === "preview"
+                  : userState === 'preview'
                   ? `/preview/feature-details/${item.featureID}`
                   : `/feature-details/${item.featureID}`
               }
@@ -48,9 +48,9 @@ function FilmsContainer({userState}) {
             <FilmBox
               key={index}
               router={
-                userState === "build"
+                userState === 'build'
                   ? `/build/feature-details/${item.featureID}/festival=${festivalPathName}`
-                  : userState === "preview"
+                  : userState === 'preview'
                   ? `/preview/feature-details/${item.featureID}`
                   : `/feature-details/${item.featureID}`
               }
@@ -67,7 +67,7 @@ function FilmsContainer({userState}) {
 }
 
 FilmsContainer.propTypes = {
-  userState: PropTypes.oneOf(["build", "preview", ""]).isRequired,
+  userState: PropTypes.oneOf(['build', 'preview', '']).isRequired,
 };
 
 export default FilmsContainer;

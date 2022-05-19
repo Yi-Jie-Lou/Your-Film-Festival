@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { Routes, Route, BrowserRouter, Outlet } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from 'react';
+import { Routes, Route, BrowserRouter, Outlet } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import PropTypes from "prop-types";
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import PropTypes from 'prop-types';
 
 import {
   userLogin,
@@ -27,28 +27,28 @@ import {
   updateFestivalStart,
   updateFestivalEnd,
   getUserEmail,
-} from "./actions";
-import { firebase } from "./utils/firebase-config";
-import Index from "./pages/Index";
-import Login from "./pages/Login";
-import Backstage from "./pages/Backstage";
-import Features from "./pages/EditFeatures";
-import News from "./pages/News";
-import Timetable from "./pages/Timetable";
-import Price from "./pages/Price";
-import Workshop from "./pages/Workshop";
-import EditNews from "./pages/EditNews";
-import EditPrice from "./pages/EditPrice";
-import EditWorkshop from "./pages/EditWorkshop";
-import FeatureDetails from "./pages/FeatureDetails";
-import NewsDetails from "./pages/NewsDetails";
-import WorkshopDetails from "./pages/WorkshopDetails";
-import EditFooterAndColor from "./pages/EditFooterAndColor";
-import Header from "./components/global/Header";
-import Footer from "./components/global/Footer";
-import Loading from "./components/global/Loading";
-import RedirectPage from "./components/global/Redirect";
-import ScrollToTop from "./components/global/ScrollToTop";
+} from './actions';
+import { firebase } from './utils/firebase-config';
+import Index from './pages/Index';
+import Login from './pages/Login';
+import Backstage from './pages/Backstage';
+import Features from './pages/EditFeatures';
+import News from './pages/News';
+import Timetable from './pages/Timetable';
+import Price from './pages/Price';
+import Workshop from './pages/Workshop';
+import EditNews from './pages/EditNews';
+import EditPrice from './pages/EditPrice';
+import EditWorkshop from './pages/EditWorkshop';
+import FeatureDetails from './pages/FeatureDetails';
+import NewsDetails from './pages/NewsDetails';
+import WorkshopDetails from './pages/WorkshopDetails';
+import EditFooterAndColor from './pages/EditFooterAndColor';
+import Header from './components/global/Header';
+import Footer from './components/global/Footer';
+import Loading from './components/global/Loading';
+import RedirectPage from './components/global/Redirect';
+import ScrollToTop from './components/global/ScrollToTop';
 
 function App() {
   const dispatch = useDispatch();
@@ -57,10 +57,10 @@ function App() {
 
   useEffect(() => {
     const path = window.location.pathname;
-    const currentFestival = path.split("festival=")[1];
+    const currentFestival = path.split('festival=')[1];
 
     const setupReduxStore = (res) => {
-      console.log("Keep mind of firebase usage！ : init redux data");
+      console.log('Keep mind of firebase usage！ : init redux data');
       dispatch(updatePeriod(res.festivalPeriod));
       dispatch(updateLocations(res.locations));
       dispatch(updateFeatures(res.features));
@@ -87,7 +87,7 @@ function App() {
       onAuthStateChanged(auth, (currentUser) => {
         if (currentUser) {
           dispatch(userLogin(currentUser.uid));
-          dispatch(updateState("login"));
+          dispatch(updateState('login'));
           firebase
             .readFestivalData(currentUser.uid)
             .then((res) => {
@@ -97,8 +97,8 @@ function App() {
               setIsLoading(false);
             });
         } else {
-          dispatch(userLogin(""));
-          dispatch(updateState("logout"));
+          dispatch(userLogin(''));
+          dispatch(updateState('logout'));
           setIsLoading(false);
         }
       });
@@ -186,7 +186,7 @@ function App() {
           <Route
             path="backstage"
             element={
-              login === "login" ? (
+              login === 'login' ? (
                 <BackstageRouter isLoading={isLoading} />
               ) : (
                 <RedirectPage />
@@ -206,7 +206,7 @@ function App() {
   );
 }
 
-function BackstageRouter({isLoading}) {
+function BackstageRouter({ isLoading }) {
   return (
     <>
       {isLoading ? (
@@ -224,7 +224,7 @@ function BackstageRouter({isLoading}) {
   );
 }
 
-function PreviewRouter({isLoading}) {
+function PreviewRouter({ isLoading }) {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -242,10 +242,10 @@ function PreviewRouter({isLoading}) {
         </>
       )}
     </>
-  )
+  );
 }
 
-function BuildRouter({isLoading}) {
+function BuildRouter({ isLoading }) {
   return (
     <>
       {isLoading ? (

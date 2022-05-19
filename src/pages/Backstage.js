@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { DateRangePicker } from "react-date-range";
-import Moment from "moment";
-import { extendMoment } from "moment-range";
+import { DateRangePicker } from 'react-date-range';
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
 
 import {
   updateFestivalName,
@@ -12,11 +12,11 @@ import {
   updateFestivalPathName,
   updateFestivalPost,
   updateFestivalLogo,
-} from "../actions";
-import { firebase } from "../utils/firebase-config";
-import useRoutePush from "../hooks/useRoutePush";
-import PuzzleImg from "../img/Puzzle.png";
-import { errorAlert } from "../utils/customAlert";
+} from '../actions';
+import { firebase } from '../utils/firebase-config';
+import useRoutePush from '../hooks/useRoutePush';
+import PuzzleImg from '../img/Puzzle.png';
+import { errorAlert } from '../utils/customAlert';
 
 function Backstage() {
   const dispatch = useDispatch();
@@ -33,9 +33,9 @@ function Backstage() {
   const userID = useSelector((state) => state.userID);
 
   const selectionRange = {
-    startDate: startDate,
-    endDate: endDate,
-    key: "selection",
+    startDate,
+    endDate,
+    key: 'selection',
   };
 
   const checkInputValue = () => {
@@ -47,12 +47,12 @@ function Backstage() {
     });
 
     if (isError) {
-      errorAlert("舉辦地點不可以是空白的噢", PuzzleImg);
+      errorAlert('舉辦地點不可以是空白的噢', PuzzleImg);
       return isError;
     }
 
     if (!festivalName.trim() || !festivalPathName.trim()) {
-      errorAlert("請填寫影展名稱", PuzzleImg);
+      errorAlert('請填寫影展名稱', PuzzleImg);
       isError = true;
       return isError;
     }
@@ -82,8 +82,8 @@ function Backstage() {
       })
       .then((_) => {
         routerHandler(
-          "您已經完成第一步囉\n接著來上傳影片吧",
-          "/backstage/features"
+          '您已經完成第一步囉\n接著來上傳影片吧',
+          '/backstage/features'
         );
       });
   };
@@ -102,18 +102,18 @@ function Backstage() {
   const getAvailableDates = () => {
     const moment = extendMoment(Moment);
     const dateRange = moment.range(moment(startDate), moment(endDate));
-    const dateArray = Array.from(dateRange.by("days"));
+    const dateArray = Array.from(dateRange.by('days'));
     const availableDates = dateArray.map((item) => {
       return (item = {
-        displayDates: item.format("ddd MM/DD"),
-        dates: item.format("YYYY-MM-DD"),
+        displayDates: item.format('ddd MM/DD'),
+        dates: item.format('YYYY-MM-DD'),
       });
     });
     return availableDates;
   };
 
   const addTheather = () => {
-    const newLocations = [...locations, ""];
+    const newLocations = [...locations, ''];
     dispatch(updateLocations(newLocations));
   };
 
@@ -130,9 +130,9 @@ function Backstage() {
     await firebase.uploadImgs(uploadImg);
     firebase.getUploadImgs(uploadImg).then((uploadUrl) => {
       switch (key) {
-        case "logo":
+        case 'logo':
           return dispatch(updateFestivalLogo(uploadUrl));
-        case "post":
+        case 'post':
           return dispatch(updateFestivalPost(uploadUrl));
         default:
           return;
@@ -212,11 +212,11 @@ function Backstage() {
 
           <label
             className={`vertical w-48   text-center align-middle cursor-pointer ${
-              festivalLogo ? "" : "button-blue"
+              festivalLogo ? '' : 'button-blue'
             } `}
-            htmlFor={`festival_logo`}
+            htmlFor={'festival_logo'}
           >
-            {festivalLogo ? "" : "上傳"}
+            {festivalLogo ? '' : '上傳'}
             {festivalLogo && (
               <img
                 className="  border-0 object-cover mr-0"
@@ -224,11 +224,11 @@ function Backstage() {
               />
             )}
             <input
-              id={`festival_logo`}
+              id={'festival_logo'}
               className="hidden border-1 "
               type="file"
               accept="image/*"
-              onChange={(e) => preview(e, "logo")}
+              onChange={(e) => preview(e, 'logo')}
             />
           </label>
         </div>
@@ -239,11 +239,11 @@ function Backstage() {
 
           <label
             className={`vertical w-48 text-center align-middle cursor-pointer ${
-              festivalPost ? "" : "button-blue"
+              festivalPost ? '' : 'button-blue'
             }`}
             htmlFor={`festival_post`}
           >
-            {festivalPost ? "" : <span>上傳</span>}
+            {festivalPost ? '' : <span>上傳</span>}
             {festivalPost && (
               <img
                 className="  border-0 object-cover mr-0"
@@ -255,7 +255,7 @@ function Backstage() {
               className="hidden border-1 "
               type="file"
               accept="image/*"
-              onChange={(e) => preview(e, "post")}
+              onChange={(e) => preview(e, 'post')}
             />
           </label>
         </div>

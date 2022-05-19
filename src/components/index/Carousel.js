@@ -1,10 +1,10 @@
-import { useEffect, useState, useRef } from "react";
-import { useSelector } from "react-redux";
-import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
-import PropTypes from "prop-types";
-import CarouselFrame from "./CarouselFrame";
+import { useEffect, useState, useRef } from 'react';
+import { useSelector } from 'react-redux';
+import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
+import PropTypes from 'prop-types';
+import CarouselFrame from './CarouselFrame';
 
-function Carousel({userState}) {
+function Carousel({ userState }) {
   const features = useSelector((state) => state.features);
   const festivalPathName = useSelector((state) => state.festivalPathName);
   const [sourceImgs, setSourceImgs] = useState([]);
@@ -58,15 +58,15 @@ function Carousel({userState}) {
           <CarouselFrame
             key={index}
             router={
-              userState === "build"
+              userState === 'build'
                 ? `/build/feature-details/${item.id}/festival=${festivalPathName}`
-                : userState === "preview"
+                : userState === 'preview'
                 ? `/preview/feature-details/${item.id}`
                 : `/feature-details/${item.id}`
             }
             img={item.img}
             className={`absolute top-0 left-0 w-full object-cover object-center transition-all duration-1000 ${
-              current === index ? "z-10 opacity-100" : " opacity-0 "
+              current === index ? 'z-10 opacity-100' : ' opacity-0 '
             } h-full `}
           />
         ))}
@@ -76,7 +76,7 @@ function Carousel({userState}) {
 }
 
 Carousel.propTypes = {
-  userState: PropTypes.oneOf(["build", "preview", ""]).isRequired,
+  userState: PropTypes.oneOf(['build', 'preview', '']).isRequired,
 };
 
 export default Carousel;

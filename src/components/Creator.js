@@ -1,28 +1,30 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import Input from "./Input";
-import Textarea from "./Textarea";
-import { updateFeatures } from "../actions";
-import checkUploadImgSize from "../helper/checkUploadSize";
-import { firebase } from "../utils/firebase-config";
+import Input from './Input';
+import Textarea from './Textarea';
+import { updateFeatures } from '../actions';
+import checkUploadImgSize from '../helper/checkUploadSize';
+import { firebase } from '../utils/firebase-config';
 
 function Creator() {
   const dispatch = useDispatch();
 
   const currentTab = useSelector((state) => state.currentTab);
   const features = useSelector((state) => state.features);
-  const [currentFeatureCreators, setCurrentFeatureCreators] = useState([{
-    name: "",
-    img: "",
-    info: "",
-  }]);
-  
+  const [currentFeatureCreators, setCurrentFeatureCreators] = useState([
+    {
+      name: '',
+      img: '',
+      info: '',
+    },
+  ]);
+
   const addCreators = () => {
     const emptyCreator = {
-      name: "",
-      img: "",
-      info: "",
+      name: '',
+      img: '',
+      info: '',
     };
 
     const newFeatures = [...features];
@@ -44,8 +46,8 @@ function Creator() {
 
   const preview = async (e, index) => {
     const uploadImg = e.target.files[0];
-    const isValidImgSize = checkUploadImgSize(uploadImg)
-    if(!isValidImgSize) return
+    const isValidImgSize = checkUploadImgSize(uploadImg);
+    if (!isValidImgSize) return;
 
     await firebase.uploadImgs(uploadImg);
     firebase.getUploadImgs(uploadImg).then((uploadUrl) => {

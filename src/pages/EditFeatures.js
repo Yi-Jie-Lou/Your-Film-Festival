@@ -1,17 +1,16 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux';
 
-import uniqid from "uniqid";
+import uniqid from 'uniqid';
 
-import Creator from "../components/Creator";
-import FilmContent from "../components/FilmContent";
-import Booking from "../components/Booking";
-import Note from "../components/Note";
-import useRoutePush from "../hooks/useRoutePush";
-import { firebase } from "../utils/firebase-config";
-import { errorAlert } from "../utils/customAlert";
-import { updateFeatures, switchTab } from "../actions";
-import PuzzleImg from "../img/Puzzle.png";
+import Creator from '../components/Creator';
+import FilmContent from '../components/FilmContent';
+import Booking from '../components/Booking';
+import Note from '../components/Note';
+import useRoutePush from '../hooks/useRoutePush';
+import { firebase } from '../utils/firebase-config';
+import { errorAlert } from '../utils/customAlert';
+import { updateFeatures, switchTab } from '../actions';
+import PuzzleImg from '../img/Puzzle.png';
 
 function Features() {
   const dispatch = useDispatch();
@@ -26,31 +25,31 @@ function Features() {
       featureID: newID,
       timetable: [
         {
-          date: "",
-          start: "10:00",
-          end: "12:00",
-          location: "",
+          date: '',
+          start: '10:00',
+          end: '12:00',
+          location: '',
           opening: false,
           closing: false,
-          name: "",
-          img: "",
+          name: '',
+          img: '',
           workshop: false,
           featureID: newID,
         },
       ],
-      creators: [{ img: "", info: "", name: "" }],
-      featureImgs: ["", "", ""],
-      format: "",
-      color: "",
-      nation: "",
-      year: "",
-      language: "",
-      length: "",
-      title: "",
-      shortInfo: "",
-      longInfo: "",
-      commercialInfo: "",
-      note: "",
+      creators: [{ img: '', info: '', name: '' }],
+      featureImgs: ['', '', ''],
+      format: '',
+      color: '',
+      nation: '',
+      year: '',
+      language: '',
+      length: '',
+      title: '',
+      shortInfo: '',
+      longInfo: '',
+      commercialInfo: '',
+      note: '',
       important: false,
     };
     const newFeatures = [...features, emptyFeature];
@@ -68,7 +67,7 @@ function Features() {
     dispatch(switchTab(newFeatures[0].featureID));
   };
 
-  const checkInputValue = () =>{
+  const checkInputValue = () => {
     const newFeatures = [...features];
     let isError = false;
 
@@ -94,16 +93,16 @@ function Features() {
     });
 
     if (isError) {
-      errorAlert("必填欄位不可以是空白的噢", PuzzleImg);
-      return isError
+      errorAlert('必填欄位不可以是空白的噢', PuzzleImg);
+      return isError;
     }
-    return isError
-  }
+    return isError;
+  };
 
   const saveFeatures = () => {
-    const isError = checkInputValue()
-    if(isError) return
-    
+    const isError = checkInputValue();
+    if (isError) return;
+
     const newFeatures = [...features];
     newFeatures.forEach((film) => {
       film.timetable.forEach((timetable) => {
@@ -116,8 +115,8 @@ function Features() {
 
     firebase.saveFeatures(userID, features).then((_) => {
       routerHandler(
-        "影片都上傳完畢了嗎\n接著我們來發布影展公告吧",
-        "/backstage/news"
+        '影片都上傳完畢了嗎\n接著我們來發布影展公告吧',
+        '/backstage/news'
       );
     });
   };
@@ -139,7 +138,7 @@ function Features() {
               dispatch(switchTab(item.featureID));
             }}
             className={`w-[calc((100%-96px)/6)] button-orange mx-2 mt-2 ${
-              item.featureID === currentTab ? "bg-[#f4cd7f]" : "bg-[#eb9666]"
+              item.featureID === currentTab ? 'bg-[#f4cd7f]' : 'bg-[#eb9666]'
             } `}
             key={index}
           >

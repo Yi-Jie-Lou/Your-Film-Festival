@@ -1,5 +1,5 @@
-import DarkBlueCloudImg from "../img/DarkBlueCloud.png";
-import { limitAlert } from "../utils/customAlert";
+import DarkBlueCloudImg from '../img/DarkBlueCloud.png';
+import { limitAlert } from '../utils/customAlert';
 
 const checkUploadImgSize = (uploadImg) => {
   if (!uploadImg) return false;

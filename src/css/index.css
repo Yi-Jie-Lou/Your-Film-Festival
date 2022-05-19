@@ -1,4 +1,4 @@
-body{
+body {
   color: #1b1b1bdf;
 }
 
@@ -26,12 +26,10 @@ body{
   width: 125px;
 }
 .react-time-picker__inputGroup {
-  min-width: calc((4px * 3) +  0.54em * 6  +  0.217em * 2);
+  min-width: calc((4px * 3) + 0.54em * 6 + 0.217em * 2);
   flex-grow: 1;
-  padding: 0 2px; 
+  padding: 0 2px;
   box-sizing: content-box;
-
-
 }
 .react-time-picker__inputGroup__divider {
   padding: 1px 0;
@@ -60,7 +58,7 @@ body{
 }
 .react-time-picker__inputGroup__input--hasLeadingZero {
   margin-left: -0.54em;
-  padding-left: calc(1px +  0.54em);
+  padding-left: calc(1px + 0.54em);
 }
 .react-time-picker__inputGroup__amPm {
   font: inherit;
@@ -103,17 +101,16 @@ body{
 .rdrDefinedRangesWrapper {
   display: none !important;
 }
-.rdrDateRangePickerWrapper{
+.rdrDateRangePickerWrapper {
   width: 500px;
   margin-bottom: 90px !important;
 }
 
-.rdrDateRangeWrapper{
+.rdrDateRangeWrapper {
   width: 100%;
 }
 
-
-.rdrMonth{
+.rdrMonth {
   width: 100% !important;
 }
 
@@ -122,73 +119,74 @@ body{
   border-radius: 10px;
 }
 
-.rdrStartEdge, .rdrInRange, .rdrEndEdge{
-  color:#57bdc8 !important;
+.rdrStartEdge,
+.rdrInRange,
+.rdrEndEdge {
+  color: #57bdc8 !important;
 }
 
-.custom-icon{
+.custom-icon {
   border: none !important;
-  width:100% !important;
-  margin-top: 32px !important
+  width: 100% !important;
+  margin-top: 32px !important;
 }
 
-.error-icon{
+.error-icon {
   border: none !important;
-  width:100% !important;
+  width: 100% !important;
 }
 
-.error-confirm-button{
-  width:100% !important;
+.error-confirm-button {
+  width: 100% !important;
   margin-top: 16px !important;
 }
 
-.error-actions{
+.error-actions {
   width: 128px !important;
   padding-top: 8px !important;
   padding-bottom: 8px !important;
 }
 
-.limit-icon{
+.limit-icon {
   border: none !important;
-  width:100% !important;
-  margin-top: 48px !important
+  width: 100% !important;
+  margin-top: 48px !important;
 }
 
-.limit-confirm-button{
-  width:100% !important;
+.limit-confirm-button {
+  width: 100% !important;
   margin-top: 36px !important;
 }
 
-.limit-actions{
+.limit-actions {
   width: 128px !important;
 }
 
-
-.save-title{
+.save-title {
   width: 384px !important;
 }
 
-.save-icon{
+.save-icon {
   border: none !important;
-  width:100% !important;
+  width: 100% !important;
   margin-top: 56px !important;
 }
 
-.save-button{
+.save-button {
   width: 112px !important;
   margin: 20px 8px !important ;
   border: none !important;
   letter-spacing: 0.05em !important;
 }
-.save-actions{
- width: 256px !important;
- height: 80px !important;
- margin-top: 48px !important;
- display: flex !important;
- flex-direction: row-reverse !important;
+.save-actions {
+  width: 256px !important;
+  height: 80px !important;
+  margin-top: 48px !important;
+  display: flex !important;
+  flex-direction: row-reverse !important;
 }
 
-.react-joyride__tooltip{
+.react-joyride__tooltip {
   color: #1b1b1bdf !important;
 }
 
@@ -196,15 +194,13 @@ body{
   margin-top: 10px !important;
 }
 
-.react-joyride__tooltip > div > div{
+.react-joyride__tooltip > div > div {
   padding: 15px 10px 5px 10px !important;
 }
 
-.react-joyride__tooltip h4{
+.react-joyride__tooltip h4 {
   font-size: 28px !important;
-
 }
-
 
 @tailwind base;
 @tailwind components;
@@ -212,10 +208,10 @@ body{
 
 @layer components {
   .text-area {
-    @apply flex flex-col justify-around  w-full h-32 my-2 mx-auto border-4 rounded-lg border-[#94bed1] ;
+    @apply flex flex-col justify-around  w-full h-32 my-2 mx-auto border-4 rounded-lg border-[#94bed1];
   }
   .text-area-large {
-    @apply flex flex-col justify-around w-full h-64 my-2  mx-auto border-4 rounded-lg border-[#94bed1] ;
+    @apply flex flex-col justify-around w-full h-64 my-2  mx-auto border-4 rounded-lg border-[#94bed1];
   }
   .checkbox-left {
     @apply flex   w-full  mx-auto my-2;
@@ -236,10 +232,10 @@ body{
     @apply ml-3 py-1   w-28 h-12 rounded-lg bg-stone-300  text-white text-shadow-btn text-lg tracking-wider hover:scale-105 ease-in-out;
   }
   .input-full {
-    @apply flex flex-col justify-around w-full h-16 my-2  mx-auto border-4 rounded-lg border-[#94bed1]  ;
+    @apply flex flex-col justify-around w-full h-16 my-2  mx-auto border-4 rounded-lg border-[#94bed1];
   }
   .input-30 {
-    @apply flex flex-col justify-around w-[30%] h-16 my-2  mx-auto border-4 rounded-lg border-[#94bed1] ;
+    @apply flex flex-col justify-around w-[30%] h-16 my-2  mx-auto border-4 rounded-lg border-[#94bed1];
   }
   .vertical {
     @apply flex flex-col justify-center;
@@ -247,13 +243,12 @@ body{
   .blur-hover {
     @apply text-white  h-full w-full  opacity-0 hover:opacity-100 backdrop-blur-sm;
   }
-  .header__container{
-    @apply flex fixed w-full top-0 left-0 my-0 z-30 rounded-b-lg border-gray-200 bg-white cursor-pointer justify-center border-b-2 sm:justify-start sm:border-b-0
+  .header__container {
+    @apply flex fixed w-full top-0 left-0 my-0 z-30 rounded-b-lg border-gray-200 bg-white cursor-pointer justify-center border-b-2 sm:justify-start sm:border-b-0;
   }
 }
 
 @layer utilities {
-  
   .text-shadow {
     text-shadow: 1px 1px 2px black;
   }
@@ -264,7 +259,7 @@ body{
   .text-shadow-btn {
     text-shadow: 1px 1px 3px #424242;
   }
-  
+
   .loader div {
     animation-duration: 0.5s;
   }

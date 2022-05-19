@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
-function PriceTable({className, title, text}) {
+function PriceTable({ className, title, text }) {
   return (
-    <div  className={className}>
+    <div className={className}>
       <div className="vertical min-h-[40px] w-2/12 border-r-2 border-stone-500 text-center ">
         {title}
       </div>
@@ -14,7 +14,7 @@ function PriceTable({className, title, text}) {
 PriceTable.propTypes = {
   className: PropTypes.string,
   title: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired
-}
+  text: PropTypes.string.isRequired,
+};
 
-export default PriceTable
+export default PriceTable;

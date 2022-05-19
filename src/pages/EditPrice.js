@@ -1,14 +1,13 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 
-import Textarea from "../components/Textarea";
-import Input from "../components/Input";
-import useRoutePush from "../hooks/useRoutePush";
-import checkUploadImgSize from "../helper/checkUploadSize";
-import { updatePrice, updateTraffic } from "../actions";
-import { firebase } from "../utils/firebase-config";
-import { errorAlert } from "../utils/customAlert";
-import PuzzleImg from "../img/Puzzle.png";
+import Textarea from '../components/Textarea';
+import Input from '../components/Input';
+import useRoutePush from '../hooks/useRoutePush';
+import checkUploadImgSize from '../helper/checkUploadSize';
+import { updatePrice, updateTraffic } from '../actions';
+import { firebase } from '../utils/firebase-config';
+import { errorAlert } from '../utils/customAlert';
+import PuzzleImg from '../img/Puzzle.png';
 
 function EditPrice() {
   const dispatch = useDispatch();
@@ -50,10 +49,10 @@ function EditPrice() {
 
   const addPrice = () => {
     const emptyPrice = {
-      category: "",
-      marketing: "",
-      saleTime: "",
-      tickets: [{ kind: "", price: "" }],
+      category: '',
+      marketing: '',
+      saleTime: '',
+      tickets: [{ kind: '', price: '' }],
     };
     const newPrice = [...price, emptyPrice];
     dispatch(updatePrice(newPrice));
@@ -70,8 +69,8 @@ function EditPrice() {
     const newPrice = [...price];
     const newTickets = newPrice[categoryIndex].tickets;
     const emptyTicket = {
-      kind: "",
-      price: "",
+      kind: '',
+      price: '',
     };
     newPrice[categoryIndex].tickets = [...newTickets, emptyTicket];
     dispatch(updatePrice(newPrice));
@@ -85,8 +84,8 @@ function EditPrice() {
   };
   const addTraffic = () => {
     const emptyTraffic = {
-      text: "",
-      img: "",
+      text: '',
+      img: '',
     };
     const newTraffic = [...traffic, emptyTraffic];
     dispatch(updateTraffic(newTraffic));
@@ -99,7 +98,7 @@ function EditPrice() {
     dispatch(updateTraffic(newTraffic));
   };
 
-  const checkInputValue = () =>{
+  const checkInputValue = () => {
     let isError = false;
 
     price.forEach((item) => {
@@ -119,18 +118,18 @@ function EditPrice() {
     });
 
     if (isError) {
-      errorAlert("售票資訊有空白欄位噢", PuzzleImg);
-      return isError
+      errorAlert('售票資訊有空白欄位噢', PuzzleImg);
+      return isError;
     }
-    return isError
-  }
+    return isError;
+  };
 
   const savePrice = () => {
-    const isError = checkInputValue()
-    if(isError) return
+    const isError = checkInputValue();
+    if (isError) return;
 
     firebase.savePricePage(userID, price, traffic).then((_) => {
-      routerHandler("就要完成囉\n快來建立一個工作坊吧", "/backstage/workshop");
+      routerHandler('就要完成囉\n快來建立一個工作坊吧', '/backstage/workshop');
     });
   };
 
@@ -263,10 +262,10 @@ function EditPrice() {
                 {item.img ? (
                   <img
                     className="border-0 object-cover h-64 w-full mr-0"
-                    src={item ? item.img : ""}
+                    src={item ? item.img : ''}
                   />
                 ) : (
-                  ""
+                  ''
                 )}
                 <input
                   id={`traffic${index}`}

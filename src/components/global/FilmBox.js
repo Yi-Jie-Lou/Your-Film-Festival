@@ -1,7 +1,7 @@
-import { NavLink } from "react-router-dom";
-import PropTypes from "prop-types"
+import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-function FilmBox({className, router, title, text, img}) {
+function FilmBox({ className, router, title, text, img }) {
   return (
     <NavLink className={className} to={router}>
       <div className="relative w-full h-full">
@@ -20,7 +20,7 @@ FilmBox.propTypes = {
   router: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
-  img: PropTypes.string.isRequired
-}
+  img: PropTypes.string.isRequired,
+};
 
 export default FilmBox;

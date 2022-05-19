@@ -1,51 +1,51 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-} from "firebase/auth";
-import { customImgAlert, errorAlert } from "../utils/customAlert";
-import Joyride, { STATUS } from "react-joyride";
+} from 'firebase/auth';
+import { customImgAlert, errorAlert } from '../utils/customAlert';
+import Joyride, { STATUS } from 'react-joyride';
 
-import { auth, firebase } from "../utils/firebase-config";
-import { isGuide } from "../actions";
-import Header from "../components/global/Header";
-import Footer from "../components/global/Footer";
-import DarkBlueCloudImg from "../img/DarkBlueCloud.png";
-import BlueCloudImg from "../img/BlueCloud.png";
-import PuzzleImg from "../img/Puzzle.png";
-import LoadingAnim from "../img/LoadingAnim.gif";
+import { auth, firebase } from '../utils/firebase-config';
+import { isGuide } from '../actions';
+import Header from '../components/global/Header';
+import Footer from '../components/global/Footer';
+import DarkBlueCloudImg from '../img/DarkBlueCloud.png';
+import BlueCloudImg from '../img/BlueCloud.png';
+import PuzzleImg from '../img/Puzzle.png';
+import LoadingAnim from '../img/LoadingAnim.gif';
 
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userID = useSelector((state) => state.userID);
-  const [userEmail, setUserEmail] = useState("newdemo@gmail.com");
-  const [userPassword, setUserPassword] = useState("test1234");
+  const [userEmail, setUserEmail] = useState('newdemo@gmail.com');
+  const [userPassword, setUserPassword] = useState('test1234');
   const state = useSelector((state) => state.state);
   const isFirstViewed = useSelector((state) => state.isGuide);
   const steps = [
     {
-      title: "Welcome！",
-      content: "在這裡您可以建立自己的影展網站！",
-      target: "body",
+      title: 'Welcome！',
+      content: '在這裡您可以建立自己的影展網站！',
+      target: 'body',
       disableBeacon: true,
-      placement: "center",
+      placement: 'center',
     },
     {
-      title: "Step1",
-      content: "請先瀏覽範例網站介面",
-      target: "#step1",
-      placement: "top",
+      title: 'Step1',
+      content: '請先瀏覽範例網站介面',
+      target: '#step1',
+      placement: 'top',
     },
     {
-      title: "Step2",
-      content: "登入後開始上傳您的影片！",
-      target: "#step2",
-      placement: "top",
+      title: 'Step2',
+      content: '登入後開始上傳您的影片！',
+      target: '#step2',
+      placement: 'top',
     },
   ];
 
@@ -59,11 +59,11 @@ function Login() {
 
   const handleError = (error) => {
     console.log(error);
-    error === "Firebase: Error (auth/wrong-password)."
-      ? errorAlert("密碼錯誤", PuzzleImg)
-      : "Firebase: Error (auth/invalid-email)."
-      ? errorAlert("無效的帳號或密碼", PuzzleImg)
-      : errorAlert("登入失敗", PuzzleImg);
+    error === 'Firebase: Error (auth/wrong-password).'
+      ? errorAlert('密碼錯誤', PuzzleImg)
+      : error === 'Firebase: Error (auth/invalid-email).'
+      ? errorAlert('無效的帳號或密碼', PuzzleImg)
+      : errorAlert('登入失敗', PuzzleImg);
   };
 
   const register = async () => {
@@ -76,11 +76,11 @@ function Login() {
       firebase
         .initDataBase(user.user.uid, user.user.email)
         .then((_) => {
-          alert("註冊成功");
+          alert('註冊成功');
         })
         .then((_) => {
-          customImgAlert("歡迎您", BlueCloudImg);
-          navigate("/backstage");
+          customImgAlert('歡迎您', BlueCloudImg);
+          navigate('/backstage');
         });
     } catch (error) {
       handleError(error.message);
@@ -89,15 +89,11 @@ function Login() {
 
   const login = async () => {
     try {
-      const user = await signInWithEmailAndPassword(
-        auth,
-        userEmail,
-        userPassword
-      );
+      await signInWithEmailAndPassword(auth, userEmail, userPassword);
 
-      customImgAlert("歡迎您回來", BlueCloudImg);
+      customImgAlert('歡迎您回來', BlueCloudImg);
 
-      navigate("/backstage");
+      navigate('/backstage');
     } catch (error) {
       handleError(error.message);
     }
@@ -105,7 +101,7 @@ function Login() {
   const logout = async () => {
     if (login) {
       await signOut(auth);
-      customImgAlert("您已登出囉", DarkBlueCloudImg);
+      customImgAlert('您已登出囉', DarkBlueCloudImg);
     }
   };
 
@@ -119,9 +115,9 @@ function Login() {
               className=" w-64  h-64  "
               style={{
                 background: `url(${LoadingAnim})`,
-                backgroundPosition: "center",
-                backgroundSize: "cover",
-                backgroundRepeat: "no-repeat",
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
               }}
             ></div>
           </div>
@@ -132,7 +128,7 @@ function Login() {
             <h1 className=" my-4 p-2 w-full text-center text-xl tracking-wider  rounded-lg ">
               登入開始建立您的影展
             </h1>
-            <div className="flex justify-center my-4 w-2/3  ">
+            <div className="flex justify-center my-4 w-2/3">
               <label className="vertical mr-4" htmlFor="Email">
                 <span>信箱:</span>
               </label>
@@ -162,7 +158,7 @@ function Login() {
             </div>
             <div className="flex justify-center my-4 w-2/3">
               <button className="button-blue mx-3 w-28" onClick={register}>
-                {" "}
+                {' '}
                 註冊
               </button>
               {userID ? (
@@ -179,23 +175,23 @@ function Login() {
         </div>
       </div>
       <Footer />
-      {state === "logout" && isFirstViewed ? (
+      {state === 'logout' && isFirstViewed ? (
         <Joyride
           callback={handleJoyrideCallback}
           steps={steps}
           continuous={true}
           styles={{
             options: {
-              arrowColor: "#fff",
-              backgroundColor: "#fff",
-              primaryColor: "#f97316",
-              textColor: "#000",
+              arrowColor: '#fff',
+              backgroundColor: '#fff',
+              primaryColor: '#f97316',
+              textColor: '#000',
               zIndex: 1000,
             },
           }}
         />
       ) : (
-        ""
+        ''
       )}
     </>
   );

@@ -1,9 +1,8 @@
-import PropTypes from "prop-types"
-import FilmsContainer from "../components/index/FilmsContainer";
-import Carousel from "../components/index/Carousel";
+import PropTypes from 'prop-types';
+import FilmsContainer from '../components/index/FilmsContainer';
+import Carousel from '../components/index/Carousel';
 
-function Index({userState}) {
-
+function Index({ userState }) {
   return (
     <>
       <Carousel userState={userState} />
@@ -13,7 +12,7 @@ function Index({userState}) {
 }
 
 Index.propTypes = {
-  userState: PropTypes.string.isRequired
-}
+  userState: PropTypes.string.isRequired,
+};
 
 export default Index;

@@ -1,5 +1,5 @@
-import { NavLink, Link } from "react-router-dom";
-import PropTypes from "prop-types";
+import { NavLink, Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 function CubeNavLink({ router, cube, children, className }) {
   return (
@@ -17,11 +17,11 @@ function CubeNavLink({ router, cube, children, className }) {
 }
 
 CubeNavLink.propTypes = {
+  className: PropTypes.string.isRequired,
   router: PropTypes.string.isRequired,
   cube: PropTypes.string.isRequired,
   children: PropTypes.string.isRequired,
 };
-
 
 function LoginNavLink({ router, cube, children }) {
   return (
@@ -41,7 +41,6 @@ LoginNavLink.propTypes = {
   cube: PropTypes.string.isRequired,
   children: PropTypes.string.isRequired,
 };
-
 
 function LoginLink({ router, cube, children, id }) {
   return (
@@ -66,9 +65,7 @@ LoginLink.propTypes = {
 function SwitchCubeNavLink({ router, cube, children }) {
   return (
     <NavLink to={router}>
-      <div
-        className="w-28 sm:text-sm lg:w-36 lg:text-base xl:w-40 relative top-[-10px] text-center leading-7 hover:top-[0px]"
-      >
+      <div className="w-28 sm:text-sm lg:w-36 lg:text-base xl:w-40 relative top-[-10px] text-center leading-7 hover:top-[0px]">
         <img src={cube} />
         <span className="top-5 lg:top-6 xl:top-7 absolute w-full  left-0 text-white text-shadow-light tracking-wider">
           {children}
@@ -84,7 +81,6 @@ SwitchCubeNavLink.propTypes = {
   children: PropTypes.string.isRequired,
 };
 
-
 function CustomerNavLink({ router, children }) {
   return (
     <NavLink className="vertical" to={router}>
@@ -97,12 +93,13 @@ function CustomerNavLink({ router, children }) {
 
 CustomerNavLink.propTypes = {
   router: PropTypes.string.isRequired,
-  children: PropTypes.oneOfType([PropTypes.string.isRequired,PropTypes.element.isRequired])
+  children: PropTypes.oneOfType([
+    PropTypes.string.isRequired,
+    PropTypes.element.isRequired,
+  ]),
 };
 
-
 function MobileNavLink({ router, children, className, color, isActive }) {
- 
   return (
     <NavLink className="flex justify-center w-full" to={router}>
       <div
@@ -114,8 +111,8 @@ function MobileNavLink({ router, children, className, color, isActive }) {
         <span
           className={` ${
             isActive
-              ? "transition-all duration-[2000ms] opacity-100"
-              : "opacity-0 pointer-events-none"
+              ? 'transition-all duration-[2000ms] opacity-100'
+              : 'opacity-0 pointer-events-none'
           }   text-white text-center text-xl text-shadow-light`}
         >
           {children}
@@ -130,9 +127,8 @@ MobileNavLink.propTypes = {
   children: PropTypes.string.isRequired,
   router: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
-  isActive: PropTypes.bool.isRequired
+  isActive: PropTypes.bool.isRequired,
 };
-
 
 function MobileBuild({ children, className, color, isActive, onClick }) {
   return (
@@ -146,8 +142,8 @@ function MobileBuild({ children, className, color, isActive, onClick }) {
       <span
         className={` ${
           isActive
-            ? "transition-all duration-[2000ms] opacity-100"
-            : "opacity-0 pointer-events-none"
+            ? 'transition-all duration-[2000ms] opacity-100'
+            : 'opacity-0 pointer-events-none'
         }   text-white text-center text-xl text-shadow-light`}
       >
         {children}
@@ -161,7 +157,7 @@ MobileBuild.propTypes = {
   children: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
   isActive: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired,
 };
 
 export {

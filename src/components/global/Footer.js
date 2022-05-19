@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import PropTypes from "prop-types";
-import FooterImg from "../../img/FooterImgNew_1920.png";
-import CloudsImg from "../../img/Cloud.png";
-import GitLogo from "../../img/GitLogo.png";
+import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
+import FooterImg from '../../img/FooterImgNew_1920.png';
+import CloudsImg from '../../img/Cloud.png';
+import GitLogo from '../../img/GitLogo.png';
 
 function TemplateFooter() {
   return (
@@ -12,6 +12,7 @@ function TemplateFooter() {
         className="z-[200] cursor-pointer"
         href="https://github.com/Yi-Jie-Lou/Your-Film-Festival"
         target="_blank"
+        rel="noreferrer noopener"
       >
         <div className="flex h-full">
           <div className="flex items-center mt-5 z-20 text-center text-xl">
@@ -84,7 +85,7 @@ function Footer({ userState }) {
 
   return (
     <>
-      {pageState === "preview" || pageState === "build" ? (
+      {pageState === 'preview' || pageState === 'build' ? (
         <CustomerFooter />
       ) : (
         <TemplateFooter />
@@ -94,7 +95,7 @@ function Footer({ userState }) {
 }
 
 Footer.propTypes = {
-  userState: PropTypes.oneOf(["preview", "build", "editing", ""]),
+  userState: PropTypes.oneOf(['preview', 'build', 'editing', '']),
 };
 
 export default Footer;

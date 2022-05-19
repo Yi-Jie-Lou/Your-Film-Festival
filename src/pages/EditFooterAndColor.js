@@ -1,29 +1,27 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 import {
   updateSponsor,
   updatePrimaryColor,
   updateSecondaryColor,
   updateTextColor,
-} from "../actions";
-import { firebase } from "../utils/firebase-config";
-import checkUploadImgSize from "../helper/checkUploadSize";
-import Input from "../components/Input";
-import ColorCube from "../components/ColorCube";
-import TextColorCube from "../components/TextColorCube";
-import useRoutePush from "../hooks/useRoutePush";
-import PuzzleImg from "../img/Puzzle.png";
-import { errorAlert } from "../utils/customAlert";
+} from '../actions';
+import { firebase } from '../utils/firebase-config';
+import checkUploadImgSize from '../helper/checkUploadSize';
+import Input from '../components/Input';
+import ColorCube from '../components/ColorCube';
+import TextColorCube from '../components/TextColorCube';
+import useRoutePush from '../hooks/useRoutePush';
+import PuzzleImg from '../img/Puzzle.png';
+import { errorAlert } from '../utils/customAlert';
 
 function EditFooterAndColor() {
   const dispatch = useDispatch();
-  const routerHandler = useRoutePush()
+  const routerHandler = useRoutePush();
   const primaryColor = useSelector((state) => state.primaryColor);
   const secondaryColor = useSelector((state) => state.secondaryColor);
   const textColor = useSelector((state) => state.textColor);
   const sponsor = useSelector((state) => state.sponsor);
   const userID = useSelector((state) => state.userID);
-
 
   const handleChange = (value, _, index) => {
     const newSponsor = { ...sponsor };
@@ -32,11 +30,11 @@ function EditFooterAndColor() {
   };
   const handleColorCode = (e, key) => {
     switch (key) {
-      case "primary":
+      case 'primary':
         return dispatch(updatePrimaryColor(e.target.value));
-      case "secondary":
+      case 'secondary':
         return dispatch(updateSecondaryColor(e.target.value));
-      case "text":
+      case 'text':
         return dispatch(updateTextColor(e.target.value));
       default:
         throw new Error();
@@ -45,16 +43,16 @@ function EditFooterAndColor() {
 
   const addSponsor = (key) => {
     const newSponsor = { ...sponsor };
-    newSponsor[key].push("");
+    newSponsor[key].push('');
     dispatch(updateSponsor(newSponsor));
   };
 
   const previewSponsorImg = async (e, index) => {
     const uploadImg = e.target.files[0];
-    const isValidImgSize = checkUploadImgSize(uploadImg)
+    const isValidImgSize = checkUploadImgSize(uploadImg);
 
-    if(!isValidImgSize) return
-   
+    if (!isValidImgSize) return;
+
     await firebase.uploadImgs(uploadImg);
     firebase.getUploadImgs(uploadImg).then((uploadUrl) => {
       const newSponsor = { ...sponsor };
@@ -74,26 +72,30 @@ function EditFooterAndColor() {
     dispatch(updateSponsor(newSponsor));
   };
 
-  const checkInputValue = () =>{
-    let isError = false
+  const checkInputValue = () => {
+    let isError = false;
     const reg = /^#([0-9a-f]{3}){1,2}$/i;
 
-    if (!reg.test(primaryColor) || !reg.test(secondaryColor) || !reg.test(textColor)) {
-      errorAlert("請輸入正確色碼", PuzzleImg);
-      isError = true
-      return isError
+    if (
+      !reg.test(primaryColor) ||
+      !reg.test(secondaryColor) ||
+      !reg.test(textColor)
+    ) {
+      errorAlert('請輸入正確色碼', PuzzleImg);
+      isError = true;
+      return isError;
     }
-    return isError
-  }
+    return isError;
+  };
 
   const saveSponsorAndColors = () => {
-    const isError = checkInputValue()
-    if(isError) return
-    
+    const isError = checkInputValue();
+    if (isError) return;
+
     firebase
       .saveSponsor(userID, sponsor, primaryColor, secondaryColor, textColor)
       .then((_) => {
-        routerHandler("來預覽您的網站吧\n您可以隨時回來做修改","/preview")
+        routerHandler('來預覽您的網站吧\n您可以隨時回來做修改', '/preview');
       });
   };
 
@@ -106,7 +108,7 @@ function EditFooterAndColor() {
         <button
           className="button-blue ml-0 my-4"
           onClick={() => {
-            addSponsor("text");
+            addSponsor('text');
           }}
         >
           Add
@@ -141,7 +143,7 @@ function EditFooterAndColor() {
           <button
             className="button-blue ml-0 mt-8"
             onClick={() => {
-              addSponsor("img");
+              addSponsor('img');
             }}
           >
             Add
@@ -189,15 +191,15 @@ function EditFooterAndColor() {
         <h1 className=" w-full mx-auto mt-32 mb-8 border-b-2 border-stone-500 text-2xl tracking-wider">
           選擇主色 / Primary color
         </h1>
-        <ColorCube color={"primary"} />
+        <ColorCube color={'primary'} />
         <h1 className=" w-full mx-auto mt-14 mb-8 border-b-2 border-stone-500 text-2xl tracking-wider">
           選擇輔色 / Secondary color
         </h1>
-        <ColorCube color={"secondary"} />
+        <ColorCube color={'secondary'} />
         <h1 className=" w-full mx-auto mt-14 mb-8 border-b-2 border-stone-500 text-2xl tracking-wider">
           選擇字色 / Text color
         </h1>
-        <TextColorCube color={"text"} />
+        <TextColorCube color={'text'} />
         <div className="flex flex-col mt-12">
           <div className="flex justify-center my-4">
             <h1 className="vertical mx-4 text-2xl">
@@ -206,7 +208,7 @@ function EditFooterAndColor() {
             <input
               value={primaryColor}
               onChange={(e) => {
-                handleColorCode(e, "primary");
+                handleColorCode(e, 'primary');
               }}
               className=" w-36 h-10 pl-3 mt-1 outline-none border-4 border-[#94bed1] rounded-xl "
             ></input>
@@ -222,7 +224,7 @@ function EditFooterAndColor() {
             <input
               value={secondaryColor}
               onChange={(e) => {
-                handleColorCode(e, "secondary");
+                handleColorCode(e, 'secondary');
               }}
               className=" w-36 h-10 pl-3 mt-1 outline-none border-4 border-[#94bed1] rounded-xl "
             ></input>
@@ -238,7 +240,7 @@ function EditFooterAndColor() {
             <input
               value={textColor}
               onChange={(e) => {
-                handleColorCode(e, "text");
+                handleColorCode(e, 'text');
               }}
               className=" w-36 h-10 pl-3 mt-1 outline-none border-4 border-[#94bed1] rounded-xl "
             ></input>

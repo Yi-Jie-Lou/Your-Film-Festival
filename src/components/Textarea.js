@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 function Textarea({
   attribute,
@@ -15,7 +15,7 @@ function Textarea({
       <textarea
         id={attribute}
         className={`px-2 h-4/5 focus:outline-none  ${
-          isReadOnly ? "text-slate-400" : "text-slate-600"
+          isReadOnly ? 'text-slate-400' : 'text-slate-600'
         }`}
         value={value}
         readOnly={isReadOnly}

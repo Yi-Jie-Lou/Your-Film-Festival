@@ -1,10 +1,9 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
-import Proptypes from "prop-types";
-import NewsBox from "../components/global/NewsBox";
+import Proptypes from 'prop-types';
+import NewsBox from '../components/global/NewsBox';
 
-function Workshop({userState}) {
+function Workshop({ userState }) {
   const workshop = useSelector((state) => state.workshop);
   const festivalPathName = useSelector((state) => state.festivalPathName);
 
@@ -15,9 +14,9 @@ function Workshop({userState}) {
           <div key={index}>
             <NewsBox
               router={
-                userState === "build"
+                userState === 'build'
                   ? `/build/workshop/${item.workshopID}/festival=${festivalPathName}`
-                  : userState === "preview"
+                  : userState === 'preview'
                   ? `/preview/workshop/${item.workshopID}`
                   : `/workshop/${item.workshopID}`
               }
@@ -32,7 +31,7 @@ function Workshop({userState}) {
 }
 
 Workshop.propTypes = {
-  userState: Proptypes.oneOf(["build", "preview", ""]).isRequired,
+  userState: Proptypes.oneOf(['build', 'preview', '']).isRequired,
 };
 
 export default Workshop;

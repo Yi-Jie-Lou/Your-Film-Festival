@@ -1,21 +1,21 @@
-import React, { useEffect, useState, useReducer } from "react";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useEffect, useState, useReducer } from 'react';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
-import ReCAPTCHA from "react-google-recaptcha";
+import ReCAPTCHA from 'react-google-recaptcha';
 
-import Input from "../components/Input";
-import { customImgAlert, errorAlert } from "../utils/customAlert";
-import BlueCloudImg from "../img/BlueCloud.png";
-import PuzzleImg from "../img/Puzzle.png";
+import Input from '../components/Input';
+import { customImgAlert, errorAlert } from '../utils/customAlert';
+import BlueCloudImg from '../img/BlueCloud.png';
+import PuzzleImg from '../img/Puzzle.png';
 
 function reducer(state, action) {
   switch (action.type) {
-    case "setName":
+    case 'setName':
       return { ...state, name: action.payload };
-    case "setEmail":
+    case 'setEmail':
       return { ...state, email: action.payload };
-    case "setPhoneNumber":
+    case 'setPhoneNumber':
       return { ...state, phoneNumber: action.payload };
     default:
       throw new Error();
@@ -25,12 +25,16 @@ function reducer(state, action) {
 function WorkshopDetails() {
   const workshop = useSelector((state) => state.workshop);
   const currentID = useParams();
-  const initialState = { name: "Roger", email: "dumpling82@livemail.tw", phoneNumber: "0987181315" };
+  const initialState = {
+    name: 'Roger',
+    email: 'dumpling82@livemail.tw',
+    phoneNumber: '0987181315',
+  };
   const festivalLogo = useSelector((state) => state.festivalLogo);
   const festivalPathName = useSelector((state) => state.festivalPathName);
   const hostEmail = useSelector((state) => state.userEmail);
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [currentWorkshop, setCurrentWorkshop] = useState("");
+  const [currentWorkshop, setCurrentWorkshop] = useState('');
   const [isRobot, setIsRobot] = useState(true);
   const [isLoaing, setIsLoading] = useState(false);
 
@@ -533,7 +537,7 @@ function WorkshopDetails() {
       phoneNumber: state.phoneNumber,
       content: generateMailContent(
         `您已成功報名${currentWorkshop.title}！`,
-        "請注意信箱與簡訊，若有異動會再另行通知",
+        '請注意信箱與簡訊，若有異動會再另行通知',
         festivalLogo
       ),
     };
@@ -542,39 +546,39 @@ function WorkshopDetails() {
       name: state.name,
       email: hostEmail,
       phoneNumber: state.phoneNumber,
-      title:currentWorkshop.title ,
+      title: currentWorkshop.title,
       content: generateMailContent(
-        "有新的報名者！",
+        '有新的報名者！',
         `若有異動請記得通知報名者\nEmail:${state.email}\nPhone Number:${state.phoneNumber}`,
-        "https://firebasestorage.googleapis.com/v0/b/your-film-festival-d2cd4.appspot.com/o/yourFilmLogoA.png?alt=media&token=26155ce9-3034-4070-a5e6-c12a0f93ea9f"
+        'https://firebasestorage.googleapis.com/v0/b/your-film-festival-d2cd4.appspot.com/o/yourFilmLogoA.png?alt=media&token=26155ce9-3034-4070-a5e6-c12a0f93ea9f'
       ),
     };
 
-    const sendToClient = await fetch("https://stark-mountain-00642.herokuapp.com/send", {
-      method: "POST",
+    await fetch('https://stark-mountain-00642.herokuapp.com/send', {
+      method: 'POST',
       headers: {
-        "Content-type": "application/json",
+        'Content-type': 'application/json',
       },
       body: JSON.stringify(toCustomer),
     }).then((res) => {
       if (res.status === 404) {
-        errorAlert("出錯了\n請聯繫主辦方", PuzzleImg);
+        errorAlert('出錯了\n請聯繫主辦方', PuzzleImg);
         setIsLoading(false);
       }
     });
 
-    const sendToHost = await fetch("https://stark-mountain-00642.herokuapp.com/send/host", {
-      method: "POST",
+    await fetch('https://stark-mountain-00642.herokuapp.com/send/host', {
+      method: 'POST',
       headers: {
-        "Content-type": "application/json",
+        'Content-type': 'application/json',
       },
       body: JSON.stringify(toHost),
     }).then((res) => {
       if (res.status === 200) {
-        customImgAlert("您已成功報名活動囉", BlueCloudImg);
+        customImgAlert('您已成功報名活動囉', BlueCloudImg);
         setIsLoading(false);
       } else if (res.status === 404) {
-        errorAlert("出錯了\n請聯繫主辦方", PuzzleImg);
+        errorAlert('出錯了\n請聯繫主辦方', PuzzleImg);
         setIsLoading(false);
       }
     });
@@ -602,7 +606,7 @@ function WorkshopDetails() {
           <div className="fixed top-0 bg-black w-full h-full z-30 opacity-50"></div>
         </>
       ) : (
-        ""
+        ''
       )}
       <div className="min-h-[800px]">
         <img className="w-full mt-16" src={currentWorkshop?.img} />
@@ -611,7 +615,7 @@ function WorkshopDetails() {
         </h1>
         <div className="mx-auto my-12 w-11/12">
           {currentWorkshop
-            ? currentWorkshop.text.split("\n").map((line, index) => (
+            ? currentWorkshop.text.split('\n').map((line, index) => (
                 <div key={index} className="my-1">
                   <span key={index}>
                     {line}
@@ -619,7 +623,7 @@ function WorkshopDetails() {
                   </span>
                 </div>
               ))
-            : ""}
+            : ''}
 
           <h1
             id="H1"
@@ -633,7 +637,7 @@ function WorkshopDetails() {
                 <img
                   key={index}
                   className="border-0 object-cover  w-48 h-48 rounded-full  mr-4"
-                  src={img ? img : ""}
+                  src={img ? img : ''}
                 />
               ))}
           </div>
@@ -687,8 +691,8 @@ function WorkshopDetails() {
                 onClick={submitEmail}
                 className={` ${
                   isRobot
-                    ? "pointer-events-none button-gray  "
-                    : " button-blue cursor-pointer"
+                    ? 'pointer-events-none button-gray  '
+                    : ' button-blue cursor-pointer'
                 }  `}
               >
                 送出

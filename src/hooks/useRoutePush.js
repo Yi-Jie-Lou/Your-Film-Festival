@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
-import { saveAlert } from "../utils/customAlert";
-import BlueCloudImg from "../img/BlueCloud.png";
+import { useNavigate } from 'react-router-dom';
+import { saveAlert } from '../utils/customAlert';
+import BlueCloudImg from '../img/BlueCloud.png';
 
 const useRoutePush = () => {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ const useRoutePush = () => {
     });
   };
 
-  return routerHandler
+  return routerHandler;
 };
 
 export default useRoutePush;

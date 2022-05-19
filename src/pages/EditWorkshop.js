@@ -1,25 +1,23 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 
-import uniqid from "uniqid";
+import uniqid from 'uniqid';
 
-import Textarea from "../components/Textarea";
-import Input from "../components/Input";
-import Checkbox from "../components/Checkbox";
-import Cropper from "../components/Cropper";
-import useRoutePush from "../hooks/useRoutePush";
-import checkUploadImgSize from "../helper/checkUploadSize";
-import { updateWorkshop } from "../actions";
-import { firebase } from "../utils/firebase-config";
-import { errorAlert } from "../utils/customAlert";
-import PuzzleImg from "../img/Puzzle.png";
+import Textarea from '../components/Textarea';
+import Input from '../components/Input';
+import Checkbox from '../components/Checkbox';
+import Cropper from '../components/Cropper';
+import useRoutePush from '../hooks/useRoutePush';
+import checkUploadImgSize from '../helper/checkUploadSize';
+import { updateWorkshop } from '../actions';
+import { firebase } from '../utils/firebase-config';
+import { errorAlert } from '../utils/customAlert';
+import PuzzleImg from '../img/Puzzle.png';
 
 function EditWorkshop() {
   const dispatch = useDispatch();
-  const routerHandler = useRoutePush()
+  const routerHandler = useRoutePush();
   const userID = useSelector((state) => state.userID);
   const workshop = useSelector((state) => state.workshop);
-
 
   const handleChange = (value, key, index) => {
     const newWorkshop = [...workshop];
@@ -29,8 +27,8 @@ function EditWorkshop() {
 
   const preview = async (e, index) => {
     const uploadImg = e.target.files[0];
-    const isValidImgSize = checkUploadImgSize(uploadImg)
-    if(!isValidImgSize) return
+    const isValidImgSize = checkUploadImgSize(uploadImg);
+    if (!isValidImgSize) return;
 
     await firebase.uploadImgs(uploadImg);
     firebase.getUploadImgs(uploadImg).then((uploadUrl) => {
@@ -42,8 +40,8 @@ function EditWorkshop() {
 
   const previewGuest = async (e, index, guestIndex) => {
     const uploadImg = e.target.files[0];
-    const isValidImgSize = checkUploadImgSize(uploadImg)
-    if(!isValidImgSize) return
+    const isValidImgSize = checkUploadImgSize(uploadImg);
+    if (!isValidImgSize) return;
 
     await firebase.uploadImgs(uploadImg);
     firebase.getUploadImgs(uploadImg).then((uploadUrl) => {
@@ -55,12 +53,12 @@ function EditWorkshop() {
 
   const addWorkshop = () => {
     const emptyWorkshop = {
-      title: "",
-      img: "",
-      text: "",
-      guest: [""],
+      title: '',
+      img: '',
+      text: '',
+      guest: [''],
       workshopID: uniqid(),
-      isReadOnly:false
+      isReadOnly: false,
     };
     const newWorkshop = [emptyWorkshop, ...workshop];
     dispatch(updateWorkshop(newWorkshop));
@@ -74,7 +72,7 @@ function EditWorkshop() {
 
   const addGuest = (index) => {
     const newWorkshop = [...workshop];
-    newWorkshop[index].guest.push("");
+    newWorkshop[index].guest.push('');
     dispatch(updateWorkshop(newWorkshop));
   };
 
@@ -88,34 +86,36 @@ function EditWorkshop() {
     const newWorkshop = [...workshop];
     newWorkshop[index].isReadOnly = false;
     dispatch(updateWorkshop(newWorkshop));
-  }
+  };
 
   const checkInputValue = () => {
-    let isError = false 
+    let isError = false;
 
-    if(workshop.some(item => (!item.title.trim()))){
-      errorAlert("工作坊名稱不可以是空白的噢", PuzzleImg);
-      isError = true
-      return isError
-    }    
-    return isError
-  }
+    if (workshop.some((item) => !item.title.trim())) {
+      errorAlert('工作坊名稱不可以是空白的噢', PuzzleImg);
+      isError = true;
+      return isError;
+    }
+    return isError;
+  };
 
-  const saveWorkshop= () => {
+  const saveWorkshop = () => {
+    const isError = checkInputValue();
+    if (isError) return;
 
-    const isError = checkInputValue()
-    if(isError) return
-
-    const newWorkshop= workshop.map(item => {
-      item.isReadOnly = true
-      return item
-    })
+    const newWorkshop = workshop.map((item) => {
+      item.isReadOnly = true;
+      return item;
+    });
     dispatch(updateWorkshop(newWorkshop));
 
-    firebase.saveWorkshop(userID, workshop).then((_) =>{
-      routerHandler("最後，來點顏色和增加贊助商吧","/backstage/edit-footer-color")
-    })
-  }
+    firebase.saveWorkshop(userID, workshop).then((_) => {
+      routerHandler(
+        '最後，來點顏色和增加贊助商吧',
+        '/backstage/edit-footer-color'
+      );
+    });
+  };
 
   return (
     <div className="flex flex-col  my-24 mx-auto w-11/12">
@@ -147,7 +147,7 @@ function EditWorkshop() {
                 {item.img ? (
                   <img
                     className="border-0 object-cover  w-full mr-0"
-                    src={item ? item.img : ""}
+                    src={item ? item.img : ''}
                   />
                 ) : (
                   <p className="flex flex-col justify-center h-full">
@@ -182,42 +182,44 @@ function EditWorkshop() {
               </button>
             </div>
             <div className="flex flex-wrap">
-
-
-            {item.guest.map((guest, guestIndex) => (
-
-              guest?  <div key={guestIndex} className="mx-6 my-10">
-                  <label
-                    className="block w-52 h-52 rounded-full text-center  border-4 border-[#94bed1]  cursor-pointer"
-                    htmlFor={`guest${index}${guestIndex}`}
-                  >
-                    <img
-                        className="border-0 object-cover  w-full h-full rounded-full  mr-0"
-                        src={guest ? guest : ""}
-                      />
-                    <input
-                      id={`guest${index}${guestIndex}`}
-                      className="hidden border-1 "
-                      type="file"
-                      accept="image/*"
-                      onChange={(e) => previewGuest(e, index, guestIndex)}
-                    />
-                  </label>
-                  <div className="flex justify-center mt-6">
-                    <button
-                      className="button-red mx-0"
-                      onClick={() => {
-                        deleteGuest(index, guestIndex);
-                      }}
+              {item.guest.map((guest, guestIndex) =>
+                guest ? (
+                  <div key={guestIndex} className="mx-6 my-10">
+                    <label
+                      className="block w-52 h-52 rounded-full text-center  border-4 border-[#94bed1]  cursor-pointer"
+                      htmlFor={`guest${index}${guestIndex}`}
                     >
-                      Delete
-                    </button>
+                      <img
+                        className="border-0 object-cover  w-full h-full rounded-full  mr-0"
+                        src={guest ? guest : ''}
+                      />
+                      <input
+                        id={`guest${index}${guestIndex}`}
+                        className="hidden border-1 "
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => previewGuest(e, index, guestIndex)}
+                      />
+                    </label>
+                    <div className="flex justify-center mt-6">
+                      <button
+                        className="button-red mx-0"
+                        onClick={() => {
+                          deleteGuest(index, guestIndex);
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
-                </div> :
-
-              <Cropper key={guestIndex} workshopNum={index} guestNum={guestIndex} />
-            ))}
-  
+                ) : (
+                  <Cropper
+                    key={guestIndex}
+                    workshopNum={index}
+                    guestNum={guestIndex}
+                  />
+                )
+              )}
             </div>
             <div className="flex justify-center mx-auto  my-12 w-96 border-4 border-[#94bed1] rounded-2xl ">
               <p className="flex flex-col justify-center mr-6">
@@ -275,15 +277,12 @@ function EditWorkshop() {
           </div>
         ))}
       <div className="flex justify-center mt-12 w-full">
-        <button
-          onClick={saveWorkshop}
-          className="button-blue my-0  mx-0"
-        >
+        <button onClick={saveWorkshop} className="button-blue my-0  mx-0">
           儲存本頁
         </button>
       </div>
     </div>
   );
-} 
+}
 
 export default EditWorkshop;

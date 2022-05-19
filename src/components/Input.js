@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 function Input({
   attribute,
@@ -18,7 +18,7 @@ function Input({
       <input
         id={attribute}
         className={`pl-2 focus:outline-none ${
-          isReadOnly ? "text-slate-400" : "text-slate-600"
+          isReadOnly ? 'text-slate-400' : 'text-slate-600'
         }`}
         type={type}
         value={value}
@@ -37,7 +37,7 @@ Input.propTypes = {
   index: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
   attribute: PropTypes.string.isRequired,
   children: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(["text", "number"]),
+  type: PropTypes.oneOf(['text', 'number']),
   value: PropTypes.oneOfType([
     PropTypes.string.isRequired,
     PropTypes.number.isRequired,

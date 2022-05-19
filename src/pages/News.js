@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
-import PropTypes from "prop-types"
-import NewsBox from "../components/global/NewsBox";
+import PropTypes from 'prop-types';
+import NewsBox from '../components/global/NewsBox';
 
-function News({userState}) {
+function News({ userState }) {
   const news = useSelector((state) => state.news);
   const [importantNews, setImportantNews] = useState([]);
   const [normalNews, setNormalNews] = useState([]);
@@ -18,16 +18,16 @@ function News({userState}) {
   }, [news]);
 
   return (
-    <div className=" mb-10 | mt-24 | md:mt-32 ">
+    <div className="mb-10 | mt-24 | md:mt-32">
       <div className="flex flex-col w-11/12 min-h-[500px]  mx-auto rounded-lg">
         <div className="flex flex-wrap justify-center">
           {importantNews.map((item, index) => (
             <NewsBox
               key={index}
               router={
-                userState === "build"
+                userState === 'build'
                   ? `/build/news/${item.newsID}/festival=${festivalPathName}`
-                  : userState === "preview"
+                  : userState === 'preview'
                   ? `/preview/news/${item.newsID}`
                   : `/news/${item.newsID}`
               }
@@ -43,9 +43,9 @@ function News({userState}) {
             <NewsBox
               key={index}
               router={
-                userState === "build"
+                userState === 'build'
                   ? `/build/news/${item.newsID}/festival=${festivalPathName}`
-                  : userState === "preview"
+                  : userState === 'preview'
                   ? `/preview/news/${item.newsID}`
                   : `/news/${item.newsID}`
               }
@@ -61,7 +61,7 @@ function News({userState}) {
 }
 
 News.propTypes = {
-  userState: PropTypes.oneOf(["build", "preview", ""])
-}
+  userState: PropTypes.oneOf(['build', 'preview', '']),
+};
 
 export default News;

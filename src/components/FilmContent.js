@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { ref, uploadBytesResumable } from "firebase/storage";
+import { ref, uploadBytesResumable } from 'firebase/storage';
 
-import Loading from "./global/Loading";
-import Input from "./Input";
-import Textarea from "./Textarea";
-import { updateFeatures } from "../actions";
-import checkUploadImgSize from "../helper/checkUploadSize";
-import { firebase, storage } from "../utils/firebase-config";
-import { limitAlert } from "../utils/customAlert";
-import LoadingAnim from "../img/LoadingAnim.gif";
-import DarkBlueCloudImg from "../img/DarkBlueCloud.png";
+import Loading from './global/Loading';
+import Input from './Input';
+import Textarea from './Textarea';
+import { updateFeatures } from '../actions';
+import checkUploadImgSize from '../helper/checkUploadSize';
+import { firebase, storage } from '../utils/firebase-config';
+import { limitAlert } from '../utils/customAlert';
+import LoadingAnim from '../img/LoadingAnim.gif';
+import DarkBlueCloudImg from '../img/DarkBlueCloud.png';
 
 function FilmContent() {
   const dispatch = useDispatch();
@@ -20,21 +20,21 @@ function FilmContent() {
   const [featureImgs, setFeatureImgs] = useState([]);
   const [progress, setProgress] = useState(0);
   const [currentFeature, setCurrentFeature] = useState({
-    year: "",
-    nation: "",
-    color: "",
-    format: "",
-    length: "",
-    language: "",
-    title: "",
-    shortInfo: "",
-    longInfo: "",
+    year: '',
+    nation: '',
+    color: '',
+    format: '',
+    length: '',
+    language: '',
+    title: '',
+    shortInfo: '',
+    longInfo: '',
   });
 
   const preview = async (e, index) => {
     const uploadImg = e.target.files[0];
-    const isValidImgSize = checkUploadImgSize(uploadImg)
-    if(!isValidImgSize) return
+    const isValidImgSize = checkUploadImgSize(uploadImg);
+    if (!isValidImgSize) return;
 
     await firebase.uploadImgs(uploadImg);
     firebase.getUploadImgs(uploadImg).then((uploadUrl) => {
@@ -73,7 +73,7 @@ function FilmContent() {
     const uploadTask = uploadBytesResumable(storageRef, uploadVideo);
 
     uploadTask.on(
-      "state_changed",
+      'state_changed',
       (res) => {
         const progress = Math.round(
           (res.bytesTransferred / res.totalBytes) * 100
@@ -98,7 +98,7 @@ function FilmContent() {
   };
 
   const handleChange = (value, key, _) => {
-    console.log(typeof(value))
+    console.log(typeof value);
     const newFeatures = [...features];
     const editIndex = newFeatures.findIndex(
       (item) => item.featureID === currentTab
@@ -144,9 +144,9 @@ function FilmContent() {
                       className=" w-36  h-36  "
                       style={{
                         background: `url(${LoadingAnim})`,
-                        backgroundPosition: "center",
-                        backgroundSize: "cover",
-                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: 'center',
+                        backgroundSize: 'cover',
+                        backgroundRepeat: 'no-repeat',
                       }}
                     ></div>
                   </div>
@@ -176,12 +176,12 @@ function FilmContent() {
               {item ? (
                 <img
                   className="border-0 object-cover h-56 w-full mr-0"
-                  src={item ? item : ""}
+                  src={item ? item : ''}
                 />
               ) : (
                 <p className="text-2xl text-slate-500 italic tracking-wider my-2">
-                    請上傳劇照
-                  </p>
+                  請上傳劇照
+                </p>
               )}
               <input
                 id={`upload${index}`}

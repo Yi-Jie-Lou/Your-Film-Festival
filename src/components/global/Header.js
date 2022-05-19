@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from 'react';
+import { NavLink, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-import propTypes from "prop-types";
+import propTypes from 'prop-types';
 import {
   CubeNavLink,
   SwitchCubeNavLink,
@@ -11,14 +11,14 @@ import {
   LoginNavLink,
   LoginLink,
   MobileBuild,
-} from "./CubeNavLink";
-import { firebase } from "../../utils/firebase-config";
-import { errorAlert } from "../../utils/customAlert";
-import Logo from "../../img/yourFilmLogoA.png";
-import CubeA from "../../img/yourFilmCubeA.png";
-import CubeB from "../../img/yourFilmCubeB.png";
-import CubeC from "../../img/yourFilmCubeC.png";
-import PuzzleImg from "../../img/Puzzle.png";
+} from './CubeNavLink';
+import { firebase } from '../../utils/firebase-config';
+import { errorAlert } from '../../utils/customAlert';
+import Logo from '../../img/yourFilmLogoA.png';
+import CubeA from '../../img/yourFilmCubeA.png';
+import CubeB from '../../img/yourFilmCubeB.png';
+import CubeC from '../../img/yourFilmCubeC.png';
+import PuzzleImg from '../../img/Puzzle.png';
 
 function TemplateHeader() {
   const path = useParams();
@@ -55,11 +55,11 @@ function TemplateHeader() {
             範例網站
           </LoginLink>
 
-          {state === "logout" ? (
+          {state === 'logout' ? (
             <LoginNavLink router="/" cube={CubeC}>
               請先登入
             </LoginNavLink>
-          ) : state === "login" ? (
+          ) : state === 'login' ? (
             <LoginNavLink router="/backstage" cube={CubeC}>
               進入後台
             </LoginNavLink>
@@ -72,7 +72,7 @@ function TemplateHeader() {
       </div>
       <div
         className={`fixed flex top-14 left-0 flex-col items-center  w-full  ${
-          isActive ? "h-full z-30" : "h-0 duration-0 z-0"
+          isActive ? 'h-full z-30' : 'h-0 duration-0 z-0'
         }  bg-stone-900/50  | flex | sm:hidden`}
       ></div>
     </>
@@ -168,7 +168,7 @@ function PreviewHeader() {
             src={festivalLogo}
           />
         ) : (
-          "請上傳LOGO"
+          '請上傳LOGO'
         )}
       </CustomerNavLink>
 
@@ -183,7 +183,7 @@ function PreviewHeader() {
 
       <div
         className={`fixed flex top-[67px] left-0 flex-col items-center  w-full  ${
-          isActive ? "h-full z-30" : "h-0 duration-0 z-0"
+          isActive ? 'h-full z-30' : 'h-0 duration-0 z-0'
         }  bg-stone-900/50  | flex | md:hidden`}
       >
         <MobileNavLink
@@ -192,8 +192,8 @@ function PreviewHeader() {
           color={`${secondaryColor}`}
           className={
             isActive
-              ? "h-16 delay-[100ms] transition-all  duration-700"
-              : "h-0 duration-0"
+              ? 'h-16 delay-[100ms] transition-all  duration-700'
+              : 'h-0 duration-0'
           }
         >
           首頁
@@ -204,8 +204,8 @@ function PreviewHeader() {
           color={`${primaryColor}`}
           className={
             isActive
-              ? "h-16 delay-[200ms] transition-all  duration-700"
-              : "h-0 duration-0"
+              ? 'h-16 delay-[200ms] transition-all  duration-700'
+              : 'h-0 duration-0'
           }
         >
           最新消息
@@ -216,8 +216,8 @@ function PreviewHeader() {
           color={`${secondaryColor}`}
           className={
             isActive
-              ? "h-16 delay-[300ms] transition-all  duration-700"
-              : "h-0 duration-0"
+              ? 'h-16 delay-[300ms] transition-all  duration-700'
+              : 'h-0 duration-0'
           }
         >
           購票資訊
@@ -228,8 +228,8 @@ function PreviewHeader() {
           color={`${primaryColor}`}
           className={
             isActive
-              ? "h-16 delay-[400ms] transition-all  duration-700"
-              : "h-0 duration-0"
+              ? 'h-16 delay-[400ms] transition-all  duration-700'
+              : 'h-0 duration-0'
           }
         >
           場次表
@@ -240,8 +240,8 @@ function PreviewHeader() {
           color={`${secondaryColor}`}
           className={
             isActive
-              ? "h-16 delay-[500ms] transition-all  duration-700"
-              : "h-0 duration-0"
+              ? 'h-16 delay-[500ms] transition-all  duration-700'
+              : 'h-0 duration-0'
           }
         >
           工作坊
@@ -252,8 +252,8 @@ function PreviewHeader() {
           color="#57bdc8"
           className={
             isActive
-              ? "h-16 delay-[100ms] transition-all  duration-700 "
-              : "h-0 duration-0"
+              ? 'h-16 delay-[100ms] transition-all  duration-700 '
+              : 'h-0 duration-0'
           }
         >
           回到後台
@@ -263,13 +263,13 @@ function PreviewHeader() {
           onClick={() => {
             userUID
               ? firebase.buildFestival(userUID, festivalPathName)
-              : errorAlert("您好像還沒登入", PuzzleImg);
+              : errorAlert('您好像還沒登入', PuzzleImg);
           }}
           isActive={isActive}
           className={
             isActive
-              ? "h-16 delay-[700ms] transition-all duration-700"
-              : "h-0 duration-0"
+              ? 'h-16 delay-[700ms] transition-all duration-700'
+              : 'h-0 duration-0'
           }
         >
           建立網站
@@ -292,7 +292,7 @@ function PreviewHeader() {
             onClick={() => {
               userUID
                 ? firebase.buildFestival(userUID, festivalPathName)
-                : errorAlert("您好像還沒登入", PuzzleImg);
+                : errorAlert('您好像還沒登入', PuzzleImg);
             }}
             className="flex justify-center border-2 items-center button-red text-center text-1xl w-32 | xl:w-40"
           >
@@ -336,7 +336,7 @@ function BuildHeader() {
 
       <div
         className={`fixed flex top-[67px] left-0 flex-col items-center  w-full  ${
-          isActive ? "h-full z-30" : "h-0 duration-0 z-0"
+          isActive ? 'h-full z-30' : 'h-0 duration-0 z-0'
         }  bg-stone-900/50  | flex | md:hidden`}
       >
         <MobileNavLink
@@ -345,8 +345,8 @@ function BuildHeader() {
           color={`${secondaryColor}`}
           className={
             isActive
-              ? "h-16 delay-[100ms] transition-all  duration-700"
-              : "h-0 duration-0"
+              ? 'h-16 delay-[100ms] transition-all  duration-700'
+              : 'h-0 duration-0'
           }
         >
           首頁
@@ -357,8 +357,8 @@ function BuildHeader() {
           color={`${primaryColor}`}
           className={
             isActive
-              ? "h-16 delay-[200ms] transition-all  duration-700"
-              : "h-0 duration-0"
+              ? 'h-16 delay-[200ms] transition-all  duration-700'
+              : 'h-0 duration-0'
           }
         >
           最新消息
@@ -369,8 +369,8 @@ function BuildHeader() {
           color={`${secondaryColor}`}
           className={
             isActive
-              ? "h-16 delay-[300ms] transition-all  duration-700"
-              : "h-0 duration-0"
+              ? 'h-16 delay-[300ms] transition-all  duration-700'
+              : 'h-0 duration-0'
           }
         >
           購票資訊
@@ -381,8 +381,8 @@ function BuildHeader() {
           color={`${primaryColor}`}
           className={
             isActive
-              ? "h-16 delay-[400ms] transition-all  duration-700"
-              : "h-0 duration-0"
+              ? 'h-16 delay-[400ms] transition-all  duration-700'
+              : 'h-0 duration-0'
           }
         >
           場次表
@@ -393,8 +393,8 @@ function BuildHeader() {
           color={`${secondaryColor}`}
           className={
             isActive
-              ? "h-16 delay-[500ms] transition-all  duration-700"
-              : "h-0 duration-0"
+              ? 'h-16 delay-[500ms] transition-all  duration-700'
+              : 'h-0 duration-0'
           }
         >
           工作坊
@@ -408,7 +408,7 @@ function BuildHeader() {
             src={festivalLogo}
           />
         ) : (
-          "請上傳LOGO"
+          '請上傳LOGO'
         )}
       </CustomerNavLink>
       <div className="h-[48px]  my-6 mr-4 ml-auto  text-center text-1xl | hidden | md:flex">
@@ -433,7 +433,7 @@ function BuildHeader() {
   );
 }
 
-function Header({userState}) {
+function Header({ userState }) {
   const [pageState, setPageState] = useState(userState);
 
   useEffect(() => {
@@ -442,11 +442,11 @@ function Header({userState}) {
 
   return (
     <>
-      {pageState === "preview" ? (
+      {pageState === 'preview' ? (
         <PreviewHeader />
-      ) : pageState === "editing" ? (
+      ) : pageState === 'editing' ? (
         <BackstageHeader />
-      ) : pageState === "build" ? (
+      ) : pageState === 'build' ? (
         <BuildHeader />
       ) : (
         <TemplateHeader />
@@ -456,7 +456,7 @@ function Header({userState}) {
 }
 
 Header.propTypes = {
-  userState: propTypes.oneOf(["preview", "editing", "build"]),
+  userState: propTypes.oneOf(['preview', 'editing', 'build']),
 };
 
 export default Header;

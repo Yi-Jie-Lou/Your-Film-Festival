@@ -20,14 +20,14 @@ import {
   festivalStartReducer,
   festivalEndReducer,
   textColorReducer,
-  emailReducer
-} from "./allReducers.js";
+  emailReducer,
+} from './allReducers.js';
 
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux';
 
 const allReducers = combineReducers({
   userID: loggedReducer,
-  userEmail:emailReducer,
+  userEmail: emailReducer,
   festivalPeriod: periodReducer,
   festivalLocations: locationsReducer,
   festivalName: festivalNameReducer,
@@ -46,7 +46,7 @@ const allReducers = combineReducers({
   sponsor: sponsorReducer,
   primaryColor: primaryColorReducer,
   secondaryColor: secondaryColorReducer,
-  textColor:textColorReducer,
+  textColor: textColorReducer,
   isGuide: guideReducer,
 });
 

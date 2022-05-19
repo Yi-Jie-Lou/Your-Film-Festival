@@ -1,17 +1,16 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 
-import uniqid from "uniqid";
+import uniqid from 'uniqid';
 
-import Textarea from "../components/Textarea";
-import Input from "../components/Input";
-import Checkbox from "../components/Checkbox";
-import useRoutePush from "../hooks/useRoutePush";
-import checkUploadImgSize from "../helper/checkUploadSize";
-import { updateNews } from "../actions";
-import { firebase } from "../utils/firebase-config";
-import { errorAlert } from "../utils/customAlert";
-import PuzzleImg from "../img/Puzzle.png";
+import Textarea from '../components/Textarea';
+import Input from '../components/Input';
+import Checkbox from '../components/Checkbox';
+import useRoutePush from '../hooks/useRoutePush';
+import checkUploadImgSize from '../helper/checkUploadSize';
+import { updateNews } from '../actions';
+import { firebase } from '../utils/firebase-config';
+import { errorAlert } from '../utils/customAlert';
+import PuzzleImg from '../img/Puzzle.png';
 
 function EditNews() {
   const dispatch = useDispatch();
@@ -40,10 +39,10 @@ function EditNews() {
 
   const addNews = () => {
     const emptyNews = {
-      title: "",
-      img: "",
+      title: '',
+      img: '',
       important: false,
-      content: "",
+      content: '',
       newsID: uniqid(),
       isReadOnly: false,
     };
@@ -63,19 +62,19 @@ function EditNews() {
     dispatch(updateNews(newNews));
   };
 
-  const checkInputValue = () =>{
-    let isError = false
+  const checkInputValue = () => {
+    let isError = false;
     if (news.some((item) => !item.title.trim())) {
-      errorAlert("舉辦地點不可以是空白的噢", PuzzleImg);
-      isError = true
-      return isError  
+      errorAlert('舉辦地點不可以是空白的噢', PuzzleImg);
+      isError = true;
+      return isError;
     }
-    return isError
-  }
+    return isError;
+  };
 
   const saveNews = () => {
-    const isError = checkInputValue()
-    if (isError) return
+    const isError = checkInputValue();
+    if (isError) return;
 
     const newNews = news.map((item) => {
       item.isReadOnly = true;
@@ -85,8 +84,8 @@ function EditNews() {
 
     firebase.saveNews(userID, news).then((_) => {
       routerHandler(
-        "影展越來越完整囉\n我們來制定票價和公告交通資訊吧",
-        "/backstage/price"
+        '影展越來越完整囉\n我們來制定票價和公告交通資訊吧',
+        '/backstage/price'
       );
     });
   };
@@ -121,7 +120,7 @@ function EditNews() {
                 {item.img ? (
                   <img
                     className="border-0 object-cover  w-full mr-0"
-                    src={item ? item.img : ""}
+                    src={item ? item.img : ''}
                   />
                 ) : (
                   <p className="flex flex-col justify-center h-full">
@@ -154,7 +153,7 @@ function EditNews() {
               onChange={handleChange}
               index={index}
               type="checkbox"
-              className={"checkbox-right"}
+              className={'checkbox-right'}
             >
               重點宣傳
             </Checkbox>

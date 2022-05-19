@@ -1,8 +1,18 @@
-import PropTypes from "prop-types"
+import PropTypes from 'prop-types';
 
-function Details({currentFeatureObject}) {
-  const {title, year, nation, language, longInfo, length, format, creators, color} = currentFeatureObject
-  console.log(typeof(year))
+function Details({ currentFeatureObject }) {
+  const {
+    title,
+    year,
+    nation,
+    language,
+    longInfo,
+    length,
+    format,
+    creators,
+    color,
+  } = currentFeatureObject;
+  console.log(typeof year);
   return (
     <div className="max-h-[500px]">
       <h1 className="mt-4 text-3xl">{title}</h1>
@@ -16,8 +26,7 @@ function Details({currentFeatureObject}) {
         {year} | {nation}
       </p>
       <p>
-        {format} | {color}{" "}
-        | {length}分 | {language}
+        {format} | {color} | {length}分 | {language}
       </p>
       <p className="my-4">{longInfo}</p>
     </div>
@@ -35,7 +44,7 @@ Details.propTypes = {
     longInfo: PropTypes.string.isRequired,
     length: PropTypes.string.isRequired,
     year: PropTypes.string.isRequired,
-  })
-}
+  }),
+};
 
 export default Details;

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import Textarea from "./Textarea";
-import Checkbox from "./Checkbox";
-import { updateFeatures } from "../actions";
+import Textarea from './Textarea';
+import Checkbox from './Checkbox';
+import { updateFeatures } from '../actions';
 
 function Note() {
   const dispatch = useDispatch();
@@ -11,8 +11,8 @@ function Note() {
   const currentTab = useSelector((state) => state.currentTab);
   const features = useSelector((state) => state.features);
   const [currenFeature, setCurrenFeature] = useState({
-    commercialInfo: "",
-    note: "",
+    commercialInfo: '',
+    note: '',
     important: false,
   });
 
@@ -32,10 +32,10 @@ function Note() {
   }, [currentTab, features]);
 
   return (
-    <div className="flex flex-col h-96 my-10 mx-auto w-2/5 ">
+    <div className="flex flex-col h-96 my-10 mx-auto w-2/5">
       <Checkbox
         attribute="important"
-        className="checkbox-left"        
+        className="checkbox-left"
         onChange={handleChange}
         type="checkbox"
         value={currenFeature.important}
@@ -45,7 +45,7 @@ function Note() {
 
       <Textarea
         attribute="commercialInfo"
-        className="text-area" 
+        className="text-area"
         onChange={handleChange}
         value={currenFeature.commercialInfo}
       >
@@ -54,7 +54,7 @@ function Note() {
 
       <Textarea
         attribute="note"
-        className="text-area-large"      
+        className="text-area-large"
         onChange={handleChange}
         value={currenFeature.note}
       >

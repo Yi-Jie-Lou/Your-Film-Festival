@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import TimePicker from "react-time-picker/dist/entry.nostyle";
-import { updateFeatures } from "../actions";
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import TimePicker from 'react-time-picker/dist/entry.nostyle';
+import { updateFeatures } from '../actions';
 
 function Booking() {
   const dispatch = useDispatch();
@@ -13,13 +13,13 @@ function Booking() {
 
   const addTimetable = () => {
     const emptyTimetable = {
-      date: "default",
-      start: "10:00",
-      end: "12:00",
-      location: "default",
+      date: 'default',
+      start: '10:00',
+      end: '12:00',
+      location: 'default',
       opening: false,
       closing: false,
-      name: "",
+      name: '',
       workshop: false,
       featureID: currentTab,
     };
@@ -62,7 +62,10 @@ function Booking() {
     <div>
       <div className="w-11/12 mt-14 mx-auto  pb-16 border-b-2 border-b-zinc-400">
         <div className="flex mb-8">
-          <h2 className="vertical "> <span className="text-2xl text-slate-600 ml-1">場次時刻表</span></h2>
+          <h2 className="vertical ">
+            {' '}
+            <span className="text-2xl text-slate-600 ml-1">場次時刻表</span>
+          </h2>
           <button
             className="button-blue mx-3 h-10 w-24 "
             onClick={addTimetable}
@@ -81,10 +84,10 @@ function Booking() {
                 value={item.date}
                 className="mb-2 w-32 h-10 border-4 rounded-xl text-center border-[#94bed1]"
                 onChange={(event) =>
-                  handleChange(event.target.value, index, "date")
+                  handleChange(event.target.value, index, 'date')
                 }
               >
-                <option value={"default"}>請選擇時間</option>
+                <option value={'default'}>請選擇時間</option>
                 {period.map((item, index) => (
                   <option key={index} value={item.dates}>
                     {item.displayDates}
@@ -93,11 +96,12 @@ function Booking() {
               </select>
               <select
                 className="w-32 h-10 border-4 rounded-xl text-center border-[#94bed1]"
-                onChange={(event) => handleChange(event.target.value, index, "location")
+                onChange={(event) =>
+                  handleChange(event.target.value, index, 'location')
                 }
-                value={item.location || ""}
+                value={item.location || ''}
               >
-                <option value={"default"}>請選擇地點</option>
+                <option value={'default'}>請選擇地點</option>
                 {locations.map((item, index) => (
                   <option key={index} value={item}>
                     {item}
@@ -112,20 +116,24 @@ function Booking() {
 
             <div className="flex flex-col">
               <TimePicker
-                className={"mb-2  h-10 border-4 rounded-xl text-center border-[#94bed1]"}
+                className={
+                  'mb-2  h-10 border-4 rounded-xl text-center border-[#94bed1]'
+                }
                 clearIcon={null}
                 disableClock={true}
-                onChange={(value) => handleChange(value, index, "start")}
-                value={item.start || ""}
-                locale={"en-EN"}
+                onChange={(value) => handleChange(value, index, 'start')}
+                value={item.start || ''}
+                locale={'en-EN'}
               />
               <TimePicker
-                className={"h-10 border-4 rounded-xl text-center border-[#94bed1]"}
+                className={
+                  'h-10 border-4 rounded-xl text-center border-[#94bed1]'
+                }
                 clearIcon={null}
                 disableClock={true}
-                onChange={(value) => handleChange(value, index, "end")}
-                value={item.end || ""}
-                locale={"en-EN"}
+                onChange={(value) => handleChange(value, index, 'end')}
+                value={item.end || ''}
+                locale={'en-EN'}
               />
             </div>
             <div className="flex">
@@ -135,7 +143,7 @@ function Booking() {
                     className="ml-2"
                     checked={item.opening}
                     onChange={(event) =>
-                      handleChange(event.target.checked, index, "opening")
+                      handleChange(event.target.checked, index, 'opening')
                     }
                     type="checkbox"
                   />
@@ -144,7 +152,7 @@ function Booking() {
                     className="ml-2"
                     checked={item.closing}
                     onChange={(event) =>
-                      handleChange(event.target.checked, index, "closing")
+                      handleChange(event.target.checked, index, 'closing')
                     }
                     type="checkbox"
                   />
@@ -153,7 +161,7 @@ function Booking() {
                     className="ml-2"
                     checked={item.workshop}
                     onChange={(event) =>
-                      handleChange(event.target.checked, index, "workshop")
+                      handleChange(event.target.checked, index, 'workshop')
                     }
                     type="checkbox"
                   />
