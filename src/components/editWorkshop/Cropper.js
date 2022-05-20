@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import AvatarImageCropper from 'react-avatar-image-cropper';
 import Proptyeps from 'prop-types';
 
-import { firebase } from '../utils/firebase-config';
-import { limitAlert } from '../utils/customAlert';
-import { updateWorkshop } from '../actions';
+import { firebase } from '../../utils/firebase-config';
+import { limitAlert } from '../../utils/customAlert';
+import { updateWorkshop } from '../../actions';
 
 function Cropper({ workshopNum, guestNum }) {
   const dispatch = useDispatch();

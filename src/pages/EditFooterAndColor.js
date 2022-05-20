@@ -7,9 +7,9 @@ import {
 } from '../actions';
 import { firebase } from '../utils/firebase-config';
 import checkUploadImgSize from '../helper/checkUploadSize';
-import Input from '../components/Input';
-import ColorCube from '../components/ColorCube';
-import TextColorCube from '../components/TextColorCube';
+import Input from '../components/global/Input';
+import ColorCube from '../components/editFooterAndColor/ColorCube';
+import TextColorCube from '../components/editFooterAndColor/TextColorCube';
 import useRoutePush from '../hooks/useRoutePush';
 import PuzzleImg from '../img/Puzzle.png';
 import { errorAlert } from '../utils/customAlert';

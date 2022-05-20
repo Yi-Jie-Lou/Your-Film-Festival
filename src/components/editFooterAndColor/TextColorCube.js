@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { updateTextColor } from '../actions';
+import { updateTextColor } from '../../actions';
 
 const mainColor = [
   {

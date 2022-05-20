@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 
-import Textarea from '../components/Textarea';
-import Input from '../components/Input';
+import Textarea from '../components/global/Textarea';
+import Input from '../components/global/Input';
 import useRoutePush from '../hooks/useRoutePush';
 import checkUploadImgSize from '../helper/checkUploadSize';
 import { updatePrice, updateTraffic } from '../actions';

@@ -12,7 +12,6 @@ function Details({ currentFeatureObject }) {
     creators,
     color,
   } = currentFeatureObject;
-  console.log(typeof year);
   return (
     <div className="max-h-[500px]">
       <h1 className="mt-4 text-3xl">{title}</h1>

@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Textarea from './Textarea';
-import Checkbox from './Checkbox';
-import { updateFeatures } from '../actions';
+import Textarea from '../global/Textarea';
+import Checkbox from '../global/Checkbox';
+import { updateFeatures } from '../../actions';
 
 function Note() {
   const dispatch = useDispatch();

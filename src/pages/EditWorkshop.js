@@ -2,10 +2,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import uniqid from 'uniqid';
 
-import Textarea from '../components/Textarea';
-import Input from '../components/Input';
-import Checkbox from '../components/Checkbox';
-import Cropper from '../components/Cropper';
+import Textarea from '../components/global/Textarea';
+import Input from '../components/global/Input';
+import Checkbox from '../components/global/Checkbox';
+import Cropper from '../components/editWorkshop/Cropper';
 import useRoutePush from '../hooks/useRoutePush';
 import checkUploadImgSize from '../helper/checkUploadSize';
 import { updateWorkshop } from '../actions';

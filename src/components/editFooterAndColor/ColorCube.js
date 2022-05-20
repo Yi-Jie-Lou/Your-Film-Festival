@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { updatePrimaryColor, updateSecondaryColor } from '../actions';
+import { updatePrimaryColor, updateSecondaryColor } from '../../actions';
 import PropTypes from 'prop-types';
 
 const mainColor = [

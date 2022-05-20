@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import TimePicker from 'react-time-picker/dist/entry.nostyle';
-import { updateFeatures } from '../actions';
+import { updateFeatures } from '../../actions';
 
 function Booking() {
   const dispatch = useDispatch();

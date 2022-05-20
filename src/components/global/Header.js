@@ -456,7 +456,7 @@ function Header({ userState }) {
 }
 
 Header.propTypes = {
-  userState: propTypes.oneOf(['preview', 'editing', 'build']),
+  userState: propTypes.oneOf(['preview', 'editing', 'build', 'login', '']),
 };
 
 export default Header;

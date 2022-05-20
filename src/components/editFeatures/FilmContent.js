@@ -3,15 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { ref, uploadBytesResumable } from 'firebase/storage';
 
-import Loading from './global/Loading';
-import Input from './Input';
-import Textarea from './Textarea';
-import { updateFeatures } from '../actions';
-import checkUploadImgSize from '../helper/checkUploadSize';
-import { firebase, storage } from '../utils/firebase-config';
-import { limitAlert } from '../utils/customAlert';
-import LoadingAnim from '../img/LoadingAnim.gif';
-import DarkBlueCloudImg from '../img/DarkBlueCloud.png';
+import Loading from '../global/Loading';
+import Input from '../global/Input';
+import Textarea from '../global/Textarea';
+import { updateFeatures } from '../../actions';
+import checkUploadImgSize from '../../helper/checkUploadSize';
+import { firebase, storage } from '../../utils/firebase-config';
+import { limitAlert } from '../../utils/customAlert';
+import LoadingAnim from '../../img/LoadingAnim.gif';
+import DarkBlueCloudImg from '../../img/DarkBlueCloud.png';
 
 function FilmContent() {
   const dispatch = useDispatch();
@@ -98,7 +98,6 @@ function FilmContent() {
   };
 
   const handleChange = (value, key, _) => {
-    console.log(typeof value);
     const newFeatures = [...features];
     const editIndex = newFeatures.findIndex(
       (item) => item.featureID === currentTab

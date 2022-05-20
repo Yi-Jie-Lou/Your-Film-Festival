@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 
 import ReCAPTCHA from 'react-google-recaptcha';
 
-import Input from '../components/Input';
+import Input from '../components/global/Input';
 import { customImgAlert, errorAlert } from '../utils/customAlert';
 import BlueCloudImg from '../img/BlueCloud.png';
 import PuzzleImg from '../img/Puzzle.png';

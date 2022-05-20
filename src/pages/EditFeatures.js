@@ -2,10 +2,10 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import uniqid from 'uniqid';
 
-import Creator from '../components/Creator';
-import FilmContent from '../components/FilmContent';
-import Booking from '../components/Booking';
-import Note from '../components/Note';
+import Creator from '../components/editFeatures/Creator';
+import FilmContent from '../components/editFeatures/FilmContent';
+import Booking from '../components/editFeatures/Booking';
+import Note from '../components/editFeatures/Note';
 import useRoutePush from '../hooks/useRoutePush';
 import { firebase } from '../utils/firebase-config';
 import { errorAlert } from '../utils/customAlert';
