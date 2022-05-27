@@ -113,7 +113,7 @@ function Features() {
     });
     dispatch(updateFeatures(newFeatures));
 
-    firebase.saveFeatures(userID, features).then((_) => {
+    firebase.saveFeatures(userID, features).then(() => {
       routerHandler(
         '影片都上傳完畢了嗎\n接著我們來發布影展公告吧',
         '/backstage/news'
@@ -122,7 +122,7 @@ function Features() {
   };
 
   return (
-    <div className="wrap ">
+    <div className="wrap mb-64 | md:mb-0">
       <div className="w-9/12 mx-auto">
         <button
           className="w-36 button-blue mt-32 mb-3 ml-2"
@@ -131,13 +131,13 @@ function Features() {
           增加影片
         </button>
       </div>
-      <div className="flex flex-wrap w-9/12 mx-auto justify-start ">
+      <div className="flex flex-wrap mx-auto justify-start | min-w-[304px] w-9/12 | md:w-9/12 ">
         {features.map((item, index) => (
           <button
             onClick={() => {
               dispatch(switchTab(item.featureID));
             }}
-            className={`w-[calc((100%-96px)/6)] button-orange mx-2 mt-2 ${
+            className={` button-orange mx-2 mt-2 | w-[60px] | md:w-[calc((100%-96px)/6)] | ${
               item.featureID === currentTab ? 'bg-[#f4cd7f]' : 'bg-[#eb9666]'
             } `}
             key={index}

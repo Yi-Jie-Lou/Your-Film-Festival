@@ -87,7 +87,7 @@ function Creator() {
         <div className="flex flex-wrap justify-start ">
           {currentFeatureCreators &&
             currentFeatureCreators.map((item, index) => (
-              <div key={index} className="flex mx-2 flex-col  ">
+              <div key={index} className="flex flex-col | mx-auto | md:mx-2  ">
                 <div className="flex">
                   <h2 className="flex flex-col justify-center">
                     <span className="text-2xl text-slate-600 ml-1">創作者</span>
@@ -101,7 +101,7 @@ function Creator() {
                     Delete
                   </button>
                 </div>
-                <div className="flex my-4">
+                <div className="flex my-4 flex-col | md:flex-row">
                   <div className="flex flex-col  w-full">
                     <Input
                       attribute="name"
@@ -123,9 +123,9 @@ function Creator() {
                     </Textarea>
                   </div>
 
-                  <div className="vertical w-96  mx-8">
+                  <div className="vertical w-full mx-auto | md:w-96 md:mx-8">
                     <label
-                      className="block border-4 min-h-[208px] h- w-full rounded-lg text-center cursor-pointer border-[#628fa4]"
+                      className="block border-4 min-h-[208px] h- w-full rounded-lg text-center cursor-pointer border-[#628fa4] my-2 | md:my-0"
                       htmlFor={`creator${index}`}
                     >
                       {item.img && (
@@ -148,7 +148,7 @@ function Creator() {
             ))}
         </div>
         <button
-          className="button-blue ml-3 my-6 h-10 w-24"
+          className="button-blue my-6 h-10 w-24 | mx-auto | md:ml-3 "
           onClick={() => {
             addCreators();
           }}

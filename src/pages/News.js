@@ -19,7 +19,7 @@ function News({ userState }) {
 
   return (
     <div className="mb-10 | mt-24 | md:mt-32">
-      <div className="flex flex-col w-11/12 min-h-[500px]  mx-auto rounded-lg">
+      <div className="flex flex-col w-11/12 min-h-[800px]  mx-auto rounded-lg">
         <div className="flex flex-wrap justify-center">
           {importantNews.map((item, index) => (
             <NewsBox

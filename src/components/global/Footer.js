@@ -7,7 +7,7 @@ import GitLogo from '../../img/GitLogo.png';
 
 function TemplateFooter() {
   return (
-    <div className="relative flex justify-center z-0    mx-auto | h-[96px] | xl:h-[120px]">
+    <div className="relative flex justify-center z-0    mx-auto | h-[96px] | lg:h-[120px]">
       <a
         className="z-[200] cursor-pointer"
         href="https://github.com/Yi-Jie-Lou/Your-Film-Festival"
@@ -33,7 +33,7 @@ function TemplateFooter() {
         src={FooterImg}
       />
       <img
-        className="absolute -z-50 | bottom-36 right-24 w-56 | xl:bottom-40 xl:right-20 xl:w-64"
+        className="absolute -z-50 | bottom-36 right-24 w-56 | lg:bottom-40 lg:right-20 lg:w-64"
         src={CloudsImg}
       />
     </div>
@@ -46,32 +46,33 @@ function CustomerFooter() {
   const textColor = useSelector((state) => state.textColor);
   return (
     <div
-      className="flex justify-center w-full  h-32 bottom-0 z-10 "
+      className="flex justify-center w-full min-h-[128px] bottom-0 z-10 "
       style={{
         color: textColor,
         background: primaryColor,
       }}
     >
-      <div className="vertical text-shadow-light mr-12 py-1 text-center text-xl ">
-        <span>贊助</span>
+      <div className="hidden  sm:vertical text-shadow-light  py-1 text-center  w-[40px] | mx-2 text-base | md:mx-6 md:text-xl">
+        <span className='w-[40px]'>贊助</span>
       </div>
-      <div className="flex justify-center text-shadow-light content-center flex-wrap max-w-[530px] ">
+      <div className="flex justify-center text-shadow-light content-center mx-2 flex-wrap min-w-[192px] |  sm:max-w-[480px] | md:max-w-[530px] ">
         {sponsor.text.map((item, index) => (
           <div
             key={index}
             index={index}
-            className="flex py-1  mx-4 text-start text-sm"
+            className="flex py-1  text-start text-xs | mx-2 | sm:mx-4 | md:text-sm"
           >
             <span> {item}</span>
           </div>
         ))}
       </div>
-
+      <div className="flex justify-start flex-wrap min-w-[150px] |  sm:min-w-[240px] |  ">
       {sponsor.img.map((item, index) => (
-        <div key={index} className="flex items-center w-32  mx-2 ">
-          <img src={item} />
+        <div key={index} className="flex items-center mx-1 | sm:mx-2 ">
+          <img className='  w-16 | md:w-24 | xl:w-32' src={item} />
         </div>
       ))}
+      </div>
     </div>
   );
 }

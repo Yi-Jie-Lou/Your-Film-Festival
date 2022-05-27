@@ -80,7 +80,7 @@ function Backstage() {
       .then(() => {
         dispatch(updatePeriod(getAvailableDates()));
       })
-      .then((_) => {
+      .then(() => {
         routerHandler(
           '您已經完成第一步囉\n接著來上傳影片吧',
           '/backstage/features'
@@ -148,7 +148,7 @@ function Backstage() {
   };
 
   return (
-    <div className="w-11/12  mx-auto mt-40">
+    <div className="w-11/12  mx-auto mt-40 | mb-64 | md:mb-24">
       <div className="flex flex-col flex-wrap border-b-2  border-b-zinc-400 ">
         <h2 className="mx-auto mb-8 text-center text-2xl text-slate-600 ">
           舉辦日期
@@ -178,21 +178,21 @@ function Backstage() {
         </div>
         {locations &&
           locations.map((item, index) => (
-            <div className="flex justify-center mb-12" key={index}>
+            <div className="flex justify-center mb-12 | flex-col | md:flex-row " key={index}>
               <div className="vertical">
-                <label className="mr-6 text-xl my-8 text-slate-600 ">
+                <label className="mr-6 text-xl text-slate-600 | my-1 | md:my-8 ">
                   戲院{index + 1}
                 </label>
               </div>
               <input
-                className="pl-2 h-12 my-8 border-4 rounded-lg border-[#94bed1] outline-none"
+                className="pl-2 h-12  border-4 rounded-lg border-[#94bed1] outline-none my-6 md:my-8"
                 type="text"
                 value={item}
                 onChange={(e) => handleChange(index, e)}
               />
               <div className="vertical ml-2">
                 <button
-                  className="button-red"
+                  className="button-red ml-auto md:mx-3"
                   onClick={() => {
                     deleteTheather(index);
                   }}
@@ -205,9 +205,9 @@ function Backstage() {
       </div>
 
       <div className="flex flex-col mt-16">
-        <div className="flex  justify-between w-96 my-8 mx-auto">
+        <div className="flex align items-center justify-between my-8 mx-auto | w-72 flex-col | md:w-96 md:flex-row">
           <h2 className="flex flex-col justify-center w-32  text-2xl text-slate-600  ">
-            <span>LOGO</span>
+            <span className='text-center my-2 | md:text-left md:my-0 '>LOGO</span>
           </h2>
 
           <label
@@ -232,14 +232,14 @@ function Backstage() {
             />
           </label>
         </div>
-        <div className="flex justify-between w-96 my-8  mx-auto">
+        <div className="flex justify-between my-8 items-center mx-auto | w-72 flex-col | md:w-96 md:flex-row">
           <h2 className="flex flex-col justify-center w-32  text-2xl text-slate-600 ">
-            <span>主視覺海報</span>
+            <span className='text-center my-4 | md:text-left md:my-0 '>主視覺海報</span>
           </h2>
 
           <label
             className={`vertical w-48 text-center align-middle cursor-pointer ${
-              festivalPost ? '' : 'button-blue'
+              festivalPost ? '' : 'button-blue | mx-0 | md:ml-3'
             }`}
             htmlFor={`festival_post`}
           >
@@ -262,9 +262,9 @@ function Backstage() {
       </div>
 
       <div className="flex flex-col mt-16">
-        <div className="flex  justify-between w-96  my-8 mx-auto ">
+        <div className="flex  justify-between my-8 mx-auto | w-72 flex-col | md:w-96 md:flex-row">
           <h2 className="vertical text-center  text-2xl text-slate-600">
-            <span>影展名稱</span>
+            <span className='text-center my-4 | md:text-left md:my-0 '>影展名稱</span>
           </h2>
           <input
             className="pl-2 border-4 h-12 rounded-lg border-[#94bed1] outline-none "
@@ -273,9 +273,9 @@ function Backstage() {
             onChange={(e) => onChangeName(e)}
           />
         </div>
-        <div className="flex justify-between w-96 my-8  mx-auto ">
+        <div className="flex justify-between my-8  mx-auto | w-72 flex-col | md:w-96 md:flex-row">
           <h2 className="vertical text-center text-2xl text-slate-600">
-            <span>影展英文名稱</span>
+            <span className='text-center my-4 | md:text-left md:my-0 '>影展英文名稱</span>
           </h2>
           <input
             className="pl-2 border-4 h-12 rounded-lg border-[#94bed1] outline-none"
@@ -286,7 +286,7 @@ function Backstage() {
         </div>
         <div className="flex justify-center">
           <button
-            className=" my-24 w-28 button-blue  mx-0"
+            className=" mt-24 w-28 button-blue z-10 mx-0"
             onClick={saveToFirebase}
           >
             儲存本頁

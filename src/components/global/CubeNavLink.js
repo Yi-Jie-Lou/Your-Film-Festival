@@ -23,12 +23,12 @@ CubeNavLink.propTypes = {
   children: PropTypes.string.isRequired,
 };
 
-function LoginNavLink({ router, cube, children }) {
+function LoginBackstageLink({ router, cube, children }) {
   return (
     <NavLink to={router}>
-      <div className="relative top-[-10px] text-center leading-7 hover:top-[0px] w-20 | sm:text-sm  | lg:w-24 lg:text-base | xl:w-32">
+      <div className="relative top-[-10px] text-center leading-7 hover:top-[0px] w-28 | sm:text-sm  | lg:w-32 lg:text-base">
         <img src={cube} />
-        <span className="absolute w-full left-0 text-white text-lg text-shadow-light tracking-wider top-5 | lg:top-6 | xl:top-8 ">
+        <span className="absolute w-full left-0 text-white text-lg text-shadow-light tracking-wider top-6 | lg:top-8  ">
           {children}
         </span>
       </div>
@@ -36,18 +36,18 @@ function LoginNavLink({ router, cube, children }) {
   );
 }
 
-LoginNavLink.propTypes = {
+LoginBackstageLink.propTypes = {
   router: PropTypes.string.isRequired,
   cube: PropTypes.string.isRequired,
   children: PropTypes.string.isRequired,
 };
 
-function LoginLink({ router, cube, children, id }) {
+function LoginTemplateLink({ router, cube, children, id }) {
   return (
     <Link id={id} target="_blank" to={router}>
-      <div className="relative top-[-10px] text-center leading-7 hover:top-[0px] w-20 | sm:text-sm  | lg:w-24 lg:text-base | xl:w-32">
+      <div className="relative top-[-10px] text-center leading-7 hover:top-[0px] w-28 | sm:text-sm  | lg:w-32 lg:text-base">
         <img src={cube} />
-        <span className="absolute w-full left-0 text-white text-lg text-shadow-light tracking-wider top-5 | lg:top-6 | xl:top-8 ">
+        <span className="absolute w-full left-0 text-white text-lg text-shadow-light tracking-wider top-6 | lg:top-8">
           {children}
         </span>
       </div>
@@ -55,7 +55,7 @@ function LoginLink({ router, cube, children, id }) {
   );
 }
 
-LoginLink.propTypes = {
+LoginTemplateLink.propTypes = {
   router: PropTypes.string.isRequired,
   cube: PropTypes.string.isRequired,
   children: PropTypes.string.isRequired,
@@ -130,6 +130,39 @@ MobileNavLink.propTypes = {
   isActive: PropTypes.bool.isRequired,
 };
 
+
+function MobileTemplateLink({ router, children, className, color, isActive }) {
+  return (
+    <Link className="flex justify-center w-full" target="_blank" to={router}>
+      <div
+        style={{
+          background: color,
+        }}
+        className={` opacity-90 hover:delay-[0ms] hover:scale-105 vertical  w-[90%] z-50 ${className}`}
+      >
+        <span
+          className={` ${
+            isActive
+              ? 'transition-all duration-[2000ms] opacity-100'
+              : 'opacity-0 pointer-events-none'
+          }   text-white text-center text-xl text-shadow-light`}
+        >
+          {children}
+        </span>
+      </div>
+    </Link>
+  );
+}
+
+MobileTemplateLink.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.string.isRequired,
+  router: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
+  isActive: PropTypes.bool.isRequired,
+};
+
+
 function MobileBuild({ children, className, color, isActive, onClick }) {
   return (
     <div
@@ -162,10 +195,11 @@ MobileBuild.propTypes = {
 
 export {
   CubeNavLink,
-  LoginNavLink,
-  LoginLink,
+  LoginTemplateLink,
+  LoginBackstageLink,
   SwitchCubeNavLink,
   CustomerNavLink,
   MobileNavLink,
+  MobileTemplateLink,
   MobileBuild,
 };

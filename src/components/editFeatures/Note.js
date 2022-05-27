@@ -32,7 +32,7 @@ function Note() {
   }, [currentTab, features]);
 
   return (
-    <div className="flex flex-col h-96 my-10 mx-auto w-2/5">
+    <div className="flex flex-col h-96 my-10 mx-auto w-2/5 min-w-[302px]">
       <Checkbox
         attribute="important"
         className="checkbox-left"

@@ -75,14 +75,14 @@ function Booking() {
         </div>
         {timetable.map((item, index) => (
           <div
-            className="flex justify-between flex-wrap w-3/4 mt-6 mx-auto"
+            className="flex justify-around flex-wrap mt-6 mx-auto w-4/5 md:w-3/4 "
             key={index}
           >
-            <h2 className="w-full my-3 text-lg ml-1">場次{index + 1}</h2>
-            <div className="flex flex-col">
+            <h2 className="my-3 text-lg ml-1 | w-[300px] text-center | md:w-full md:text-left ">場次{index + 1}</h2>
+            <div className="flex justify-around | flex-row w-[300px] | md:flex-col md:w-auto">
               <select
                 value={item.date}
-                className="mb-2 w-32 h-10 border-4 rounded-xl text-center border-[#94bed1]"
+                className="w-32 h-10 border-4 rounded-xl text-center border-[#94bed1] mx-2 mb-0 | md:mx-0 md:mb-2"
                 onChange={(event) =>
                   handleChange(event.target.value, index, 'date')
                 }
@@ -95,7 +95,7 @@ function Booking() {
                 ))}
               </select>
               <select
-                className="w-32 h-10 border-4 rounded-xl text-center border-[#94bed1]"
+                className="w-32 h-10 border-4 rounded-xl text-center border-[#94bed1] mx-2 | md:mx-0"
                 onChange={(event) =>
                   handleChange(event.target.value, index, 'location')
                 }
@@ -109,36 +109,38 @@ function Booking() {
                 ))}
               </select>
             </div>
-            <div className="flex flex-col justify-around px-5">
-              <p className="m1-2 ">開始時間:</p>
-              <p className="mt-1 ">結束時間:</p>
-            </div>
+            <div className="flex | justify-center w-[300px] my-4 | md:justify-start md:w-auto md:my-0">
+              <div className="flex flex-col justify-around px-5">
+                <p className="m1-2 ">開始時間:</p>
+                <p className="mt-1 ">結束時間:</p>
+              </div>
 
-            <div className="flex flex-col">
-              <TimePicker
-                className={
-                  'mb-2  h-10 border-4 rounded-xl text-center border-[#94bed1]'
-                }
-                clearIcon={null}
-                disableClock={true}
-                onChange={(value) => handleChange(value, index, 'start')}
-                value={item.start || ''}
-                locale={'en-EN'}
-              />
-              <TimePicker
-                className={
-                  'h-10 border-4 rounded-xl text-center border-[#94bed1]'
-                }
-                clearIcon={null}
-                disableClock={true}
-                onChange={(value) => handleChange(value, index, 'end')}
-                value={item.end || ''}
-                locale={'en-EN'}
-              />
+              <div className="flex flex-col">
+                <TimePicker
+                  className={
+                    'mb-2  h-10 border-4 rounded-xl text-center border-[#94bed1]'
+                  }
+                  clearIcon={null}
+                  disableClock={true}
+                  onChange={(value) => handleChange(value, index, 'start')}
+                  value={item.start || ''}
+                  locale={'en-EN'}
+                />
+                <TimePicker
+                  className={
+                    'h-10 border-4 rounded-xl text-center border-[#94bed1]'
+                  }
+                  clearIcon={null}
+                  disableClock={true}
+                  onChange={(value) => handleChange(value, index, 'end')}
+                  value={item.end || ''}
+                  locale={'en-EN'}
+                />
+              </div>
             </div>
-            <div className="flex">
+            <div className="flex flex-col | w-[300px] | md:w-auto md:flex-row md:my-0">
               <div className="vertical">
-                <div>
+                <div className='flex justify-center items-center'>
                   <input
                     className="ml-2"
                     checked={item.opening}
@@ -170,7 +172,7 @@ function Booking() {
               </div>
               <div className="vertical mx-4">
                 <button
-                  className="button-red  h-10 w-24 "
+                  className="button-red my-3 h-10 w-24 | mx-auto | md:mx-3"
                   onClick={() => deleteTimetable(index)}
                 >
                   Delete

@@ -82,7 +82,7 @@ function EditNews() {
     });
     dispatch(updateNews(newNews));
 
-    firebase.saveNews(userID, news).then((_) => {
+    firebase.saveNews(userID, news).then(() => {
       routerHandler(
         '影展越來越完整囉\n我們來制定票價和公告交通資訊吧',
         '/backstage/price'
@@ -91,7 +91,7 @@ function EditNews() {
   };
 
   return (
-    <div className="flex flex-col  my-24 mx-auto w-11/12">
+    <div className="flex flex-col mx-auto w-11/12 mt-24 mb-64 md:my-24 ">
       <button className="button-blue ml-0 my-3" onClick={addNews}>
         Add
       </button>

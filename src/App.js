@@ -93,7 +93,7 @@ function App() {
             .then((res) => {
               setupReduxStore(res);
             })
-            .then((_) => {
+            .then(() => {
               setIsLoading(false);
             });
         } else {
@@ -111,7 +111,7 @@ function App() {
           .then((res) => {
             setupReduxStore(res);
           })
-          .then((_) => {
+          .then(() => {
             setIsLoading(false);
           });
       } else {

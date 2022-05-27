@@ -194,7 +194,7 @@ function FilmContent() {
         ))}
       </div>
       <div className="flex flex-wrap justify-around w-11/12 my-8 pb-8 border-b-2 border-b-zinc-400 mx-auto  ">
-        <div className="flex flex-col w-[30%]">
+        <div className="flex flex-col | w-[352px] | md:w-[30%]">
           <Input
             attribute="year"
             value={currentFeature.year}
@@ -246,7 +246,7 @@ function FilmContent() {
             片長（min）（必填）
           </Input>
         </div>
-        <div className="flex flex-col w-[30%] ">
+        <div className="flex flex-col | w-[352px] | md:w-[30%] ">
           <Input
             attribute="title"
             value={currentFeature.title}
@@ -266,7 +266,7 @@ function FilmContent() {
           </Textarea>
         </div>
 
-        <div className="flex flex-col w-[30%] )">
+        <div className="flex flex-col | w-[352px] | md:w-[30%] )">
           <Textarea
             className="text-area-large"
             attribute="longInfo"

@@ -109,7 +109,7 @@ function EditWorkshop() {
     });
     dispatch(updateWorkshop(newWorkshop));
 
-    firebase.saveWorkshop(userID, workshop).then((_) => {
+    firebase.saveWorkshop(userID, workshop).then(() => {
       routerHandler(
         '最後，來點顏色和增加贊助商吧',
         '/backstage/edit-footer-color'
@@ -118,7 +118,7 @@ function EditWorkshop() {
   };
 
   return (
-    <div className="flex flex-col  my-24 mx-auto w-11/12">
+    <div className="flex flex-col mx-auto w-11/12 mt-24 mb-64 | md:my-24 ">
       <button className="button-blue ml-0 my-3" onClick={addWorkshop}>
         Add
       </button>
@@ -186,11 +186,11 @@ function EditWorkshop() {
                 guest ? (
                   <div key={guestIndex} className="mx-6 my-10">
                     <label
-                      className="block w-52 h-52 rounded-full text-center  border-4 border-[#94bed1]  cursor-pointer"
+                      className="block  rounded-full text-center  border-4 border-[#94bed1] cursor-pointer | w-36 h-36 | md:w-52 md:h-52"
                       htmlFor={`guest${index}${guestIndex}`}
                     >
                       <img
-                        className="border-0 object-cover  w-full h-full rounded-full  mr-0"
+                        className="border-0 object-cover rounded-full mr-0 w-full h-full"
                         src={guest ? guest : ''}
                       />
                       <input
@@ -221,7 +221,7 @@ function EditWorkshop() {
                 )
               )}
             </div>
-            <div className="flex justify-center mx-auto  my-12 w-96 border-4 border-[#94bed1] rounded-2xl ">
+            <div className="flex justify-center mx-auto  my-12  border-4 border-[#94bed1] rounded-2xl | min-w-[340px] md:w-96 ">
               <p className="flex flex-col justify-center mr-6">
                 <span>表單需求</span>
               </p>

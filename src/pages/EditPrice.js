@@ -128,13 +128,13 @@ function EditPrice() {
     const isError = checkInputValue();
     if (isError) return;
 
-    firebase.savePricePage(userID, price, traffic).then((_) => {
+    firebase.savePricePage(userID, price, traffic).then(() => {
       routerHandler('就要完成囉\n快來建立一個工作坊吧', '/backstage/workshop');
     });
   };
 
   return (
-    <div className="flex flex-col  my-24 mx-auto w-11/12">
+    <div className="flex flex-col mx-auto w-11/12 | mt-24 mb-64 | md:my-24 ">
       <div className="flex ml-1">
         <h2 className="vertical ">
           <span className="text-2xl text-slate-600 mr-4 ">售票資訊</span>
@@ -149,18 +149,18 @@ function EditPrice() {
             key={index}
             className="flex flex-col pb-12 mb-12 border-b-2 border-b-zinc-400"
           >
-            <div className="flex">
+            <div className="flex flex-wrap | justify-center | md:justify-start">
               <Input
                 attribute="category"
                 value={item.category}
                 onChange={handleChange}
                 index={index}
-                className="input-30 ml-0 mr-4"
+                className="input-30 min-w-[300px] w-10/12 | mx-auto | md:ml-0 md:mr-4 md:w-[30%]"
               >
                 分類 / Category（必填）
               </Input>
               <button
-                className="button-red my-auto"
+                className="button-red  my-3"
                 onClick={() => {
                   deletePrice(index);
                 }}
@@ -169,41 +169,45 @@ function EditPrice() {
               </button>
             </div>
             {item.tickets.map((ticket, ticketIndex) => (
-              <div key={ticketIndex} className="flex">
-                <Input
-                  attribute="kind"
-                  value={ticket.kind}
-                  onChange={handleTicketChange}
-                  index={{ categoryIndex: index, ticketIndex }}
-                  className="input-30 ml-0 mr-4"
-                >
-                  票種 / Category of Ticket（必填）
-                </Input>
-                <Input
-                  attribute="price"
-                  value={ticket.price}
-                  onChange={handleTicketChange}
-                  index={{ categoryIndex: index, ticketIndex }}
-                  className="input-30 ml-0 mr-4"
-                >
-                  票價 / Price（必填）
-                </Input>
-                <button
-                  className="button-blue my-auto"
-                  onClick={() => {
-                    addTicket(index);
-                  }}
-                >
-                  Add
-                </button>
-                <button
-                  className="button-red  my-auto"
-                  onClick={() => {
-                    deleteTicket(index, ticketIndex);
-                  }}
-                >
-                  Delete
-                </button>
+              <div key={ticketIndex} className="flex flex-wrap | flex-col | md:flex-row">
+                <div className="flex | flex-col | md:flex-row">
+                  <Input
+                    attribute="kind"
+                    value={ticket.kind}
+                    onChange={handleTicketChange}
+                    index={{ categoryIndex: index, ticketIndex }}
+                    className="input-30 min-w-[300px] w-10/12 | mx-auto | md:ml-0 md:mr-4 md:w-[30%]"
+                  >
+                    票種 / Category of Ticket（必填）
+                  </Input>
+                  <Input
+                    attribute="price"
+                    value={ticket.price}
+                    onChange={handleTicketChange}
+                    index={{ categoryIndex: index, ticketIndex }}
+                    className="input-30 min-w-[300px] w-10/12 | mx-auto | md:ml-0 md:mr-4 md:w-[30%]"
+                  >
+                    票價 / Price（必填）
+                  </Input>
+                </div>
+                <div className="flex my-3 justify-center | md:justify-start">
+                  <button
+                    className="button-blue my-auto "
+                    onClick={() => {
+                      addTicket(index);
+                    }}
+                  >
+                    Add
+                  </button>
+                  <button
+                    className="button-red  my-auto"
+                    onClick={() => {
+                      deleteTicket(index, ticketIndex);
+                    }}
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             ))}
             <Input
@@ -211,7 +215,7 @@ function EditPrice() {
               value={item.saleTime}
               onChange={handleChange}
               index={index}
-              className="input-30 ml-0 mr-4"
+              className="input-30 min-w-[300px] w-10/12 | mx-auto | md:ml-0 md:mr-4 md:w-[30%]"
             >
               銷售時間 / Time of Sale（必填）
             </Input>
@@ -220,7 +224,7 @@ function EditPrice() {
               value={item.marketing}
               onChange={handleChange}
               index={index}
-              className="input-30 ml-0 mr-4"
+              className="input-30 min-w-[300px] w-10/12 | mx-auto | md:ml-0 md:mr-4 md:w-[30%]"
             >
               銷售通路 / Marketing channel（必填）
             </Input>
@@ -243,10 +247,10 @@ function EditPrice() {
         traffic.map((item, index) => (
           <div
             key={index}
-            className="flex  mt-6 pb-12 border-b-2 border-b-zinc-400"
+            className="flex  mt-6 pb-12 border-b-2 border-b-zinc-400  | flex-col | md:flex-row"
           >
             <Textarea
-              className="text-area-large w-1/3 mx-0"
+              className="text-area-large w-10/12  mx-auto  | md:w-1/3 md:mx-0"
               attribute="text"
               value={item.text}
               index={index}
@@ -254,7 +258,7 @@ function EditPrice() {
             >
               交通資訊
             </Textarea>
-            <div className="flex flex-col justify-center w-96 mx-8" key={index}>
+            <div className="flex flex-col justify-center | w-10/12 mx-auto | md:w-96 md:mx-8" key={index}>
               <label
                 className="block border-4 min-h-[256px] w-full rounded-lg  text-center cursor-pointer border-[#94bed1]"
                 htmlFor={`traffic${index}`}
@@ -276,7 +280,7 @@ function EditPrice() {
                 />
               </label>
             </div>
-            <div className="flex">
+            <div className="flex | justify-center mt-10 | md:justify-start md:mt-0">
               <button
                 className="button-red  my-auto"
                 onClick={() => {

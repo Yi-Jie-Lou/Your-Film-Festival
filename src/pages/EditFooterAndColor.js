@@ -94,7 +94,7 @@ function EditFooterAndColor() {
 
     firebase
       .saveSponsor(userID, sponsor, primaryColor, secondaryColor, textColor)
-      .then((_) => {
+      .then(() => {
         routerHandler('來預覽您的網站吧\n您可以隨時回來做修改', '/preview');
       });
   };
@@ -202,7 +202,7 @@ function EditFooterAndColor() {
         <TextColorCube color={'text'} />
         <div className="flex flex-col mt-12">
           <div className="flex justify-center my-4">
-            <h1 className="vertical mx-4 text-2xl">
+            <h1 className="vertical  | text-base mx-1 | md:mx-4 md:text-2xl">
               <span>您選擇的主色為：</span>
             </h1>
             <input
@@ -210,15 +210,15 @@ function EditFooterAndColor() {
               onChange={(e) => {
                 handleColorCode(e, 'primary');
               }}
-              className=" w-36 h-10 pl-3 mt-1 outline-none border-4 border-[#94bed1] rounded-xl "
+              className="h-10 pl-3 mt-1 outline-none border-4 border-[#94bed1] rounded-xl | w-28 | md:w-36"
             ></input>
             <div
               style={{ background: primaryColor }}
-              className={` h-12 w-24 mx-4 rounded-lg  `}
+              className={` h-12 rounded-lg | w-20 ml-3 mr-0 | md:w-24 md:mx-4 `}
             ></div>
           </div>
           <div className="flex justify-center my-4">
-            <h1 className="vertical mx-4 text-2xl">
+            <h1 className="vertical  | text-base mx-1 | md:mx-4 md:text-2xl">
               <span>您選擇的輔色為：</span>
             </h1>
             <input
@@ -226,15 +226,15 @@ function EditFooterAndColor() {
               onChange={(e) => {
                 handleColorCode(e, 'secondary');
               }}
-              className=" w-36 h-10 pl-3 mt-1 outline-none border-4 border-[#94bed1] rounded-xl "
+              className="h-10 pl-3 mt-1 outline-none border-4 border-[#94bed1] rounded-xl | w-28 | md:w-36"
             ></input>
             <div
               style={{ background: secondaryColor }}
-              className={` h-12 w-24 mx-4 rounded-lg `}
+              className={` h-12 rounded-lg | w-20 ml-3 mr-0 | md:w-24 md:mx-4`}
             ></div>
           </div>
           <div className="flex justify-center my-4">
-            <h1 className="vertical mx-4 text-2xl">
+            <h1 className="vertical  | text-base mx-1 | md:mx-4 md:text-2xl">
               <span>您選擇的字色為：</span>
             </h1>
             <input
@@ -242,11 +242,11 @@ function EditFooterAndColor() {
               onChange={(e) => {
                 handleColorCode(e, 'text');
               }}
-              className=" w-36 h-10 pl-3 mt-1 outline-none border-4 border-[#94bed1] rounded-xl "
+              className="h-10 pl-3 mt-1 outline-none border-4 border-[#94bed1] rounded-xl | w-28 | md:w-36"
             ></input>
             <div
               style={{ background: textColor }}
-              className={` h-12 w-24 mx-4 rounded-lg `}
+              className={` h-12 rounded-lg | w-20 ml-3 mr-0 | md:w-24 md:mx-4`}
             ></div>
           </div>
         </div>
@@ -254,7 +254,7 @@ function EditFooterAndColor() {
       <div className="flex justify-center mb-24">
         <button
           onClick={saveSponsorAndColors}
-          className="button-blue my-0 mx-0"
+          className="button-blue mx-0 mt-0 mb-36 | md:my-0 "
         >
           儲存本頁
         </button>

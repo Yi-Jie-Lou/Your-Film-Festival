@@ -218,7 +218,7 @@ const firebase = {
 
   buildFestival(UID, path) {
     return getDoc(doc(db, 'users', UID)).then((res) => {
-      setDoc(doc(db, 'build', `${path}`), res.data()).then((_) => {
+      setDoc(doc(db, 'build', `${path}`), res.data()).then(() => {
         saveAlert('影展完成囉\n趕快去看看吧', BlueCloudImg).then((_) => {
           window.location.href = `https://your-film-festival-d2cd4.web.app/build/festival=${path}`;
         });

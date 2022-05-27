@@ -8,7 +8,8 @@ function Workshop({ userState }) {
   const festivalPathName = useSelector((state) => state.festivalPathName);
 
   return (
-    <div className="flex flex-wrap justify-center w-full min-h-[600px]  mt-24 mb-10 | xl:mt-32 mx-auto rounded-lg">
+    <div className='min-h-[800px]'>
+    <div className="flex flex-wrap justify-center w-10/12 min-h-[600px]  mt-32 mb-10 |  mx-auto rounded-lg">
       {workshop &&
         workshop.map((item, index) => (
           <div key={index}>
@@ -26,6 +27,7 @@ function Workshop({ userState }) {
             />
           </div>
         ))}
+    </div>
     </div>
   );
 }

@@ -8,8 +8,9 @@ import {
   SwitchCubeNavLink,
   CustomerNavLink,
   MobileNavLink,
-  LoginNavLink,
-  LoginLink,
+  LoginTemplateLink,
+  LoginBackstageLink,
+  MobileTemplateLink,
   MobileBuild,
 } from './CubeNavLink';
 import { firebase } from '../../utils/firebase-config';
@@ -31,48 +32,107 @@ function TemplateHeader() {
 
   return (
     <>
-      <div className="header__container">
+      <div className="header__container border-b-0 rounded-b-none justify-between">
         <NavLink to="/">
-          <div className="py-2 mx-6 | hidden my-1 | sm:block | md:my-2 ">
-            <img className="w-36 | md:w-44 | xl:w-64" src={Logo} />
+          <div className="py-2 mx-6 | hidden my-1 | sm:block sm:my-2 ">
+            <img className="w-48 | lg:w-64" src={Logo} />
           </div>
         </NavLink>
         <div
           onClick={() => {
             setIsActive((prev) => !prev);
           }}
-          className="w-full py-2 justify-center | flex | sm:hidden"
+          className="w-full h-[67px] border-b-2 py-2 justify-center | flex | sm:hidden"
         >
-          <img className="w-36" src={Logo} />
+          <img className="h-full" src={Logo} />
+        </div>
+
+        <div
+          className={`fixed flex top-[67px] left-0 flex-col items-center  w-full  ${
+            isActive ? 'h-full z-30' : 'h-0 duration-0 z-0'
+          }  bg-stone-900/50  | flex | sm:hidden`}
+        >
+          <MobileTemplateLink
+            isActive={isActive}
+            router={`/build/festival=YourFilmFestival`}
+            color="#57bdc8"
+            className={
+              isActive
+                ? 'h-16 delay-[100ms] transition-all  duration-700'
+                : 'h-0 duration-0'
+            }
+          >
+            範例網站
+          </MobileTemplateLink>
+          {state === 'logout' ? (
+            <MobileNavLink
+              isActive={isActive}
+              router={`/`}
+              color="#f4cd7f"
+              className={
+                isActive
+                  ? 'h-16 delay-[200ms] transition-all  duration-700'
+                  : 'h-0 duration-0'
+              }
+            >
+              請先登入
+            </MobileNavLink>
+          ) : state === 'login' ? (
+            <MobileNavLink
+              isActive={isActive}
+              router={`/backstage`}
+              color="#f4cd7f"
+              className={
+                isActive
+                  ? 'h-16 delay-[200ms] transition-all  duration-700'
+                  : 'h-0 duration-0'
+              }
+            >
+              進入後台
+            </MobileNavLink>
+          ) : (
+            <MobileNavLink
+              isActive={isActive}
+              router={`/`}
+              color="#f4cd7f"
+              className={
+                isActive
+                  ? 'h-16 delay-[200ms] transition-all  duration-700'
+                  : 'h-0 duration-0'
+              }
+            >
+              Loading...
+            </MobileNavLink>
+          )}
         </div>
 
         <div className="ml-auto text-center text-1xl | hidden | sm:flex">
-          <LoginLink
+          <LoginTemplateLink
             router="/build/festival=YourFilmFestival"
             id="step1"
             cube={CubeB}
           >
             範例網站
-          </LoginLink>
+          </LoginTemplateLink>
 
           {state === 'logout' ? (
-            <LoginNavLink router="/" cube={CubeC}>
+            <LoginBackstageLink router="/" cube={CubeC}>
               請先登入
-            </LoginNavLink>
+            </LoginBackstageLink>
           ) : state === 'login' ? (
-            <LoginNavLink router="/backstage" cube={CubeC}>
+            <LoginBackstageLink router="/backstage" cube={CubeC}>
               進入後台
-            </LoginNavLink>
+            </LoginBackstageLink>
           ) : (
-            <LoginNavLink router="/" cube={CubeC}>
+            <LoginBackstageLink router="/" cube={CubeC}>
               Loading...
-            </LoginNavLink>
+            </LoginBackstageLink>
           )}
         </div>
       </div>
       <div
-        className={`fixed flex top-14 left-0 flex-col items-center  w-full  ${
-          isActive ? 'h-full z-30' : 'h-0 duration-0 z-0'
+        className={`fixed flex top-[67px] left-0 flex-col items-center  w-full  ${
+          isActive ? 'h-full' : 'h-0 duration-0 z-0'
         }  bg-stone-900/50  | flex | sm:hidden`}
       ></div>
     </>
@@ -80,15 +140,134 @@ function TemplateHeader() {
 }
 
 function BackstageHeader() {
+  const [isActive, setIsActive] = useState(false);
+  const path = useParams();
+
+  useEffect(() => {
+    setIsActive(false);
+  }, [path]);
+
   return (
-    <div className="header__container">
+    <div className="header__container border-b-0 rounded-b-none justify-between">
+      <div
+        onClick={() => {
+          setIsActive((prev) => !prev);
+        }}
+        className="w-full h-[67px] border-b-2 py-2 justify-center | flex | md:hidden"
+      >
+        <img className=" h-full" src={Logo} />
+      </div>
+
+      <div
+        className={`fixed flex top-[67px] left-0 flex-col items-center  w-full  ${
+          isActive ? 'h-full z-30' : 'h-0 duration-0 z-0'
+        }  bg-stone-900/50  | flex | md:hidden`}
+      >
+        <MobileNavLink
+          isActive={isActive}
+          router="/"
+          color="#f4cd7f"
+          className={
+            isActive
+              ? 'h-16 delay-[100ms] transition-all  duration-700'
+              : 'h-0 duration-0'
+          }
+        >
+          回到登入頁面
+        </MobileNavLink>
+        <MobileNavLink
+          isActive={isActive}
+          router="/backstage"
+          color="#57bdc8"
+          className={
+            isActive
+              ? 'h-16 delay-[200ms] transition-all  duration-700'
+              : 'h-0 duration-0'
+          }
+        >
+          影展日期
+        </MobileNavLink>
+        <MobileNavLink
+          isActive={isActive}
+          router="/backstage/features"
+          color="#f4cd7f"
+          className={
+            isActive
+              ? 'h-16 delay-[300ms] transition-all  duration-700'
+              : 'h-0 duration-0'
+          }
+        >
+          上傳影片
+        </MobileNavLink>
+        <MobileNavLink
+          isActive={isActive}
+          router="/backstage/news"
+          color="#57bdc8"
+          className={
+            isActive
+              ? 'h-16 delay-[400ms] transition-all  duration-700'
+              : 'h-0 duration-0'
+          }
+        >
+          編輯消息
+        </MobileNavLink>
+        <MobileNavLink
+          isActive={isActive}
+          router="/backstage/price"
+          color="#f4cd7f"
+          className={
+            isActive
+              ? 'h-16 delay-[500ms] transition-all  duration-700'
+              : 'h-0 duration-0'
+          }
+        >
+          售票資訊
+        </MobileNavLink>
+        <MobileNavLink
+          isActive={isActive}
+          router="/backstage/workshop"
+          color="#57bdc8"
+          className={
+            isActive
+              ? 'h-16 delay-[600ms] transition-all  duration-700 '
+              : 'h-0 duration-0'
+          }
+        >
+          新增工作坊
+        </MobileNavLink>
+        <MobileNavLink
+          isActive={isActive}
+          router="/backstage/edit-footer-color"
+          color="#f4cd7f"
+          className={
+            isActive
+              ? 'h-16 delay-[700ms] transition-all  duration-700 '
+              : 'h-0 duration-0'
+          }
+        >
+          自訂顏色
+        </MobileNavLink>
+        <MobileNavLink
+          isActive={isActive}
+          router="/preview"
+          color="#f08074"
+          className={
+            isActive
+              ? 'h-16 delay-[800ms] transition-all  duration-700 '
+              : 'h-0 duration-0'
+          }
+        >
+          預覽網站
+        </MobileNavLink>
+      </div>
+
       <NavLink to="/">
-        <div className="py-2 mx-6 | hidden my-1 | sm:block | md:my-2 ">
+        <div className="py-2 mx-6 | hidden my-1 | md:block | md:my-2 ">
           <img className="w-36 | md:w-44 | xl:w-64" src={Logo} />
         </div>
       </NavLink>
 
-      <div className="flex ml-auto text-center text-xl">
+      <div className="hidden md:flex ml-auto text-center text-xl">
         <CubeNavLink
           router="/backstage"
           className="sm:text-sm | lg:text-base | lg:w-24 | xl:w-28"

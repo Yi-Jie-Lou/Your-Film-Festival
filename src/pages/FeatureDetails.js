@@ -37,12 +37,12 @@ function FeatureDetails({ userState }) {
     <div className="mx-auto min-h-[800px]  w-11/12">
       {imgArray && (
         <>
-          <div className="flex justify-center mt-36 pb-12 max-h-[500px]  border-b-2 border-stone-500 ">
-            <div className="vertical mx-6 w-[50%] ">
+          <div className="flex  justify-center  pb-12 min-h-[500px]  border-b-2 border-stone-500 | flex-col mt-24 | md:flex-row md:mt-36 ">
+            <div className="vertical mx-auto w-[80%] | md:w-[50%] md:mx-6 ">
               <ImageGallery items={imgArray} />
             </div>
 
-            <div className=" mx-6 w-4/12">
+            <div className="w-[80%] mx-auto | md:w-4/12  md:mx-6 ">
               <Details currentFeatureObject={currentFeatureObject} />
             </div>
           </div>

@@ -75,10 +75,10 @@ function Login() {
       );
       firebase
         .initDataBase(user.user.uid, user.user.email)
-        .then((_) => {
+        .then(() => {
           alert('註冊成功');
         })
-        .then((_) => {
+        .then(() => {
           customImgAlert('歡迎您', BlueCloudImg);
           navigate('/backstage');
         });
@@ -108,11 +108,11 @@ function Login() {
   return (
     <>
       <Header userState={state} />
-      <div className="vertical mt-4  | h-[calc(100vh-96px)] | xl:h-[calc(100vh-136px)] ">
-        <div className="flex flex-wrap justify-center  mx-auto w-11/12 | flex-col | sm:flex-row ">
+      <div className="vertical  | mt-32 mb-40 justify-start min-h-[calc(100vh-96px)] | md:mt-4 md:mb-0 md:justify-center md:min-h-[calc(100vh-90px)] ">
+        <div className="flex flex-wrap justify-center items-center mx-auto w-11/12 | flex-col | md:justify-center md:flex-row ">
           <div className="vertical">
             <div
-              className=" w-64  h-64  "
+              className=" w-48 h-48 | md:w-64 md:h-64  "
               style={{
                 background: `url(${LoadingAnim})`,
                 backgroundPosition: 'center',
@@ -123,12 +123,12 @@ function Login() {
           </div>
           <div
             id="step2"
-            className="flex  flex-wrap justify-center w-1/3 z-10 "
+            className="flex  flex-wrap justify-center z-10 | w-[300px] | md:w-[400px]"
           >
             <h1 className=" my-4 p-2 w-full text-center text-xl tracking-wider  rounded-lg ">
               登入開始建立您的影展
             </h1>
-            <div className="flex justify-center my-4 w-2/3">
+            <div className="flex justify-center my-4 w-full">
               <label className="vertical mr-4" htmlFor="Email">
                 <span>信箱:</span>
               </label>
@@ -142,7 +142,7 @@ function Login() {
                 }}
               />
             </div>
-            <div className="flex justify-center my-4 w-2/3">
+            <div className="flex justify-center my-4 w-full">
               <label className="vertical mr-4" htmlFor="Password">
                 <span>密碼:</span>
               </label>
@@ -154,9 +154,10 @@ function Login() {
                 onChange={(event) => {
                   setUserPassword(event.target.value);
                 }}
+                type="password"
               />
             </div>
-            <div className="flex justify-center my-4 w-2/3">
+            <div className="flex justify-center my-4 w-full">
               <button className="button-blue mx-3 w-28" onClick={register}>
                 {' '}
                 註冊

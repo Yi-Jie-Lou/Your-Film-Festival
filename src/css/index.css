@@ -102,8 +102,15 @@ body {
   display: none !important;
 }
 .rdrDateRangePickerWrapper {
-  width: 500px;
+  width: 80%;
+  max-width: 500px;
   margin-bottom: 90px !important;
+}
+
+@media (min-width: 768px) {
+  .rdrDateRangePickerWrapper {
+    width: 500px;
+  }
 }
 
 .rdrDateRangeWrapper {

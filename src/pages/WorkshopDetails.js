@@ -646,7 +646,7 @@ function WorkshopDetails() {
           </h1>
           {currentWorkshop.name && (
             <Input
-              className="input-30"
+              className="input-30 min-w-[300px]"
               attribute="setName"
               value={state.name}
               name="name"
@@ -658,7 +658,7 @@ function WorkshopDetails() {
 
           {currentWorkshop.email && (
             <Input
-              className="input-30"
+              className="input-30 min-w-[300px]"
               attribute="setEmail"
               value={state.email}
               name="email"
@@ -670,7 +670,7 @@ function WorkshopDetails() {
 
           {currentWorkshop.phone && (
             <Input
-              className="input-30"
+              className="input-30 min-w-[300px]"
               attribute="setPhoneNumber"
               value={state.phoneNumber}
               name="phone"
@@ -682,11 +682,11 @@ function WorkshopDetails() {
 
           <div className="flex flex-col  justify-center">
             <ReCAPTCHA
-              className="mx-auto my-4"
+              className="mx-auto my-6"
               sitekey="6Lc9nKAfAAAAAExmB7T7nPKicCC88JPDJBes3Nhi"
               onChange={onChange}
             />
-            <div className="mx-auto">
+            <div className="mx-auto my-12">
               <button
                 onClick={submitEmail}
                 className={` ${

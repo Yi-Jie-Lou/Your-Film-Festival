@@ -76,7 +76,7 @@ function Timetable({ userState }) {
 
         {locations &&
           locations.map((item, index) => (
-            <div key={index} className=" my-4 mx-auto w-4/5  rounded-lg">
+            <div key={index} className=" my-4 mx-auto rounded-lg w-11/12 | md:w-4/5 ">
               <div className=" flex mx-auto  p-1 rounded-lg text-xl">
                 {item}
               </div>
@@ -92,7 +92,7 @@ function Timetable({ userState }) {
                           ? `/preview/feature-details/${film.featureID}`
                           : `/feature-details/${film.featureID}`
                       }
-                      className="relative text-xl mr-4 my-4 border-4 text-center rounded w-48 h-48 | md:w-64 md:h-64 "
+                      className="relative text-xl mr-4 my-4 border-4 text-center rounded h-full w-full | sm:w-48 sm:h-48 | md:w-64 md:h-64 "
                       title={`${film.name}`}
                       text={`${film.start}-${film.end}`}
                       img={film.img}
